@@ -2,7 +2,6 @@ package ir.map.g221.domain;
 
 import ir.map.g221.domain.operations.*;
 
-import java.beans.Expression;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Hashtable;
@@ -11,17 +10,18 @@ import java.util.Map;
 public class ExpressionParser {
     private final static String[] operations = { "+", "-", "'*'", "/" };
     private final static Map<String, Operation> operationDictionary = new Hashtable<>(){{
-        put("+", new Addition());
-        put("-", new Subtraction());
-        put("'*'", new Multiplication());
-        put("/", new Division());
+        put("+", Addition.getSingleInstance());
+        put("-", Subtraction.getSingleInstance());
+        put("'*'", Multiplication.getSingleInstance());
+        put("/", Division.getSingleInstance());
     }};
-    private static boolean validate(ArrayList<String> args) {
-        if (!Arrays.asList(operations).contains(args.get(args.size()-1))) {
+
+    private static boolean validate(ArrayList<String> args, String operation) {
+        if (!Arrays.asList(operations).contains(operation)) {
             return false;
         }
 
-        return args.subList(0, args.size() - 1).stream()
+        return args.stream()
                 .allMatch(s -> s.matches("(^[/+-]?[0-9]+(.[0-9]+)?[/+-]([0-9]+(.[0-9]+)?[/*])?i$)|" +
                         "(^[/+-]?[0-9]+(.[0-9]+)?$)|(^[/+-]?([0-9]+(.[0-9]+)?[/*])?i$)"));
     }
@@ -30,7 +30,7 @@ public class ExpressionParser {
         double re, im;
         int i, pi;
 
-        if (s.charAt(0) != 'i' || s.charAt(1) != 'i') {
+        if (s.charAt(0) != 'i' && s.charAt(1) != 'i') {
             for (i = 1; i < s.length() &&
                     (Character.isDigit(s.charAt(i)) ||
                             s.charAt(i) == '.'); i++);
@@ -69,15 +69,18 @@ public class ExpressionParser {
     }
 
     public static ComplexExpression parse(String[] args) throws Exception {
-        var argsArray = new ArrayList<>(Arrays.asList(args));
-        if (!validate(argsArray)) {
+        ArrayList<String> unparsedNumbers = new ArrayList<>(Arrays.asList(args).subList(0, args.length - 1));
+        String operation = args[args.length - 1];
+
+        if (!validate(unparsedNumbers, operation)) {
             throw new Exception("Invalid expression syntax!");
         }
 
-        ArrayList<ComplexNumber> numbers = new ArrayList<>();
-        for (int i = 0; i < args.length - 1; i++) {
-            numbers.add(parseComplexNumber(args[i]));
+        ArrayList<ComplexNumber> parsedNumbers = new ArrayList<>();
+        for (var unparsedNumber : unparsedNumbers) {
+            parsedNumbers.add(parseComplexNumber(unparsedNumber));
         };
-        return ComplexExpression.createExpression(numbers, operationDictionary.get(argsArray.get(argsArray.size() - 1)));
+
+        return ComplexExpression.createExpression(parsedNumbers, operationDictionary.get(operation));
     }
 }

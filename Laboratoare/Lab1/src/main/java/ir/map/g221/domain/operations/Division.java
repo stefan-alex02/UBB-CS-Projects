@@ -3,6 +3,16 @@ package ir.map.g221.domain.operations;
 import ir.map.g221.domain.ComplexNumber;
 
 public class Division implements Operation {
+    private static Division singleInstance = null;
+
+    public static Division getSingleInstance() {
+        if (singleInstance == null) {
+            singleInstance = new Division();
+        }
+
+        return singleInstance;
+    }
+
     @Override
     public ComplexNumber calculate(ComplexNumber c1, ComplexNumber c2) {
         return new ComplexNumber(
