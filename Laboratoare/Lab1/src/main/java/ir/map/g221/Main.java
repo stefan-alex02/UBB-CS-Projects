@@ -1,7 +1,7 @@
 package ir.map.g221;
 
 import ir.map.g221.domain.ComplexExpression;
-import ir.map.g221.domain.ExpressionParser;
+import ir.map.g221.business.ExpressionParser;
 import ir.map.g221.tests.ExpressionEvaluationTests;
 import ir.map.g221.tests.ParsingTests;
 

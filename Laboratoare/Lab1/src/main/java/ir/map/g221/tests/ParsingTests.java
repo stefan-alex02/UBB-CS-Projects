@@ -1,7 +1,6 @@
 package ir.map.g221.tests;
 
-import ir.map.g221.domain.ExpressionParser;
-import java.util.Scanner;
+import ir.map.g221.business.ExpressionParser;
 
 public class ParsingTests {
     public static void RunTests() {
@@ -28,11 +27,10 @@ public class ParsingTests {
 
     private static void assertWrongInput(String input) {
         try {
-            ExpressionParser.parseComplexNumber(input);
-            assert false : "Failed test";
+            assert !ExpressionParser.validateComplexNumber(input) : "Failed test";
         }
         catch(Exception e) {
-            assert true;
+            assert false : "Failed test";
         }
     }
 }
