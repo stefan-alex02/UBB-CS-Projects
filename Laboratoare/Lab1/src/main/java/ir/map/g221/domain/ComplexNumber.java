@@ -1,5 +1,7 @@
 package ir.map.g221.domain;
 
+import java.util.Objects;
+
 public class ComplexNumber {
     private double re, im;
 
@@ -25,10 +27,20 @@ public class ComplexNumber {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ComplexNumber that = (ComplexNumber) o;
+        return Double.compare(re, that.re) == 0 && Double.compare(im, that.im) == 0;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(re, im);
+    }
+
+    @Override
     public String toString() {
-        return "ComplexNumber{" +
-                "re=" + re +
-                ", im=" + im +
-                '}';
+        return re + (im >= 0 ? " + " : " ") + im + " * i";
     }
 }

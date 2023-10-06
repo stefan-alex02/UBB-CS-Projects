@@ -26,11 +26,27 @@ public class ExpressionParser {
                         "(^[/+-]?[0-9]+(.[0-9]+)?$)|(^[/+-]?([0-9]+(.[0-9]+)?[/*])?i$)"));
     }
 
+    private static Double getDouble(String s) {
+        // Case 0 : string is empty
+
+        // Case 1 : number starts with a sign (+/-) character :
+        if (s.charAt(0) == '+') {
+
+        }
+
+        // Cases 2 : number only has decimal characters :
+        return 0.0;
+    }
+
     public static ComplexNumber parseComplexNumber(String s) throws Exception {
+        // Case 1 : both real and imaginary part
+        // Sub-cases : a+b*i or -a+b*i or a+i or +a+i
+        // Sub-case 1.1 : number starts with a sign
+
         double re, im;
         int i, pi;
 
-        if (s.charAt(0) != 'i' && s.charAt(1) != 'i') {
+        if (s.charAt(0) != 'i' && (s.length() < 2 || s.charAt(1) != 'i')) {
             for (i = 1; i < s.length() &&
                     (Character.isDigit(s.charAt(i)) ||
                             s.charAt(i) == '.'); i++);
@@ -68,17 +84,17 @@ public class ExpressionParser {
         return new ComplexNumber(re, im);
     }
 
-    public static ComplexExpression parse(String[] args) throws Exception {
-        ArrayList<String> unparsedNumbers = new ArrayList<>(Arrays.asList(args).subList(0, args.length - 1));
+    public static ComplexExpression parseExpression(String[] args) throws Exception {
+        ArrayList<String> notParsedNumbers = new ArrayList<>(Arrays.asList(args).subList(0, args.length - 1));
         String operation = args[args.length - 1];
 
-        if (!validate(unparsedNumbers, operation)) {
+        if (!validate(notParsedNumbers, operation)) {
             throw new Exception("Invalid expression syntax!");
         }
 
         ArrayList<ComplexNumber> parsedNumbers = new ArrayList<>();
-        for (var unparsedNumber : unparsedNumbers) {
-            parsedNumbers.add(parseComplexNumber(unparsedNumber));
+        for (var notParsedNumber : notParsedNumbers) {
+            parsedNumbers.add(parseComplexNumber(notParsedNumber));
         };
 
         return ComplexExpression.createExpression(parsedNumbers, operationDictionary.get(operation));

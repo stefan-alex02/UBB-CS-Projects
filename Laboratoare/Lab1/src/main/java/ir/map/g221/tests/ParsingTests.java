@@ -11,22 +11,24 @@ public class ParsingTests {
 
         assertWrongInput("+*i");
         assertWrongInput("1+1");
+        assertWrongInput("1.00a+2*i");
+        assertWrongInput("+");
     }
 
     private static void assertCorrectInput(String input, double re, double im) {
         try {
-            var x = ExpressionParser.parseComplexNumber(input);
-            assert x.getRe() == re : "Failed test";
-            assert x.getIm() == im : "Failed test";
+            var number = ExpressionParser.parseComplexNumber(input);
+            assert number.getRe() == re : "Failed test";
+            assert number.getIm() == im : "Failed test";
         }
         catch(Exception e) {
-            assert false;
+            assert false : "Failed test";
         }
     }
 
     private static void assertWrongInput(String input) {
         try {
-            var x = ExpressionParser.parseComplexNumber(input);
+            ExpressionParser.parseComplexNumber(input);
             assert false : "Failed test";
         }
         catch(Exception e) {
