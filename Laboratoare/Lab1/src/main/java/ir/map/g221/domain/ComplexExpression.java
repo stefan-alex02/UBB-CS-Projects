@@ -3,17 +3,18 @@ package ir.map.g221.domain;
 import ir.map.g221.domain.operations.Operation;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ComplexExpression {
-    private ArrayList<ComplexNumber> numbers;
+    private List<ComplexNumber> numbers;
     private Operation operation;
 
-    public ComplexExpression(ArrayList<ComplexNumber> numbers, Operation operation) {
+    public ComplexExpression(List<ComplexNumber> numbers, Operation operation) {
         this.numbers = numbers;
         this.operation = operation;
     }
 
-    public static ComplexExpression createExpression(ArrayList<ComplexNumber> numbers, Operation operation) {
+    public static ComplexExpression createExpression(List<ComplexNumber> numbers, Operation operation) {
         return new ComplexExpression(numbers, operation);
     }
 

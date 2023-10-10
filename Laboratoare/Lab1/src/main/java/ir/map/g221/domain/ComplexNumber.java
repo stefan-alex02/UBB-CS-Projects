@@ -1,31 +1,6 @@
 package ir.map.g221.domain;
 
-import java.util.Objects;
-
-public class ComplexNumber {
-    private double re, im;
-
-    public ComplexNumber(double re, double im) {
-        this.re = re;
-        this.im = im;
-    }
-
-    public double getRe() {
-        return re;
-    }
-
-    public double getIm() {
-        return im;
-    }
-
-    public void setRe(double re) {
-        this.re = re;
-    }
-
-    public void setIm(double im) {
-        this.im = im;
-    }
-
+public record ComplexNumber(double re, double im) {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -35,12 +10,36 @@ public class ComplexNumber {
     }
 
     @Override
-    public int hashCode() {
-        return Objects.hash(re, im);
-    }
-
-    @Override
     public String toString() {
-        return re + (im >= 0 ? " + " : " ") + im + " * i";
+        String reSign, reString, imSign, imString;
+        if (re == 0) {
+            reSign = "";
+            reString = "";
+        } else {
+            reSign = (re >= 0 ? "" : "- ");
+            reString = ((re % 1) == 0 ?
+                    Integer.toString((int) Math.abs(re)) :
+                    Double.toString(Math.abs(re)));
+        }
+
+        if (im == 0) {
+            imSign = "";
+            imString = "";
+        } else {
+            if (re == 0) {
+                imSign = (im >= 0 ? "" : "- ");
+            } else {
+                imSign = (im >= 0 ? " + " : " - ");
+            }
+            if (im == 1 || im == -1) {
+                imString = "i";
+            } else if ((im % 1) == 0) {
+                imString = ((int) Math.abs(im)) + " * i";
+            } else {
+                imString = (Math.abs(im)) + " * i";
+            }
+        }
+
+        return reSign + reString + imSign + imString;
     }
 }

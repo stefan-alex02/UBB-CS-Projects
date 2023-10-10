@@ -16,7 +16,7 @@ public class Subtraction implements Operation {
     @Override
     public ComplexNumber calculate(ComplexNumber c1, ComplexNumber c2) {
         return new ComplexNumber(
-                c1.getRe() - c2.getRe(),
-                c1.getIm() - c2.getIm());
+                c1.re() - c2.re(),
+                c1.im() - c2.im());
     }
 }

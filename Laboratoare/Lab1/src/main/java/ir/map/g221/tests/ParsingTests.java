@@ -17,8 +17,8 @@ public class ParsingTests {
     private static void assertCorrectInput(String input, double re, double im) {
         try {
             var number = ExpressionParser.parseComplexNumber(input);
-            assert number.getRe() == re : "Failed test";
-            assert number.getIm() == im : "Failed test";
+            assert number.re() == re : "Failed test";
+            assert number.im() == im : "Failed test";
         }
         catch(Exception e) {
             assert false : "Failed test";

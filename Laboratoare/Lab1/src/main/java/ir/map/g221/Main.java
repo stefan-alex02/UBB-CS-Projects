@@ -14,7 +14,7 @@ public class Main {
 
         try {
             var expression = build(args);
-            System.out.println(expression.evaluate());
+            System.out.println("Result: " + expression.evaluate());
         }
         catch (Exception e) {
             System.out.println("Error while calculating expression:\n" +

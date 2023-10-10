@@ -6,10 +6,7 @@ import ir.map.g221.domain.ComplexExpression;
 import ir.map.g221.domain.ComplexNumber;
 import ir.map.g221.domain.operations.*;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Hashtable;
-import java.util.Map;
+import java.util.*;
 
 public class ExpressionParser {
     private final static String[] operations = { "+", "-", "'*'", "/" };
@@ -29,8 +26,8 @@ public class ExpressionParser {
     }
 
     public static boolean validateComplexNumber(String complexNumberString) {
-        return complexNumberString.matches("(^[/+-]?[0-9]+(/.[0-9]+)?[/+-]([0-9]+(/.[0-9]+)?[/*])?i$)|" +
-                "(^[/+-]?[0-9]+(/.[0-9]+)?$)|(^[/+-]?([0-9]+(/.[0-9]+)?[/*])?i$)");
+        return complexNumberString.matches("(^[+-]?[0-9]+(\\.[0-9]+)?[+-]([0-9]+(\\.[0-9]+)?\\*)?i$)" +
+                "|(^[+-]?[0-9]+(\\.[0-9]+)?$)|(^[+-]?([0-9]+(\\.[0-9]+)?\\*)?i$)");
     }
 
     private static ParsedResult parseDouble(String s) throws Exception {
@@ -54,7 +51,7 @@ public class ExpressionParser {
             // Subcase 2.1 : if the sign is followed by 'i', return the value :
             if (s.charAt(1) == 'i') {
                 return new ParsedResult((s.charAt(0) == '-' ? -1.0 : 1.0),
-                        1,
+                        2,
                         ComplexPart.IMAGINARY_PART);
             }
 
@@ -133,7 +130,7 @@ public class ExpressionParser {
             throw new Exception("Invalid expression syntax!");
         }
 
-        ArrayList<ComplexNumber> parsedNumbers = new ArrayList<>();
+        List<ComplexNumber> parsedNumbers = new ArrayList<>();
         for (var notParsedNumber : notParsedNumbers) {
             parsedNumbers.add(parseComplexNumber(notParsedNumber));
         };
