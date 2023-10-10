@@ -16,6 +16,8 @@ public abstract class Task {
         this.descriere = descriere;
     }
 
+    public abstract void run();
+
     public String getTaskID() {
         return taskID;
     }

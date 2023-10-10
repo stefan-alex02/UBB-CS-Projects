@@ -19,6 +19,11 @@ public class MessageTask extends Task {
     }
 
     @Override
+    public void run() {
+        System.out.println(this);
+    }
+
+    @Override
     public String toString() {
         var format = DateTimeFormatter.ofPattern("yyyy:MM:dd-hh:mm:ss").format(date);
         return "MessageTask{" +
