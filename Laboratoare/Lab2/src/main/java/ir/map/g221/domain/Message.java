@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public record Message(int id, String subject, String body, String from, String to, LocalDateTime date) {
-    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("[ yyyy-MM-dd  hh:mm:ss ]");
+    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("[ yyyy-MM-dd  hh:mm ]");
 
     @Override
     public String toString() {
