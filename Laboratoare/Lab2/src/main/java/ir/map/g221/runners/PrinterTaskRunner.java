@@ -12,6 +12,6 @@ public class PrinterTaskRunner extends AbstractTaskRunner{
     public void executeOneTask() {
         super.executeOneTask();
 
-        System.out.println("Task executed successfully at " + DateTimeFormatter.ofPattern("hh:mm").format(LocalDateTime.now()));
+        System.out.println("Task executed successfully at " + DateTimeFormatter.ofPattern("hh:mm:ss").format(LocalDateTime.now()));
     }
 }

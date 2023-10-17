@@ -22,27 +22,27 @@ import java.util.List;
 // then press Enter. You can now see whitespace characters in your code.
 public class Main {
     public static void main(String[] args) {
-        sortingTaskTests();
-        printMessageTasks();
-        createContainersUsingFactory(ContainerStrategy.FIFO);
-        createContainersUsingFactory(ContainerStrategy.LIFO);
+//        sortingTaskTests();
+//        printMessageTasks();
+//        createContainersUsingFactory(ContainerStrategy.FIFO);
+//        createContainersUsingFactory(ContainerStrategy.LIFO);
 
         executeTasksUsingRunners(args[0]);
     }
 
     private static void executeTasksUsingRunners(String arg) {
-        TaskRunner runner1 = new StrategyTaskRunner(ContainerStrategy.valueOf(arg));
-        runner1.addTask(new MessageTask("567", "desc1",
-                new Message(111, "subject1", "body1", "sender1", "receiver1",
-                        LocalDateTime.now())));
-        runner1.addTask(new MessageTask("567", "desc2",
-                new Message(222, "subject2", "body2", "sender2", "receiver2",
-                        LocalDateTime.now())));
+//        TaskRunner runner1 = new StrategyTaskRunner(ContainerStrategy.valueOf(arg));
+//        runner1.addTask(new MessageTask("567", "desc1",
+//                new Message(111, "subject1", "body1", "sender1", "receiver1",
+//                        LocalDateTime.now())));
+//        runner1.addTask(new MessageTask("567", "desc2",
+//                new Message(222, "subject2", "body2", "sender2", "receiver2",
+//                        LocalDateTime.now())));
+//
+//        System.out.println("\nStrategy Task Runner test method: ");
+//        runner1.executeAll();
 
-        System.out.println("\nStrategy Task Runner test method: ");
-        runner1.executeAll();
-
-        TaskRunner runner2 = new PrinterTaskRunner(new StrategyTaskRunner(ContainerStrategy.valueOf(arg)));
+        TaskRunner runner2 = new DelayTaskRunner(new PrinterTaskRunner(new StrategyTaskRunner(ContainerStrategy.valueOf(arg))));
         runner2.addTask(new MessageTask("567", "desc1",
                 new Message(111, "subject1", "body1", "sender1", "receiver1",
                         LocalDateTime.now())));
@@ -58,23 +58,23 @@ public class Main {
 
         System.out.println("\nPrinter Task Runner test method: ");
         runner2.executeAll();
-
-        TaskRunner runner3 = new DelayTaskRunner(new StrategyTaskRunner(ContainerStrategy.valueOf(arg)));
-        runner3.addTask(new MessageTask("567", "desc1",
-                new Message(111, "subject1", "body1", "sender1", "receiver1",
-                        LocalDateTime.now())));
-        runner3.addTask(new MessageTask("567", "desc2",
-                new Message(222, "subject2", "body2", "sender2", "receiver2",
-                        LocalDateTime.now())));
-        runner3.addTask(new MessageTask("567", "desc3",
-                new Message(333, "subject3", "body3", "sender3", "receiver3",
-                        LocalDateTime.now())));
-        runner3.addTask(new MessageTask("567", "desc4",
-                new Message(444, "subject4", "body4", "sender4", "receiver4",
-                        LocalDateTime.now())));
-
-        System.out.println("\nDelay Task Runner test method: ");
-        runner3.executeAll();
+//
+//        TaskRunner runner3 = new DelayTaskRunner(new StrategyTaskRunner(ContainerStrategy.valueOf(arg)));
+//        runner3.addTask(new MessageTask("567", "desc1",
+//                new Message(111, "subject1", "body1", "sender1", "receiver1",
+//                        LocalDateTime.now())));
+//        runner3.addTask(new MessageTask("567", "desc2",
+//                new Message(222, "subject2", "body2", "sender2", "receiver2",
+//                        LocalDateTime.now())));
+//        runner3.addTask(new MessageTask("567", "desc3",
+//                new Message(333, "subject3", "body3", "sender3", "receiver3",
+//                        LocalDateTime.now())));
+//        runner3.addTask(new MessageTask("567", "desc4",
+//                new Message(444, "subject4", "body4", "sender4", "receiver4",
+//                        LocalDateTime.now())));
+//
+//        System.out.println("\nDelay Task Runner test method: ");
+//        runner3.executeAll();
     }
 
     private static void createContainersUsingFactory(ContainerStrategy strategy) {
