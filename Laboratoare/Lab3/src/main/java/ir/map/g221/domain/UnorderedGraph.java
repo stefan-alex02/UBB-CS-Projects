@@ -2,10 +2,7 @@ package ir.map.g221.domain;
 
 import ir.map.g221.domain.general_types.UnorderedPair;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class UnorderedGraph<TNode> {
     private final Integer nodeCount;
@@ -18,11 +15,19 @@ public class UnorderedGraph<TNode> {
     public UnorderedGraph(int noOfNodes, Iterable<TNode> nodeSet) {
         nodeCount = noOfNodes;
         matrix = new Boolean[noOfNodes][noOfNodes];
+        initialiseMatrix();
         isVisited = new Boolean[noOfNodes];
+        Arrays.fill(isVisited, false);
         nodeToIndexMap = new HashMap<>();
         indexToNodeMap = new HashMap<>();
         generateMaps(nodeSet);
         components = new ArrayList<>();
+    }
+
+    private void initialiseMatrix() {
+        for (int i = 0; i < nodeCount; i++) {
+            Arrays.fill(matrix[i], false);
+        }
     }
 
     private void generateMaps(Iterable<TNode> nodeSet) {
@@ -55,6 +60,7 @@ public class UnorderedGraph<TNode> {
 
     private void exploreAllComponents() {
         isVisited = new Boolean[nodeCount];
+        Arrays.fill(isVisited, false);
         components = new ArrayList<>();
         for (int i = 0; i < nodeCount; i++) {
             if (!isVisited[i]) {
@@ -68,7 +74,7 @@ public class UnorderedGraph<TNode> {
         List<TNode> exploredNodes = new ArrayList<>();
         exploredNodes.add(indexToNodeMap.get(nodeIndex));
         for (int i = 0; i < nodeCount; i++) {
-            if (!isVisited[i]) {
+            if (matrix[nodeIndex][i] && !isVisited[i]) {
                 exploredNodes.addAll(exploreFromNode(i));
             }
         }
