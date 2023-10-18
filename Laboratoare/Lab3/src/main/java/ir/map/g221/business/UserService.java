@@ -91,5 +91,6 @@ public class UserService {
     public List<Community> calculateCommunities() {
         Graph<User> g = new Graph<User>(userRepository.getSize(), userRepository.getAll());
 
+        
     }
 }
