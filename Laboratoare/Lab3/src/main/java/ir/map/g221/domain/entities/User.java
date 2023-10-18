@@ -3,6 +3,7 @@ package ir.map.g221.domain.entities;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class User extends Entity<Long> {
     private String firstName;
@@ -49,6 +50,9 @@ public class User extends Entity<Long> {
         return "ID : " + id + " | " +
                 "First name : '" + firstName + "' | " +
                 "Last name : '" + lastName + "' | " +
-                "Friends list : " + friends;
+                "Friends list : [ " +
+                friends.stream()
+                        .map(user -> (String)(user.getFirstName() + " " + user.getLastName()))
+                        .collect(Collectors.joining(", ")) + " ]";
     }
 }

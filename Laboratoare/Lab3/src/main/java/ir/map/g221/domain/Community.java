@@ -3,6 +3,7 @@ package ir.map.g221.domain;
 import ir.map.g221.domain.entities.User;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Community {
     private final List<User> users;
@@ -21,6 +22,8 @@ public class Community {
 
     @Override
     public String toString() {
-        return "Community:" + users;
+        return "Community:\n" + users.stream()
+                .map(User::toString)
+                .collect(Collectors.joining("\n"));
     }
 }

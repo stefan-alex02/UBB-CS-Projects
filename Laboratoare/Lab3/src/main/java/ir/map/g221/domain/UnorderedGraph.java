@@ -80,4 +80,12 @@ public class UnorderedGraph<TNode> {
         }
         return exploredNodes;
     }
+
+//    public List<TNode> getComponentWithLongestPath() {
+//        if (components.isEmpty()) {
+//            exploreAllComponents();
+//        }
+//        isVisited = new Boolean[nodeCount];
+//        Arrays.fill(isVisited, false);
+//    }
 }

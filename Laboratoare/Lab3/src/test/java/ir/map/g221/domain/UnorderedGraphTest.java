@@ -31,10 +31,10 @@ class UnorderedGraphTest {
             add(UnorderedPair.create("n7", "n1"));
         }});
 
-        var compoenents = graph.getAllComponents();
-        assert(compoenents.size() == 3);
-        assert(compoenents.stream().anyMatch(comp -> comp.size() == 4));
-        assert(compoenents.stream().anyMatch(comp -> comp.size() == 2));
-        assert(compoenents.stream().anyMatch(comp -> comp.size() == 1));
+        var components = graph.getAllComponents();
+        assert(components.size() == 3);
+        assert(components.stream().anyMatch(comp -> comp.size() == 4));
+        assert(components.stream().anyMatch(comp -> comp.size() == 2));
+        assert(components.stream().anyMatch(comp -> comp.size() == 1));
     }
 }

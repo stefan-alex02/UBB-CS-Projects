@@ -30,7 +30,9 @@ public class UserService {
             if (userRepository.getById(id) == null) {
                 availableId = true;
             }
-            id++;
+            else {
+                id++;
+            }
         }
         return (userRepository.add(new User(id, firstName, secondName)) != null);
     }
@@ -102,4 +104,10 @@ public class UserService {
         g.getAllComponents().forEach(comp -> communities.add(new Community(comp)));
         return communities;
     }
+
+//    public Community mostSociableCommunity() {
+//        UnorderedGraph<User> g = new UnorderedGraph<User>(userRepository.getSize(), userRepository.getAll());
+//
+//        return new Community();
+//    }
 }

@@ -48,7 +48,15 @@ public class InMemoryRepository<ID, E extends Entity<ID>> implements Repository<
 
     @Override
     public E update(E entity) throws IllegalArgumentException, ValidationException {
-        return null;
+        if (entity == null) {
+            throw new IllegalArgumentException("Entity must not be null.");
+        }
+        validator.validate(entity);
+        if (getById(entity.getId()) != null) {
+            return null;
+        }
+        entities.put(entity.getId(), entity);
+        return entity;
     }
 
     @Override

@@ -22,12 +22,14 @@ public class UserConsole implements UserInterface{
             System.out.println("There are no users in the network.\n");
         }
         else {
+            System.out.println("There are " + communities.size() + " communities:\n");
             userService.calculateCommunities().forEach(System.out::println);
         }
     }
 
     private void generateSample() {
         sampleGenerator.generateSample();
+        System.out.println("Sample generated successfully.\n");
     }
 
     @Override

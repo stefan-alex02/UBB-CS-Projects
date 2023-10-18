@@ -1,11 +1,10 @@
 package ir.map.g221.domain;
 
+import ir.map.g221.domain.entities.Friendship;
 import ir.map.g221.domain.general_types.UnorderedPair;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class FriendshipTest {
     @Test
