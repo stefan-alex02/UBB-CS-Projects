@@ -1,4 +1,4 @@
-package ir.map.g221.domain;
+package ir.map.g221.domain.entities;
 
 import java.util.HashSet;
 import java.util.Objects;

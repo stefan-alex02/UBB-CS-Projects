@@ -4,8 +4,8 @@ import ir.map.g221.domain.Community;
 import ir.map.g221.domain.UnorderedGraph;
 import ir.map.g221.exceptions.ValidationException;
 import ir.map.g221.persistence.InMemoryRepository;
-import ir.map.g221.domain.Friendship;
-import ir.map.g221.domain.User;
+import ir.map.g221.domain.entities.Friendship;
+import ir.map.g221.domain.entities.User;
 import ir.map.g221.domain.general_types.UnorderedPair;
 
 import java.time.LocalDateTime;
@@ -13,12 +13,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserService {
-    private final InMemoryRepository<UnorderedPair<Long, Long>, Friendship> friendshipNetworkRepository;
+    private final InMemoryRepository<UnorderedPair<Long, Long>, Friendship> friendshipRepository;
     private final InMemoryRepository<Long, User> userRepository;
 
-    public UserService(InMemoryRepository<UnorderedPair<Long, Long>, Friendship> userNetworkRepository,
+    public UserService(InMemoryRepository<UnorderedPair<Long, Long>, Friendship> friendshipRepository,
                        InMemoryRepository<Long, User> userRepository) {
-        this.friendshipNetworkRepository = userNetworkRepository;
+        this.friendshipRepository = friendshipRepository;
         this.userRepository = userRepository;
     }
 
@@ -43,7 +43,7 @@ public class UserService {
         for (User friend: userToRemove.getFriends() ) {
             friend.removeFriendById(id);
             userRepository.update(friend);
-            friendshipNetworkRepository.delete(UnorderedPair.create(id, friend.getId()));
+            friendshipRepository.delete(UnorderedPair.create(id, friend.getId()));
         }
         userRepository.delete(id);
         return true;
@@ -64,7 +64,7 @@ public class UserService {
         userRepository.update(u2);
 
         Friendship friendship = new Friendship(UnorderedPair.create(id1, id2), LocalDateTime.now());
-        friendshipNetworkRepository.add(friendship);
+        friendshipRepository.add(friendship);
 
         return true;
     }
@@ -84,7 +84,7 @@ public class UserService {
         userRepository.update(u2);
 
         Friendship friendship = new Friendship(UnorderedPair.create(id1, id2), LocalDateTime.now());
-        friendshipNetworkRepository.delete(friendship.getId());
+        friendshipRepository.delete(friendship.getId());
 
         return true;
     }
@@ -93,7 +93,7 @@ public class UserService {
         List<Community> communities = new ArrayList<>();
         UnorderedGraph<User> g = new UnorderedGraph<User>(userRepository.getSize(), userRepository.getAll());
 
-        g.generateEdges(friendshipNetworkRepository.getAll().stream()
+        g.generateEdges(friendshipRepository.getAll().stream()
                 .map(fr -> new UnorderedPair<>(
                         userRepository.getById(fr.getId().getFirst()),
                         userRepository.getById(fr.getId().getSecond())))

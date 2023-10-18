@@ -1,6 +1,6 @@
 package ir.map.g221.persistence;
 
-import ir.map.g221.domain.Entity;
+import ir.map.g221.domain.entities.Entity;
 import ir.map.g221.domain.validation.Validator;
 import ir.map.g221.exceptions.ValidationException;
 

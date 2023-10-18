@@ -1,10 +1,9 @@
 package ir.map.g221.persistence;
 
-import ir.map.g221.domain.Entity;
+import ir.map.g221.domain.entities.Entity;
 import ir.map.g221.exceptions.ValidationException;
 
 import java.util.Collection;
-import java.util.List;
 
 public interface Repository<ID, E extends Entity<ID>> {
     /**

@@ -1,6 +1,6 @@
 package ir.map.g221.domain.validation;
 
-import ir.map.g221.domain.User;
+import ir.map.g221.domain.entities.User;
 import ir.map.g221.exceptions.ValidationException;
 
 import java.util.ArrayList;

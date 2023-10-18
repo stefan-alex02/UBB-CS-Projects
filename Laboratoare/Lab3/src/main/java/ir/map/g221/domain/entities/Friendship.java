@@ -1,5 +1,6 @@
-package ir.map.g221.domain;
+package ir.map.g221.domain.entities;
 
+import ir.map.g221.domain.entities.Entity;
 import ir.map.g221.domain.general_types.UnorderedPair;
 
 import java.time.LocalDateTime;

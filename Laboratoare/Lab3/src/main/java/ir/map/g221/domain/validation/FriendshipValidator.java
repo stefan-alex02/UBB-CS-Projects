@@ -1,6 +1,6 @@
 package ir.map.g221.domain.validation;
 
-import ir.map.g221.domain.Friendship;
+import ir.map.g221.domain.entities.Friendship;
 import ir.map.g221.exceptions.ValidationException;
 
 import java.time.LocalDate;
@@ -8,6 +8,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FriendshipValidator implements Validator<Friendship>{
+    private static FriendshipValidator instance = null;
+
+    private FriendshipValidator() {
+    }
+    public static FriendshipValidator getInstance() {
+        if (instance == null) {
+            instance = new FriendshipValidator();
+        }
+        return instance;
+    }
+
     @Override
     public void validate(Friendship entity) throws ValidationException {
         List<String> errors = new ArrayList<>();
