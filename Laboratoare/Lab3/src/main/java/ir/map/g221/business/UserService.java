@@ -1,7 +1,7 @@
 package ir.map.g221.business;
 
 import ir.map.g221.domain.Community;
-import ir.map.g221.domain.Graph;
+import ir.map.g221.domain.UnorderedGraph;
 import ir.map.g221.exceptions.ValidationException;
 import ir.map.g221.persistence.InMemoryRepository;
 import ir.map.g221.domain.Friendship;
@@ -9,6 +9,7 @@ import ir.map.g221.domain.User;
 import ir.map.g221.domain.general_types.UnorderedPair;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 public class UserService {
@@ -89,8 +90,16 @@ public class UserService {
     }
 
     public List<Community> calculateCommunities() {
-        Graph<User> g = new Graph<User>(userRepository.getSize(), userRepository.getAll());
+        List<Community> communities = new ArrayList<>();
+        UnorderedGraph<User> g = new UnorderedGraph<User>(userRepository.getSize(), userRepository.getAll());
 
-        
+        g.generateEdges(friendshipNetworkRepository.getAll().stream()
+                .map(fr -> new UnorderedPair<>(
+                        userRepository.getById(fr.getId().getFirst()),
+                        userRepository.getById(fr.getId().getSecond())))
+                .toList());
+
+        g.getAllComponents().forEach(comp -> communities.add(new Community(comp)));
+        return communities;
     }
 }

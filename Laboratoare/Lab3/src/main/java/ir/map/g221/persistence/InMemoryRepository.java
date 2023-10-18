@@ -4,6 +4,7 @@ import ir.map.g221.domain.Entity;
 import ir.map.g221.domain.validation.Validator;
 import ir.map.g221.exceptions.ValidationException;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -36,7 +37,7 @@ public class InMemoryRepository<ID, E extends Entity<ID>> implements Repository<
     }
 
     @Override
-    public Iterable<E> getAll() {
+    public Collection<E> getAll() {
         return entities.values();
     }
 

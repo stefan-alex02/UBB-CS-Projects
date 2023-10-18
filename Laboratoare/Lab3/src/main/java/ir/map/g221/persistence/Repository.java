@@ -3,6 +3,9 @@ package ir.map.g221.persistence;
 import ir.map.g221.domain.Entity;
 import ir.map.g221.exceptions.ValidationException;
 
+import java.util.Collection;
+import java.util.List;
+
 public interface Repository<ID, E extends Entity<ID>> {
     /**
      *
@@ -29,9 +32,9 @@ public interface Repository<ID, E extends Entity<ID>> {
 
     /**
      *
-     * @return all entities.
+     * @return all entities as an Iterable.
      */
-    Iterable<E> getAll();
+    Collection<E> getAll();
 
     /**
      *
