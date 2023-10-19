@@ -1,7 +1,6 @@
 package ir.map.g221.factory;
 
 import ir.map.g221.business.UserService;
-import ir.map.g221.domain.entities.User;
 
 public class SampleGenerator {
     private final UserService userService;

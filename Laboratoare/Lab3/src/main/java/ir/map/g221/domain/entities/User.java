@@ -1,11 +1,13 @@
 package ir.map.g221.domain.entities;
 
+import ir.map.g221.domain.graphs.Node;
+
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class User extends Entity<Long> {
+public class User extends Entity<Long> implements Node<User> {
     private String firstName;
     private String lastName;
     private final Set<User> friends = new HashSet<>();
@@ -33,8 +35,8 @@ public class User extends Entity<Long> {
         this.lastName = lastName;
     }
 
-    public void addFriend(User newFriend) {
-        friends.add(newFriend);
+    public boolean addFriend(User newFriend) {
+        return friends.add(newFriend);
     }
 
     public boolean removeFriendById(Long id) {
@@ -52,7 +54,17 @@ public class User extends Entity<Long> {
                 "Last name : '" + lastName + "' | " +
                 "Friends list : [ " +
                 friends.stream()
-                        .map(user -> (String)(user.getFirstName() + " " + user.getLastName()))
-                        .collect(Collectors.joining(", ")) + " ]";
+                        .map(user -> user.getId().toString())
+                        .collect(Collectors.joining(" , ")) + " ]";
+    }
+
+    @Override
+    public Set<User> getNeighbours() {
+        return getFriends();
+    }
+
+    @Override
+    public Integer getDegree() {
+        return getFriends().size();
     }
 }

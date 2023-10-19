@@ -7,7 +7,7 @@ public class UnorderedPair<T1, T2> extends Pair<T1, T2> {
         super(first, second);
     }
 
-    public static <T1, T2> UnorderedPair<T1, T2> create(T1 first, T2 second) {
+    public static <T1, T2> UnorderedPair<T1, T2> of(T1 first, T2 second) {
         return new UnorderedPair<>(first, second);
     }
 

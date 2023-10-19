@@ -4,5 +4,5 @@ public interface UserInterface {
     /**
      * Runs the interface for the user.
      */
-    public void run();
+    void run();
 }

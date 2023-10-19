@@ -5,8 +5,6 @@ import ir.map.g221.domain.general_types.UnorderedPair;
 import ir.map.g221.domain.validation.Validator;
 import ir.map.g221.persistence.InMemoryRepository;
 
-import java.time.LocalDateTime;
-
 public class FriendshipInMemoryRepo extends InMemoryRepository<UnorderedPair<Long, Long>, Friendship> {
     public FriendshipInMemoryRepo(Validator<Friendship> validator) {
         super(validator);
