@@ -62,9 +62,9 @@ int main(int argc, char** argv) {
     if (isIPAddress(argv[1]) == false) {
         displayError("Error: IP address is invalid.\n");
     }
-    char* LOCAL_HOST_IP = argv[1];
+    char* SERVER_IP_ADDRESS = argv[1];
 
-    printf("Client will be connecting to IP: %s, PORT: %d\n", LOCAL_HOST_IP, PORT);
+    printf("Client will be connecting to IP: %s, PORT: %d\n", SERVER_IP_ADDRESS, PORT);
 
     int c;                          // The client socket descriptor
     struct sockaddr_in server ;     // A structure for the server address
@@ -85,7 +85,7 @@ int main(int argc, char** argv) {
     memset(&server, 0, sizeof(server));
     server.sin_port = htons(PORT);
     server.sin_family = AF_INET;
-    server.sin_addr.s_addr = inet_addr(LOCAL_HOST_IP);
+    server.sin_addr.s_addr = inet_addr(SERVER_IP_ADDRESS);
 
     // Uncommenting these lines will force the socket to no longer block during call of
     // connect() function if there is no server opened:

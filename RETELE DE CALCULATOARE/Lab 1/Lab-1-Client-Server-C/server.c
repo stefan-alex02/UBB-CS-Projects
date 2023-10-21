@@ -119,7 +119,7 @@ int main(int argc, char** argv) {
     if (isIPAddress(argv[1]) == false) {
         displayError("Error: IP address is invalid.\n");
     }
-    char* LOCAL_HOST_IP = argv[1];
+    char* SERVER_IP_ADDRESS = argv[1];
 
     int s;                              // The server socket descriptor
     struct sockaddr_in server, client;  // Structures for server and client addresses
@@ -138,7 +138,8 @@ int main(int argc, char** argv) {
     memset(&server, 0, sizeof(server));
     server.sin_port = htons(PORT);
     server.sin_family = AF_INET;
-    server.sin_addr.s_addr = INADDR_ANY;
+//    server.sin_addr.s_addr = INADDR_ANY;
+    server.sin_addr.s_addr = inet_addr(SERVER_IP_ADDRESS);;
 
     // Bind the socket to the server address
     if ( bind(s, (struct sockaddr *) &server, sizeof(server)) < 0) {
