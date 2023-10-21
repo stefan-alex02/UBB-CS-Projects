@@ -106,20 +106,15 @@ void serve_client(int c) {
 }
 
 int main(int argc, char** argv) {
-    if (argc != 3) {
-        fprintf(stderr, "Invalid number of arguments.\nUsage %s [IP_ADDRESS] [PORT].\n", argv[0]);
+    if (argc != 2) {
+        fprintf(stderr, "Invalid number of arguments.\nUsage %s [PORT].\n", argv[0]);
         exit(EXIT_FAILURE);
     }
 
-    if (isValidPort(argv[2]) == false) {
+    if (isValidPort(argv[1]) == false) {
         displayError("Error: PORT is invalid.\n");
     }
-    int PORT = atoi(argv[2]);
-
-    if (isIPAddress(argv[1]) == false) {
-        displayError("Error: IP address is invalid.\n");
-    }
-    char* SERVER_IP_ADDRESS = argv[1];
+    int PORT = atoi(argv[1]);
 
     int s;                              // The server socket descriptor
     struct sockaddr_in server, client;  // Structures for server and client addresses
@@ -138,8 +133,8 @@ int main(int argc, char** argv) {
     memset(&server, 0, sizeof(server));
     server.sin_port = htons(PORT);
     server.sin_family = AF_INET;
-//    server.sin_addr.s_addr = INADDR_ANY;
-    server.sin_addr.s_addr = inet_addr(SERVER_IP_ADDRESS);;
+    server.sin_addr.s_addr = INADDR_ANY;
+//    server.sin_addr.s_addr = inet_addr(SERVER_IP_ADDRESS);;
 
     // Bind the socket to the server address
     if ( bind(s, (struct sockaddr *) &server, sizeof(server)) < 0) {

@@ -90,7 +90,7 @@ public class UnorderedGraph<TNode extends Node<TNode>> {
             exploreAllComponents();
         }
         initialiseIsVisited();
-        Component<TNode> bestComponent = new Component<>(new HashSet<>());
+        Component<TNode> bestComponent = new Component<TNode>(new HashSet<>());
         for (Component<TNode> component : components) {
             if (component.getLongestPath().compareTo(bestComponent.getLongestPath()) > 0) {
                 bestComponent = component;

@@ -19,5 +19,7 @@ class UserServiceTest {
         userService.addUser("fn1", "ln1");
         userService.addUser("fn2", "ln2");
         userService.addUser("fn3", "ln3");
+
+        assertEquals(3, userService.calculateCommunities().size());
     }
 }
