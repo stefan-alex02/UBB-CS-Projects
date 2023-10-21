@@ -1,4 +1,0 @@
-/mnt/c/Users/Stefan/OneDrive - Universitatea Babeş-Bolyai/Info UBB/Anul 2/Semestrul 3/Retele de calculatoare/Laboratoare/Lab 1/Client-Server-C/cmake-build-debug/CMakeFiles/Client.dir
-/mnt/c/Users/Stefan/OneDrive - Universitatea Babeş-Bolyai/Info UBB/Anul 2/Semestrul 3/Retele de calculatoare/Laboratoare/Lab 1/Client-Server-C/cmake-build-debug/CMakeFiles/Server.dir
-/mnt/c/Users/Stefan/OneDrive - Universitatea Babeş-Bolyai/Info UBB/Anul 2/Semestrul 3/Retele de calculatoare/Laboratoare/Lab 1/Client-Server-C/cmake-build-debug/CMakeFiles/edit_cache.dir
-/mnt/c/Users/Stefan/OneDrive - Universitatea Babeş-Bolyai/Info UBB/Anul 2/Semestrul 3/Retele de calculatoare/Laboratoare/Lab 1/Client-Server-C/cmake-build-debug/CMakeFiles/rebuild_cache.dir
