@@ -7,8 +7,13 @@ import java.util.Set;
 
 public class Edge<TNode extends Node<TNode>>{
     private final UnorderedPair<TNode, TNode> unorderedPair;
+
     public Edge(TNode first, TNode second) {
         unorderedPair = new UnorderedPair<>(first, second);
+    }
+
+    public Edge(UnorderedPair<TNode, TNode> unorderedPair) {
+        this.unorderedPair = unorderedPair;
     }
 
     public static <T extends Node<T>> Edge<T> of(T first, T second) {

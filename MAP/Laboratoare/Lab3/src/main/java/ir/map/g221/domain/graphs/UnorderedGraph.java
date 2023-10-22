@@ -1,55 +1,104 @@
 package ir.map.g221.domain.graphs;
 
-import ir.map.g221.domain.general_types.Bijection;
-import ir.map.g221.domain.general_types.UnorderedPair;
+import ir.map.g221.exceptions.graphs.InvalidGraphException;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
+import java.util.function.Consumer;
 
-public class UnorderedGraph<TNode extends Node<TNode>> {
-    private final Integer nodeCount;
-    private final Set<Edge<TNode>> edges;
-    private final Boolean[] isVisited;
-    private List<Component<TNode>> components;
-    private final Bijection<TNode, Integer> nodeIndexBijection;
-    private final Set<TNode> nodeSet;
+public class UnorderedGraph<TNode extends Node<TNode>> implements Iterable<TNode>, GraphInterface<TNode> {
+    protected final Set<TNode> nodes;
+    protected final Set<Edge<TNode>> edges;
+    private List<GraphComponent<TNode>> components;
+    private final Map<TNode, Boolean> isVisited;
 
-    public UnorderedGraph(Iterable<TNode> nodes) {
-        nodeSet = new HashSet<>((Collection<TNode>) nodes);
-        nodeCount = nodeSet.size();
+    public UnorderedGraph() {
+        this.nodes = new HashSet<>();
+        this.edges = new HashSet<>();
+        this.components = null;
+        this.isVisited = new HashMap<>();
+    }
 
-        isVisited = new Boolean[nodeCount];
+    public UnorderedGraph(Set<TNode> nodes) {
+        this.nodes = nodes;
+        this.edges = new HashSet<>();
+        this.components = null;
+
+        this.isVisited = new HashMap<>();
         initialiseIsVisited();
+    }
 
-        nodeIndexBijection = new Bijection<>();
-        generateBijection(nodes);
+    public UnorderedGraph(Set<TNode> nodes, Iterable<Edge<TNode>> edges) {
+        this.nodes = nodes;
+        this.edges = new HashSet<>();
+        forceAddEdges(edges);
+        this.components = null;
 
-        edges = new HashSet<>();
-        components = new ArrayList<>();
+        this.isVisited = new HashMap<>();
+        initialiseIsVisited();
+    }
+
+    public Set<TNode> getNodes() {
+        return nodes;
+    }
+
+    public boolean hasNode(TNode node) {
+        return nodes.contains(node);
     }
 
     private void initialiseIsVisited() {
-        Arrays.fill(isVisited, false);
-    }
-
-    private void generateBijection(Iterable<TNode> nodeSet) {
-        int index = 0;
-        for (TNode node: nodeSet) {
-            nodeIndexBijection.addPair(node, index++);
+        for (var node: nodes) {
+            isVisited.put(node, false);
         }
     }
 
-    public void generateEdges(List<UnorderedPair<TNode, TNode>> pairList) {
-        for (var pair: pairList) {
-            setEdge(pair.getFirst(), pair.getSecond());
+    protected boolean isEdgeIncludable(Edge<TNode> edge) {
+        return nodes.containsAll(edge.getNodes());
+    }
+
+    protected boolean areEdgesIncludable(Iterable<Edge<TNode>> edges) throws InvalidGraphException {
+        for (var edge: edges) {
+            if (!isEdgeIncludable(edge)) {
+                return false;
+            }
         }
+        return true;
     }
 
-    public void setEdge(TNode node1, TNode node2) {
-        edges.add(Edge.of(node1, node2));
+    public void forceAddEdge(Edge<TNode> edge) throws InvalidGraphException {
+        if (!isEdgeIncludable(edge)) {
+            throw new InvalidGraphException("Edge must have nodes in the destination (sub)graph.");
+        }
+        edges.add(edge);
+        components = null;
     }
 
-    public List<Component<TNode>> getAllComponents() {
-        if (components.isEmpty()) {
+    public boolean tryAddEdge(Edge<TNode> edge) {
+        if (!isEdgeIncludable(edge)) {
+            return false;
+        }
+        edges.add(edge);
+        components = null;
+        return true;
+    }
+
+    public void forceAddEdges(Iterable<Edge<TNode>> edges) throws InvalidGraphException {
+        if (!areEdgesIncludable(edges)) {
+            throw new InvalidGraphException("Edges must have nodes in the destination (sub)graph.");
+        }
+        edges.forEach(this::forceAddEdge);
+    }
+
+    public boolean tryAddEdges(Iterable<Edge<TNode>> edges) {
+        boolean success = true;
+        for (var edge: edges) {
+            success = tryAddEdge(edge);
+        }
+        return success;
+    }
+
+    public List<GraphComponent<TNode>> getAllComponents() {
+        if (components == null) {
             exploreAllComponents();
         }
         return components;
@@ -58,40 +107,33 @@ public class UnorderedGraph<TNode extends Node<TNode>> {
     private void exploreAllComponents() {
         initialiseIsVisited();
         components = new ArrayList<>();
-        for (int i = 0; i < nodeCount; i++) {
-            if (!isVisited[i]) {
-                Component<TNode> newComponent = new Component<>(exploreFromNode(i));
-                newComponent.addEdges(
-                        new HashSet<>(edges.stream()
-                        .filter(newComponent::canIncludeEdge)
-                        .toList())
-                );
+        for (TNode node : nodes) {
+            if (!isVisited.get(node)) {
+                GraphComponent<TNode> newComponent = new GraphComponent<>(exploreFromNode(node));
+                newComponent.tryAddEdges(edges);
                 components.add(newComponent);
             }
         }
     }
 
-    private Set<TNode> exploreFromNode(Integer nodeIndex) {
-        isVisited[nodeIndex] = true;
-        Set<TNode> exploredNodes = new HashSet<>();
-        TNode node = nodeIndexBijection.preimageOf(nodeIndex);
-        exploredNodes.add(node);
+    private Set<TNode> exploreFromNode(TNode node) {
+        isVisited.put(node, true);
+        Set<TNode> exploredNodes = new HashSet<>(Collections.singletonList(node));
         for (TNode neighbour: node.getNeighbours()) {
-            Integer indexOfNeighbour = nodeIndexBijection.imageOf(neighbour);
-            if (!isVisited[indexOfNeighbour]) {
-                exploredNodes.addAll(exploreFromNode(indexOfNeighbour));
+            if (!isVisited.get(neighbour)) {
+                exploredNodes.addAll(exploreFromNode(neighbour));
             }
         }
         return exploredNodes;
     }
 
-    public Component<TNode> getComponentWithLongestPath() {
-        if (components.isEmpty()) {
+    public GraphComponent<TNode> getComponentWithLongestPath() {
+        if (components == null) {
             exploreAllComponents();
         }
         initialiseIsVisited();
-        Component<TNode> bestComponent = new Component<TNode>(new HashSet<>());
-        for (Component<TNode> component : components) {
+        GraphComponent<TNode> bestComponent = new GraphComponent<TNode>(new HashSet<>());
+        for (GraphComponent<TNode> component : components) {
             if (component.getLongestPath().compareTo(bestComponent.getLongestPath()) > 0) {
                 bestComponent = component;
             }
@@ -99,10 +141,55 @@ public class UnorderedGraph<TNode extends Node<TNode>> {
         return bestComponent;
     }
 
-    private Component<TNode> getComponent(TNode node) {
+    private GraphComponent<TNode> getComponentOf(TNode node) {
         return components.stream()
                 .filter(component -> component.hasNode(node))
                 .findFirst()
                 .orElse(null);
+    }
+
+    public static <TNode extends Node<TNode>> UnorderedGraph<TNode> union(UnorderedGraph<TNode> componentA, UnorderedGraph<TNode> componentB) {
+        UnorderedGraph<TNode> unionGraph = new UnorderedGraph<>();
+        unionGraph.nodes.addAll(componentA.nodes);
+        unionGraph.nodes.addAll(componentB.nodes);
+        unionGraph.forceAddEdges(componentA.edges);
+        unionGraph.forceAddEdges(componentB.edges);
+        return unionGraph;
+    }
+
+    public int size() {
+        return nodes.size();
+    }
+
+    public boolean isEmpty() {
+        return size() == 0;
+    }
+
+    @Override
+    public @NotNull Iterator<TNode> iterator() {
+        return nodes.iterator();
+    }
+
+    @Override
+    public void forEach(Consumer<? super TNode> action) {
+        nodes.forEach(action);
+    }
+
+    @Override
+    public Spliterator<TNode> spliterator() {
+        return nodes.spliterator();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        UnorderedGraph<?> that = (UnorderedGraph<?>) o;
+        return Objects.equals(nodes, that.nodes) && Objects.equals(edges, that.edges);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(nodes, edges);
     }
 }

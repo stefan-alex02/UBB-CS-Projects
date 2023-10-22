@@ -1,5 +1,6 @@
 package ir.map.g221.business;
 
+import ir.map.g221.domain.graphs.Edge;
 import ir.map.g221.domain.graphs.UnorderedGraph;
 import ir.map.g221.domain.Community;
 import ir.map.g221.exceptions.ExistingEntityException;
@@ -12,6 +13,7 @@ import ir.map.g221.domain.general_types.UnorderedPair;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 public class UserService {
@@ -39,7 +41,7 @@ public class UserService {
         userRepository.add(new User(id, firstName, lastName));
     }
 
-    public void removeUser(Long id) throws IllegalArgumentException {
+    public void removeUser(Long id) throws NotFoundException {
         User userToRemove = userRepository.getById(id);
 
         if (userToRemove == null) {
@@ -73,7 +75,7 @@ public class UserService {
         friendshipRepository.add(friendship);
     }
 
-    public void removeFriendship(Long id1, Long id2) {
+    public void removeFriendship(Long id1, Long id2) throws NotFoundException {
         var u1 = userRepository.getById(id1);
         var u2 = userRepository.getById(id2);
 
@@ -94,22 +96,29 @@ public class UserService {
 
     public List<Community> calculateCommunities() {
         List<Community> communities = new ArrayList<>();
-        UnorderedGraph<User> g = new UnorderedGraph<>(userRepository.getAll());
+        UnorderedGraph<User> graph = new UnorderedGraph<>(new HashSet<>(userRepository.getAll()));
 
-        g.generateEdges(friendshipRepository.getAll().stream()
-                .map(fr -> new UnorderedPair<>(
+        graph.tryAddEdges(friendshipRepository.getAll().stream()
+                .map(fr -> Edge.of(
                         userRepository.getById(fr.getId().getFirst()),
                         userRepository.getById(fr.getId().getSecond())))
                 .toList());
 
-        g.getAllComponents().forEach(comp -> communities.add(new Community(comp.getNodes().stream().toList())));
+        graph.getAllComponents().forEach(
+                component -> communities.add(new Community(component))
+        );
         return communities;
     }
 
     public Community mostSociableCommunity() {
-        UnorderedGraph<User> g = new UnorderedGraph<>(userRepository.getAll());
-        var componentWithLongestPath = g.getComponentWithLongestPath();
-        return new Community(componentWithLongestPath.getNodes().stream().toList(),
-                componentWithLongestPath.getLongestPath());
+        UnorderedGraph<User> graph = new UnorderedGraph<>(new HashSet<>(userRepository.getAll()));
+
+        graph.tryAddEdges(friendshipRepository.getAll().stream()
+                .map(fr -> Edge.of(
+                        userRepository.getById(fr.getId().getFirst()),
+                        userRepository.getById(fr.getId().getSecond())))
+                .toList());
+
+        return new Community(graph.getComponentWithLongestPath());
     }
 }

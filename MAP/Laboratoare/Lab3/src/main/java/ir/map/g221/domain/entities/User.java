@@ -59,6 +59,12 @@ public class User extends Entity<Long> implements Node<User> {
     }
 
     @Override
+    public void pairWith(User neighbour) {
+        this.addFriend(neighbour);
+        neighbour.addFriend(this);
+    }
+
+    @Override
     public Set<User> getNeighbours() {
         return getFriends();
     }

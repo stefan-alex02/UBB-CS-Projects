@@ -2,8 +2,10 @@ package ir.map.g221.business;
 
 import ir.map.g221.domain.validation.FriendshipValidator;
 import ir.map.g221.domain.validation.UserValidator;
+import ir.map.g221.exceptions.NotFoundException;
 import ir.map.g221.persistence.in_memory_concrete_repos.FriendshipInMemoryRepo;
 import ir.map.g221.persistence.in_memory_concrete_repos.UserInMemoryRepo;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -12,14 +14,58 @@ class UserServiceTest {
 
     @Test
     void addUser() {
+        UserService userService = createuserService();
+        addSampleUsers(userService);
+
+        assertEquals(3, userService.calculateCommunities().size());
+    }
+
+    @Test
+    void removeUser() {
+        UserService userService = createuserService();
+        addSampleUsers(userService);
+
+        userService.removeUser(1L);
+
+        assertEquals(2, userService.calculateCommunities().size());
+    }
+
+    @Test
+    void addFriendship() {
+        UserService userService = createuserService();
+        addSampleUsers(userService);
+
+        userService.addFriendship(1L, 2L);
+    }
+
+    @Test
+    void removeFriendship() {
+        UserService userService = createuserService();
+        addSampleUsers(userService);
+
+        Assertions.assertThrows(NotFoundException.class, () -> userService.removeFriendship(1L, 2L));
+        userService.addFriendship(1L, 2L);
+        userService.removeFriendship(1L, 2L);
+    }
+
+    @Test
+    void mostSociableCommunity() {
+        UserService userService = createuserService();
+        addSampleUsers(userService);
+
+        userService.addFriendship(1L, 3L);
+        Assertions.assertEquals(2, userService.mostSociableCommunity().size());
+    }
+
+    private static UserService createuserService() {
         UserInMemoryRepo userRepo = new UserInMemoryRepo(UserValidator.getInstance());
         FriendshipInMemoryRepo friendshipRepo = new FriendshipInMemoryRepo(FriendshipValidator.getInstance());
-        UserService userService = new UserService(friendshipRepo, userRepo);
+        return new UserService(friendshipRepo, userRepo);
+    }
 
+    private static void addSampleUsers(UserService userService) {
         userService.addUser("fn1", "ln1");
         userService.addUser("fn2", "ln2");
         userService.addUser("fn3", "ln3");
-
-        assertEquals(3, userService.calculateCommunities().size());
     }
 }

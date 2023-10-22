@@ -1,44 +1,33 @@
 package ir.map.g221.domain;
 
 import ir.map.g221.domain.entities.User;
+import ir.map.g221.domain.graphs.GraphComponent;
 import ir.map.g221.domain.graphs.Path;
 
-import java.util.List;
 import java.util.stream.Collectors;
 
 public class Community {
-    private final List<User> users;
-    private final Path<User> friendshipPath;
+    private final GraphComponent<User> graphComponent;
 
-    public Community(List<User> users) {
-        this.users = users;
-        friendshipPath = null;
-    }
-
-    public Community(List<User> users, Path<User> friendshipPath) {
-        this.users = users;
-        this.friendshipPath = friendshipPath;
+    public Community(GraphComponent<User> graphComponent) {
+        this.graphComponent = graphComponent;
     }
 
     public Path<User> getFriendshipPath() {
-        return friendshipPath;
+        return graphComponent.getLongestPath();
     }
 
-    public List<User> getUsers() {
-        return users;
-    }
-
-    public void addUser(User user) {
-        users.add(user);
+    public int size() {
+        return graphComponent.size();
     }
 
     public boolean isEmpty() {
-        return users.isEmpty();
+        return graphComponent.isEmpty();
     }
 
     @Override
     public String toString() {
-        return "Community:\n" + users.stream()
+        return "Community:\n" + graphComponent.getNodes().stream()
                 .map(User::toString)
                 .collect(Collectors.joining("\n"));
     }
