@@ -12,6 +12,11 @@ public class Friendship extends Entity<UnorderedPair<Long, Long>> {
         this.creationDate = creationDate;
     }
 
+    public Friendship(UnorderedPair<Long, Long> longLongUnorderedPair) {
+        super(longLongUnorderedPair);
+        creationDate = LocalDateTime.now();
+    }
+
     public LocalDateTime getCreationDate() {
         return creationDate;
     }

@@ -1,10 +1,12 @@
 package ir.map.g221.domain.graphs;
 
+import ir.map.g221.domain.generaltypes.ObjectTransformer;
 import ir.map.g221.exceptions.graphs.InvalidGraphException;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 import java.util.function.Consumer;
+import java.util.function.Predicate;
 
 public class UndirectedGraph<TNode extends Node<TNode>> implements Iterable<TNode>, GraphInterface<TNode> {
     protected final Set<TNode> nodes;
@@ -47,9 +49,7 @@ public class UndirectedGraph<TNode extends Node<TNode>> implements Iterable<TNod
     }
 
     private void initialiseIsVisited() {
-        for (var node: nodes) {
-            isVisited.put(node, false);
-        }
+        nodes.forEach(node -> isVisited.put(node, false));
     }
 
     protected boolean isEdgeIncludable(Edge<TNode> edge) {
@@ -57,12 +57,10 @@ public class UndirectedGraph<TNode extends Node<TNode>> implements Iterable<TNod
     }
 
     protected boolean areEdgesIncludable(Iterable<Edge<TNode>> edges) throws InvalidGraphException {
-        for (var edge: edges) {
-            if (!isEdgeIncludable(edge)) {
-                return false;
-            }
-        }
-        return true;
+        return ObjectTransformer
+                .iterableToCollection(edges)
+                .stream()
+                .allMatch(this::isEdgeIncludable);
     }
 
     public void forceAddEdge(Edge<TNode> edge) throws InvalidGraphException {
@@ -90,11 +88,10 @@ public class UndirectedGraph<TNode extends Node<TNode>> implements Iterable<TNod
     }
 
     public boolean tryAddEdges(Iterable<Edge<TNode>> edges) {
-        boolean success = true;
-        for (var edge: edges) {
-            success = tryAddEdge(edge);
-        }
-        return success;
+        return ObjectTransformer
+                .iterableToCollection(edges)
+                .stream()
+                .allMatch(this::tryAddEdge);
     }
 
     public List<GraphComponent<TNode>> getAllComponents() {
@@ -107,23 +104,24 @@ public class UndirectedGraph<TNode extends Node<TNode>> implements Iterable<TNod
     private void exploreAllComponents() {
         initialiseIsVisited();
         components = new ArrayList<>();
-        for (TNode node : nodes) {
-            if (!isVisited.get(node)) {
-                GraphComponent<TNode> newComponent = new GraphComponent<>(exploreFromNode(node));
-                newComponent.tryAddEdges(edges);
-                components.add(newComponent);
-            }
-        }
+        nodes.stream()
+                .filter(Predicate.not(isVisited::get))
+                .forEach((TNode node) -> {
+                    GraphComponent<TNode> newComponent = new GraphComponent<>(exploreFromNode(node));
+                    newComponent.tryAddEdges(edges);
+                    components.add(newComponent);
+                });
     }
 
     private Set<TNode> exploreFromNode(TNode node) {
         isVisited.put(node, true);
         Set<TNode> exploredNodes = new HashSet<>(Collections.singletonList(node));
-        for (TNode neighbour: node.getNeighbours()) {
-            if (!isVisited.get(neighbour)) {
-                exploredNodes.addAll(exploreFromNode(neighbour));
-            }
-        }
+        node.getNeighbours()
+                .stream()
+                .filter(Predicate.not(isVisited::get))
+                .forEach((TNode neighbour) ->
+                        exploredNodes.addAll(exploreFromNode(neighbour))
+                );
         return exploredNodes;
     }
 
@@ -132,14 +130,12 @@ public class UndirectedGraph<TNode extends Node<TNode>> implements Iterable<TNod
             exploreAllComponents();
         }
         initialiseIsVisited();
-        // DO NOT REMOVE THE GREY COLOURED TYPE ARGUMENT BELOW
-        GraphComponent<TNode> bestComponent = new GraphComponent<TNode>(new HashSet<>());
-        for (GraphComponent<TNode> component : components) {
-            if (component.getLongestPath().compareTo(bestComponent.getLongestPath()) > 0) {
-                bestComponent = component;
-            }
-        }
-        return bestComponent;
+
+        return components.stream()
+                .max(Comparator.comparing(
+                        GraphComponent::getLongestPath)
+                )
+                .orElse(new GraphComponent<>());
     }
 
     public static <TNode extends Node<TNode>> UndirectedGraph<TNode> union(UndirectedGraph<TNode> componentA, UndirectedGraph<TNode> componentB) {

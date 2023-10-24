@@ -23,10 +23,11 @@ class UserServiceTest {
     @Test
     void removeUser() {
         UserService userService = createuserService();
+
+        Assertions.assertThrows(NotFoundException.class, () -> userService.removeUser(9L));
+
         addSampleUsers(userService);
-
         userService.removeUser(1L);
-
         assertEquals(2, userService.calculateCommunities().size());
     }
 
@@ -43,6 +44,7 @@ class UserServiceTest {
         UserService userService = createuserService();
         addSampleUsers(userService);
 
+        Assertions.assertThrows(NotFoundException.class, () -> userService.removeFriendship(7L, 5L));
         Assertions.assertThrows(NotFoundException.class, () -> userService.removeFriendship(1L, 2L));
         userService.addFriendship(1L, 2L);
         userService.removeFriendship(1L, 2L);

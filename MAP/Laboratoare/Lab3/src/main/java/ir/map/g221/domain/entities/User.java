@@ -48,17 +48,6 @@ public class User extends Entity<Long> implements Node<User> {
     }
 
     @Override
-    public String toString() {
-        return "ID : " + id + " | " +
-                "First name : '" + firstName + "' | " +
-                "Last name : '" + lastName + "' | " +
-                "Friends list : [ " +
-                friends.stream()
-                        .map(user -> user.getId().toString())
-                        .collect(Collectors.joining(" , ")) + " ]";
-    }
-
-    @Override
     public void pairWith(User neighbour) {
         this.addFriend(neighbour);
         neighbour.addFriend(this);
@@ -72,5 +61,16 @@ public class User extends Entity<Long> implements Node<User> {
     @Override
     public Integer getDegree() {
         return getFriends().size();
+    }
+
+    @Override
+    public String toString() {
+        return "ID : " + id + " | " +
+                "First name : '" + firstName + "' | " +
+                "Last name : '" + lastName + "' | " +
+                "Friends list : [ " +
+                friends.stream()
+                        .map(user -> user.getId().toString())
+                        .collect(Collectors.joining(" , ")) + " ]";
     }
 }

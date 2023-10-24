@@ -22,16 +22,10 @@ public class InMemoryRepository<ID, E extends Entity<ID>> implements Repository<
     }
 
     @Override
-    public E add(E entity) throws IllegalArgumentException, ValidationException {
-        if (entity == null) {
-            throw new IllegalArgumentException("Entity must not be null.");
-        }
+    public Optional<E> save(E entity) throws IllegalArgumentException, ValidationException {
+        checkForNullEntity(entity);
         validator.validate(entity);
-        if (findOne(entity.getId()) != null) {
-            return null;
-        }
-        entities.put(entity.getId(), entity);
-        return entity;
+        return Optional.ofNullable(entities.putIfAbsent(entity.getId(), entity));
     }
 
     @Override
@@ -40,38 +34,37 @@ public class InMemoryRepository<ID, E extends Entity<ID>> implements Repository<
         return Optional.ofNullable(entities.get(id));
     }
 
+    @Override
     public Collection<E> findAll() {
         return entities.values();
     }
 
     @Override
-    public int getSize() {
+    public Integer getSize() {
         return entities.size();
     }
 
     @Override
-    public E update(E entity) throws IllegalArgumentException, ValidationException {
-        if (entity == null) {
-            throw new IllegalArgumentException("Entity must not be null.");
-        }
+    public Optional<E> update(E entity) throws IllegalArgumentException, ValidationException {
+        checkForNullEntity(entity);
         validator.validate(entity);
-        if (findOne(entity.getId()) != null) {
-            return null;
-        }
-        entities.put(entity.getId(), entity);
-        return entity;
+        return entities.computeIfPresent(entity.getId(), (key, oldEntity) -> entity) != null ?
+                Optional.empty() : Optional.of(entity);
     }
 
     @Override
-    public E delete(ID id) throws IllegalArgumentException {
+    public Optional<E> delete(ID id) throws IllegalArgumentException {
         checkForNullId(id);
-        E entity = findOne(id);
+        return Optional.ofNullable(entities.remove(id));
+    }
 
-        if (entity == null) {
-            return null;
+    private static <ID, E extends Entity<ID>> void checkForNullEntity(E entity) {
+        try {
+            argumentValidator.validate(entity);
         }
-        entities.remove(id);
-        return entity;
+        catch(IllegalArgumentException e) {
+            throw new IllegalArgumentException("Entity must not be null");
+        }
     }
 
     private static <ID> void checkForNullId(ID id) throws IllegalArgumentException{

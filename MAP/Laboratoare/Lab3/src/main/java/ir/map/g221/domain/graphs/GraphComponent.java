@@ -57,29 +57,28 @@ public final class GraphComponent<TNode extends Node<TNode>> extends UndirectedG
 
     private void generateLongestPath() {
         longestPath = new Path<>();
-        for (TNode node: nodes) {
+        nodes.forEach(node -> {
             Path<TNode> path = getLongestPathFrom(node, new Stack<>());
             if (path.compareTo(longestPath) > 0) {
                 longestPath = path;
             }
-        }
+        });
     }
 
     private Path<TNode> getLongestPathFrom(TNode node, Stack<Edge<TNode>> exploredEdges) {
         Path<TNode> maximalPath = new Path<>();
-        maximalPath.addToBeginning(node);
-        for (TNode neighbour: node.getNeighbours()) {
+        node.getNeighbours().forEach((TNode neighbour) -> {
             Edge<TNode> currentEdge = Edge.of(node, neighbour);
             if (!exploredEdges.contains(currentEdge)) {
                 exploredEdges.push(currentEdge);
                 Path<TNode> newPath = getLongestPathFrom(neighbour, exploredEdges);
-                newPath.addToBeginning(node);
                 if (newPath.compareTo(maximalPath) > 0) {
-                    maximalPath = newPath;
+                    maximalPath.setPath((newPath.getPath()));
                 }
                 exploredEdges.pop();
             }
-        }
+        });
+        maximalPath.addToBeginning(node);
         return maximalPath;
     }
 

@@ -21,9 +21,14 @@ public interface Repository<ID, E extends Entity<ID>> {
     Optional<E> findOne(ID id);
 
     /**
-     * @return all entities
+     * @return all entities.
      */
     Iterable<E> findAll();
+
+    /**
+     * @return the number of all entities.
+     */
+    Integer getSize();
 
     /**
      * @param entity entity must be not null

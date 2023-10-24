@@ -68,9 +68,7 @@ public class Bijection<TA, TB> {
     }
 
     public void addPairs(Iterable<Pair<TA, TB>> pairs) throws FunctionFailureException {
-        for (var pair: pairs) {
-            addPair(pair.getFirst(), pair.getSecond());
-        }
+        pairs.forEach(pair -> this.addPair(pair.getFirst(), pair.getSecond()));
     }
 
     public TB imageOf(TA domainElem) {
