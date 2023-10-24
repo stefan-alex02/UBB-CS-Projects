@@ -1,7 +1,23 @@
 package ir.map.g221.domain.validation;
 
-public class ArgumentValidator {
-    public static <T> void validateNotNull() {
+import ir.map.g221.exceptions.ValidationException;
 
+public class ArgumentValidator implements Validator<Object>{
+    private static ArgumentValidator instance = null;
+
+    private ArgumentValidator() {
+    }
+    public static ArgumentValidator getInstance() {
+        if (instance == null) {
+            instance = new ArgumentValidator();
+        }
+        return instance;
+    }
+
+    @Override
+    public void validate(Object argument) throws ValidationException {
+        if (argument == null) {
+            throw new IllegalArgumentException("Argument of given type must not be null.");
+        }
     }
 }

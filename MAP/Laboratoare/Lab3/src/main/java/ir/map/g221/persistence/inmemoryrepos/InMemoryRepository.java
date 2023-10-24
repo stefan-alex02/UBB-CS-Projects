@@ -1,17 +1,20 @@
 package ir.map.g221.persistence.inmemoryrepos;
 
 import ir.map.g221.domain.entities.Entity;
+import ir.map.g221.domain.validation.ArgumentValidator;
 import ir.map.g221.domain.validation.Validator;
 import ir.map.g221.exceptions.ValidationException;
-import ir.map.g221.persistence.OldRepository;
+import ir.map.g221.persistence.Repository;
 
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
-public class InMemoryRepository<ID, E extends Entity<ID>> implements OldRepository<ID, E> {
+public class InMemoryRepository<ID, E extends Entity<ID>> implements Repository<ID, E> {
     private final Map<ID, E> entities;
     private final Validator<E> validator;
+    private static final ArgumentValidator argumentValidator = ArgumentValidator.getInstance();
 
     public InMemoryRepository(Validator<E> validator) {
         this.validator = validator;
@@ -24,7 +27,7 @@ public class InMemoryRepository<ID, E extends Entity<ID>> implements OldReposito
             throw new IllegalArgumentException("Entity must not be null.");
         }
         validator.validate(entity);
-        if (getById(entity.getId()) != null) {
+        if (findOne(entity.getId()) != null) {
             return null;
         }
         entities.put(entity.getId(), entity);
@@ -32,13 +35,12 @@ public class InMemoryRepository<ID, E extends Entity<ID>> implements OldReposito
     }
 
     @Override
-    public E getById(ID id) throws IllegalArgumentException {
-        testForNullId(id);
-        return entities.get(id);
+    public Optional<E> findOne(ID id) throws IllegalArgumentException {
+        checkForNullId(id);
+        return Optional.ofNullable(entities.get(id));
     }
 
-    @Override
-    public Collection<E> getAll() {
+    public Collection<E> findAll() {
         return entities.values();
     }
 
@@ -53,7 +55,7 @@ public class InMemoryRepository<ID, E extends Entity<ID>> implements OldReposito
             throw new IllegalArgumentException("Entity must not be null.");
         }
         validator.validate(entity);
-        if (getById(entity.getId()) != null) {
+        if (findOne(entity.getId()) != null) {
             return null;
         }
         entities.put(entity.getId(), entity);
@@ -62,8 +64,8 @@ public class InMemoryRepository<ID, E extends Entity<ID>> implements OldReposito
 
     @Override
     public E delete(ID id) throws IllegalArgumentException {
-        testForNullId(id);
-        E entity = getById(id);
+        checkForNullId(id);
+        E entity = findOne(id);
 
         if (entity == null) {
             return null;
@@ -72,9 +74,12 @@ public class InMemoryRepository<ID, E extends Entity<ID>> implements OldReposito
         return entity;
     }
 
-    private static <ID> void testForNullId(ID id) throws IllegalArgumentException{
-        if (id == null) {
-            throw new IllegalArgumentException("Id must not be null.");
+    private static <ID> void checkForNullId(ID id) throws IllegalArgumentException{
+        try {
+            argumentValidator.validate(id);
+        }
+        catch(IllegalArgumentException e) {
+            throw new IllegalArgumentException("Id must not be null");
         }
     }
 }
