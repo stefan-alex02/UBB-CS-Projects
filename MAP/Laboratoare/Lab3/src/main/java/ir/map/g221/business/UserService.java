@@ -1,15 +1,16 @@
 package ir.map.g221.business;
 
 import ir.map.g221.domain.graphs.Edge;
-import ir.map.g221.domain.graphs.UnorderedGraph;
+import ir.map.g221.domain.graphs.UndirectedGraph;
 import ir.map.g221.domain.Community;
 import ir.map.g221.exceptions.ExistingEntityException;
 import ir.map.g221.exceptions.NotFoundException;
 import ir.map.g221.exceptions.ValidationException;
-import ir.map.g221.persistence.InMemoryRepository;
+import ir.map.g221.persistence.inmemoryrepos.FriendshipInMemoryRepo;
 import ir.map.g221.domain.entities.Friendship;
 import ir.map.g221.domain.entities.User;
-import ir.map.g221.domain.general_types.UnorderedPair;
+import ir.map.g221.domain.generaltypes.UnorderedPair;
+import ir.map.g221.persistence.inmemoryrepos.UserInMemoryRepo;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -17,11 +18,11 @@ import java.util.HashSet;
 import java.util.List;
 
 public class UserService {
-    private final InMemoryRepository<UnorderedPair<Long, Long>, Friendship> friendshipRepository;
-    private final InMemoryRepository<Long, User> userRepository;
+    private final FriendshipInMemoryRepo friendshipRepository;
+    private final UserInMemoryRepo userRepository;
 
-    public UserService(InMemoryRepository<UnorderedPair<Long, Long>, Friendship> friendshipRepository,
-                       InMemoryRepository<Long, User> userRepository) {
+    public UserService(FriendshipInMemoryRepo friendshipRepository,
+                       UserInMemoryRepo userRepository) {
         this.friendshipRepository = friendshipRepository;
         this.userRepository = userRepository;
     }
@@ -96,7 +97,7 @@ public class UserService {
 
     public List<Community> calculateCommunities() {
         List<Community> communities = new ArrayList<>();
-        UnorderedGraph<User> graph = new UnorderedGraph<>(new HashSet<>(userRepository.getAll()));
+        UndirectedGraph<User> graph = new UndirectedGraph<>(new HashSet<>(userRepository.getAll()));
 
         graph.tryAddEdges(friendshipRepository.getAll().stream()
                 .map(fr -> Edge.of(
@@ -111,7 +112,7 @@ public class UserService {
     }
 
     public Community mostSociableCommunity() {
-        UnorderedGraph<User> graph = new UnorderedGraph<>(new HashSet<>(userRepository.getAll()));
+        UndirectedGraph<User> graph = new UndirectedGraph<>(new HashSet<>(userRepository.getAll()));
 
         graph.tryAddEdges(friendshipRepository.getAll().stream()
                 .map(fr -> Edge.of(

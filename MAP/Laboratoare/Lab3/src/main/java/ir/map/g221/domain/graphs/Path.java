@@ -16,14 +16,6 @@ public class Path<TNode extends Node<TNode>> implements Comparable<Path<TNode>> 
         path.add(0, node);
     }
 
-    public void appendPath(Path<TNode> path) {
-        this.path.addAll(path.path);
-    }
-
-    public List<TNode> getPath() {
-        return path;
-    }
-
     public int length() {
         return path.size() - 1;
     }

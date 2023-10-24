@@ -1,4 +1,4 @@
-package ir.map.g221.domain.general_types;
+package ir.map.g221.domain.generaltypes;
 
 import org.junit.jupiter.api.Test;
 

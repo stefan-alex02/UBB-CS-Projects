@@ -3,8 +3,8 @@ package ir.map.g221.business;
 import ir.map.g221.domain.validation.FriendshipValidator;
 import ir.map.g221.domain.validation.UserValidator;
 import ir.map.g221.exceptions.NotFoundException;
-import ir.map.g221.persistence.in_memory_concrete_repos.FriendshipInMemoryRepo;
-import ir.map.g221.persistence.in_memory_concrete_repos.UserInMemoryRepo;
+import ir.map.g221.persistence.inmemoryrepos.FriendshipInMemoryRepo;
+import ir.map.g221.persistence.inmemoryrepos.UserInMemoryRepo;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

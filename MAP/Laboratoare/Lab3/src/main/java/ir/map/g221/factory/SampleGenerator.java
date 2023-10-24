@@ -17,6 +17,20 @@ public class SampleGenerator {
         userService.addUser("firstName5", "lastName5");
         userService.addUser("firstName6", "lastName6");
         userService.addUser("firstName7", "lastName7");
-        userService.addFriendship(1L, 5L);
+        userService.addUser("firstName8", "lastName8");
+        userService.addUser("firstName9", "lastName9");
+
+        userService.addUser("firstName10", "lastName10");
+        userService.addUser("firstName11", "lastName11");
+
+        userService.addFriendship(1L, 2L);
+        userService.addFriendship(1L, 3L);
+        userService.addFriendship(3L, 4L);
+        userService.addFriendship(2L, 4L);
+
+        userService.addFriendship(5L, 6L);
+        userService.addFriendship(5L, 7L);
+        userService.addFriendship(5L, 8L);
+        userService.addFriendship(5L, 9L);
     }
 }

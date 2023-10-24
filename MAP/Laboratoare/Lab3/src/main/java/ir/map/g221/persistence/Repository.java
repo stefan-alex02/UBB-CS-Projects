@@ -3,60 +3,55 @@ package ir.map.g221.persistence;
 import ir.map.g221.domain.entities.Entity;
 import ir.map.g221.exceptions.ValidationException;
 
-import java.util.Collection;
+import java.util.Optional;
 
+/**
+ * CRUD operations repository interface
+ * @param <ID> - type E must have an attribute of type ID
+ * @param <E> - type of entities saved in repository
+ */
 public interface Repository<ID, E extends Entity<ID>> {
     /**
-     *
-     * @param entity must be not null.
-     * @return the saved entity, or null if an entity with the
-     *          same id already exists.
-     * @throws ValidationException
-     *            if the entity is not valid.
-     * @throws IllegalArgumentException
-     *             if the given entity is null.
-     */
-    E add(E entity) throws ValidationException, IllegalArgumentException;
-
-    /**
-     *
      * @param id the id of the entity to be returned
-     *           id must not be null.
-     * @return the entity with the specified id
-     *          or null - if there is no entity with the given id.
-     * @throws IllegalArgumentException
-     *                  if id is null.
+     *           id must not be null
+     * @return an {@code Optional} encapsulating the entity with the given id,
+     *          or empty if no user with the specified ID could be found.
+     * @throws IllegalArgumentException if id is null.
      */
-    E getById(ID id) throws IllegalArgumentException;
+    Optional<E> findOne(ID id);
 
     /**
+     * @return all entities
+     */
+    Iterable<E> findAll();
+
+    /**
+     * @param entity entity must be not null
+     * @return an {@code Optional} - null if the entity was saved,
+     * - the entity (id already exists)
+     * @throws ValidationException      if the entity is not valid
+     * @throws IllegalArgumentException if the given entity is null. *
+     */
+    Optional<E> save(E entity);
+
+    /**
+     * removes the entity with the specified id
      *
-     * @return all entities as an Iterable.
-     */
-    Collection<E> getAll();
-
-    /**
-     *
-     * @return the number of all entities.
-     */
-    int getSize();
-
-    /**
-     *
-     * @param entity must not be null.
-     * @return the updated entity, or null if there is no entity with the given id.
-     * @throws IllegalArgumentException
-     *             if the given entity is null.
-     * @throws ValidationException
-     *             if the entity is not valid.
-     */
-    E update(E entity) throws IllegalArgumentException, ValidationException;
-
-    /**
-     * Removes the entity with the specified id.
-     * @param id must be not null.
-     * @return the removed entity, or null if there is no entity with the given id.
+     * @param id id must be not null
+     * @return an {@code Optional}
+     * - null if there is no entity with the given id,
+     * - the removed entity, otherwise
      * @throws IllegalArgumentException if the given id is null.
      */
-    E delete(ID id);
+    Optional<E> delete(ID id);
+
+    /**
+     * @param entity entity must not be null
+     * @return an {@code Optional}
+     * - null if the entity was updated
+     * - otherwise (e.g. id does not exist) returns the entity.
+     * @throws IllegalArgumentException if the given entity is null.
+     * @throws ValidationException      if the entity is not valid.
+     */
+    Optional<E> update(E entity);
 }

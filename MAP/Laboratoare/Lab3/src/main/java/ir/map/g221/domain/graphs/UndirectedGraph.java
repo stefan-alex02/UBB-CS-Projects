@@ -6,20 +6,20 @@ import org.jetbrains.annotations.NotNull;
 import java.util.*;
 import java.util.function.Consumer;
 
-public class UnorderedGraph<TNode extends Node<TNode>> implements Iterable<TNode>, GraphInterface<TNode> {
+public class UndirectedGraph<TNode extends Node<TNode>> implements Iterable<TNode>, GraphInterface<TNode> {
     protected final Set<TNode> nodes;
     protected final Set<Edge<TNode>> edges;
     private List<GraphComponent<TNode>> components;
     private final Map<TNode, Boolean> isVisited;
 
-    public UnorderedGraph() {
+    public UndirectedGraph() {
         this.nodes = new HashSet<>();
         this.edges = new HashSet<>();
         this.components = null;
         this.isVisited = new HashMap<>();
     }
 
-    public UnorderedGraph(Set<TNode> nodes) {
+    public UndirectedGraph(Set<TNode> nodes) {
         this.nodes = nodes;
         this.edges = new HashSet<>();
         this.components = null;
@@ -28,7 +28,7 @@ public class UnorderedGraph<TNode extends Node<TNode>> implements Iterable<TNode
         initialiseIsVisited();
     }
 
-    public UnorderedGraph(Set<TNode> nodes, Iterable<Edge<TNode>> edges) {
+    public UndirectedGraph(Set<TNode> nodes, Iterable<Edge<TNode>> edges) {
         this.nodes = nodes;
         this.edges = new HashSet<>();
         forceAddEdges(edges);
@@ -53,7 +53,7 @@ public class UnorderedGraph<TNode extends Node<TNode>> implements Iterable<TNode
     }
 
     protected boolean isEdgeIncludable(Edge<TNode> edge) {
-        return nodes.containsAll(edge.getNodes());
+        return hasNode(edge.getFirst()) && hasNode(edge.getSecond());
     }
 
     protected boolean areEdgesIncludable(Iterable<Edge<TNode>> edges) throws InvalidGraphException {
@@ -132,6 +132,7 @@ public class UnorderedGraph<TNode extends Node<TNode>> implements Iterable<TNode
             exploreAllComponents();
         }
         initialiseIsVisited();
+        // DO NOT REMOVE THE GREY COLOURED TYPE ARGUMENT BELOW
         GraphComponent<TNode> bestComponent = new GraphComponent<TNode>(new HashSet<>());
         for (GraphComponent<TNode> component : components) {
             if (component.getLongestPath().compareTo(bestComponent.getLongestPath()) > 0) {
@@ -141,15 +142,8 @@ public class UnorderedGraph<TNode extends Node<TNode>> implements Iterable<TNode
         return bestComponent;
     }
 
-    private GraphComponent<TNode> getComponentOf(TNode node) {
-        return components.stream()
-                .filter(component -> component.hasNode(node))
-                .findFirst()
-                .orElse(null);
-    }
-
-    public static <TNode extends Node<TNode>> UnorderedGraph<TNode> union(UnorderedGraph<TNode> componentA, UnorderedGraph<TNode> componentB) {
-        UnorderedGraph<TNode> unionGraph = new UnorderedGraph<>();
+    public static <TNode extends Node<TNode>> UndirectedGraph<TNode> union(UndirectedGraph<TNode> componentA, UndirectedGraph<TNode> componentB) {
+        UndirectedGraph<TNode> unionGraph = new UndirectedGraph<>();
         unionGraph.nodes.addAll(componentA.nodes);
         unionGraph.nodes.addAll(componentB.nodes);
         unionGraph.forceAddEdges(componentA.edges);
@@ -184,7 +178,7 @@ public class UnorderedGraph<TNode extends Node<TNode>> implements Iterable<TNode
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        UnorderedGraph<?> that = (UnorderedGraph<?>) o;
+        UndirectedGraph<?> that = (UndirectedGraph<?>) o;
         return Objects.equals(nodes, that.nodes) && Objects.equals(edges, that.edges);
     }
 

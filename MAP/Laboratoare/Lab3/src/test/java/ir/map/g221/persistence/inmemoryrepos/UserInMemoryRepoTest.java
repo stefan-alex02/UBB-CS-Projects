@@ -1,10 +1,8 @@
-package ir.map.g221.persistence.in_memory_concrete_repos;
+package ir.map.g221.persistence.inmemoryrepos;
 
 import ir.map.g221.domain.entities.User;
 import ir.map.g221.domain.validation.UserValidator;
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class UserInMemoryRepoTest {
 

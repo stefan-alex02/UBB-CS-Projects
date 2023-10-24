@@ -1,6 +1,6 @@
 package ir.map.g221.domain.graphs;
 
-import ir.map.g221.domain.general_types.UnorderedPair;
+import ir.map.g221.domain.generaltypes.UnorderedPair;
 
 import java.util.HashSet;
 import java.util.Set;

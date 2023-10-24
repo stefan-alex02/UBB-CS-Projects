@@ -1,14 +1,15 @@
-package ir.map.g221.persistence;
+package ir.map.g221.persistence.inmemoryrepos;
 
 import ir.map.g221.domain.entities.Entity;
 import ir.map.g221.domain.validation.Validator;
 import ir.map.g221.exceptions.ValidationException;
+import ir.map.g221.persistence.OldRepository;
 
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-public class InMemoryRepository<ID, E extends Entity<ID>> implements Repository<ID, E> {
+public class InMemoryRepository<ID, E extends Entity<ID>> implements OldRepository<ID, E> {
     private final Map<ID, E> entities;
     private final Validator<E> validator;
 

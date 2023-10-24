@@ -4,7 +4,7 @@ import ir.map.g221.exceptions.graphs.InvalidGraphException;
 
 import java.util.*;
 
-public final class GraphComponent<TNode extends Node<TNode>> extends UnorderedGraph<TNode> {
+public final class GraphComponent<TNode extends Node<TNode>> extends UndirectedGraph<TNode> {
     private Path<TNode> longestPath;
 
     public GraphComponent() {
