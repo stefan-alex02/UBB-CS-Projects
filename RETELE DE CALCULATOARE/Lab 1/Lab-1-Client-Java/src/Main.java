@@ -1,6 +1,7 @@
 import java.net.*;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 
 // Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
 // then press Enter. You can now see whitespace characters in your code.
@@ -26,9 +27,13 @@ public class Main {
         try {
             reader = new BufferedReader(new InputStreamReader(System.in));
             socket = new Socket(SERVER_ADDRESS, SERVER_PORT);
-            String s1 = readInputString("Type 1st string : ", reader);
-            String s2 = readInputString("Type 2nd string : ", reader);
-            writeStringsToSocket(s1, s2, socket);
+            char[] array1 = readInputString("Type 1st string : ", reader).toCharArray();
+            char[] array2 = readInputString("Type 2nd string : ", reader).toCharArray();
+            Arrays.sort(array1);
+            Arrays.sort(array2);
+            String sortedS1 = new String(array1);
+            String sortedS2 = new String(array2);
+            writeStringsToSocket(sortedS1, sortedS2, socket);
             readAndHandleResponseFromSocket(socket);
         } catch (IOException e) {
             System.err.println("Caught exception " + e.getMessage());
