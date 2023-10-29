@@ -1,6 +1,6 @@
 package ir.map.g221.domain.entities;
 
-import ir.map.g221.domain.general_types.UnorderedPair;
+import ir.map.g221.domain.generaltypes.UnorderedPair;
 
 import java.time.LocalDateTime;
 
@@ -10,6 +10,11 @@ public class Friendship extends Entity<UnorderedPair<Long, Long>> {
     public Friendship(UnorderedPair<Long, Long> longLongPair, LocalDateTime creationDate) {
         super(longLongPair);
         this.creationDate = creationDate;
+    }
+
+    public Friendship(UnorderedPair<Long, Long> longLongUnorderedPair) {
+        super(longLongUnorderedPair);
+        creationDate = LocalDateTime.now();
     }
 
     public LocalDateTime getCreationDate() {

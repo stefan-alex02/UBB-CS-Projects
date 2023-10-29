@@ -1,8 +1,8 @@
-package ir.map.g221.domain.general_types;
+package ir.map.g221.domain.generaltypes;
 
-import ir.map.g221.exceptions.function_exceptions.FunctionFailureException;
-import ir.map.g221.exceptions.function_exceptions.InjectionFailureException;
-import ir.map.g221.exceptions.function_exceptions.UnivalentFailureException;
+import ir.map.g221.exceptions.functionexceptions.FunctionFailureException;
+import ir.map.g221.exceptions.functionexceptions.InjectionFailureException;
+import ir.map.g221.exceptions.functionexceptions.UnivalentFailureException;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -68,9 +68,7 @@ public class Bijection<TA, TB> {
     }
 
     public void addPairs(Iterable<Pair<TA, TB>> pairs) throws FunctionFailureException {
-        for (var pair: pairs) {
-            addPair(pair.getFirst(), pair.getSecond());
-        }
+        pairs.forEach(pair -> this.addPair(pair.getFirst(), pair.getSecond()));
     }
 
     public TB imageOf(TA domainElem) {

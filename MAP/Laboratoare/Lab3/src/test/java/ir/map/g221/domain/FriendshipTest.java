@@ -1,7 +1,7 @@
 package ir.map.g221.domain;
 
 import ir.map.g221.domain.entities.Friendship;
-import ir.map.g221.domain.general_types.UnorderedPair;
+import ir.map.g221.domain.generaltypes.UnorderedPair;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;

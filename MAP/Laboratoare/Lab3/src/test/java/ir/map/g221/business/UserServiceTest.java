@@ -3,8 +3,8 @@ package ir.map.g221.business;
 import ir.map.g221.domain.validation.FriendshipValidator;
 import ir.map.g221.domain.validation.UserValidator;
 import ir.map.g221.exceptions.NotFoundException;
-import ir.map.g221.persistence.in_memory_concrete_repos.FriendshipInMemoryRepo;
-import ir.map.g221.persistence.in_memory_concrete_repos.UserInMemoryRepo;
+import ir.map.g221.persistence.inmemoryrepos.FriendshipInMemoryRepo;
+import ir.map.g221.persistence.inmemoryrepos.UserInMemoryRepo;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -23,10 +23,11 @@ class UserServiceTest {
     @Test
     void removeUser() {
         UserService userService = createuserService();
+
+        Assertions.assertThrows(NotFoundException.class, () -> userService.removeUser(9L));
+
         addSampleUsers(userService);
-
         userService.removeUser(1L);
-
         assertEquals(2, userService.calculateCommunities().size());
     }
 
@@ -43,6 +44,7 @@ class UserServiceTest {
         UserService userService = createuserService();
         addSampleUsers(userService);
 
+        Assertions.assertThrows(NotFoundException.class, () -> userService.removeFriendship(7L, 5L));
         Assertions.assertThrows(NotFoundException.class, () -> userService.removeFriendship(1L, 2L));
         userService.addFriendship(1L, 2L);
         userService.removeFriendship(1L, 2L);

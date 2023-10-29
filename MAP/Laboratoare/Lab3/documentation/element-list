@@ -2,13 +2,13 @@ ir.map.g221
 ir.map.g221.business
 ir.map.g221.domain
 ir.map.g221.domain.entities
-ir.map.g221.domain.general_types
+ir.map.g221.domain.generaltypes
 ir.map.g221.domain.graphs
 ir.map.g221.domain.validation
 ir.map.g221.exceptions
-ir.map.g221.exceptions.function_exceptions
+ir.map.g221.exceptions.functionexceptions
 ir.map.g221.exceptions.graphs
 ir.map.g221.factory
 ir.map.g221.persistence
-ir.map.g221.persistence.in_memory_concrete_repos
+ir.map.g221.persistence.inmemoryrepos
 ir.map.g221.ui

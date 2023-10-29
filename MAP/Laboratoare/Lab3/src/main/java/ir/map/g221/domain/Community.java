@@ -27,7 +27,7 @@ public class Community {
 
     @Override
     public String toString() {
-        return "Community:\n" + graphComponent.getNodes().stream()
+        return (size() > 1 ? "Community:" : "Single user:") + "\n" + graphComponent.getNodes().stream()
                 .map(User::toString)
                 .collect(Collectors.joining("\n"));
     }

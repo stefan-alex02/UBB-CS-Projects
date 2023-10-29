@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Path<TNode extends Node<TNode>> implements Comparable<Path<TNode>> {
-    private final List<TNode> path;
+    private List<TNode> path;
 
     public Path() {
         path = new ArrayList<>();
@@ -16,12 +16,12 @@ public class Path<TNode extends Node<TNode>> implements Comparable<Path<TNode>> 
         path.add(0, node);
     }
 
-    public void appendPath(Path<TNode> path) {
-        this.path.addAll(path.path);
-    }
-
     public List<TNode> getPath() {
         return path;
+    }
+
+    public void setPath(List<TNode> path) {
+        this.path = path;
     }
 
     public int length() {
@@ -36,12 +36,12 @@ public class Path<TNode extends Node<TNode>> implements Comparable<Path<TNode>> 
     @Override
     public String toString() {
         StringBuilder str = new StringBuilder();
-        for (var node: path) {
+        path.forEach(node -> {
             str.append(node.toString());
             if (path.indexOf(node) < path.size() - 1) {
                 str.append(" ->\n");
             }
-        }
+        });
         return str.toString();
     }
 }

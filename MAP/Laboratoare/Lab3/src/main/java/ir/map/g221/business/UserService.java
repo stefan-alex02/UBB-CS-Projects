@@ -1,27 +1,28 @@
 package ir.map.g221.business;
 
 import ir.map.g221.domain.graphs.Edge;
-import ir.map.g221.domain.graphs.UnorderedGraph;
+import ir.map.g221.domain.graphs.UndirectedGraph;
 import ir.map.g221.domain.Community;
 import ir.map.g221.exceptions.ExistingEntityException;
 import ir.map.g221.exceptions.NotFoundException;
 import ir.map.g221.exceptions.ValidationException;
-import ir.map.g221.persistence.InMemoryRepository;
+import ir.map.g221.persistence.inmemoryrepos.FriendshipInMemoryRepo;
 import ir.map.g221.domain.entities.Friendship;
 import ir.map.g221.domain.entities.User;
-import ir.map.g221.domain.general_types.UnorderedPair;
+import ir.map.g221.domain.generaltypes.UnorderedPair;
+import ir.map.g221.persistence.inmemoryrepos.UserInMemoryRepo;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 
 public class UserService {
-    private final InMemoryRepository<UnorderedPair<Long, Long>, Friendship> friendshipRepository;
-    private final InMemoryRepository<Long, User> userRepository;
+    private final FriendshipInMemoryRepo friendshipRepository;
+    private final UserInMemoryRepo userRepository;
 
-    public UserService(InMemoryRepository<UnorderedPair<Long, Long>, Friendship> friendshipRepository,
-                       InMemoryRepository<Long, User> userRepository) {
+    public UserService(FriendshipInMemoryRepo friendshipRepository,
+                       UserInMemoryRepo userRepository) {
         this.friendshipRepository = friendshipRepository;
         this.userRepository = userRepository;
     }
@@ -31,94 +32,90 @@ public class UserService {
         Long id = 1L;
         boolean availableId = false;
         while(!availableId) {
-            if (userRepository.getById(id) == null) {
+            if (userRepository.findOne(id).isEmpty()) {
                 availableId = true;
             }
             else {
                 id++;
             }
         }
-        userRepository.add(new User(id, firstName, lastName));
+        userRepository.save(new User(id, firstName, lastName));
+    }
+
+    private User getUser(Long id) throws NotFoundException {
+        Optional<User> removedUser = userRepository.findOne(id);
+
+        if (removedUser.isEmpty()) {
+            throw new NotFoundException("User could not be found.");
+        }
+        return removedUser.get();
     }
 
     public void removeUser(Long id) throws NotFoundException {
-        User userToRemove = userRepository.getById(id);
+        Optional<User> removedUser = userRepository.delete(id);
 
-        if (userToRemove == null) {
+        if (removedUser.isEmpty()) {
             throw new NotFoundException("User could not be found.");
         }
 
-        for (User friend: userToRemove.getFriends() ) {
+        removedUser.get().getFriends().forEach(friend -> {
             friend.removeFriendById(id);
             userRepository.update(friend);
             friendshipRepository.delete(UnorderedPair.of(id, friend.getId()));
-        }
-        userRepository.delete(id);
+        });
     }
 
     public void addFriendship(Long id1, Long id2) {
-        var u1 = userRepository.getById(id1);
-        var u2 = userRepository.getById(id2);
+        User user1 = getUser(id1);
+        User user2 = getUser(id2);
 
-        if (u1 == null || u2 == null) {
-            throw new NotFoundException("At least one of the users could not be found.");
-        }
-
-        if (!u1.addFriend(u2) || !u2.addFriend(u1)) {
+        if (!user1.addFriend(user2) || !user2.addFriend(user1)) {
             throw new ExistingEntityException("Friendship already exists.");
         }
 
-        userRepository.update(u1);
-        userRepository.update(u2);
+        userRepository.update(user1);
+        userRepository.update(user2);
 
         Friendship friendship = new Friendship(UnorderedPair.of(id1, id2), LocalDateTime.now());
-        friendshipRepository.add(friendship);
+        friendshipRepository.save(friendship);
     }
 
     public void removeFriendship(Long id1, Long id2) throws NotFoundException {
-        var u1 = userRepository.getById(id1);
-        var u2 = userRepository.getById(id2);
+        User user1 = getUser(id1);
+        User user2 = getUser(id2);
 
-        if (u1 == null || u2 == null) {
-            throw new NotFoundException("At least one of the users could not be found.");
-        }
-
-        if (!u1.removeFriendById(id2) || !u2.removeFriendById(id1)) {
+        Friendship friendship = new Friendship(UnorderedPair.of(id1, id2));
+        if (friendshipRepository.delete(friendship.getId()).isEmpty() ||
+                !user1.removeFriendById(id2) ||
+                !user2.removeFriendById(id1)) {
             throw new NotFoundException("The specified friendship does not exist.");
         }
 
-        userRepository.update(u1);
-        userRepository.update(u2);
-
-        Friendship friendship = new Friendship(UnorderedPair.of(id1, id2), LocalDateTime.now());
-        friendshipRepository.delete(friendship.getId());
+        userRepository.update(user1);
+        userRepository.update(user2);
     }
 
     public List<Community> calculateCommunities() {
-        List<Community> communities = new ArrayList<>();
-        UnorderedGraph<User> graph = new UnorderedGraph<>(new HashSet<>(userRepository.getAll()));
-
-        graph.tryAddEdges(friendshipRepository.getAll().stream()
-                .map(fr -> Edge.of(
-                        userRepository.getById(fr.getId().getFirst()),
-                        userRepository.getById(fr.getId().getSecond())))
-                .toList());
-
-        graph.getAllComponents().forEach(
-                component -> communities.add(new Community(component))
-        );
-        return communities;
+        return createGraphFromUsers()
+                .getAllComponents().stream()
+                .map(Community::new)
+                .toList();
     }
 
     public Community mostSociableCommunity() {
-        UnorderedGraph<User> graph = new UnorderedGraph<>(new HashSet<>(userRepository.getAll()));
+        return new Community(createGraphFromUsers().getComponentWithLongestPath());
+    }
 
-        graph.tryAddEdges(friendshipRepository.getAll().stream()
-                .map(fr -> Edge.of(
-                        userRepository.getById(fr.getId().getFirst()),
-                        userRepository.getById(fr.getId().getSecond())))
-                .toList());
+    private UndirectedGraph<User> createGraphFromUsers() {
+        UndirectedGraph<User> graph = new UndirectedGraph<>(new HashSet<>(userRepository.findAll()));
 
-        return new Community(graph.getComponentWithLongestPath());
+        graph.tryAddEdges(friendshipRepository.findAll().stream()
+                .map(fr -> {
+                    Optional<User> user1 = userRepository.findOne(fr.getId().getFirst());
+                    Optional<User> user2 = userRepository.findOne(fr.getId().getSecond());
+                    return Edge.of(user1.orElse(null),user2.orElse(null));
+                }).toList()
+        );
+        return graph;
     }
 }
