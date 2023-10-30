@@ -103,7 +103,8 @@ int main(int argc, char** argv) {
             i--;
         }
         else {
-            reversed[i] = (char)aPackage.message;
+            reversed[i] = (char) *(char*)((void*)&aPackage.message - 4);
+//            reversed[i] = (char) aPackage.message;
             sendto(c, "ACK", 4, 0,
                    (struct sockaddr *) &server, sizeof(server));
         }

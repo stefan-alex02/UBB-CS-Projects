@@ -127,7 +127,7 @@
 				}
 			],
 			"type" : "STRING",
-			"value" : "-j12"
+			"value" : "-j16"
 		},
 		{
 			"name" : "CMAKE_COLOR_DIAGNOSTICS",

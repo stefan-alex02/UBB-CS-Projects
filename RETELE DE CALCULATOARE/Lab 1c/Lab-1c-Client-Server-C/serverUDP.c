@@ -14,10 +14,9 @@ void error(char *s) {
     exit(EXIT_FAILURE);
 }
 
-struct Package {
+struct package {
     uint16_t code;
-    uint16_t length;
-    char character;
+    uint16_t message;
 };
 
 int main() {
@@ -42,15 +41,15 @@ int main() {
     l = sizeof(client);
     memset(&client, 0, sizeof(client));
 
-    struct Package package;
+    struct package aPackage;
     char input[MAX_BUFFER_SIZE];
 
     while (1) {
-        if (recvfrom(s, &package, sizeof(struct Package) - 2, MSG_WAITALL,
+        if (recvfrom(s, &aPackage, sizeof(struct package), MSG_WAITALL,
                      (struct sockaddr *) &client, &l) < 0) {
             error("Error while receiving response from server.\n");
         }
-        else if (package.code != 1){
+        else if (aPackage.code != 1){
             sendto(s, "RTY", 4, 0,
                    (struct sockaddr *) &client, sizeof(client));
         }
@@ -59,19 +58,19 @@ int main() {
         }
     }
 
-    int length = package.length;
+    int length = aPackage.message;
     for (int i = 0; i < length; i++) {
-        if (recvfrom(s, &package, sizeof(struct Package) - 2, MSG_WAITALL,
+        if (recvfrom(s, &aPackage, sizeof(struct package), MSG_WAITALL,
                      (struct sockaddr *) &client, &l) < 0) {
             error("Error while receiving response from server.\n");
         }
-        else if (package.code != 2){
+        else if (aPackage.code != 2){
             sendto(s, "RTY", 4, 0,
                    (struct sockaddr *) &client, sizeof(client));
             i--;
         }
         else {
-            input[i] = (char)package.length;
+            input[i] = (char)aPackage.message;
             sendto(s, "ACK", 4, 0,
                    (struct sockaddr *) &client, sizeof(client));
         }
@@ -81,10 +80,10 @@ int main() {
     input[length] = '\0';
     printf("Received the following string :\n%s\n", input);
 
-    package.code = 2;
+    aPackage.code = 2;
     for (int i = length - 1; i >= 0; i--) {
-        package.length = (uint16_t)input[i];
-        sendto(s, &client, sizeof(struct Package) - 2, 0,
+        aPackage.message = (uint16_t)input[i];
+        sendto(s, &client, sizeof(struct package), 0,
                (struct sockaddr *) &client, sizeof(client));
 
         if (recvfrom(s, buffer, 10, 0,
