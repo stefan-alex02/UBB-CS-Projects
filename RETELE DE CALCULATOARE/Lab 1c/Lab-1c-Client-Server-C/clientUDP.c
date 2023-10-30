@@ -27,11 +27,14 @@ void error(char *s) {
     exit(EXIT_FAILURE);
 }
 
-struct Package {
+struct package {
     uint16_t code;
-    uint16_t length;
-    char character;
+    uint16_t message;
 };
+
+int try_send_package(int c, struct sockaddr_in destination, struct package aPackage) {
+
+}
 
 int main(int argc, char** argv) {
     if (argc != 3) {
@@ -40,7 +43,7 @@ int main(int argc, char** argv) {
     }
 
     int c;
-    struct sockaddr_in server;
+    struct sockaddr_in server, client;
     socklen_t server_len = sizeof(server);
 
     c = socket(AF_INET, SOCK_DGRAM, 0);
@@ -61,19 +64,19 @@ int main(int argc, char** argv) {
     }
     input[strlen(input) - 1] = '\0';
 
-    struct Package lengthPackage, charPackage;
-    lengthPackage.code = 1;
-    lengthPackage.length = strlen(input);
-    charPackage.code = 2;
+    struct package lengthPackage, charPackage;
+    lengthPackage.code = 1;                     // Length type of message
+    lengthPackage.message = strlen(input);
+    charPackage.code = 2;                       // Char type of message
 
-    sendto(c, &lengthPackage, sizeof(struct Package), 0,
+    sendto(c, &lengthPackage, sizeof(struct package), 0,
            (struct sockaddr *) &server, sizeof(server));
 
     char buffer[10];
 
-    for (int i = 0; i < lengthPackage.length; i++) {
-        charPackage.character = input[i];
-        sendto(c, &charPackage, sizeof(struct Package), 0,
+    for (int i = 0; i < lengthPackage.message; i++) {
+        charPackage.message = (uint16_t)input[i];
+        sendto(c, &charPackage, sizeof(struct package), 0,
                 (struct sockaddr *) &server, sizeof(server));
 
         if (recvfrom(c, buffer, 10, 0,
@@ -88,25 +91,25 @@ int main(int argc, char** argv) {
 
     char reversed[MAX_BUFFER_SIZE];
 
-    struct Package package;
-    for (int i = 0; i < lengthPackage.length; i++) {
-        if (recvfrom(c, &package, sizeof(struct Package), MSG_WAITALL,
+    struct package aPackage;
+    for (int i = 0; i < lengthPackage.message; i++) {
+        if (recvfrom(c, &aPackage, sizeof(struct package), MSG_WAITALL,
                      (struct sockaddr *) &server, &server_len) < 0) {
             error("Error while receiving response from server.\n");
         }
-        else if (package.code != 2){
+        else if (aPackage.code != 2){
             sendto(c, "RTY", 4, 0,
                    (struct sockaddr *) &server, sizeof(server));
             i--;
         }
         else {
-            reversed[i] = package.character;
+            reversed[i] = (char)aPackage.message;
             sendto(c, "ACK", 4, 0,
                    (struct sockaddr *) &server, sizeof(server));
         }
     }
 
-    reversed[lengthPackage.length] = '\0';
+    reversed[lengthPackage.message] = '\0';
     printf("Received the following string :\n%s", reversed);
 
     close(c);

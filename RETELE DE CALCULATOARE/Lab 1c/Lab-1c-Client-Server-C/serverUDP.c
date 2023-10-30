@@ -46,7 +46,7 @@ int main() {
     char input[MAX_BUFFER_SIZE];
 
     while (1) {
-        if (recvfrom(s, &package, sizeof(struct Package), MSG_WAITALL,
+        if (recvfrom(s, &package, sizeof(struct Package) - 2, MSG_WAITALL,
                      (struct sockaddr *) &client, &l) < 0) {
             error("Error while receiving response from server.\n");
         }
@@ -61,7 +61,7 @@ int main() {
 
     int length = package.length;
     for (int i = 0; i < length; i++) {
-        if (recvfrom(s, &package, sizeof(struct Package), MSG_WAITALL,
+        if (recvfrom(s, &package, sizeof(struct Package) - 2, MSG_WAITALL,
                      (struct sockaddr *) &client, &l) < 0) {
             error("Error while receiving response from server.\n");
         }
@@ -71,7 +71,7 @@ int main() {
             i--;
         }
         else {
-            input[i] = package.character;
+            input[i] = (char)package.length;
             sendto(s, "ACK", 4, 0,
                    (struct sockaddr *) &client, sizeof(client));
         }
@@ -83,8 +83,8 @@ int main() {
 
     package.code = 2;
     for (int i = length - 1; i >= 0; i--) {
-        package.character = input[i];
-        sendto(s, &package, sizeof(struct Package), 0,
+        package.length = (uint16_t)input[i];
+        sendto(s, &client, sizeof(struct Package) - 2, 0,
                (struct sockaddr *) &client, sizeof(client));
 
         if (recvfrom(s, buffer, 10, 0,
