@@ -14,6 +14,6 @@ CMake Deprecation Warning:
 -- Check for working C compiler: /usr/bin/cc - skipped
 -- Detecting C compile features
 -- Detecting C compile features - done
--- Configuring done (7.6s)
--- Generating done (0.5s)
+-- Configuring done (6.6s)
+-- Generating done (0.4s)
 -- Build files have been written to: /mnt/c/Users/Stefan/UBB-CS-Projects/RETELE DE CALCULATOARE/Lab 1c/Lab-1c-Client-Server-C/cmake-build-debug

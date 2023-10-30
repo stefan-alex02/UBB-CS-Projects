@@ -50,10 +50,16 @@ int main() {
             error("Error while receiving response from server.\n");
         }
         else if (aPackage.code != 1){
-            sendto(s, "RTY", 4, 0,
+            struct package response;
+            response.code = 4;
+            sendto(s, &response, sizeof(struct package), 0,
                    (struct sockaddr *) &client, sizeof(client));
         }
         else {
+            struct package response;
+            response.code = 4;
+            sendto(s, &response, sizeof(struct package), 0,
+                   (struct sockaddr *) &client, sizeof(client));
             break;
         }
     }
@@ -65,13 +71,17 @@ int main() {
             error("Error while receiving response from server.\n");
         }
         else if (aPackage.code != 2){
-            sendto(s, "RTY", 4, 0,
+            struct package response;
+            response.code = 4;
+            sendto(s, &response, sizeof(struct package), 0,
                    (struct sockaddr *) &client, sizeof(client));
             i--;
         }
         else {
+            struct package response;
+            response.code = 4;
             input[i] = (char)aPackage.message;
-            sendto(s, "ACK", 4, 0,
+            sendto(s, &response, sizeof(struct package), 0,
                    (struct sockaddr *) &client, sizeof(client));
         }
     }
@@ -82,8 +92,9 @@ int main() {
 
     aPackage.code = 2;
     for (int i = length - 1; i >= 0; i--) {
+        aPackage.message = 0;
         aPackage.message = (uint16_t)input[i];
-        sendto(s, &client, sizeof(struct package), 0,
+        sendto(s, &aPackage, sizeof(struct package), 0,
                (struct sockaddr *) &client, sizeof(client));
 
         if (recvfrom(s, buffer, 10, 0,

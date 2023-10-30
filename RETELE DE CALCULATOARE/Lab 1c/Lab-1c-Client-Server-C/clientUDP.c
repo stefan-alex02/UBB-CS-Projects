@@ -8,6 +8,8 @@
  * Message code legend :
  * 1 : indicates the message contains the length of the string -> 2 bytes containing the string length
  * 2 : indicates the message contains a character of the string -> 1 byte containing a string char
+ * 3 : indicates that a previous message was received successfully (the next value doesn't matter)
+ * 4 : indicates that there was an error while receiving the message
  */
 
 #include <sys/types.h>
@@ -32,8 +34,31 @@ struct package {
     uint16_t message;
 };
 
-int try_send_package(int c, struct sockaddr_in destination, struct package aPackage) {
+int try_send_package(int c, struct package aPackage, struct sockaddr * destinationPtr, socklen_t * lPtr) {
+    sendto(c, &aPackage, sizeof(struct package), 0,
+           destinationPtr, *lPtr);
 
+    struct package response;
+
+    if (recvfrom(c, &response, 10, 0,destinationPtr, lPtr) < 0) {
+        error("Error while receiving response from server.\n");
+    }
+
+    switch (response.code) {    // Response handling
+        case 3:
+            if (aPackage.code == 1) {
+                printf("Couldn't string length '%hu', retrying...\n", aPackage.message);
+            }
+            else {
+                printf("Couldn't send char '%c', retrying...\n", (char)aPackage.message);
+            }
+            return 1 + try_send_package(c, aPackage, destinationPtr, lPtr);
+        case 4:
+            return 0;
+        default:
+            error("Unknown response received.\n");
+            return 0;
+    }
 }
 
 int main(int argc, char** argv) {
@@ -43,7 +68,7 @@ int main(int argc, char** argv) {
     }
 
     int c;
-    struct sockaddr_in server, client;
+    struct sockaddr_in server;
     socklen_t server_len = sizeof(server);
 
     c = socket(AF_INET, SOCK_DGRAM, 0);
@@ -69,24 +94,11 @@ int main(int argc, char** argv) {
     lengthPackage.message = strlen(input);
     charPackage.code = 2;                       // Char type of message
 
-    sendto(c, &lengthPackage, sizeof(struct package), 0,
-           (struct sockaddr *) &server, sizeof(server));
-
-    char buffer[10];
+    try_send_package(c, lengthPackage, (struct sockaddr *) &server, &server_len);
 
     for (int i = 0; i < lengthPackage.message; i++) {
         charPackage.message = (uint16_t)input[i];
-        sendto(c, &charPackage, sizeof(struct package), 0,
-                (struct sockaddr *) &server, sizeof(server));
-
-        if (recvfrom(c, buffer, 10, 0,
-                     (struct sockaddr *)&server, &server_len) < 0) {
-            error("Error while receiving response from server.\n");
-        }
-        else if (strcmp(buffer, "ACK") != 0){
-            printf("Couldn't send char '%c', retrying...\n", input[i]);
-            i--;
-        }
+        try_send_package(c, charPackage, (struct sockaddr *) &server, &server_len);
     }
 
     char reversed[MAX_BUFFER_SIZE];
@@ -103,8 +115,7 @@ int main(int argc, char** argv) {
             i--;
         }
         else {
-            reversed[i] = (char) *(char*)((void*)&aPackage.message - 4);
-//            reversed[i] = (char) aPackage.message;
+            reversed[i] = (char) aPackage.message;
             sendto(c, "ACK", 4, 0,
                    (struct sockaddr *) &server, sizeof(server));
         }
