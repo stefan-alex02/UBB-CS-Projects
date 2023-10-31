@@ -14,7 +14,6 @@ CMakeFiles/Client.dir/clientUDP.c.o
  /usr/include/linux/posix_types.h
  /usr/include/linux/stddef.h
  /usr/include/netinet/in.h
- /usr/include/netinet/ip.h
  /usr/include/stdc-predef.h
  /usr/include/stdio.h
  /usr/include/stdlib.h

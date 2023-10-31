@@ -13,7 +13,6 @@ CMakeFiles/Client.dir/clientUDP.c.o: /mnt/c/Users/Stefan/UBB-CS-Projects/RETELE\
   /usr/include/linux/posix_types.h \
   /usr/include/linux/stddef.h \
   /usr/include/netinet/in.h \
-  /usr/include/netinet/ip.h \
   /usr/include/stdc-predef.h \
   /usr/include/stdio.h \
   /usr/include/stdlib.h \
@@ -119,8 +118,6 @@ CMakeFiles/Client.dir/clientUDP.c.o: /mnt/c/Users/Stefan/UBB-CS-Projects/RETELE\
 
 /usr/include/x86_64-linux-gnu/bits/types/clockid_t.h:
 
-/usr/include/x86_64-linux-gnu/bits/types/__mbstate_t.h:
-
 /usr/include/x86_64-linux-gnu/bits/confname.h:
 
 /usr/include/x86_64-linux-gnu/sys/select.h:
@@ -147,29 +144,13 @@ CMakeFiles/Client.dir/clientUDP.c.o: /mnt/c/Users/Stefan/UBB-CS-Projects/RETELE\
 
 /usr/include/x86_64-linux-gnu/bits/stdint-uintn.h:
 
-/usr/include/stdlib.h:
+/usr/include/x86_64-linux-gnu/bits/types/__mbstate_t.h:
 
-/usr/include/netinet/ip.h:
+/usr/include/stdlib.h:
 
 /usr/include/x86_64-linux-gnu/asm/sockios.h:
 
 /usr/include/linux/posix_types.h:
-
-/usr/include/x86_64-linux-gnu/asm/posix_types.h:
-
-/usr/include/arpa/inet.h:
-
-/usr/include/x86_64-linux-gnu/bits/pthreadtypes.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/9/include/stdarg.h:
-
-/usr/include/x86_64-linux-gnu/bits/sockaddr.h:
-
-/usr/include/x86_64-linux-gnu/asm/bitsperlong.h:
-
-/usr/include/x86_64-linux-gnu/bits/socket_type.h:
-
-/usr/include/netinet/in.h:
 
 /usr/include/x86_64-linux-gnu/gnu/stubs.h:
 
@@ -187,6 +168,12 @@ CMakeFiles/Client.dir/clientUDP.c.o: /mnt/c/Users/Stefan/UBB-CS-Projects/RETELE\
 
 /usr/include/linux/stddef.h:
 
+/usr/include/arpa/inet.h:
+
+/usr/include/x86_64-linux-gnu/asm/posix_types.h:
+
+/usr/include/x86_64-linux-gnu/bits/pthreadtypes.h:
+
 /usr/include/x86_64-linux-gnu/bits/endianness.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/timer_t.h:
@@ -202,6 +189,16 @@ CMakeFiles/Client.dir/clientUDP.c.o: /mnt/c/Users/Stefan/UBB-CS-Projects/RETELE\
 /usr/include/features.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/FILE.h:
+
+/usr/include/x86_64-linux-gnu/bits/socket_type.h:
+
+/usr/include/netinet/in.h:
+
+/usr/lib/gcc/x86_64-linux-gnu/9/include/stdarg.h:
+
+/usr/include/x86_64-linux-gnu/bits/sockaddr.h:
+
+/usr/include/x86_64-linux-gnu/asm/bitsperlong.h:
 
 /usr/include/x86_64-linux-gnu/bits/floatn.h:
 
