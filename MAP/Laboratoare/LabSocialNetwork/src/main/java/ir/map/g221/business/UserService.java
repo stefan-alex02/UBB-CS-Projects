@@ -43,25 +43,22 @@ public class UserService {
     }
 
     private User getUser(Long id) throws NotFoundException {
-        Optional<User> removedUser = userRepository.findOne(id);
-
-        if (removedUser.isEmpty()) {
-            throw new NotFoundException("User could not be found.");
-        }
-        return removedUser.get();
+        return userRepository
+                .findOne(id)
+                .orElseThrow(() ->
+                        new NotFoundException("User could not be found.")
+                );
     }
 
     public void removeUser(Long id) throws NotFoundException {
-        Optional<User> removedUser = userRepository.delete(id);
-
-        if (removedUser.isEmpty()) {
+        userRepository.delete(id).ifPresentOrElse(user ->
+            user.getFriends().forEach(friend -> {
+                friend.removeFriendById(id);
+                userRepository.update(friend);
+                friendshipRepository.delete(UnorderedPair.of(id, friend.getId()));
+            }
+        ), () -> {
             throw new NotFoundException("User could not be found.");
-        }
-
-        removedUser.get().getFriends().forEach(friend -> {
-            friend.removeFriendById(id);
-            userRepository.update(friend);
-            friendshipRepository.delete(UnorderedPair.of(id, friend.getId()));
         });
     }
 
