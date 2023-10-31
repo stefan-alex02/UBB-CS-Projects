@@ -73,4 +73,9 @@ public class User extends Entity<Long> implements Node<User> {
                         .map(user -> user.getId().toString())
                         .collect(Collectors.joining(" , ")) + " ]";
     }
+
+    @Override
+    public String toStringIndex() {
+        return getId().toString();
+    }
 }

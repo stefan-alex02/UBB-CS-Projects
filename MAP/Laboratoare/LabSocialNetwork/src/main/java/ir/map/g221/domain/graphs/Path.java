@@ -4,6 +4,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.StringJoiner;
 
 public class Path<TNode extends Node<TNode>> implements Comparable<Path<TNode>> {
     private List<TNode> path;
@@ -35,13 +36,8 @@ public class Path<TNode extends Node<TNode>> implements Comparable<Path<TNode>> 
 
     @Override
     public String toString() {
-        StringBuilder str = new StringBuilder();
-        path.forEach(node -> {
-            str.append(node.toString());
-            if (path.indexOf(node) < path.size() - 1) {
-                str.append(" ->\n");
-            }
-        });
-        return str.toString();
+        StringJoiner joiner = new StringJoiner(" -> ");
+        path.forEach(node -> joiner.add(node.toStringIndex()));
+        return joiner.toString();
     }
 }

@@ -24,4 +24,12 @@ public interface Node<T extends Node<T>> {
      * @param neighbour The node to pair with.
      */
     void pairWith(T neighbour);
+
+    /**
+     * Gets an index as a String for the node (defaults to toString()).
+     * @return the String representation of the index
+     */
+    default String toStringIndex() {
+        return this.toString();
+    }
 }
