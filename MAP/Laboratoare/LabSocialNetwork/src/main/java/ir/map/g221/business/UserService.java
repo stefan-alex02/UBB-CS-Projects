@@ -42,7 +42,7 @@ public class UserService {
         userRepository.save(new User(id, firstName, lastName));
     }
 
-    private User getUser(Long id) throws NotFoundException {
+    public User getUser(Long id) throws NotFoundException {
         return userRepository
                 .findOne(id)
                 .orElseThrow(() ->
