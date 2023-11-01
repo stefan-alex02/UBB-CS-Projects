@@ -1,0 +1,1 @@
+/usr/bin/cc -g CMakeFiles/Example_Lab_1c.dir/clientUDP.c.o CMakeFiles/Example_Lab_1c.dir/serverUDP.c.o -o Example_Lab_1c 

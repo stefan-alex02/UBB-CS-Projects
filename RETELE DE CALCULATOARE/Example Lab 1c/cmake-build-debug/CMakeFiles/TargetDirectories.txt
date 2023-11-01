@@ -1,0 +1,4 @@
+/mnt/c/Users/Stefan/UBB-CS-Projects/RETELE DE CALCULATOARE/Example Lab 1c/cmake-build-debug/CMakeFiles/Client.dir
+/mnt/c/Users/Stefan/UBB-CS-Projects/RETELE DE CALCULATOARE/Example Lab 1c/cmake-build-debug/CMakeFiles/Server.dir
+/mnt/c/Users/Stefan/UBB-CS-Projects/RETELE DE CALCULATOARE/Example Lab 1c/cmake-build-debug/CMakeFiles/edit_cache.dir
+/mnt/c/Users/Stefan/UBB-CS-Projects/RETELE DE CALCULATOARE/Example Lab 1c/cmake-build-debug/CMakeFiles/rebuild_cache.dir

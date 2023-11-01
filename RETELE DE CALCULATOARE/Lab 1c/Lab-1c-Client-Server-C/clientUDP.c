@@ -9,6 +9,7 @@
  * 1 : indicates the message contains the length of the string -> 2 bytes containing the string length
  * 2 : indicates the message contains the new port to which the client should connect to -> 2 bytes
  * 3 : indicates the message contains a character of the string -> 1 byte containing a string char
+ * 4 : indicates that a previous message was received successfully
  */
 
 #include <sys/socket.h>
@@ -19,24 +20,19 @@
 #include <stdlib.h>
 #include <arpa/inet.h>
 
-#define MAX_BUFFER_SIZE 101
+#define MAX_BUFFER_SIZE 1001
 
 void error(char *s) {
     perror(s);
     exit(EXIT_FAILURE);
 }
 
-struct Element {
-    uint16_t index;
-    char character;
-};
-
 struct Package {
     uint16_t code;
     union {
         uint16_t length;
         uint16_t newPort;
-        struct Element element;
+        char character;
     };
 };
 
@@ -126,23 +122,57 @@ int main(int argc, char** argv) {
     printf("Press ENTER key to continue");
     getchar();
 
+    // Setting up the confirmation package
+    struct Package confirmPackage;
+
     // Sending the packages to the new server
     for (int i = 0; i < lengthPackage.length; i++) {
-        charPackage.element.character = input[i];
+        charPackage.character = input[i];
+
+        // Sending the character package
         sendto(c, &charPackage, sizeof(charPackage), 0,
                (struct sockaddr *) &newServer, newSl);
+
+        // ----------------------------------------
+        // - No other operations are allowed here -
+        // ----------------------------------------
+
+        // Waiting for confirmation
+        if (recvfrom(c, &confirmPackage, sizeof(confirmPackage), MSG_WAITALL,
+                     (struct sockaddr *) &newServer, &newSl) < 0) {
+            error("Error while receiving confirmation from new server.\n");
+        }
+        confirmPackage.code = ntohs(confirmPackage.code);
+        if (confirmPackage.code != 4) {
+            error("Couldn't receive confirmation from new server.\n");
+        }
+
+//        printf("Confirmation of sent package received. (i = %d)\n", i + 1);
     }
 
     char reversed[MAX_BUFFER_SIZE];
     memset(reversed, 0, lengthPackage.length);
 
+    confirmPackage.code = htons(4);
+
     // Sending the reversed packages from the new server
     for (int i = 0; i < lengthPackage.length; i++) {
+        // Waiting for character package
         if (recvfrom(c, &charPackage, sizeof(charPackage), MSG_WAITALL,
                      (struct sockaddr *) &newServer, &newSl) < 0) {
             error("Error while receiving package from server.\n");
         }
-        reversed[i] = charPackage.element.character;
+        charPackage.code = ntohs(charPackage.code);
+        if (charPackage.code != 3) {
+            error("Received wrong package from new server.\n");
+        }
+        reversed[i] = charPackage.character;
+
+//        printf("Package received successfully. (i = %d)\n", i + 1);
+
+        // Sending the confirmation package
+        sendto(c, &confirmPackage, sizeof(confirmPackage), 0,
+               (struct sockaddr *) &newServer, newSl);
     }
 
     reversed[lengthPackage.length] = '\0';

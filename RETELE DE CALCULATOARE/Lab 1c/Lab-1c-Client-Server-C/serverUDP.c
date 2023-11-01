@@ -7,7 +7,7 @@
 #include <signal.h>
 #include <sys/wait.h>
 
-#define MAX_BUFFER_SIZE 101
+#define MAX_BUFFER_SIZE 1001
 
 void zombie_killer() { // Kills the process that is waited
     wait(0);
@@ -19,17 +19,12 @@ void error(char *s) {
     exit(EXIT_FAILURE);
 }
 
-struct Element {
-    uint16_t index;
-    char character;
-};
-
 struct Package {
     uint16_t code;
     union {
         uint16_t length;
         uint16_t newPort;
-        struct Element element;
+        char character;
     };
 };
 
@@ -131,15 +126,30 @@ int main(int argc, char** argv) {
             sendto(s, &portPackage, sizeof(portPackage), 0,
                    (struct sockaddr *) &client, cl);
 
+            // Setting up the confirmation package
+            struct Package confirmPackage;
+            confirmPackage.code = htons(4);
+
             // Receiving the packages from the client
             char input[MAX_BUFFER_SIZE];
             struct Package charPackage;
             for (int i = 0; i < lengthPackage.length; i++) {
+                // Waiting for character package
                 if (recvfrom(newS, &charPackage, sizeof(charPackage), MSG_WAITALL,
                              (struct sockaddr *) &client, &cl) < 0) {
                     error("[Chld] Error while receiving package from client.\n");
                 }
-                input[i] = charPackage.element.character;
+                charPackage.code = ntohs(charPackage.code);
+                if (charPackage.code != 3) {
+                    error("[Chld] Received wrong package from client.\n");
+                }
+                input[i] = charPackage.character;
+
+//                printf("[%d] Package received successfully. (i = %d)\n", getpid(), i + 1);
+
+                // Sending the confirmation package
+                sendto(newS, &confirmPackage, sizeof(confirmPackage), 0,
+                       (struct sockaddr *) &client, cl);
             }
 
             input[lengthPackage.length] = '\0';
@@ -147,9 +157,26 @@ int main(int argc, char** argv) {
 
             charPackage.code = htons(3);
             for (int i = lengthPackage.length - 1; i >= 0; i--) {
-                charPackage.element.character = input[i];
+                charPackage.character = input[i];
+                // Sending the character package
                 sendto(newS, &charPackage, sizeof(charPackage), 0,
                        (struct sockaddr *) &client, cl);
+
+                // ----------------------------------------
+                // - No other operations are allowed here -
+                // ----------------------------------------
+
+                // Waiting for confirmation
+                if (recvfrom(newS, &confirmPackage, sizeof(confirmPackage), MSG_WAITALL,
+                             (struct sockaddr *) &client, &cl) < 0) {
+                    error("[Chld] Error while receiving confirmation from client.\n");
+                }
+                confirmPackage.code = ntohs(confirmPackage.code);
+                if (confirmPackage.code != 4) {
+                    error("[Chld] Couldn't receive confirmation from client.\n");
+                }
+
+//                printf("[%d] Confirmation of sent package received. (i = %d)\n", getpid(), i + 1);
             }
 
             printf("[%d] Reversed string was sent back with success.\n", getpid());
