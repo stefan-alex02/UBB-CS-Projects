@@ -1,0 +1,4 @@
+=== Run as Administrator ===
+netsh interface portproxy add v4tov4 listenport=[PORT] listenaddress=0.0.0.0 connectport=[PORT] connectaddress=[IP ADDRESS of the machine/VM that the server is running on]
+
+// 0.0.0.0 - any IP ADDRESS
