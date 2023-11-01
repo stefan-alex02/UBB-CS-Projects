@@ -8,6 +8,8 @@ import ir.map.g221.persistence.inmemoryrepos.UserInMemoryRepo;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class UserServiceTest {
@@ -22,13 +24,35 @@ class UserServiceTest {
 
     @Test
     void removeUser() {
+        // 1) Having an empty user service, when deleting a non-existent user, throws exception.
         UserService userService = createuserService();
 
         Assertions.assertThrows(NotFoundException.class, () -> userService.removeUser(9L));
 
+        // 2) Having a user service with users, when deleting a user, they no longer exist in the
+        // communities, and in the friendship lists of ex-friends as well.
         addSampleUsers(userService);
-        userService.removeUser(1L);
-        assertEquals(2, userService.calculateCommunities().size());
+        addSampleFriendships(userService);
+
+        Assertions.assertEquals(2, userService.getUser(1L).getFriends().size());
+        Assertions.assertTrue(
+                userService.getUser(1L)
+                        .getFriends()
+                        .contains(userService.getUser(2L))
+        );
+
+        userService.removeUser(2L);
+
+        Assertions.assertThrows(NotFoundException.class, () -> userService.getUser(2L));
+        Assertions.assertEquals(1, userService.calculateCommunities().size());
+        Assertions.assertEquals(2, userService.mostSociableCommunity().size());
+
+        Assertions.assertEquals(1, userService.getUser(1L).getFriends().size());
+        Assertions.assertTrue(
+                userService.getUser(1L)
+                        .getFriends()
+                        .contains(userService.getUser(3L))
+        );
     }
 
     @Test
@@ -69,5 +93,10 @@ class UserServiceTest {
         userService.addUser("fn1", "ln1");
         userService.addUser("fn2", "ln2");
         userService.addUser("fn3", "ln3");
+    }
+
+    private static void addSampleFriendships(UserService userService) {
+        userService.addFriendship(1L, 2L);
+        userService.addFriendship(1L, 3L);
     }
 }
