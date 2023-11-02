@@ -55,7 +55,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/mnt/c/Users/Stefan/UBB-CS-Projects/RETELE DE CALCULATOARE/Lab 1/Lab-1-Client-Server-C/cmake-build-debug"
+			"value" : "/mnt/c/Users/Stefan/UBB-CS-Projects/RETELE DE CALCULATOARE/Lab 1c/Lab-1c-Client-Server-C/cmake-build-debug"
 		},
 		{
 			"name" : "CMAKE_CACHE_MAJOR_VERSION",
@@ -127,7 +127,7 @@
 				}
 			],
 			"type" : "STRING",
-			"value" : "-j12"
+			"value" : "-j16"
 		},
 		{
 			"name" : "CMAKE_COLOR_DIAGNOSTICS",
@@ -475,7 +475,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "/mnt/c/Users/Stefan/UBB-CS-Projects/RETELE DE CALCULATOARE/Lab 1/Lab-1-Client-Server-C/cmake-build-debug/CMakeFiles/pkgRedirects"
+			"value" : "/mnt/c/Users/Stefan/UBB-CS-Projects/RETELE DE CALCULATOARE/Lab 1c/Lab-1c-Client-Server-C/cmake-build-debug/CMakeFiles/pkgRedirects"
 		},
 		{
 			"name" : "CMAKE_GENERATOR",
@@ -535,7 +535,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/mnt/c/Users/Stefan/UBB-CS-Projects/RETELE DE CALCULATOARE/Lab 1/Lab-1-Client-Server-C"
+			"value" : "/mnt/c/Users/Stefan/UBB-CS-Projects/RETELE DE CALCULATOARE/Lab 1c/Lab-1c-Client-Server-C"
 		},
 		{
 			"name" : "CMAKE_INSTALL_PREFIX",
@@ -779,7 +779,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "Lab_1_C"
+			"value" : "Lab_1c_Client_Server_C"
 		},
 		{
 			"name" : "CMAKE_RANLIB",
@@ -1078,7 +1078,7 @@
 			"value" : "FALSE"
 		},
 		{
-			"name" : "Lab_1_C_BINARY_DIR",
+			"name" : "Lab_1c_Client_Server_C_BINARY_DIR",
 			"properties" : 
 			[
 				{
@@ -1087,10 +1087,10 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "/mnt/c/Users/Stefan/UBB-CS-Projects/RETELE DE CALCULATOARE/Lab 1/Lab-1-Client-Server-C/cmake-build-debug"
+			"value" : "/mnt/c/Users/Stefan/UBB-CS-Projects/RETELE DE CALCULATOARE/Lab 1c/Lab-1c-Client-Server-C/cmake-build-debug"
 		},
 		{
-			"name" : "Lab_1_C_IS_TOP_LEVEL",
+			"name" : "Lab_1c_Client_Server_C_IS_TOP_LEVEL",
 			"properties" : 
 			[
 				{
@@ -1102,7 +1102,7 @@
 			"value" : "ON"
 		},
 		{
-			"name" : "Lab_1_C_SOURCE_DIR",
+			"name" : "Lab_1c_Client_Server_C_SOURCE_DIR",
 			"properties" : 
 			[
 				{
@@ -1111,7 +1111,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "/mnt/c/Users/Stefan/UBB-CS-Projects/RETELE DE CALCULATOARE/Lab 1/Lab-1-Client-Server-C"
+			"value" : "/mnt/c/Users/Stefan/UBB-CS-Projects/RETELE DE CALCULATOARE/Lab 1c/Lab-1c-Client-Server-C"
 		},
 		{
 			"name" : "ProcessorCount_cmd_nproc",
