@@ -1,0 +1,1 @@
+/usr/bin/cc -g CMakeFiles/Practice2.dir/main.c.o -o Practice2 

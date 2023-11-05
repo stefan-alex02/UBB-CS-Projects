@@ -65,7 +65,7 @@ int main(int argc, char** argv) {
         error("Error while calling listen().\n");
     }
 
-    signal(SIGINT, SIG_IGN); // Zombie killerSIG_IGN
+    signal(SIGCHLD, SIG_IGN); // Zombie killer
     signal(SIGPIPE, SIG_IGN);
 
     while(1) {
