@@ -8,7 +8,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/mnt/c/Users/Stefan/UBB-CS-Projects/RETELE DE CALCULATOARE/Practice/Practice1/main.c" "CMakeFiles/Practice1.dir/main.c.o" "gcc" "CMakeFiles/Practice1.dir/main.c.o.d"
+  "/mnt/c/Users/Stefan/UBB-CS-Projects/RETELE DE CALCULATOARE/Practice/Practice1/server.c" "CMakeFiles/Server.dir/server.c.o" "gcc" "CMakeFiles/Server.dir/server.c.o.d"
   )
 
 # Targets to which this target links which contain Fortran sources.

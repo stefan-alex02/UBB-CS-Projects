@@ -1,2 +1,2 @@
-# Empty dependencies file for Practice1.
+# Empty dependencies file for Server.
 # This may be replaced when dependencies are built.
