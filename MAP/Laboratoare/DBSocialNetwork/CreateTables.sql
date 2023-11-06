@@ -1,5 +1,3 @@
---ALTER DATABASE socialnetwork SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
-
 -- CREATE DATABASE socialnetwork
 --     WITH
 --     OWNER = postgres
@@ -10,11 +8,16 @@
 DROP TABLE IF EXISTS friendships;  
 DROP TABLE IF EXISTS users;  
 
-CREATE TABLE users (
-	id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-	first_name CHARACTER VARYING(50),
-	last_name CHARACTER VARYING(50)
+CREATE TABLE public.users
+(
+    id bigint NOT NULL GENERATED ALWAYS AS IDENTITY,
+    first_name character varying,
+    last_name character varying,
+    PRIMARY KEY (id)
 );
+
+ALTER TABLE IF EXISTS public.users
+    OWNER to postgres;
 
 CREATE TABLE friendships (
 	id1 BIGINT,
