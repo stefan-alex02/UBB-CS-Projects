@@ -95,6 +95,7 @@ int main(int argc, char** argv) {
 
     // Connect to the server
     if ( connect(c, (struct sockaddr *) &server, sizeof(server)) < 0 ) {
+        close(c);
         displayError("Error connecting to the server.\n");
     }
     else {

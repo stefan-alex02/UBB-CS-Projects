@@ -74,7 +74,9 @@ int main(int argc, char** argv) {
     memset(&server, 0, sl);
     server.sin_port = htons(get_port(argv[2]));
     server.sin_family = AF_INET;
-    server.sin_addr.s_addr = inet_addr(argv[1]);
+    if (inet_aton(argv[1], &server.sin_addr) == 0) {
+        error("Error: IP address is invalid.\n");
+    }
 
     printf("Type input string (max. 100 chars) :\n> ");
 
