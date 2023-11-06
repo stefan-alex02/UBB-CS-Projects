@@ -14,3 +14,6 @@ INSERT INTO friendships(id1, id2) VALUES
 	
 SELECT *
 FROM friendships;
+
+ALTER USER postgres WITH PASSWORD 'postgres';
+
