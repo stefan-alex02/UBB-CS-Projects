@@ -1,11 +1,13 @@
 package ir.map.g221.business;
 
+import ir.map.g221.domain.generaltypes.ObjectTransformer;
 import ir.map.g221.domain.graphs.Edge;
 import ir.map.g221.domain.graphs.UndirectedGraph;
 import ir.map.g221.domain.Community;
 import ir.map.g221.exceptions.ExistingEntityException;
 import ir.map.g221.exceptions.NotFoundException;
 import ir.map.g221.exceptions.ValidationException;
+import ir.map.g221.persistence.Repository;
 import ir.map.g221.persistence.inmemoryrepos.FriendshipInMemoryRepo;
 import ir.map.g221.domain.entities.Friendship;
 import ir.map.g221.domain.entities.User;
@@ -18,13 +20,15 @@ import java.util.List;
 import java.util.Optional;
 
 public class UserService {
-    private final FriendshipInMemoryRepo friendshipRepository;
-    private final UserInMemoryRepo userRepository;
+    private final Repository<UnorderedPair<Long, Long>, Friendship> friendshipRepository;
+    private final Repository<Long, User> userRepository;
+    private UndirectedGraph<User> usersGraph;
 
-    public UserService(FriendshipInMemoryRepo friendshipRepository,
-                       UserInMemoryRepo userRepository) {
+    public UserService(Repository<UnorderedPair<Long, Long>, Friendship> friendshipRepository,
+                       Repository<Long, User> userRepository) {
         this.friendshipRepository = friendshipRepository;
         this.userRepository = userRepository;
+        this.usersGraph = null;
     }
 
     public void addUser(String firstName, String lastName) throws ValidationException {
@@ -104,9 +108,11 @@ public class UserService {
     }
 
     private UndirectedGraph<User> createGraphFromUsers() {
-        UndirectedGraph<User> graph = new UndirectedGraph<>(new HashSet<>(userRepository.findAll()));
+        UndirectedGraph<User> graph = new UndirectedGraph<>(
+                ObjectTransformer.iterableToSet(userRepository.findAll())
+        );
 
-        graph.tryAddEdges(friendshipRepository.findAll().stream()
+        graph.tryAddEdges(ObjectTransformer.iterableToCollection(friendshipRepository.findAll()).stream()
                 .map(fr -> {
                     Optional<User> user1 = userRepository.findOne(fr.getId().getFirst());
                     Optional<User> user2 = userRepository.findOne(fr.getId().getSecond());

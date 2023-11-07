@@ -1,16 +1,20 @@
-package org.example.persistence;
+package org.example.repository.dbRepository;
 
 import org.example.domain.User;
+import org.example.repository.Repository;
 
 import java.sql.*;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
-public class UserDBRepository implements Repository<Long, User>{
-    private final String url;
-    private final String username;
-    private final String password;
+public class UserDBRepository implements Repository<Long, User> {
+
+    private String url;
+    private String username;
+    private String password;
+
+//    private Validator<User> validator;
 
     public UserDBRepository(String url, String username, String password) {
         this.url = url;
@@ -19,19 +23,19 @@ public class UserDBRepository implements Repository<Long, User>{
     }
 
     @Override
-    public Optional<User> findOne(Long aLong) {
+    public Optional<User> findOne(Long longID) {
         try(Connection connection = DriverManager.getConnection(url, username, password);
             PreparedStatement statement = connection.prepareStatement("select * from users " +
                     "where id = ?");
 
         ) {
-            statement.setLong(1, aLong);
+            statement.setLong(1, longID);
             ResultSet resultSet = statement.executeQuery();
             if(resultSet.next()) {
                 String firstName = resultSet.getString("first_name");
                 String lastName = resultSet.getString("last_name");
                 User u = new User(firstName,lastName);
-                u.setId(aLong);
+                u.setId(longID);
                 return Optional.ofNullable(u);
             }
             return Optional.empty();
@@ -64,18 +68,7 @@ public class UserDBRepository implements Repository<Long, User>{
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-    }
 
-    @Override
-    public Integer getSize() {
-        try (Connection connection = DriverManager.getConnection(url, username, password);
-             PreparedStatement statement = connection.prepareStatement("select COUNT(*) AS USER_COUNT from users");
-             ResultSet resultSet = statement.executeQuery()
-        ) {
-            return resultSet.next() ? resultSet.getInt("USER_COUNT") : 0;
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
     }
 
     @Override
@@ -92,6 +85,7 @@ public class UserDBRepository implements Repository<Long, User>{
         catch (SQLException e) {
             throw new RuntimeException(e);
         }
+
     }
 
     @Override
@@ -103,7 +97,7 @@ public class UserDBRepository implements Repository<Long, User>{
         String deleteSQL="delete from users where id=?";
         try (var connection = DriverManager.getConnection(url, username, password);
              PreparedStatement statement = connection.prepareStatement(deleteSQL);
-        ) {
+             ) {
             statement.setLong(1, aLong);
 
             Optional<User> foundUser = findOne(aLong);
@@ -140,5 +134,6 @@ public class UserDBRepository implements Repository<Long, User>{
         {
             throw new RuntimeException(e);
         }
+
     }
 }

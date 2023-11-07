@@ -19,6 +19,13 @@ public class User extends Entity<Long> implements Node<User> {
         this.lastName = lastName;
     }
 
+    public User(String firstName, String lastName) {
+        super(0L);
+
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
     public String getFirstName() {
         return firstName;
     }
