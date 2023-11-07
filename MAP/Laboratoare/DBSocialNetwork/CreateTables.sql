@@ -22,6 +22,7 @@ ALTER TABLE IF EXISTS public.users
 CREATE TABLE friendships (
 	id1 BIGINT,
 	id2 BIGINT CHECK (id1 < id2),
+	friends_from timestamp WITHOUT time zone,
 	CONSTRAINT fk_id1
       FOREIGN KEY(id1) 
 	  REFERENCES users(id),

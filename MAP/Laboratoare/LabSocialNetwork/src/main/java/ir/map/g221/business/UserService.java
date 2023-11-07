@@ -1,6 +1,8 @@
 package ir.map.g221.business;
 
+import ir.map.g221.domain.entities.dtos.FriendshipDTO;
 import ir.map.g221.domain.generaltypes.ObjectTransformer;
+import ir.map.g221.domain.generaltypes.UnorderedPair;
 import ir.map.g221.domain.graphs.Edge;
 import ir.map.g221.domain.graphs.UndirectedGraph;
 import ir.map.g221.domain.Community;
@@ -8,16 +10,14 @@ import ir.map.g221.exceptions.ExistingEntityException;
 import ir.map.g221.exceptions.NotFoundException;
 import ir.map.g221.exceptions.ValidationException;
 import ir.map.g221.persistence.Repository;
-import ir.map.g221.persistence.inmemoryrepos.FriendshipInMemoryRepo;
 import ir.map.g221.domain.entities.Friendship;
 import ir.map.g221.domain.entities.User;
-import ir.map.g221.domain.generaltypes.UnorderedPair;
-import ir.map.g221.persistence.inmemoryrepos.UserInMemoryRepo;
 
 import java.time.LocalDateTime;
-import java.util.HashSet;
+import java.time.YearMonth;
 import java.util.List;
-import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class UserService {
     private final Repository<UnorderedPair<Long, Long>, Friendship> friendshipRepository;
@@ -32,68 +32,76 @@ public class UserService {
     }
 
     public void addUser(String firstName, String lastName) throws ValidationException {
-        // The id is unique and chosen by incrementally checking its availability :
-        Long id = 1L;
-        boolean availableId = false;
-        while(!availableId) {
-            if (userRepository.findOne(id).isEmpty()) {
-                availableId = true;
-            }
-            else {
-                id++;
-            }
-        }
-        userRepository.save(new User(id, firstName, lastName));
+        userRepository.save(new User(firstName, lastName));
     }
 
     public User getUser(Long id) throws NotFoundException {
         return userRepository
                 .findOne(id)
                 .orElseThrow(() ->
-                        new NotFoundException("User could not be found.")
+                    new NotFoundException("User could not be found.")
                 );
     }
 
     public void removeUser(Long id) throws NotFoundException {
+        Set<User> friendsOfRemovedUser = getFriendsOfUser(id);
+
         userRepository.delete(id).ifPresentOrElse(user ->
-            user.getFriends().forEach(friend -> {
-                friend.removeFriendById(id);
-                userRepository.update(friend);
-                friendshipRepository.delete(UnorderedPair.of(id, friend.getId()));
-            }
+                friendsOfRemovedUser.forEach(friend ->
+                        friendshipRepository.delete(UnorderedPair.ofAscending(id, friend.getId()))
         ), () -> {
             throw new NotFoundException("User could not be found.");
         });
     }
 
-    public void addFriendship(Long id1, Long id2) {
+    public void addFriendship(Long id1, Long id2, LocalDateTime friendsFromDate) {
         User user1 = getUser(id1);
         User user2 = getUser(id2);
 
-        if (!user1.addFriend(user2) || !user2.addFriend(user1)) {
+        if (getFriendsOfUser(user1.getId()).contains(user2) ||
+                getFriendsOfUser(user2.getId()).contains(user1)) {
             throw new ExistingEntityException("Friendship already exists.");
         }
 
-        userRepository.update(user1);
-        userRepository.update(user2);
-
-        Friendship friendship = new Friendship(UnorderedPair.of(id1, id2), LocalDateTime.now());
+        Friendship friendship = new Friendship(user1, user2, friendsFromDate);
         friendshipRepository.save(friendship);
+    }
+
+    public void addFriendshipNow(Long id1, Long id2) {
+        addFriendship(id1, id2, LocalDateTime.now());
     }
 
     public void removeFriendship(Long id1, Long id2) throws NotFoundException {
         User user1 = getUser(id1);
         User user2 = getUser(id2);
 
-        Friendship friendship = new Friendship(UnorderedPair.of(id1, id2));
-        if (friendshipRepository.delete(friendship.getId()).isEmpty() ||
-                !user1.removeFriendById(id2) ||
-                !user2.removeFriendById(id1)) {
+        if (friendshipRepository.delete(new Friendship(user1, user2).getId())
+                .isEmpty()) {
             throw new NotFoundException("The specified friendship does not exist.");
         }
+    }
 
-        userRepository.update(user1);
-        userRepository.update(user2);
+    public Set<User> getFriendsOfUser(Long id) throws NotFoundException {
+        User foundUser = userRepository.findOne(id).orElseThrow(() ->
+            new NotFoundException("The specified friendship does not exist.")
+        );
+        return ObjectTransformer.iterableToCollection(friendshipRepository.findAll())
+                .stream()
+                .filter(friendship -> friendship.hasUser(foundUser))
+                .map(friendship -> friendship.theOtherFriend(foundUser))
+                .collect(Collectors.toSet());
+    }
+
+    public Set<FriendshipDTO> getFriendshipsOfUserInMonth(Long id, YearMonth yearMonth) throws NotFoundException {
+        User foundUser = userRepository.findOne(id).orElseThrow(() ->
+                new NotFoundException("The specified friendship does not exist.")
+        );
+        return ObjectTransformer.iterableToCollection(friendshipRepository.findAll())
+                .stream()
+                .filter(friendship -> friendship.hasUser(foundUser) &&
+                        YearMonth.from(friendship.getFriendsFromDate()).equals(yearMonth))
+                .map(friendship -> FriendshipDTO.of(friendship, foundUser))
+                .collect(Collectors.toSet());
     }
 
     public List<Community> calculateCommunities() {
@@ -113,11 +121,8 @@ public class UserService {
         );
 
         graph.tryAddEdges(ObjectTransformer.iterableToCollection(friendshipRepository.findAll()).stream()
-                .map(fr -> {
-                    Optional<User> user1 = userRepository.findOne(fr.getId().getFirst());
-                    Optional<User> user2 = userRepository.findOne(fr.getId().getSecond());
-                    return Edge.of(user1.orElse(null),user2.orElse(null));
-                }).toList()
+                .map(fr -> Edge.of(fr.getFirstUser(),fr.getSecondUser()))
+                .toList()
         );
         return graph;
     }

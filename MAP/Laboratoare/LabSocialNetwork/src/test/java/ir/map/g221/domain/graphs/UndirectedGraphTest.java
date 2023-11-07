@@ -45,11 +45,6 @@ class UndirectedGraphTest {
             }
         }};
 
-        dummies.get(0).pairWith(dummies.get(1));
-        dummies.get(0).pairWith(dummies.get(2));
-
-        dummies.get(3).pairWith(dummies.get(4));
-
         UndirectedGraph<DummyNode> graph1 = new UndirectedGraph<>(new HashSet<>(dummies.subList(0, 3)));
         graph1.forceAddEdges(new ArrayList<>() {{
             add(Edge.of(dummies.get(0), dummies.get(1)));
@@ -70,7 +65,6 @@ class UndirectedGraphTest {
         assert(components2.get(0).size() == 2);
 
         var union = UndirectedGraph.union(graph1, graph2);
-        dummies.get(0).pairWith(dummies.get(3));
         union.forceAddEdge(Edge.of(dummies.get(0), dummies.get(3)));
 
         var components3 = union.getAllComponents();
@@ -85,11 +79,6 @@ class UndirectedGraphTest {
                 add(new DummyNode(i));
             }
         }};
-        dummies.get(0).pairWith(dummies.get(2));
-        dummies.get(0).pairWith(dummies.get(3));
-        dummies.get(0).pairWith(dummies.get(6));
-        dummies.get(2).pairWith(dummies.get(6));
-        dummies.get(1).pairWith(dummies.get(4));
 
         UndirectedGraph<DummyNode> graph = new UndirectedGraph<>(new HashSet<>(dummies));
 

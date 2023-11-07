@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Objects;
 
 public abstract class Entity<ID> implements Serializable {
-    protected final ID id;
+    protected ID id;
 
     protected Entity(ID id) {
         this.id = id;
@@ -12,6 +12,10 @@ public abstract class Entity<ID> implements Serializable {
 
     public ID getId() {
         return id;
+    }
+
+    public void setId(ID id) {
+        this.id = id;
     }
 
     @Override

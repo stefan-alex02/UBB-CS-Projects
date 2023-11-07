@@ -42,12 +42,17 @@ public class User extends Entity<Long> implements Node<User> {
         this.lastName = lastName;
     }
 
+    /**
+     * Adds a new friend to the list of friends.
+     * @param newFriend the new friend.
+     * @return true if the added friend was new, false if it already existed.
+     */
     public boolean addFriend(User newFriend) {
         return friends.add(newFriend);
     }
 
-    public boolean removeFriendById(Long id) {
-        return friends.removeIf(fr -> Objects.equals(fr.getId(), id));
+    public boolean removeFriend(User removedFriend) {
+        return friends.removeIf(friend -> friend.equals(removedFriend));
     }
 
     public Set<User> getFriends() {

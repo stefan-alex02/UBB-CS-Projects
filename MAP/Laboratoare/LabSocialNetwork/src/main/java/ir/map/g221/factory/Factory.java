@@ -7,9 +7,9 @@ import ir.map.g221.domain.generaltypes.UnorderedPair;
 import ir.map.g221.domain.validation.FriendshipValidator;
 import ir.map.g221.domain.validation.UserValidator;
 import ir.map.g221.persistence.Repository;
+import ir.map.g221.persistence.dbrepos.FriendshipDBRepository;
 import ir.map.g221.persistence.dbrepos.UserDBRepository;
 import ir.map.g221.persistence.inmemoryrepos.FriendshipInMemoryRepo;
-import ir.map.g221.persistence.inmemoryrepos.UserInMemoryRepo;
 import ir.map.g221.ui.UserConsole;
 import ir.map.g221.ui.UserInterface;
 
@@ -32,8 +32,10 @@ public class Factory {
         String username = "postgres";
         String password = "postgres";
 
-        Repository<Long, User> userRepo = new UserDBRepository(url, username, password, UserValidator.getInstance());
-        Repository<UnorderedPair<Long, Long>, Friendship> friendshipRepo = new FriendshipInMemoryRepo(FriendshipValidator.getInstance());
+        Repository<Long, User> userRepo =
+                new UserDBRepository(url, username, password, UserValidator.getInstance());
+        Repository<UnorderedPair<Long, Long>, Friendship> friendshipRepo =
+                new FriendshipDBRepository(url, username, password, FriendshipValidator.getInstance());
         UserService userService = new UserService(friendshipRepo, userRepo);
         SampleGenerator sampleGenerator = new SampleGenerator(userService);
         UserInterface ui = new UserConsole(userService, sampleGenerator);

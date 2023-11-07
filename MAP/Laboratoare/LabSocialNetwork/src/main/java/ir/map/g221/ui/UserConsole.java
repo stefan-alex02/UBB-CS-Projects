@@ -7,6 +7,7 @@ import ir.map.g221.factory.SampleGenerator;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.time.YearMonth;
 
 public class UserConsole implements UserInterface{
     private final UserService userService;
@@ -54,7 +55,7 @@ public class UserConsole implements UserInterface{
         System.out.print("> Type second id: ");
         Long id2 = Long.valueOf(reader.readLine());
 
-        userService.addFriendship(id1, id2);
+        userService.addFriendshipNow(id1, id2);
 
         System.out.println("Friendship added successfully.\n");
     }
@@ -96,6 +97,23 @@ public class UserConsole implements UserInterface{
         }
     }
 
+    private void displayFriendshipsOfUser() throws IOException {
+        BufferedReader reader = new BufferedReader(
+                new InputStreamReader(System.in));
+
+        System.out.print("> Type user id: ");
+        Long id1 = Long.valueOf(reader.readLine());
+
+        System.out.print("> Type year: ");
+        int year = Integer.parseInt(reader.readLine());
+
+        System.out.print("> Type month: ");
+        int month = Integer.parseInt(reader.readLine());
+
+        userService.getFriendshipsOfUserInMonth(id1, YearMonth.of(year, month))
+                .forEach(System.out::println);
+    }
+
     private void generateSample() {
         sampleGenerator.generateSample();
         System.out.println("Sample generated successfully.\n");
@@ -117,6 +135,7 @@ public class UserConsole implements UserInterface{
             System.out.println("5 - Remove friendship.");
             System.out.println("6 - Display all communities.");
             System.out.println("7 - Show most sociable community.");
+            System.out.println("8 - Show friendships of user.");
             System.out.println("========================");
 
             try {
@@ -145,6 +164,9 @@ public class UserConsole implements UserInterface{
                         break;
                     case 7:
                         displayMostSociableCommunity();
+                        break;
+                    case 8:
+                        displayFriendshipsOfUser();
                         break;
                     default:
                         System.out.println("Unknown command");

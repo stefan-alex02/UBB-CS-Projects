@@ -8,8 +8,6 @@ import ir.map.g221.persistence.inmemoryrepos.UserInMemoryRepo;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class UserServiceTest {
@@ -34,10 +32,9 @@ class UserServiceTest {
         addSampleUsers(userService);
         addSampleFriendships(userService);
 
-        Assertions.assertEquals(2, userService.getUser(1L).getFriends().size());
+        Assertions.assertEquals(2, userService.getFriendsOfUser(1L).size());
         Assertions.assertTrue(
-                userService.getUser(1L)
-                        .getFriends()
+                userService.getFriendsOfUser(1L)
                         .contains(userService.getUser(2L))
         );
 
@@ -47,10 +44,9 @@ class UserServiceTest {
         Assertions.assertEquals(1, userService.calculateCommunities().size());
         Assertions.assertEquals(2, userService.mostSociableCommunity().size());
 
-        Assertions.assertEquals(1, userService.getUser(1L).getFriends().size());
+        Assertions.assertEquals(1, userService.getFriendsOfUser(1L).size());
         Assertions.assertTrue(
-                userService.getUser(1L)
-                        .getFriends()
+                userService.getFriendsOfUser(1L)
                         .contains(userService.getUser(3L))
         );
     }
@@ -60,7 +56,7 @@ class UserServiceTest {
         UserService userService = createuserService();
         addSampleUsers(userService);
 
-        userService.addFriendship(1L, 2L);
+        userService.addFriendshipNow(1L, 2L);
     }
 
     @Test
@@ -70,7 +66,7 @@ class UserServiceTest {
 
         Assertions.assertThrows(NotFoundException.class, () -> userService.removeFriendship(7L, 5L));
         Assertions.assertThrows(NotFoundException.class, () -> userService.removeFriendship(1L, 2L));
-        userService.addFriendship(1L, 2L);
+        userService.addFriendshipNow(1L, 2L);
         userService.removeFriendship(1L, 2L);
     }
 
@@ -79,7 +75,7 @@ class UserServiceTest {
         UserService userService = createuserService();
         addSampleUsers(userService);
 
-        userService.addFriendship(1L, 3L);
+        userService.addFriendshipNow(1L, 3L);
         Assertions.assertEquals(2, userService.mostSociableCommunity().size());
     }
 
@@ -96,7 +92,7 @@ class UserServiceTest {
     }
 
     private static void addSampleFriendships(UserService userService) {
-        userService.addFriendship(1L, 2L);
-        userService.addFriendship(1L, 3L);
+        userService.addFriendshipNow(1L, 2L);
+        userService.addFriendshipNow(1L, 3L);
     }
 }
