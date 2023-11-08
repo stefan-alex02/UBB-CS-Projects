@@ -92,7 +92,7 @@ public class UserService {
                 .collect(Collectors.toSet());
     }
 
-    public Set<FriendshipDTO> getFriendshipsOfUserInMonth(Long id, YearMonth yearMonth) throws NotFoundException {
+    public Set<FriendshipDTO> getFriendshipDTOsOfUserInYearMonth(Long id, YearMonth yearMonth) throws NotFoundException {
         User foundUser = userRepository.findOne(id).orElseThrow(() ->
                 new NotFoundException("The specified friendship does not exist.")
         );

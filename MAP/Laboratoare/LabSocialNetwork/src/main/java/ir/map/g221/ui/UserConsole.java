@@ -97,7 +97,7 @@ public class UserConsole implements UserInterface{
         }
     }
 
-    private void displayFriendshipsOfUser() throws IOException {
+    private void displayFriendshipsOfUserInYearMonth() throws IOException {
         BufferedReader reader = new BufferedReader(
                 new InputStreamReader(System.in));
 
@@ -110,8 +110,14 @@ public class UserConsole implements UserInterface{
         System.out.print("> Type month: ");
         int month = Integer.parseInt(reader.readLine());
 
-        userService.getFriendshipsOfUserInMonth(id1, YearMonth.of(year, month))
-                .forEach(System.out::println);
+        var friendshipDTOs = userService.getFriendshipDTOsOfUserInYearMonth(id1, YearMonth.of(year, month));
+        if (!friendshipDTOs.isEmpty()) {
+            System.out.println("List of friendships :");
+            friendshipDTOs.forEach(System.out::println);
+        }
+        else {
+            System.out.println("User has no friendships in the given year and month.");
+        }
     }
 
     private void generateSample() {
@@ -166,7 +172,7 @@ public class UserConsole implements UserInterface{
                         displayMostSociableCommunity();
                         break;
                     case 8:
-                        displayFriendshipsOfUser();
+                        displayFriendshipsOfUserInYearMonth();
                         break;
                     default:
                         System.out.println("Unknown command");
