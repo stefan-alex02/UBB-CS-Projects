@@ -3,12 +3,24 @@ package ir.map.g221.domain.generaltypes;
 import java.util.Objects;
 
 public class UnorderedPair<T1, T2> extends Pair<T1, T2> {
-    public UnorderedPair(T1 first, T2 second) {
-        super(first, second);
-    }
+    public UnorderedPair(T1 first, T2 second) { super(first, second); }
 
     public static <T1, T2> UnorderedPair<T1, T2> of(T1 first, T2 second) {
         return new UnorderedPair<>(first, second);
+    }
+
+    /***
+     * Creates an unordered pair with the given elements in ascending order.
+     * @param elementA one of the 2 elements.
+     * @param elementB one of the 2 elements.
+     * @return the unordered pair.
+     * @param <T> the type of BOTH arguments (must be comparable).
+     */
+    public static <T extends Comparable<T>> UnorderedPair<T, T> ofAscending(T elementA, T elementB) {
+        return new UnorderedPair<>(
+                elementA.compareTo(elementB) <= 0 ? elementA : elementB,
+                elementA.compareTo(elementB) <= 0 ? elementB : elementA
+        );
     }
 
     @Override

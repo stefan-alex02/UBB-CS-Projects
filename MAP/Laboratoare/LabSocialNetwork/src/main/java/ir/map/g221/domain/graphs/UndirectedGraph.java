@@ -64,18 +64,39 @@ public class UndirectedGraph<TNode extends Node<TNode>> implements Iterable<TNod
     }
 
     public void forceAddEdge(Edge<TNode> edge) throws InvalidGraphException {
-        if (!isEdgeIncludable(edge)) {
-            throw new InvalidGraphException("Edge must have nodes in the destination (sub)graph.");
-        }
-        edges.add(edge);
+        TNode node1 = nodes.stream()
+                .filter(n -> n.equals(edge.getFirst()))
+                .findFirst()
+                .orElseThrow(() ->
+                        new InvalidGraphException("Edge must have nodes in the destination (sub)graph.")
+                );
+        TNode node2 = nodes.stream()
+                .filter(n -> n.equals(edge.getSecond()))
+                .findFirst()
+                .orElseThrow(() ->
+                        new InvalidGraphException("Edge must have nodes in the destination (sub)graph.")
+                );
+        node1.pairWith(node2);
+        edges.add(Edge.of(node1, node2));
         components = null;
     }
 
     public boolean tryAddEdge(Edge<TNode> edge) {
-        if (!isEdgeIncludable(edge)) {
+        TNode node1 = nodes.stream()
+                .filter(n -> n.equals(edge.getFirst()))
+                .findFirst()
+                .orElse(null);
+        TNode node2 = nodes.stream()
+                .filter(n -> n.equals(edge.getSecond()))
+                .findFirst()
+                .orElse(null);
+
+        if (node1 == null || node2 == null) {
             return false;
         }
-        edges.add(edge);
+
+        node1.pairWith(node2);
+        edges.add(Edge.of(node1, node2));
         components = null;
         return true;
     }

@@ -1,6 +1,7 @@
 package ir.map.g221.domain;
 
 import ir.map.g221.domain.entities.Friendship;
+import ir.map.g221.domain.entities.User;
 import ir.map.g221.domain.generaltypes.UnorderedPair;
 import org.junit.jupiter.api.Test;
 
@@ -9,9 +10,13 @@ import java.time.LocalDateTime;
 class FriendshipTest {
     @Test
     void testEquals() {
-        Friendship f1 = new Friendship(UnorderedPair.of(2L, 5L), LocalDateTime.now());
-        Friendship f2 = new Friendship(UnorderedPair.of(5L, 2L), LocalDateTime.of(2001, 12, 12, 12, 12));
-        Friendship f3 = new Friendship(UnorderedPair.of(5L, 3L), LocalDateTime.now());
+        User u2 = new User(2L, "", "");
+        User u3 = new User(3L, "", "");
+        User u5 = new User(5L, "", "");
+
+        Friendship f1 = new Friendship(u2, u5, LocalDateTime.now());
+        Friendship f2 = new Friendship(u5, u2, LocalDateTime.of(2001, 12, 12, 12, 12));
+        Friendship f3 = new Friendship(u5, u3, LocalDateTime.now());
 
         assert(f1.equals(f1));
         assert(f1.equals(f2));

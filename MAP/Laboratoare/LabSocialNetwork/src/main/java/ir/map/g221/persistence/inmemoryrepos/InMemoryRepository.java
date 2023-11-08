@@ -12,8 +12,8 @@ import java.util.Map;
 import java.util.Optional;
 
 public class InMemoryRepository<ID, E extends Entity<ID>> implements Repository<ID, E> {
-    private final Map<ID, E> entities;
-    private final Validator<E> validator;
+    protected final Map<ID, E> entities;
+    protected final Validator<E> validator;
     private static final ArgumentValidator argumentValidator = ArgumentValidator.getInstance();
 
     public InMemoryRepository(Validator<E> validator) {
@@ -58,7 +58,7 @@ public class InMemoryRepository<ID, E extends Entity<ID>> implements Repository<
         return Optional.ofNullable(entities.remove(id));
     }
 
-    private static <ID, E extends Entity<ID>> void checkForNullEntity(E entity) {
+    protected static <ID, E extends Entity<ID>> void checkForNullEntity(E entity) {
         try {
             argumentValidator.validate(entity);
         }
@@ -67,7 +67,7 @@ public class InMemoryRepository<ID, E extends Entity<ID>> implements Repository<
         }
     }
 
-    private static <ID> void checkForNullId(ID id) throws IllegalArgumentException{
+    protected static <ID> void checkForNullId(ID id) throws IllegalArgumentException{
         try {
             argumentValidator.validate(id);
         }

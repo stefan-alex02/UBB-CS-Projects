@@ -1,5 +1,6 @@
 package ir.map.g221.business;
 
+import ir.map.g221.domain.generaltypes.Pair;
 import ir.map.g221.domain.validation.FriendshipValidator;
 import ir.map.g221.domain.validation.UserValidator;
 import ir.map.g221.exceptions.NotFoundException;
@@ -8,15 +9,16 @@ import ir.map.g221.persistence.inmemoryrepos.UserInMemoryRepo;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class UserServiceTest {
+    private static UserInMemoryRepo userRepo;
+    private static FriendshipInMemoryRepo friendshipRepo;
 
     @Test
     void addUser() {
-        UserService userService = createuserService();
+        initialiseRepos();
+        UserService userService = createUserService();
         addSampleUsers(userService);
 
         assertEquals(3, userService.calculateCommunities().size());
@@ -24,20 +26,21 @@ class UserServiceTest {
 
     @Test
     void removeUser() {
+        initialiseRepos();
         // 1) Having an empty user service, when deleting a non-existent user, throws exception.
-        UserService userService = createuserService();
+        UserService userService = createUserService();
+        FriendshipService friendshipService = createFriendshipService();
 
         Assertions.assertThrows(NotFoundException.class, () -> userService.removeUser(9L));
 
         // 2) Having a user service with users, when deleting a user, they no longer exist in the
         // communities, and in the friendship lists of ex-friends as well.
         addSampleUsers(userService);
-        addSampleFriendships(userService);
+        addSampleFriendships(friendshipService);
 
-        Assertions.assertEquals(2, userService.getUser(1L).getFriends().size());
+        Assertions.assertEquals(2, friendshipService.getFriendsOfUser(1L).size());
         Assertions.assertTrue(
-                userService.getUser(1L)
-                        .getFriends()
+                friendshipService.getFriendsOfUser(1L)
                         .contains(userService.getUser(2L))
         );
 
@@ -47,46 +50,58 @@ class UserServiceTest {
         Assertions.assertEquals(1, userService.calculateCommunities().size());
         Assertions.assertEquals(2, userService.mostSociableCommunity().size());
 
-        Assertions.assertEquals(1, userService.getUser(1L).getFriends().size());
+        Assertions.assertEquals(1, friendshipService.getFriendsOfUser(1L).size());
         Assertions.assertTrue(
-                userService.getUser(1L)
-                        .getFriends()
+                friendshipService.getFriendsOfUser(1L)
                         .contains(userService.getUser(3L))
         );
     }
 
     @Test
     void addFriendship() {
-        UserService userService = createuserService();
+        initialiseRepos();
+        UserService userService = createUserService();
+        FriendshipService friendshipService = createFriendshipService();
         addSampleUsers(userService);
 
-        userService.addFriendship(1L, 2L);
+        friendshipService.addFriendshipNow(1L, 2L);
     }
 
     @Test
     void removeFriendship() {
-        UserService userService = createuserService();
+        initialiseRepos();
+        UserService userService = createUserService();
+        FriendshipService friendshipService = createFriendshipService();
         addSampleUsers(userService);
 
-        Assertions.assertThrows(NotFoundException.class, () -> userService.removeFriendship(7L, 5L));
-        Assertions.assertThrows(NotFoundException.class, () -> userService.removeFriendship(1L, 2L));
-        userService.addFriendship(1L, 2L);
-        userService.removeFriendship(1L, 2L);
+        Assertions.assertThrows(NotFoundException.class, () -> friendshipService.removeFriendship(7L, 5L));
+        Assertions.assertThrows(NotFoundException.class, () -> friendshipService.removeFriendship(1L, 2L));
+        friendshipService.addFriendshipNow(1L, 2L);
+        friendshipService.removeFriendship(1L, 2L);
     }
 
     @Test
     void mostSociableCommunity() {
-        UserService userService = createuserService();
+        initialiseRepos();
+        UserService userService = createUserService();
+        FriendshipService friendshipService = createFriendshipService();
         addSampleUsers(userService);
 
-        userService.addFriendship(1L, 3L);
+        friendshipService.addFriendshipNow(1L, 3L);
         Assertions.assertEquals(2, userService.mostSociableCommunity().size());
     }
 
-    private static UserService createuserService() {
-        UserInMemoryRepo userRepo = new UserInMemoryRepo(UserValidator.getInstance());
-        FriendshipInMemoryRepo friendshipRepo = new FriendshipInMemoryRepo(FriendshipValidator.getInstance());
-        return new UserService(friendshipRepo, userRepo);
+    private static void initialiseRepos() {
+        userRepo = new UserInMemoryRepo(UserValidator.getInstance());
+        friendshipRepo = new FriendshipInMemoryRepo(FriendshipValidator.getInstance());
+    }
+
+    private static UserService createUserService() {
+        return new UserService(userRepo, friendshipRepo);
+    }
+
+    private static FriendshipService createFriendshipService() {
+        return new FriendshipService(userRepo, friendshipRepo);
     }
 
     private static void addSampleUsers(UserService userService) {
@@ -95,8 +110,8 @@ class UserServiceTest {
         userService.addUser("fn3", "ln3");
     }
 
-    private static void addSampleFriendships(UserService userService) {
-        userService.addFriendship(1L, 2L);
-        userService.addFriendship(1L, 3L);
+    private static void addSampleFriendships(FriendshipService friendshipService) {
+        friendshipService.addFriendshipNow(1L, 2L);
+        friendshipService.addFriendshipNow(1L, 3L);
     }
 }

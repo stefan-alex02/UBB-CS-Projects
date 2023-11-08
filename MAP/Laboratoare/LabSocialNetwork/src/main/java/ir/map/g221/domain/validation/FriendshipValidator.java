@@ -35,7 +35,7 @@ public class FriendshipValidator implements Validator<Friendship>{
             errors.add("The Ids must not have the same value.");
         }
 
-        if (entity.getCreationDate().isBefore(LocalDate.parse("1900-01-01").atStartOfDay())) {
+        if (entity.getFriendsFromDate().isBefore(LocalDate.parse("1900-01-01").atStartOfDay())) {
             errors.add("Creation date is too old.");
         }
 

@@ -1,15 +1,26 @@
 package ir.map.g221.factory;
 
+import ir.map.g221.business.FriendshipService;
 import ir.map.g221.business.UserService;
+
+import java.time.LocalDateTime;
 
 public class SampleGenerator {
     private final UserService userService;
+    private final FriendshipService friendshipService;
+    private boolean alreadyGenerated = false;
 
-    public SampleGenerator(UserService userService) {
+    public SampleGenerator(UserService userService, FriendshipService friendshipService) {
         this.userService = userService;
+        this.friendshipService = friendshipService;
     }
 
     public void generateSample() {
+        if (alreadyGenerated) {
+            throw new RuntimeException("Samples have already been generated");
+        }
+        alreadyGenerated = true;
+
         userService.addUser("firstName1", "lastName1");
         userService.addUser("firstName2", "lastName2");
         userService.addUser("firstName3", "lastName3");
@@ -23,14 +34,15 @@ public class SampleGenerator {
         userService.addUser("firstName10", "lastName10");
         userService.addUser("firstName11", "lastName11");
 
-        userService.addFriendship(1L, 2L);
-        userService.addFriendship(1L, 3L);
-        userService.addFriendship(3L, 4L);
-        userService.addFriendship(2L, 4L);
+        friendshipService.addFriendship(2L, 1L,
+                LocalDateTime.of(2012, 12, 21, 22, 30));
+        friendshipService.addFriendshipNow(1L, 3L);
+        friendshipService.addFriendshipNow(3L, 4L);
+        friendshipService.addFriendshipNow(2L, 4L);
 
-        userService.addFriendship(5L, 6L);
-        userService.addFriendship(5L, 7L);
-        userService.addFriendship(5L, 8L);
-        userService.addFriendship(5L, 9L);
+        friendshipService.addFriendshipNow(5L, 6L);
+        friendshipService.addFriendshipNow(5L, 7L);
+        friendshipService.addFriendshipNow(5L, 8L);
+        friendshipService.addFriendshipNow(5L, 9L);
     }
 }
