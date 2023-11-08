@@ -1,5 +1,6 @@
 package ir.map.g221.ui;
 
+import ir.map.g221.business.FriendshipService;
 import ir.map.g221.business.UserService;
 import ir.map.g221.exceptions.ValidationException;
 import ir.map.g221.factory.SampleGenerator;
@@ -11,10 +12,12 @@ import java.time.YearMonth;
 
 public class UserConsole implements UserInterface{
     private final UserService userService;
+    private final FriendshipService friendshipService;
     private final SampleGenerator sampleGenerator;
 
-    public UserConsole(UserService userService, SampleGenerator sampleGenerator) {
+    public UserConsole(UserService userService, FriendshipService friendshipService, SampleGenerator sampleGenerator) {
         this.userService = userService;
+        this.friendshipService = friendshipService;
         this.sampleGenerator = sampleGenerator;
     }
 
@@ -55,7 +58,7 @@ public class UserConsole implements UserInterface{
         System.out.print("> Type second id: ");
         Long id2 = Long.valueOf(reader.readLine());
 
-        userService.addFriendshipNow(id1, id2);
+        friendshipService.addFriendshipNow(id1, id2);
 
         System.out.println("Friendship added successfully.\n");
     }
@@ -70,7 +73,7 @@ public class UserConsole implements UserInterface{
         System.out.print("> Type second id: ");
         Long id2 = Long.valueOf(reader.readLine());
 
-        userService.removeFriendship(id1, id2);
+        friendshipService.removeFriendship(id1, id2);
 
         System.out.println("Friendship removed successfully.\n");
     }
@@ -110,7 +113,7 @@ public class UserConsole implements UserInterface{
         System.out.print("> Type month: ");
         int month = Integer.parseInt(reader.readLine());
 
-        var friendshipDTOs = userService.getFriendshipDTOsOfUserInYearMonth(id1, YearMonth.of(year, month));
+        var friendshipDTOs = friendshipService.getFriendshipDetailsInYearMonth(id1, YearMonth.of(year, month));
         if (!friendshipDTOs.isEmpty()) {
             System.out.println("List of friendships :");
             friendshipDTOs.forEach(System.out::println);
@@ -120,7 +123,18 @@ public class UserConsole implements UserInterface{
         }
     }
 
-    private void generateSample() {
+    private void getUserDetails() throws IOException {
+        BufferedReader reader = new BufferedReader(
+                new InputStreamReader(System.in));
+
+        System.out.print("> Type id: ");
+        Long id = Long.valueOf(reader.readLine());
+
+        System.out.print("User details: ");
+        System.out.println(userService.getUser(id).toString());
+    }
+
+    private void generateSample() throws RuntimeException {
         sampleGenerator.generateSample();
         System.out.println("Sample generated successfully.\n");
     }
@@ -142,6 +156,7 @@ public class UserConsole implements UserInterface{
             System.out.println("6 - Display all communities.");
             System.out.println("7 - Show most sociable community.");
             System.out.println("8 - Show friendships of user.");
+            System.out.println("9 - Get user details.");
             System.out.println("========================");
 
             try {
@@ -173,6 +188,9 @@ public class UserConsole implements UserInterface{
                         break;
                     case 8:
                         displayFriendshipsOfUserInYearMonth();
+                        break;
+                    case 9:
+                        getUserDetails();
                         break;
                     default:
                         System.out.println("Unknown command");

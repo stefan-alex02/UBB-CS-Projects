@@ -24,18 +24,49 @@ public class UserDBRepository implements Repository<Long, User> {
 
     @Override
     public Optional<User> findOne(Long aLong) {
-        try(Connection connection = DriverManager.getConnection(url, username, password);
-            PreparedStatement statement = connection.prepareStatement("select * from users " +
-                    "where id = ?");
+        if (aLong == null) {
+            throw new IllegalArgumentException("Id cannot be null");
+        }
 
+        try(Connection connection = DriverManager.getConnection(url, username, password);
+            PreparedStatement statement1 = connection.prepareStatement("select * from users " +
+                    "where id = ?");
+            PreparedStatement statement2 = connection.prepareStatement(
+                    "SELECT F.id2 AS id, " +
+                    "U.first_name AS first_name, " +
+                    "U.last_name AS last_name " +
+                    "FROM friendships F " +
+                    "INNER JOIN users U ON U.id = F.id2 " +
+                    "WHERE F.id1 = ? " +
+                    "UNION " +
+                    "SELECT F.id1 AS id, " +
+                    "U.first_name AS first_name, " +
+                    "U.last_name AS last_name " +
+                    "FROM friendships F " +
+                    "INNER JOIN users U ON U.id = F.id1 " +
+                    "WHERE F.id2 = ? " +
+                    "ORDER BY id;")
         ) {
-            statement.setLong(1, aLong);
-            ResultSet resultSet = statement.executeQuery();
-            if(resultSet.next()) {
-                String firstName = resultSet.getString("first_name");
-                String lastName = resultSet.getString("last_name");
-                User u = new User(aLong, firstName,lastName);
-                return Optional.of(u);
+            statement1.setLong(1, aLong);
+            ResultSet resultSet1 = statement1.executeQuery();
+
+            statement2.setLong(1, aLong);
+            statement2.setLong(2, aLong);
+            ResultSet resultSet2 = statement2.executeQuery();
+
+            if(resultSet1.next()) {
+                String firstName = resultSet1.getString("first_name");
+                String lastName = resultSet1.getString("last_name");
+                User user = new User(aLong, firstName, lastName);
+
+                while(resultSet2.next()) {
+                    Long friendId = resultSet2.getLong("id");
+                    String friendFirstName = resultSet2.getString("first_name");
+                    String friendLastName = resultSet2.getString("last_name");
+                    User friend = new User(friendId, friendFirstName, friendLastName);
+                    user.addFriend(friend);
+                }
+                return Optional.of(user);
             }
             return Optional.empty();
         } catch (SQLException e) {
@@ -51,7 +82,6 @@ public class UserDBRepository implements Repository<Long, User> {
              PreparedStatement statement = connection.prepareStatement("select * from users");
              ResultSet resultSet = statement.executeQuery()
         ) {
-
             while (resultSet.next())
             {
                 Long id= resultSet.getLong("id");
@@ -82,9 +112,14 @@ public class UserDBRepository implements Repository<Long, User> {
 
     @Override
     public Optional<User> save(User entity) {
+        if (entity == null) {
+            throw new IllegalArgumentException("User cannot be null.");
+        }
+        validator.validate(entity);
+
         String insertSQL="insert into users (first_name,last_name) values(?,?)";
         try (var connection = DriverManager.getConnection(url, username, password);
-             PreparedStatement statement=connection.prepareStatement(insertSQL);)
+             PreparedStatement statement=connection.prepareStatement(insertSQL))
         {
             statement.setString(1,entity.getFirstName());
             statement.setString(2,entity.getLastName());
@@ -104,7 +139,7 @@ public class UserDBRepository implements Repository<Long, User> {
 
         String deleteSQL="delete from users where id=?";
         try (var connection = DriverManager.getConnection(url, username, password);
-             PreparedStatement statement = connection.prepareStatement(deleteSQL);
+             PreparedStatement statement = connection.prepareStatement(deleteSQL)
         ) {
             statement.setLong(1, aLong);
 
@@ -123,14 +158,15 @@ public class UserDBRepository implements Repository<Long, User> {
 
     @Override
     public Optional<User> update(User entity) {
-        if(entity==null)
-        {
-            throw new IllegalArgumentException("Entity cannot be null!");
+        if (entity == null) {
+            throw new IllegalArgumentException("User cannot be null.");
         }
+        validator.validate(entity);
+
         String updateSQL="update users set first_name=?,last_name=? where id=?";
         try(var connection= DriverManager.getConnection(url, username, password);
-            PreparedStatement statement=connection.prepareStatement(updateSQL);)
-        {
+            PreparedStatement statement=connection.prepareStatement(updateSQL)
+        ) {
             statement.setString(1,entity.getFirstName());
             statement.setString(2,entity.getLastName());
             statement.setLong(3,entity.getId());

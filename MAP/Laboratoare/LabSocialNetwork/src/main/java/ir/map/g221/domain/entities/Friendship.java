@@ -42,7 +42,10 @@ public class Friendship extends Entity<UnorderedPair<Long, Long>> {
         return firstUser.equals(user) || secondUser.equals(user);
     }
 
-    public User theOtherFriend(User user) {
+    public User theOtherFriend(User user) throws IllegalArgumentException {
+        if (!hasUser(user)) {
+            throw new IllegalArgumentException("Specified user does not belong to object friendship.");
+        }
         return firstUser.equals(user) ? secondUser : firstUser;
     }
 }
