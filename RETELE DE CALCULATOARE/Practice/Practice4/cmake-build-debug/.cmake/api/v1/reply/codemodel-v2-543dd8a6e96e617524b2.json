@@ -1,0 +1,87 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"jsonFile" : "directory-.-Debug-f5ebdc15457944623624.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.27"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "Practice4",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "Client::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Client-Debug-0b897c2883fbf6290986.json",
+					"name" : "Client",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "Client1::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Client1-Debug-bff6f89e0ce03b1d13b3.json",
+					"name" : "Client1",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "Client2::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Client2-Debug-5a893bd18f4243769e4a.json",
+					"name" : "Client2",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "Server::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Server-Debug-1e0324864f5e28ec5dac.json",
+					"name" : "Server",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/mnt/c/Users/Stefan/UBB-CS-Projects/RETELE DE CALCULATOARE/Practice/Practice4/cmake-build-debug",
+		"source" : "/mnt/c/Users/Stefan/UBB-CS-Projects/RETELE DE CALCULATOARE/Practice/Practice4"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 6
+	}
+}
