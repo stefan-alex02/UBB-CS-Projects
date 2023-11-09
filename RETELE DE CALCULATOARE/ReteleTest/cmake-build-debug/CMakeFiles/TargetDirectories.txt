@@ -1,0 +1,5 @@
+/mnt/c/Users/Stefan/Desktop/ReteleTest/cmake-build-debug/CMakeFiles/Client1.dir
+/mnt/c/Users/Stefan/Desktop/ReteleTest/cmake-build-debug/CMakeFiles/Client2.dir
+/mnt/c/Users/Stefan/Desktop/ReteleTest/cmake-build-debug/CMakeFiles/Server.dir
+/mnt/c/Users/Stefan/Desktop/ReteleTest/cmake-build-debug/CMakeFiles/edit_cache.dir
+/mnt/c/Users/Stefan/Desktop/ReteleTest/cmake-build-debug/CMakeFiles/rebuild_cache.dir
