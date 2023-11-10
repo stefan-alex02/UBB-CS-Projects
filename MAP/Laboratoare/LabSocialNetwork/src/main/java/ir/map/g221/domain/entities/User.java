@@ -80,13 +80,10 @@ public class User extends Entity<Long> implements Node<User> {
         return "ID : " + id + " | " +
                 "First name : '" + firstName + "' | " +
                 "Last name : '" + lastName + "' | " +
-                "Friends list : [\n" +
+                "Friends list : [ " +
                 friends.stream()
-                        .map(user -> "[ " +
-                                user.getId().toString() + " | " +
-                                user.getFirstName() + " | " +
-                                user.getLastName() + " ]")
-                        .collect(Collectors.joining(" ,\n")) + " ].";
+                        .map(user -> user.getId().toString())
+                        .collect(Collectors.joining(" , ")) + " ].";
     }
 
     @Override
