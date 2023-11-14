@@ -7,8 +7,8 @@ import java.util.Optional;
 
 /**
  * CRUD operations repository interface
- * @param <ID> - type E must have an attribute of type ID
- * @param <E> - type of entities saved in repository
+ * @param <ID> type E must have an attribute of type ID
+ * @param <E> type of entities saved in repository
  */
 public interface Repository<ID, E extends Entity<ID>> {
     /**

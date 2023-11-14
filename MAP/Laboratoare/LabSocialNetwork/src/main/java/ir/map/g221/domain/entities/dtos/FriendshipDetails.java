@@ -6,12 +6,10 @@ import ir.map.g221.domain.entities.Friendship;
 import ir.map.g221.domain.entities.User;
 
 public class FriendshipDetails {
-    private final User targetUser;
     private final User friend;
     private final LocalDateTime friendsFromDate;
 
     private FriendshipDetails(User targetUser, User friend, LocalDateTime friendsFromDate) {
-        this.targetUser = targetUser;
         this.friend = friend;
         this.friendsFromDate = friendsFromDate;
     }

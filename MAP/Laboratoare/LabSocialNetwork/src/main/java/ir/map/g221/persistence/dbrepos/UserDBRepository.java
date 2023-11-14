@@ -3,6 +3,7 @@ package ir.map.g221.persistence.dbrepos;
 import ir.map.g221.domain.entities.User;
 import ir.map.g221.domain.validation.Validator;
 import ir.map.g221.persistence.Repository;
+import org.jetbrains.annotations.NotNull;
 
 import java.sql.*;
 import java.util.HashSet;
@@ -60,10 +61,7 @@ public class UserDBRepository implements Repository<Long, User> {
                 User user = new User(aLong, firstName, lastName);
 
                 while(resultSet2.next()) {
-                    Long friendId = resultSet2.getLong("id");
-                    String friendFirstName = resultSet2.getString("first_name");
-                    String friendLastName = resultSet2.getString("last_name");
-                    User friend = new User(friendId, friendFirstName, friendLastName);
+                    User friend = createUserFrom(resultSet2);
                     user.addFriend(friend);
                 }
                 return Optional.of(user);
@@ -76,26 +74,30 @@ public class UserDBRepository implements Repository<Long, User> {
 
     @Override
     public Iterable<User> findAll() {
-        Set<User> users = new HashSet<>();
-
         try (Connection connection = DriverManager.getConnection(url, username, password);
              PreparedStatement statement = connection.prepareStatement("select * from users");
              ResultSet resultSet = statement.executeQuery()
         ) {
+            Set<User> users = new HashSet<>();
+
             while (resultSet.next())
             {
-                Long id= resultSet.getLong("id");
-                String firstName=resultSet.getString("first_name");
-                String lastName=resultSet.getString("last_name");
-                User user=new User(id, firstName,lastName);
+                User user = createUserFrom(resultSet);
                 users.add(user);
-
             }
             return users;
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @NotNull
+    private User createUserFrom(ResultSet resultSet) throws SQLException {
+        Long id = resultSet.getLong("id");
+        String firstName = resultSet.getString("first_name");
+        String lastName = resultSet.getString("last_name");
+        return new User(id, firstName,lastName);
     }
 
     @Override
@@ -117,16 +119,15 @@ public class UserDBRepository implements Repository<Long, User> {
         }
         validator.validate(entity);
 
-        String insertSQL="insert into users (first_name,last_name) values(?,?)";
+        String insertSQL = "insert into users (first_name,last_name) values(?,?)";
         try (var connection = DriverManager.getConnection(url, username, password);
              PreparedStatement statement=connection.prepareStatement(insertSQL))
         {
             statement.setString(1,entity.getFirstName());
             statement.setString(2,entity.getLastName());
-            int response=statement.executeUpdate();
-            return response==0 ? Optional.of(entity) : Optional.empty();
-        }
-        catch (SQLException e) {
+            int response = statement.executeUpdate();
+            return response == 0 ? Optional.of(entity) : Optional.empty();
+        } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
@@ -137,7 +138,7 @@ public class UserDBRepository implements Repository<Long, User> {
             throw new IllegalArgumentException("Id cannot be null");
         }
 
-        String deleteSQL="delete from users where id=?";
+        String deleteSQL = "delete from users where id=?";
         try (var connection = DriverManager.getConnection(url, username, password);
              PreparedStatement statement = connection.prepareStatement(deleteSQL)
         ) {
@@ -163,18 +164,17 @@ public class UserDBRepository implements Repository<Long, User> {
         }
         validator.validate(entity);
 
-        String updateSQL="update users set first_name=?,last_name=? where id=?";
-        try(var connection= DriverManager.getConnection(url, username, password);
+        String updateSQL = "update users set first_name=?,last_name=? where id=?";
+        try(var connection = DriverManager.getConnection(url, username, password);
             PreparedStatement statement=connection.prepareStatement(updateSQL)
         ) {
             statement.setString(1,entity.getFirstName());
             statement.setString(2,entity.getLastName());
             statement.setLong(3,entity.getId());
 
-            int response= statement.executeUpdate();
-            return response==0 ? Optional.of(entity) : Optional.empty();
-        }
-        catch (SQLException e)
+            int response = statement.executeUpdate();
+            return response == 0 ? Optional.of(entity) : Optional.empty();
+        } catch (SQLException e)
         {
             throw new RuntimeException(e);
         }

@@ -5,6 +5,7 @@ import ir.map.g221.domain.entities.User;
 import ir.map.g221.domain.generaltypes.UnorderedPair;
 import ir.map.g221.domain.validation.Validator;
 import ir.map.g221.persistence.Repository;
+import org.jetbrains.annotations.NotNull;
 
 import java.sql.*;
 import java.time.LocalDateTime;
@@ -49,19 +50,7 @@ public class FriendshipDBRepository implements Repository<UnorderedPair<Long, Lo
             statement.setLong(2, unorderedPair.getSecond());
             ResultSet resultSet = statement.executeQuery();
             if(resultSet.next()) {
-                Long id1 = resultSet.getLong("id1");
-                String firstName1 = resultSet.getString("first_name1");
-                String lastName1 = resultSet.getString("last_name1");
-                User user1 = new User(id1, firstName1, lastName1);
-
-                Long id2 = resultSet.getLong("id2");
-                String firstName2 = resultSet.getString("first_name2");
-                String lastName2 = resultSet.getString("last_name2");
-                User user2 = new User(id2, firstName2, lastName2);
-
-                LocalDateTime friendsFrom = resultSet.getTimestamp("friends_from").toLocalDateTime();
-
-                Friendship friendship = new Friendship(user1, user2, friendsFrom);
+                Friendship friendship = createFriendshipFrom(resultSet);
                 return Optional.of(friendship);
             }
             return Optional.empty();
@@ -72,8 +61,6 @@ public class FriendshipDBRepository implements Repository<UnorderedPair<Long, Lo
 
     @Override
     public Iterable<Friendship> findAll() {
-        Set<Friendship> friendships = new HashSet<>();
-
         try (Connection connection = DriverManager.getConnection(url, username, password);
              PreparedStatement statement = connection.prepareStatement(
                      "SELECT F.id1, " +
@@ -89,29 +76,33 @@ public class FriendshipDBRepository implements Repository<UnorderedPair<Long, Lo
              );
              ResultSet resultSet = statement.executeQuery()
         ) {
+            Set<Friendship> friendships = new HashSet<>();
             while (resultSet.next())
             {
-                Long id1 = resultSet.getLong("id1");
-                String firstName1 = resultSet.getString("first_name1");
-                String lastName1 = resultSet.getString("last_name1");
-                User user1 = new User(id1, firstName1, lastName1);
-
-                Long id2 = resultSet.getLong("id2");
-                String firstName2 = resultSet.getString("first_name2");
-                String lastName2 = resultSet.getString("last_name2");
-                User user2 = new User(id2, firstName2, lastName2);
-
-                LocalDateTime friendsFrom = resultSet.getTimestamp("friends_from").toLocalDateTime();
-
-                Friendship friendship = new Friendship(user1, user2, friendsFrom);
+                Friendship friendship = createFriendshipFrom(resultSet);
                 friendships.add(friendship);
-
             }
             return friendships;
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private @NotNull Friendship createFriendshipFrom(ResultSet resultSet) throws SQLException {
+        Long id1 = resultSet.getLong("id1");
+        String firstName1 = resultSet.getString("first_name1");
+        String lastName1 = resultSet.getString("last_name1");
+        User user1 = new User(id1, firstName1, lastName1);
+
+        Long id2 = resultSet.getLong("id2");
+        String firstName2 = resultSet.getString("first_name2");
+        String lastName2 = resultSet.getString("last_name2");
+        User user2 = new User(id2, firstName2, lastName2);
+
+        LocalDateTime friendsFrom = resultSet.getTimestamp("friends_from").toLocalDateTime();
+
+        return new Friendship(user1, user2, friendsFrom);
     }
 
     @Override
@@ -196,8 +187,7 @@ public class FriendshipDBRepository implements Repository<UnorderedPair<Long, Lo
 
             int response = statement.executeUpdate();
             return response == 0 ? Optional.of(entity) : Optional.empty();
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }

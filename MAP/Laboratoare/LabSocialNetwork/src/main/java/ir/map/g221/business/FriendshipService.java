@@ -4,10 +4,12 @@ import ir.map.g221.domain.entities.Friendship;
 import ir.map.g221.domain.entities.User;
 import ir.map.g221.domain.entities.dtos.FriendshipDetails;
 import ir.map.g221.domain.generaltypes.ObjectTransformer;
+import ir.map.g221.domain.generaltypes.Pair;
 import ir.map.g221.domain.generaltypes.UnorderedPair;
 import ir.map.g221.exceptions.ExistingEntityException;
 import ir.map.g221.exceptions.NotFoundException;
 import ir.map.g221.persistence.Repository;
+import org.jetbrains.annotations.NotNull;
 
 import java.time.LocalDateTime;
 import java.time.YearMonth;
@@ -27,15 +29,10 @@ public class FriendshipService {
     }
 
     public void addFriendship(Long id1, Long id2, LocalDateTime friendsFromDate) {
-        Optional<User> optionalUser1 = userRepository.findOne(id1);
-        Optional<User> optionalUser2 = userRepository.findOne(id2);
+        Pair<User, User> pairOfUsers = getPairOfUsers(id1, id2);
 
-        if (optionalUser1.isEmpty() || optionalUser2.isEmpty()) {
-            throw new NotFoundException("At least one user could not be found.");
-        }
-
-        User user1 = optionalUser1.get();
-        User user2 = optionalUser2.get();
+        User user1 = pairOfUsers.getFirst();
+        User user2 = pairOfUsers.getSecond();
 
         if (getFriendsOfUser(user1.getId()).contains(user2) ||
                 getFriendsOfUser(user2.getId()).contains(user1)) {
@@ -51,15 +48,10 @@ public class FriendshipService {
     }
 
     public void removeFriendship(Long id1, Long id2) throws NotFoundException {
-        Optional<User> optionalUser1 = userRepository.findOne(id1);
-        Optional<User> optionalUser2 = userRepository.findOne(id2);
+        Pair<User, User> pairOfUsers = getPairOfUsers(id1, id2);
 
-        if (optionalUser1.isEmpty() || optionalUser2.isEmpty()) {
-            throw new NotFoundException("At least one user could not be found.");
-        }
-
-        User user1 = optionalUser1.get();
-        User user2 = optionalUser2.get();
+        User user1 = pairOfUsers.getFirst();
+        User user2 = pairOfUsers.getSecond();
 
         if (friendshipRepository.delete(new Friendship(user1, user2).getId())
                 .isEmpty()) {
@@ -67,9 +59,20 @@ public class FriendshipService {
         }
     }
 
+    private @NotNull Pair<User, User> getPairOfUsers(Long id1, Long id2) throws NotFoundException {
+        Optional<User> optionalUser1 = userRepository.findOne(id1);
+        Optional<User> optionalUser2 = userRepository.findOne(id2);
+
+        if (optionalUser1.isEmpty() || optionalUser2.isEmpty()) {
+            throw new NotFoundException("At least one user could not be found.");
+        }
+
+        return Pair.of(optionalUser1.get(), optionalUser2.get());
+    }
+
     public Set<User> getFriendsOfUser(Long id) throws NotFoundException {
         User foundUser = userRepository.findOne(id).orElseThrow(() ->
-                new NotFoundException("The specified friendship does not exist.")
+                new NotFoundException("The specified user does not exist.")
         );
         return ObjectTransformer.iterableToCollection(friendshipRepository.findAll())
                 .stream()
@@ -80,7 +83,7 @@ public class FriendshipService {
 
     private Stream<FriendshipDetails> getFriendshipDetailsStreamOfUser(Long id) {
         User foundUser = userRepository.findOne(id).orElseThrow(() ->
-                new NotFoundException("The specified friendship does not exist.")
+                new NotFoundException("The specified user does not exist.")
         );
         return ObjectTransformer.iterableToCollection(friendshipRepository.findAll())
                 .stream()

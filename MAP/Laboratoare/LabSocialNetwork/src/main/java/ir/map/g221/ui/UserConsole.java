@@ -194,7 +194,6 @@ public class UserConsole implements UserInterface{
                         break;
                     default:
                         System.out.println("Unknown command");
-
                 }
             }
             catch(ValidationException ve) {
