@@ -23,21 +23,20 @@ CREATE TABLE public.friendships
 (
     id1 bigint NOT NULL,
     id2 bigint NOT NULL,
-    friends_from timestamp without time zone NOT NULL,
+    friends_from timestamp WITHOUT time zone NOT NULL,
     CONSTRAINT pk_idpair PRIMARY KEY (id1, id2),
     CONSTRAINT fk_id1 FOREIGN KEY (id1)
         REFERENCES public.users (id) MATCH SIMPLE
         ON UPDATE NO ACTION
-        ON DELETE NO ACTION
+        ON DELETE CASCADE
         NOT VALID,
     CONSTRAINT fk_id2 FOREIGN KEY (id2)
         REFERENCES public.users (id) MATCH SIMPLE
         ON UPDATE NO ACTION
-        ON DELETE NO ACTION
+        ON DELETE CASCADE
         NOT VALID,
     CONSTRAINT ascending_pair CHECK (id1 < id2)
 );
 
 ALTER TABLE IF EXISTS public.friendships
     OWNER to postgres;
-

@@ -72,7 +72,7 @@ public class FriendshipService {
 
     public Set<User> getFriendsOfUser(Long id) throws NotFoundException {
         User foundUser = userRepository.findOne(id).orElseThrow(() ->
-                new NotFoundException("The specified friendship does not exist.")
+                new NotFoundException("The specified user does not exist.")
         );
         return ObjectTransformer.iterableToCollection(friendshipRepository.findAll())
                 .stream()
@@ -83,7 +83,7 @@ public class FriendshipService {
 
     private Stream<FriendshipDetails> getFriendshipDetailsStreamOfUser(Long id) {
         User foundUser = userRepository.findOne(id).orElseThrow(() ->
-                new NotFoundException("The specified friendship does not exist.")
+                new NotFoundException("The specified user does not exist.")
         );
         return ObjectTransformer.iterableToCollection(friendshipRepository.findAll())
                 .stream()

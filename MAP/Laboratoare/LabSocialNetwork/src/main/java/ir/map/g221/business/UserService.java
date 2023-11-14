@@ -16,13 +16,11 @@ import java.util.List;
 public class UserService {
     private final Repository<UnorderedPair<Long, Long>, Friendship> friendshipRepository;
     private final Repository<Long, User> userRepository;
-    private UndirectedGraph<User> usersGraph;
 
     public UserService(Repository<Long, User> userRepository,
                        Repository<UnorderedPair<Long, Long>, Friendship> friendshipRepository) {
         this.userRepository = userRepository;
         this.friendshipRepository = friendshipRepository;
-        this.usersGraph = null;
     }
 
     public void addUser(String firstName, String lastName) throws ValidationException {
@@ -38,15 +36,15 @@ public class UserService {
     }
 
     public void removeUser(Long id) throws NotFoundException {
-        userRepository.findOne(id).ifPresentOrElse(user ->
-                ObjectTransformer.iterableToCollection(friendshipRepository.findAll())
-                        .stream()
-                        .filter(friendship -> friendship.hasUser(user))
-                        .forEach(friendship -> friendshipRepository.delete(friendship.getId()))
-        , () -> {
-            throw new NotFoundException("User could not be found.");
-        });
-        userRepository.delete(id).orElseThrow(() -> new NotFoundException("User could not be deleted."));
+//        userRepository.findOne(id).ifPresentOrElse(user ->
+//                ObjectTransformer.iterableToCollection(friendshipRepository.findAll())
+//                        .stream()
+//                        .filter(friendship -> friendship.hasUser(user))
+//                        .forEach(friendship -> friendshipRepository.delete(friendship.getId()))
+//        , () -> {
+//            throw new NotFoundException("User could not be found.");
+//        });
+        userRepository.delete(id).orElseThrow(() -> new NotFoundException("User could not be found."));
     }
 
     public List<Community> calculateCommunities() {
