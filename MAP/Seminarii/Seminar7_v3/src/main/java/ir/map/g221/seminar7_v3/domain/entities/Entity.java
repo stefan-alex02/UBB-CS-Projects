@@ -14,10 +14,6 @@ public abstract class Entity<ID> implements Serializable {
         return id;
     }
 
-    public void setId(ID id) {
-        this.id = id;
-    }
-
     @Override
     public final boolean equals(Object o) {
         if (this == o) return true;
