@@ -25,8 +25,8 @@ tasks.withType(JavaCompile) {
 }
 
 application {
-    mainModule = 'ir.map.g221.guisocialnetwork'
-    mainClass = 'ir.map.g221.guisocialnetwork.HelloApplication'
+    mainModule = 'ir.map.g221.seminar7_v3'
+    mainClass = 'ir.map.g221.seminar7_v3.HelloApplication'
 }
 
 javafx {
@@ -39,6 +39,7 @@ dependencies {
     implementation('com.dlsc.formsfx:formsfx-core:11.6.0') {
         exclude(group: 'org.openjfx')
     }
+    implementation 'org.jetbrains:annotations:24.0.0'
     implementation 'org.jetbrains:annotations:24.0.0'
 
     testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
