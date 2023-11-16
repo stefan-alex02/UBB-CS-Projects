@@ -1,6 +1,6 @@
 package ir.map.g221.guisocialnetwork.domain.entities;
 
-import ir.map.g221.guisocialnetwork.domain.graphs.Node;
+import ir.map.g221.guisocialnetwork.utils.graphs.Node;
 
 import java.util.HashSet;
 import java.util.Set;

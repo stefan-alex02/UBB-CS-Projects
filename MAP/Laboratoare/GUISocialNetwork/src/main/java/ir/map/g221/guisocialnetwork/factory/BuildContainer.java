@@ -20,4 +20,8 @@ public class BuildContainer {
     public UserInterface getUi() {
         return ui;
     }
+
+    public UserService getUserService() {
+        return userService;
+    }
 }

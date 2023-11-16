@@ -1,4 +1,4 @@
-package ir.map.g221.guisocialnetwork.domain.generaltypes;
+package ir.map.g221.guisocialnetwork.utils.generictypes;
 
 import ir.map.g221.guisocialnetwork.exceptions.functionexceptions.FunctionFailureException;
 import ir.map.g221.guisocialnetwork.exceptions.functionexceptions.InjectionFailureException;

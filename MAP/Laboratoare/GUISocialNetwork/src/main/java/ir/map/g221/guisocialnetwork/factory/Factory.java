@@ -4,7 +4,7 @@ import ir.map.g221.guisocialnetwork.business.FriendshipService;
 import ir.map.g221.guisocialnetwork.business.UserService;
 import ir.map.g221.guisocialnetwork.domain.entities.Friendship;
 import ir.map.g221.guisocialnetwork.domain.entities.User;
-import ir.map.g221.guisocialnetwork.domain.generaltypes.UnorderedPair;
+import ir.map.g221.guisocialnetwork.utils.generictypes.UnorderedPair;
 import ir.map.g221.guisocialnetwork.domain.validation.FriendshipValidator;
 import ir.map.g221.guisocialnetwork.domain.validation.UserValidator;
 import ir.map.g221.guisocialnetwork.persistence.dbrepos.FriendshipDBRepository;

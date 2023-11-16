@@ -1,4 +1,4 @@
-package ir.map.g221.guisocialnetwork.domain.graphs;
+package ir.map.g221.guisocialnetwork.utils.graphs;
 
 import ir.map.g221.guisocialnetwork.exceptions.graphs.InvalidGraphException;
 

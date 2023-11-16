@@ -1,4 +1,4 @@
-package ir.map.g221.guisocialnetwork.domain.generaltypes;
+package ir.map.g221.guisocialnetwork.utils.generictypes;
 
 import java.util.ArrayList;
 import java.util.Collection;

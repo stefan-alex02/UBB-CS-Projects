@@ -2,7 +2,7 @@ package ir.map.g221.guisocialnetwork.persistence.dbrepos;
 
 import ir.map.g221.guisocialnetwork.domain.entities.Friendship;
 import ir.map.g221.guisocialnetwork.domain.entities.User;
-import ir.map.g221.guisocialnetwork.domain.generaltypes.UnorderedPair;
+import ir.map.g221.guisocialnetwork.utils.generictypes.UnorderedPair;
 import ir.map.g221.guisocialnetwork.domain.validation.Validator;
 import ir.map.g221.guisocialnetwork.persistence.Repository;
 import org.jetbrains.annotations.NotNull;

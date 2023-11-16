@@ -1,8 +1,8 @@
 package ir.map.g221.guisocialnetwork.domain;
 
 import ir.map.g221.guisocialnetwork.domain.entities.User;
-import ir.map.g221.guisocialnetwork.domain.graphs.GraphComponent;
-import ir.map.g221.guisocialnetwork.domain.graphs.Path;
+import ir.map.g221.guisocialnetwork.utils.graphs.GraphComponent;
+import ir.map.g221.guisocialnetwork.utils.graphs.Path;
 
 import java.util.stream.Collectors;
 
