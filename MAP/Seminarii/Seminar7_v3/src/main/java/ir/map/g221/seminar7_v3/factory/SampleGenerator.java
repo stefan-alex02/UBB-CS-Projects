@@ -1,18 +1,13 @@
 package ir.map.g221.seminar7_v3.factory;
 
-import ir.map.g221.seminar7_v3.business.FriendshipService;
 import ir.map.g221.seminar7_v3.business.UserService;
-
-import java.time.LocalDateTime;
 
 public class SampleGenerator {
     private final UserService userService;
-    private final FriendshipService friendshipService;
     private boolean alreadyGenerated = false;
 
-    public SampleGenerator(UserService userService, FriendshipService friendshipService) {
+    public SampleGenerator(UserService userService) {
         this.userService = userService;
-        this.friendshipService = friendshipService;
     }
 
     public void generateSample() {
@@ -33,16 +28,5 @@ public class SampleGenerator {
 
         userService.addUser("firstName10", "lastName10");
         userService.addUser("firstName11", "lastName11");
-
-        friendshipService.addFriendship(2L, 1L,
-                LocalDateTime.of(2012, 12, 21, 22, 30));
-        friendshipService.addFriendshipNow(1L, 3L);
-        friendshipService.addFriendshipNow(3L, 4L);
-        friendshipService.addFriendshipNow(2L, 4L);
-
-        friendshipService.addFriendshipNow(5L, 6L);
-        friendshipService.addFriendshipNow(5L, 7L);
-        friendshipService.addFriendshipNow(5L, 8L);
-        friendshipService.addFriendshipNow(5L, 9L);
     }
 }

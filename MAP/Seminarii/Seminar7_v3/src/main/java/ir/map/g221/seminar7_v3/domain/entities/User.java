@@ -1,12 +1,10 @@
 package ir.map.g221.seminar7_v3.domain.entities;
 
-import ir.map.g221.seminar7_v3.domain.graphs.Node;
-
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class User extends Entity<Long> implements Node<User> {
+public class User extends Entity<Long> {
     private String firstName;
     private String lastName;
     private final Set<User> friends = new HashSet<>();
@@ -50,28 +48,8 @@ public class User extends Entity<Long> implements Node<User> {
         return friends.add(newFriend);
     }
 
-    public boolean removeFriend(User removedFriend) {
-        return friends.removeIf(friend -> friend.equals(removedFriend));
-    }
-
     public Set<User> getFriends() {
         return friends;
-    }
-
-    @Override
-    public void pairWith(User neighbour) {
-        this.addFriend(neighbour);
-        neighbour.addFriend(this);
-    }
-
-    @Override
-    public Set<User> getNeighbours() {
-        return getFriends();
-    }
-
-    @Override
-    public Integer getDegree() {
-        return getFriends().size();
     }
 
     @Override
@@ -83,10 +61,5 @@ public class User extends Entity<Long> implements Node<User> {
                 friends.stream()
                         .map(user -> user.getId().toString())
                         .collect(Collectors.joining(" , ")) + " ].";
-    }
-
-    @Override
-    public String toStringIndex() {
-        return getId().toString();
     }
 }
