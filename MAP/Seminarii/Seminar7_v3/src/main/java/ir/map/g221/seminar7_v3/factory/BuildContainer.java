@@ -8,10 +8,6 @@ public class BuildContainer {
     private final UserInterface ui;
     private final SampleGenerator sampleGenerator;
 
-    public UserService getUserService() {
-        return userService;
-    }
-
     public SampleGenerator getSampleGenerator() {
         return sampleGenerator;
     }
@@ -24,5 +20,9 @@ public class BuildContainer {
 
     public UserInterface getUi() {
         return ui;
+    }
+
+    public UserService getUserService() {
+        return userService;
     }
 }
