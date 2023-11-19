@@ -1,5 +1,6 @@
 package ir.map.g221.guisocialnetwork.domain.entities;
 
+import ir.map.g221.guisocialnetwork.exceptions.graphs.InvalidEdgeException;
 import ir.map.g221.guisocialnetwork.utils.graphs.Node;
 
 import java.util.HashSet;
@@ -49,9 +50,17 @@ public class User extends Entity<Long> implements Node<User> {
     public boolean addFriend(User newFriend) {
         return friends.add(newFriend);
     }
-
     public boolean removeFriend(User removedFriend) {
         return friends.removeIf(friend -> friend.equals(removedFriend));
+    }
+
+    /**
+     * Check if the user has a specific friend.
+     * @param friend The friend.
+     * @return true if the two users are friends, false otherwise.
+     */
+    public boolean hasFriend(User friend) {
+        return friends.contains(friend);
     }
 
     public Set<User> getFriends() {
@@ -62,6 +71,20 @@ public class User extends Entity<Long> implements Node<User> {
     public void pairWith(User neighbour) {
         this.addFriend(neighbour);
         neighbour.addFriend(this);
+    }
+
+    @Override
+    public void unpairWith(User neighbour) throws InvalidEdgeException {
+        if (!hasFriend(neighbour) || !neighbour.hasFriend(this)) {
+            throw new InvalidEdgeException("The edge to be removed does not exist.");
+        }
+        this.removeFriend(neighbour);
+        neighbour.removeFriend(this);
+    }
+
+    @Override
+    public boolean hasNeighbour(User neighbour) {
+        return hasFriend(neighbour);
     }
 
     @Override

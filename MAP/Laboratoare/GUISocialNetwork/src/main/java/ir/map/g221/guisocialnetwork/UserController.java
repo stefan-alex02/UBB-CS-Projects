@@ -1,5 +1,6 @@
 package ir.map.g221.guisocialnetwork;
 
+import ir.map.g221.guisocialnetwork.business.CommunityHandler;
 import ir.map.g221.guisocialnetwork.business.UserService;
 import ir.map.g221.guisocialnetwork.controllers.EditUserController;
 import ir.map.g221.guisocialnetwork.controllers.MessageAlerter;
@@ -14,16 +15,14 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.SelectionMode;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -31,7 +30,7 @@ import java.util.stream.Collectors;
 
 public class UserController implements Observer<UserChangeEvent> {
     private UserService userService = null;
-
+    private CommunityHandler communityHandler = null;
     private SampleGenerator sampleGenerator = null;
     private final ObservableList<User> usersModel = FXCollections.observableArrayList();
 
@@ -42,10 +41,30 @@ public class UserController implements Observer<UserChangeEvent> {
     @FXML
     TableColumn<User, String> tableColumnLastName;
 
+    private static final List<String> colorList = Arrays.asList("d39898", "d3cb98", "7be7b1", "B49DE1");
+
+    private static String getColorCode(int hashCode) {
+        return colorList.get(hashCode % colorList.size());
+    }
+
     @FXML
     public void initialize() {
+        tableView.setRowFactory(tv -> new TableRow<>() {
+                    @Override
+                    public void updateItem(User item, boolean empty) {
+                    super.updateItem(item, empty);
+                    if (item == null || empty || isSelected()) {
+                        setStyle("");
+                    }
+                    else {
+                        setStyle("-fx-background-color: #" +
+                                getColorCode(communityHandler.getCommunityOfUser(item).hashCode())
+                        );
+                    }
+                }
+            }
+        );
         tableColumnFirstName.setCellValueFactory(new PropertyValueFactory<>("firstName"));
-        //tableColumnFirstName.setCellFactory();
         tableColumnLastName.setCellValueFactory(new PropertyValueFactory<>("lastName"));
         tableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         tableView.setItems(usersModel);
@@ -55,6 +74,10 @@ public class UserController implements Observer<UserChangeEvent> {
         this.userService = userService;
         userService.addObserver(this);
         initUserModel();
+    }
+
+    public void setCommunityService(CommunityHandler communityHandler) {
+        this.communityHandler = communityHandler;
     }
 
     public void setSampleGenerator(SampleGenerator sampleGenerator) {

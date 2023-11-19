@@ -34,5 +34,6 @@ public class StartApplication extends Application {
         UserController userController = userLoader.getController();
         userController.setUserService(container.getUserService());
         userController.setSampleGenerator(container.getSampleGenerator());
+        userController.setCommunityService(container.getCommunityService());
     }
 }

@@ -1,6 +1,7 @@
 package ir.map.g221.guisocialnetwork.utils.graphs;
 
 import ir.map.g221.guisocialnetwork.exceptions.graphs.InvalidEdgeException;
+import ir.map.g221.guisocialnetwork.exceptions.graphs.InvalidNodeException;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
@@ -47,15 +48,50 @@ public class UndirectedGraph<TNode extends Node<TNode>> extends AbstractGraph<TN
         super.addNode(node);
     }
 
+    @Override
+    public void updateNode(TNode oldNode, TNode newNode) {
+        nodes.remove(oldNode);
+        oldNode.getNeighbours().forEach(neighbour -> edges.remove(Edge.of(oldNode, neighbour)));
+        GraphComponent<TNode> component = componentOf(oldNode).orElseThrow();
+        components.remove(component);
+        component.updateNode(oldNode, newNode);
+        components.add(component);
+    }
+
+    public void forceRemoveNode(TNode node) throws InvalidNodeException {
+        if (!hasNode(node)) {
+            throw new InvalidNodeException("Node must belong to subject graph.");
+        }
+        nodes.remove(node);
+        node.getNeighbours().forEach(neighbour -> edges.remove(Edge.of(node, neighbour)));
+        GraphComponent<TNode> component = componentOf(node).orElseThrow();
+        components.remove(component);
+        Set<GraphComponent<TNode>> resultedComponents = component.breakByNode(node);
+        if (resultedComponents.size() > 1) {
+            components.addAll(resultedComponents);
+        }
+        else if(!component.isEmpty()) {
+            components.add(component);
+        }
+    }
+
     public void forceAddEdge(Edge<TNode> edge) throws InvalidEdgeException {
         super.forceAddEdge(edge);
-        tryCombineComponents(edge);
+        if (!tryCombineComponents(edge)) {
+            GraphComponent<TNode> component = componentOf(edge.getFirstNode()).orElseThrow();
+            components.remove(component);
+            component.forceAddEdge(edge);
+            components.add(component);
+        }
     }
 
     public boolean tryAddEdge(Edge<TNode> edge) {
         boolean wasAdded = super.tryAddEdge(edge);
-        if (wasAdded) {
-            tryCombineComponents(edge);
+        if (wasAdded && !tryCombineComponents(edge)) {
+            GraphComponent<TNode> component = componentOf(edge.getFirstNode()).orElseThrow();
+            components.remove(component);
+            component.tryAddEdge(edge);
+            components.add(component);
         }
         return wasAdded;
     }
@@ -68,14 +104,34 @@ public class UndirectedGraph<TNode extends Node<TNode>> extends AbstractGraph<TN
         return super.tryAddEdges(edges);
     }
 
-    private void tryCombineComponents(Edge<TNode> edge) {
+    public void forceRemoveEdge(Edge<TNode> edge) throws InvalidEdgeException {
+        if (!isEdgeIncludable(edge) || !hasEdge(edge)) {
+            throw new InvalidEdgeException("Edge must exist in the subject component.");
+        }
+//        edge.getFirstNode().unpairWith(edge.getSecondNode());
+        edges.remove(edge);
+
+        GraphComponent<TNode> component = componentOf(edge.getFirstNode()).orElseThrow();
+        components.remove(component);
+        Set<GraphComponent<TNode>> resultedComponents = component.breakByEdge(edge);
+        if (resultedComponents.size() > 1) {
+            components.addAll(resultedComponents);
+        }
+        else {
+            components.add(component);
+        }
+    }
+
+    private boolean tryCombineComponents(Edge<TNode> edge) {
         GraphComponent<TNode> firstComponent = componentOf(edge.getFirstNode()).orElseThrow();
         GraphComponent<TNode> secondComponent = componentOf(edge.getSecondNode()).orElseThrow();
         if (!firstComponent.equals(secondComponent)) {
             components.remove(firstComponent);
             components.remove(secondComponent);
             components.add(GraphComponent.bridge(firstComponent, secondComponent, edge));
+            return true;
         }
+        return false;
     }
 
     public void reset() {
@@ -86,30 +142,6 @@ public class UndirectedGraph<TNode extends Node<TNode>> extends AbstractGraph<TN
     public Set<GraphComponent<TNode>> getComponents() {
         return components;
     }
-
-//    private void exploreAllComponents() {
-//        initialiseIsVisited();
-//        components.clear();
-//        nodes.stream()
-//                .filter(Predicate.not(super::isVisited))
-//                .forEach((TNode node) -> {
-//                    GraphComponent<TNode> newComponent = new GraphComponent<>(exploreFromNode(node));
-//                    newComponent.tryAddEdges(edges);
-//                    components.add(newComponent);
-//                });
-//    }
-//
-//    private Set<TNode> exploreFromNode(TNode node) {
-//        setVisited(node);
-//        Set<TNode> exploredNodes = new HashSet<>(Collections.singletonList(node));
-//        node.getNeighbours()
-//                .stream()
-//                .filter(Predicate.not(super::isVisited))
-//                .forEach((TNode neighbour) ->
-//                        exploredNodes.addAll(exploreFromNode(neighbour))
-//                );
-//        return exploredNodes;
-//    }
 
     public GraphComponent<TNode> getComponentWithLongestPath() {
         return components.stream()
@@ -128,10 +160,6 @@ public class UndirectedGraph<TNode extends Node<TNode>> extends AbstractGraph<TN
         unionGraph.edges.addAll(componentB.edges);
         unionGraph.components.addAll(componentA.components);
         unionGraph.components.addAll(componentB.components);
-//        unionGraph.addNodes(componentA.nodes);
-//        unionGraph.addNodes(componentB.nodes);
-//        unionGraph.forceAddEdges(componentA.edges);
-//        unionGraph.forceAddEdges(componentB.edges);
         return unionGraph;
     }
 
@@ -154,18 +182,5 @@ public class UndirectedGraph<TNode extends Node<TNode>> extends AbstractGraph<TN
     @Override
     public Spliterator<TNode> spliterator() {
         return nodes.spliterator();
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        UndirectedGraph<?> that = (UndirectedGraph<?>) o;
-        return Objects.equals(nodes, that.nodes) && Objects.equals(edges, that.edges);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(nodes, edges);
     }
 }

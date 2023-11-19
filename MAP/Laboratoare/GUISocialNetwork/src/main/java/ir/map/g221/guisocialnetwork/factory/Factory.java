@@ -1,5 +1,6 @@
 package ir.map.g221.guisocialnetwork.factory;
 
+import ir.map.g221.guisocialnetwork.business.CommunityHandler;
 import ir.map.g221.guisocialnetwork.business.FriendshipService;
 import ir.map.g221.guisocialnetwork.business.SampleGenerator;
 import ir.map.g221.guisocialnetwork.business.UserService;
@@ -37,12 +38,14 @@ public class Factory {
         Repository<UnorderedPair<Long, Long>, Friendship> friendshipRepo =
                 new FriendshipDBRepository(url, username, password, FriendshipValidator.getInstance());
 
-        UserService userService = new UserService(userRepo, friendshipRepo);
-        FriendshipService friendshipService = new FriendshipService(userRepo, friendshipRepo);
+        CommunityHandler communityHandler = new CommunityHandler(userRepo, friendshipRepo);
+
+        UserService userService = new UserService(userRepo, friendshipRepo, communityHandler);
+        FriendshipService friendshipService = new FriendshipService(userRepo, friendshipRepo, communityHandler);
 
         SampleGenerator sampleGenerator = new SampleGenerator(userService, friendshipService);
-        UserInterface ui = new UserConsole(userService, friendshipService, sampleGenerator);
+        UserInterface ui = new UserConsole(userService, friendshipService, communityHandler, sampleGenerator);
 
-        return new BuildContainer(userService, friendshipService, ui, sampleGenerator);
+        return new BuildContainer(userService, friendshipService, communityHandler, ui, sampleGenerator);
     }
 }

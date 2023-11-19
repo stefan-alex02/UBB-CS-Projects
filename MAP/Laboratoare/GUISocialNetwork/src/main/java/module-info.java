@@ -31,9 +31,21 @@ module ir.map.g221.guisocialnetwork {
     opens ir.map.g221.guisocialnetwork.exceptions to javafx.fxml;
     exports ir.map.g221.guisocialnetwork.exceptions;
 
+    opens ir.map.g221.guisocialnetwork.domain.entities.dtos to javafx.fxml;
+    exports ir.map.g221.guisocialnetwork.domain.entities.dtos;
+
+    opens ir.map.g221.guisocialnetwork.utils.graphs to javafx.fxml;
+    exports ir.map.g221.guisocialnetwork.utils.graphs;
+
+    opens ir.map.g221.guisocialnetwork.exceptions.functionexceptions to javafx.fxml;
+    exports ir.map.g221.guisocialnetwork.exceptions.functionexceptions;
+
+    opens ir.map.g221.guisocialnetwork.exceptions.graphs to javafx.fxml;
+    exports ir.map.g221.guisocialnetwork.exceptions.graphs;
+
     opens ir.map.g221.guisocialnetwork.persistence to javafx.fxml;
     exports ir.map.g221.guisocialnetwork.persistence;
-    exports ir.map.g221.guisocialnetwork;
-    opens ir.map.g221.guisocialnetwork to javafx.fxml;
 
+    opens ir.map.g221.guisocialnetwork to javafx.fxml;
+    exports ir.map.g221.guisocialnetwork;
 }

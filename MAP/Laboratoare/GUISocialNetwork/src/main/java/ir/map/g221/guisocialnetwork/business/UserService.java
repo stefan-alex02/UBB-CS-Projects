@@ -7,36 +7,34 @@ import ir.map.g221.guisocialnetwork.persistence.inmemoryrepos.FriendshipInMemory
 import ir.map.g221.guisocialnetwork.utils.events.UserChangeEvent;
 import ir.map.g221.guisocialnetwork.utils.generictypes.ObjectTransformer;
 import ir.map.g221.guisocialnetwork.utils.generictypes.UnorderedPair;
-import ir.map.g221.guisocialnetwork.utils.events.ChangeEventType;
-import ir.map.g221.guisocialnetwork.utils.graphs.Edge;
-import ir.map.g221.guisocialnetwork.utils.graphs.UndirectedGraph;
-import ir.map.g221.guisocialnetwork.domain.Community;
+import ir.map.g221.guisocialnetwork.utils.events.EventType;
 import ir.map.g221.guisocialnetwork.domain.entities.Friendship;
 import ir.map.g221.guisocialnetwork.domain.entities.User;
 import ir.map.g221.guisocialnetwork.utils.observer.Observable;
 import ir.map.g221.guisocialnetwork.utils.observer.Observer;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 public class UserService implements Observable<UserChangeEvent> {
     private final Repository<UnorderedPair<Long, Long>, Friendship> friendshipRepository;
     private final Repository<Long, User> userRepository;
+    private final CommunityHandler communityHandler;
     private final Set<Observer<UserChangeEvent>> observers;
 
     public UserService(Repository<Long, User> userRepository,
-                       Repository<UnorderedPair<Long, Long>, Friendship> friendshipRepository) {
+                       Repository<UnorderedPair<Long, Long>, Friendship> friendshipRepository,
+                       CommunityHandler communityHandler) {
         this.userRepository = userRepository;
         this.friendshipRepository = friendshipRepository;
+        this.communityHandler = communityHandler;
         this.observers = new HashSet<>();
     }
 
     public void addUser(String firstName, String lastName) throws ValidationException {
         User userToAdd = new User(firstName, lastName);
         if(userRepository.save(userToAdd).isEmpty()) {
-            notifyObservers(UserChangeEvent.ofNewData(ChangeEventType.ADD, userToAdd));
+            notifyObservers(UserChangeEvent.ofNewData(EventType.ADD, userToAdd));
         }
     }
 
@@ -54,7 +52,7 @@ public class UserService implements Observable<UserChangeEvent> {
                 u -> {
                     throw new RuntimeException("Error while trying to update user.");
                 },
-                () -> notifyObservers(UserChangeEvent.ofNewData(ChangeEventType.ADD, userToUpdate)));
+                () -> notifyObservers(UserChangeEvent.ofNewData(EventType.ADD, userToUpdate)));
     }
 
     public void removeUser(Long id) throws NotFoundException {
@@ -71,7 +69,7 @@ public class UserService implements Observable<UserChangeEvent> {
         }
         userRepository.delete(id).ifPresentOrElse(
                 deletedUser -> notifyObservers(
-                        UserChangeEvent.ofOldData(ChangeEventType.DELETE, deletedUser)
+                        UserChangeEvent.ofOldData(EventType.DELETE, deletedUser)
                 ),
                 () -> {
                     throw new NotFoundException("User could not be found.");
@@ -81,26 +79,6 @@ public class UserService implements Observable<UserChangeEvent> {
 
     public Set<User> getAllUsers() {
         return ObjectTransformer.iterableToSet(userRepository.findAll());
-    }
-
-    public List<Community> calculateCommunities() {
-        return createGraphFromUsers()
-                .getComponents().stream()
-                .map(Community::new)
-                .toList();
-    }
-
-    public Community mostSociableCommunity() {
-        return new Community(createGraphFromUsers().getComponentWithLongestPath());
-    }
-
-    private UndirectedGraph<User> createGraphFromUsers() {
-        return new UndirectedGraph<>(
-                ObjectTransformer.iterableToSet(userRepository.findAll()),
-                ObjectTransformer.iterableToCollection(friendshipRepository.findAll()).stream()
-                        .map(fr -> Edge.of(fr.getFirstUser(),fr.getSecondUser()))
-                        .collect(Collectors.toSet())
-        );
     }
 
     @Override
@@ -116,5 +94,6 @@ public class UserService implements Observable<UserChangeEvent> {
     @Override
     public void notifyObservers(UserChangeEvent event) {
         observers.forEach(observer -> observer.update(event));
+        communityHandler.update(event);
     }
 }

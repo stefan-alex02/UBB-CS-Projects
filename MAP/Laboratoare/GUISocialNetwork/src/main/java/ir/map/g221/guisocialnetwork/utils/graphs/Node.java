@@ -1,5 +1,7 @@
 package ir.map.g221.guisocialnetwork.utils.graphs;
 
+import ir.map.g221.guisocialnetwork.exceptions.graphs.InvalidEdgeException;
+
 import java.util.Set;
 
 /**
@@ -10,6 +12,13 @@ import java.util.Set;
  * @param <T>
  */
 public interface Node<T extends Node<T>> {
+    /**
+     * Checks if subject node has a neighbour.
+     * @param neighbour The neighbour node.
+     * @return true if the two nodes are linked, false otherwise.
+     */
+    boolean hasNeighbour(T neighbour);
+
     /**
      * Gets all the neighbours of the Node.
      * @return The set of all neighbours.
@@ -31,6 +40,13 @@ public interface Node<T extends Node<T>> {
      * @param neighbour The node to pair with.
      */
     void pairWith(T neighbour);
+
+    /**
+     * Removes the edge of the nodes in their representation. The action is reciprocated by the other node.
+     * @param neighbour The node to unpair with.
+     * @throws InvalidEdgeException If the edge in question does not exist.
+     */
+    void unpairWith(T neighbour) throws InvalidEdgeException;
 
     /**
      * Gets an index as a String for the node (defaults to toString()).

@@ -126,6 +126,7 @@ public class UserDBRepository implements Repository<Long, User> {
             statement.setString(1,entity.getFirstName());
             statement.setString(2,entity.getLastName());
             int response = statement.executeUpdate();
+
             return response == 0 ? Optional.of(entity) : Optional.empty();
         } catch (SQLException e) {
             throw new RuntimeException(e);

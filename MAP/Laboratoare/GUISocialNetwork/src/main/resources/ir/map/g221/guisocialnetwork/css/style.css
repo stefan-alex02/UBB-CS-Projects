@@ -83,11 +83,13 @@
 }
 /* ------------------------------------------------------------------------------------ */
 
+.user-table-column.table-column.column-header {
+    -fx-background-color: #629bd2; /* Set your desired color here */
+}
 
 .table-row-cell:selected {
     -fx-background-color: #d2b358;
-
 }
-.table-row-cell:selected .text {
+.table-row-cell:selected.text {
     -fx-fill: #ffffff;
 }

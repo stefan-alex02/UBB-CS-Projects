@@ -4,6 +4,7 @@ import ir.map.g221.guisocialnetwork.domain.entities.User;
 import ir.map.g221.guisocialnetwork.utils.graphs.GraphComponent;
 import ir.map.g221.guisocialnetwork.utils.graphs.Path;
 
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class Community {
@@ -23,6 +24,19 @@ public class Community {
 
     public boolean isEmpty() {
         return graphComponent.isEmpty();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Community community = (Community) o;
+        return Objects.equals(graphComponent, community.graphComponent);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(graphComponent);
     }
 
     @Override

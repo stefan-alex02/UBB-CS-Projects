@@ -1,5 +1,6 @@
 package ir.map.g221.guisocialnetwork.ui;
 
+import ir.map.g221.guisocialnetwork.business.CommunityHandler;
 import ir.map.g221.guisocialnetwork.business.FriendshipService;
 import ir.map.g221.guisocialnetwork.business.UserService;
 import ir.map.g221.guisocialnetwork.exceptions.ValidationException;
@@ -13,11 +14,16 @@ import java.time.YearMonth;
 public class UserConsole implements UserInterface{
     private final UserService userService;
     private final FriendshipService friendshipService;
+    private final CommunityHandler communityHandler;
     private final SampleGenerator sampleGenerator;
 
-    public UserConsole(UserService userService, FriendshipService friendshipService, SampleGenerator sampleGenerator) {
+    public UserConsole(UserService userService,
+                       FriendshipService friendshipService,
+                       CommunityHandler communityHandler,
+                       SampleGenerator sampleGenerator) {
         this.userService = userService;
         this.friendshipService = friendshipService;
+        this.communityHandler = communityHandler;
         this.sampleGenerator = sampleGenerator;
     }
 
@@ -79,18 +85,18 @@ public class UserConsole implements UserInterface{
     }
 
     private void displayCommunities() {
-        var communities = userService.calculateCommunities();
+        var communities = communityHandler.calculateCommunities();
         if (communities.isEmpty()) {
             System.out.println("There are no users in the network.\n");
         }
         else {
             System.out.println("\nThere are " + communities.size() + " communities:");
-            userService.calculateCommunities().forEach(System.out::println);
+            communityHandler.calculateCommunities().forEach(System.out::println);
         }
     }
 
     private void displayMostSociableCommunity() {
-        var community = userService.mostSociableCommunity();
+        var community = communityHandler.mostSociableCommunity();
         if (community.isEmpty()) {
             System.out.println("There are no users in the network.\n");
         }

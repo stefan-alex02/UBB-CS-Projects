@@ -45,9 +45,11 @@ public abstract class AbstractGraph<TNode extends Node<TNode>> implements Graph<
      * Adds a node, if it doesn't belong to the Node set already.
      * @param node the new node to be added.
      */
-    protected void addNode(TNode node) {
+    public void addNode(TNode node) {
         nodes.add(node);
     }
+
+    public abstract void updateNode(TNode oldNode, TNode newNode);
 
     public boolean hasEdge(Edge<TNode> edge) {
         return edges.contains(edge);
@@ -129,6 +131,33 @@ public abstract class AbstractGraph<TNode extends Node<TNode>> implements Graph<
                     });
         }
         return visitCounter.getVisitedNodes();
+    }
+
+    public Set<GraphComponent<TNode>> DFS() {
+        GraphVisitCounter<TNode> visitCounter = new GraphVisitCounter<>(this);
+        Set<GraphComponent<TNode>> components = new HashSet<>();
+        nodes.forEach(node -> {
+            if (!visitCounter.isVisited(node)) {
+                GraphComponent<TNode> newComponent = DFSVisit(node, visitCounter);
+                components.add(newComponent);
+            }
+        });
+        return components;
+    }
+
+    private GraphComponent<TNode> DFSVisit(TNode node, GraphVisitCounter<TNode> visitCounter) {
+        visitCounter.setVisited(node);
+        GraphComponent<TNode> component = new GraphComponent<>(node);
+        node.getNeighbours().forEach(neighbour -> {
+            if (!visitCounter.isVisited(neighbour)) {
+                GraphComponent<TNode> neighbourComponent = DFSVisit(neighbour, visitCounter);
+                component.bridgeTo(neighbourComponent, Edge.of(node, neighbour));
+            }
+            else {
+                component.tryAddEdge(Edge.of(node, neighbour));
+            }
+        });
+        return component;
     }
 
     public void reset() {
