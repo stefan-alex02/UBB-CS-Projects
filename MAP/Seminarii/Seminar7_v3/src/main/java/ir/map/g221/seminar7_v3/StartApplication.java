@@ -23,11 +23,7 @@ public class StartApplication extends Application {
         UserController userController = userLoader.getController();
         userController.setUserService(container.getUserService());
 
-//        FXMLLoader fxmlLoader = new FXMLLoader(StartApplication.class.getResource("user-view.fxml"));
-//        Scene scene = new Scene(fxmlLoader.load(), 320, 240);
-//        stage.setTitle("Hello!");
-//        stage.setScene(scene);
-//        stage.show();
+        stage.show();
     }
 
     public static void main(String[] args) {
