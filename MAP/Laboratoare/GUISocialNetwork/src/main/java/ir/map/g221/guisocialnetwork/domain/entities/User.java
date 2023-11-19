@@ -86,7 +86,7 @@ public class User extends Entity<Long> implements Node<User> {
     }
 
     @Override
-    public String toStringIndex() {
+    public String indexToString() {
         return getId().toString();
     }
 }

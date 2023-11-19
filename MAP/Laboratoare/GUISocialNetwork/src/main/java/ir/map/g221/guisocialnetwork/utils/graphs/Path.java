@@ -37,7 +37,7 @@ public class Path<TNode extends Node<TNode>> implements Comparable<Path<TNode>> 
     @Override
     public String toString() {
         StringJoiner joiner = new StringJoiner(" -> ");
-        path.forEach(node -> joiner.add(node.toStringIndex()));
+        path.forEach(node -> joiner.add(node.indexToString()));
         return joiner.toString();
     }
 }

@@ -1,157 +1,117 @@
 package ir.map.g221.guisocialnetwork.utils.graphs;
 
-import ir.map.g221.guisocialnetwork.utils.generictypes.ObjectTransformer;
-import ir.map.g221.guisocialnetwork.exceptions.graphs.InvalidGraphException;
+import ir.map.g221.guisocialnetwork.exceptions.graphs.InvalidEdgeException;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 import java.util.function.Consumer;
-import java.util.function.Predicate;
 
-public class UndirectedGraph<TNode extends Node<TNode>> implements Iterable<TNode>, GraphInterface<TNode> {
-    protected final Set<TNode> nodes;
-    protected final Set<Edge<TNode>> edges;
-    private List<GraphComponent<TNode>> components;
-    private final Map<TNode, Boolean> isVisited;
+public class UndirectedGraph<TNode extends Node<TNode>> extends AbstractGraph<TNode> implements Iterable<TNode> {
+    private final Set<GraphComponent<TNode>> components;
 
     public UndirectedGraph() {
-        this.nodes = new HashSet<>();
-        this.edges = new HashSet<>();
-        this.components = null;
-        this.isVisited = new HashMap<>();
+        super();
+        this.components = new HashSet<>();
     }
 
     public UndirectedGraph(Set<TNode> nodes) {
-        this.nodes = nodes;
-        this.edges = new HashSet<>();
-        this.components = null;
-
-        this.isVisited = new HashMap<>();
-        initialiseIsVisited();
+        super();
+        this.components = new HashSet<>();
+        addNodes(nodes);
     }
 
-    public UndirectedGraph(Set<TNode> nodes, Iterable<Edge<TNode>> edges) {
-        this.nodes = nodes;
-        this.edges = new HashSet<>();
+    public UndirectedGraph(Set<TNode> nodes, Set<Edge<TNode>> edges) {
+        super();
+        this.components = new HashSet<>();
+        addNodes(nodes);
         forceAddEdges(edges);
-        this.components = null;
-
-        this.isVisited = new HashMap<>();
-        initialiseIsVisited();
     }
 
-    public Set<TNode> getNodes() {
-        return nodes;
+    public static <TNode extends Node<TNode>> UndirectedGraph<TNode> ofAbstractGraph(
+            AbstractGraph<TNode> abstractGraph) {
+        return new UndirectedGraph<>(abstractGraph.nodes, abstractGraph.edges);
     }
 
-    public boolean hasNode(TNode node) {
-        return nodes.contains(node);
+    public GraphComponent<TNode> toComponent() {
+        return new GraphComponent<>(nodes, edges);
     }
 
-    private void initialiseIsVisited() {
-        nodes.forEach(node -> isVisited.put(node, false));
+    public void addNodes(Collection<TNode> nodes) {
+        nodes.forEach(this::addNode);
     }
 
-    protected boolean isEdgeIncludable(Edge<TNode> edge) {
-        return hasNode(edge.getFirst()) && hasNode(edge.getSecond());
+    public void addNode(TNode node) {
+        if (!nodes.contains(node)) {
+            components.add(new GraphComponent<>(node));
+        }
+        super.addNode(node);
     }
 
-    protected boolean areEdgesIncludable(Iterable<Edge<TNode>> edges) throws InvalidGraphException {
-        return ObjectTransformer
-                .iterableToCollection(edges)
-                .stream()
-                .allMatch(this::isEdgeIncludable);
-    }
-
-    public void forceAddEdge(Edge<TNode> edge) throws InvalidGraphException {
-        TNode node1 = nodes.stream()
-                .filter(n -> n.equals(edge.getFirst()))
-                .findFirst()
-                .orElseThrow(() ->
-                        new InvalidGraphException("Edge must have nodes in the destination (sub)graph.")
-                );
-        TNode node2 = nodes.stream()
-                .filter(n -> n.equals(edge.getSecond()))
-                .findFirst()
-                .orElseThrow(() ->
-                        new InvalidGraphException("Edge must have nodes in the destination (sub)graph.")
-                );
-        node1.pairWith(node2);
-        edges.add(Edge.of(node1, node2));
-        components = null;
+    public void forceAddEdge(Edge<TNode> edge) throws InvalidEdgeException {
+        super.forceAddEdge(edge);
+        tryCombineComponents(edge);
     }
 
     public boolean tryAddEdge(Edge<TNode> edge) {
-        TNode node1 = nodes.stream()
-                .filter(n -> n.equals(edge.getFirst()))
-                .findFirst()
-                .orElse(null);
-        TNode node2 = nodes.stream()
-                .filter(n -> n.equals(edge.getSecond()))
-                .findFirst()
-                .orElse(null);
-
-        if (node1 == null || node2 == null) {
-            return false;
+        boolean wasAdded = super.tryAddEdge(edge);
+        if (wasAdded) {
+            tryCombineComponents(edge);
         }
-
-        node1.pairWith(node2);
-        edges.add(Edge.of(node1, node2));
-        components = null;
-        return true;
+        return wasAdded;
     }
 
-    public void forceAddEdges(Iterable<Edge<TNode>> edges) throws InvalidGraphException {
-        if (!areEdgesIncludable(edges)) {
-            throw new InvalidGraphException("Edges must have nodes in the destination (sub)graph.");
-        }
-        edges.forEach(this::forceAddEdge);
+    public void forceAddEdges(Set<Edge<TNode>> edges) throws InvalidEdgeException {
+        super.forceAddEdges(edges);
     }
 
-    public boolean tryAddEdges(Iterable<Edge<TNode>> edges) {
-        return ObjectTransformer
-                .iterableToCollection(edges)
-                .stream()
-                .allMatch(this::tryAddEdge);
+    public boolean tryAddEdges(Set<Edge<TNode>> edges) {
+        return super.tryAddEdges(edges);
     }
 
-    public List<GraphComponent<TNode>> getAllComponents() {
-        if (components == null) {
-            exploreAllComponents();
+    private void tryCombineComponents(Edge<TNode> edge) {
+        GraphComponent<TNode> firstComponent = componentOf(edge.getFirstNode()).orElseThrow();
+        GraphComponent<TNode> secondComponent = componentOf(edge.getSecondNode()).orElseThrow();
+        if (!firstComponent.equals(secondComponent)) {
+            components.remove(firstComponent);
+            components.remove(secondComponent);
+            components.add(GraphComponent.bridge(firstComponent, secondComponent, edge));
         }
+    }
+
+    public void reset() {
+        super.reset();
+        this.components.clear();
+    }
+
+    public Set<GraphComponent<TNode>> getComponents() {
         return components;
     }
 
-    private void exploreAllComponents() {
-        initialiseIsVisited();
-        components = new ArrayList<>();
-        nodes.stream()
-                .filter(Predicate.not(isVisited::get))
-                .forEach((TNode node) -> {
-                    GraphComponent<TNode> newComponent = new GraphComponent<>(exploreFromNode(node));
-                    newComponent.tryAddEdges(edges);
-                    components.add(newComponent);
-                });
-    }
-
-    private Set<TNode> exploreFromNode(TNode node) {
-        isVisited.put(node, true);
-        Set<TNode> exploredNodes = new HashSet<>(Collections.singletonList(node));
-        node.getNeighbours()
-                .stream()
-                .filter(Predicate.not(isVisited::get))
-                .forEach((TNode neighbour) ->
-                        exploredNodes.addAll(exploreFromNode(neighbour))
-                );
-        return exploredNodes;
-    }
+//    private void exploreAllComponents() {
+//        initialiseIsVisited();
+//        components.clear();
+//        nodes.stream()
+//                .filter(Predicate.not(super::isVisited))
+//                .forEach((TNode node) -> {
+//                    GraphComponent<TNode> newComponent = new GraphComponent<>(exploreFromNode(node));
+//                    newComponent.tryAddEdges(edges);
+//                    components.add(newComponent);
+//                });
+//    }
+//
+//    private Set<TNode> exploreFromNode(TNode node) {
+//        setVisited(node);
+//        Set<TNode> exploredNodes = new HashSet<>(Collections.singletonList(node));
+//        node.getNeighbours()
+//                .stream()
+//                .filter(Predicate.not(super::isVisited))
+//                .forEach((TNode neighbour) ->
+//                        exploredNodes.addAll(exploreFromNode(neighbour))
+//                );
+//        return exploredNodes;
+//    }
 
     public GraphComponent<TNode> getComponentWithLongestPath() {
-        if (components == null) {
-            exploreAllComponents();
-        }
-        initialiseIsVisited();
-
         return components.stream()
                 .max(Comparator.comparing(
                         GraphComponent::getLongestPath)
@@ -159,21 +119,26 @@ public class UndirectedGraph<TNode extends Node<TNode>> implements Iterable<TNod
                 .orElse(new GraphComponent<>());
     }
 
-    public static <TNode extends Node<TNode>> UndirectedGraph<TNode> union(UndirectedGraph<TNode> componentA, UndirectedGraph<TNode> componentB) {
+    public static <TNode extends Node<TNode>> UndirectedGraph<TNode> union(UndirectedGraph<TNode> componentA,
+                                                                           UndirectedGraph<TNode> componentB) {
         UndirectedGraph<TNode> unionGraph = new UndirectedGraph<>();
         unionGraph.nodes.addAll(componentA.nodes);
         unionGraph.nodes.addAll(componentB.nodes);
-        unionGraph.forceAddEdges(componentA.edges);
-        unionGraph.forceAddEdges(componentB.edges);
+        unionGraph.edges.addAll(componentA.edges);
+        unionGraph.edges.addAll(componentB.edges);
+        unionGraph.components.addAll(componentA.components);
+        unionGraph.components.addAll(componentB.components);
+//        unionGraph.addNodes(componentA.nodes);
+//        unionGraph.addNodes(componentB.nodes);
+//        unionGraph.forceAddEdges(componentA.edges);
+//        unionGraph.forceAddEdges(componentB.edges);
         return unionGraph;
     }
 
-    public int size() {
-        return nodes.size();
-    }
-
-    public boolean isEmpty() {
-        return size() == 0;
+    public Optional<GraphComponent<TNode>> componentOf(TNode node) {
+        return components.stream()
+                .filter(component -> component.hasNode(node))
+                .findAny();
     }
 
     @Override

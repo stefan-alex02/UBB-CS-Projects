@@ -1,15 +1,16 @@
 package ir.map.g221.guisocialnetwork.factory;
 
 import ir.map.g221.guisocialnetwork.business.FriendshipService;
+import ir.map.g221.guisocialnetwork.business.SampleGenerator;
 import ir.map.g221.guisocialnetwork.business.UserService;
 import ir.map.g221.guisocialnetwork.domain.entities.Friendship;
 import ir.map.g221.guisocialnetwork.domain.entities.User;
+import ir.map.g221.guisocialnetwork.persistence.Repository;
+import ir.map.g221.guisocialnetwork.persistence.dbrepos.UserDBRepository;
 import ir.map.g221.guisocialnetwork.utils.generictypes.UnorderedPair;
 import ir.map.g221.guisocialnetwork.domain.validation.FriendshipValidator;
 import ir.map.g221.guisocialnetwork.domain.validation.UserValidator;
 import ir.map.g221.guisocialnetwork.persistence.dbrepos.FriendshipDBRepository;
-import ir.map.g221.guisocialnetwork.persistence.dbrepos.UserDBRepository;
-import ir.map.g221.guisocialnetwork.persistence.Repository;
 import ir.map.g221.guisocialnetwork.ui.UserConsole;
 import ir.map.g221.guisocialnetwork.ui.UserInterface;
 

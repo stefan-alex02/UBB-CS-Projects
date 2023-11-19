@@ -20,18 +20,18 @@ public class Edge<TNode extends Node<TNode>>{
         return new Edge<>(first, second);
     }
 
-    public TNode getFirst() {
+    public TNode getFirstNode() {
         return unorderedPair.getFirst();
     }
 
-    public TNode getSecond() {
+    public TNode getSecondNode() {
         return unorderedPair.getSecond();
     }
 
     public Set<TNode> getNodes() {
         return new HashSet<>() {{
-            add(getFirst());
-            add(getSecond());
+            add(getFirstNode());
+            add(getSecondNode());
         }};
     }
 

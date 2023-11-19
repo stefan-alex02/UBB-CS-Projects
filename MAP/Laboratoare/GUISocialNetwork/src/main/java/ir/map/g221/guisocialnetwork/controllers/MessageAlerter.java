@@ -12,10 +12,11 @@ public class MessageAlerter {
         message.showAndWait();
     }
 
-    public static void showErrorMessage(Stage owner, String text){
+    public static void showErrorMessage(Stage owner, String headerText, String text){
         Alert message = new Alert(Alert.AlertType.ERROR);
         message.initOwner(owner);
-        message.setTitle("Mesaj eroare");
+        message.setHeaderText(headerText);
+        message.setTitle("Error");
         message.setContentText(text);
         message.showAndWait();
     }

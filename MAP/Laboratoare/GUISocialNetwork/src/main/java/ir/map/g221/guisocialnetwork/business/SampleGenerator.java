@@ -1,7 +1,6 @@
-package ir.map.g221.guisocialnetwork.factory;
+package ir.map.g221.guisocialnetwork.business;
 
-import ir.map.g221.guisocialnetwork.business.FriendshipService;
-import ir.map.g221.guisocialnetwork.business.UserService;
+import ir.map.g221.guisocialnetwork.exceptions.SampleGeneratedException;
 
 import java.time.LocalDateTime;
 
@@ -17,7 +16,7 @@ public class SampleGenerator {
 
     public void generateSample() {
         if (alreadyGenerated) {
-            throw new RuntimeException("Samples have already been generated");
+            throw new SampleGeneratedException("Samples have already been generated.");
         }
         alreadyGenerated = true;
 

@@ -7,9 +7,6 @@ module ir.map.g221.guisocialnetwork {
     requires org.jetbrains.annotations;
     requires java.sql;
 
-    opens ir.map.g221.guisocialnetwork to javafx.fxml;
-    exports ir.map.g221.guisocialnetwork;
-
     opens ir.map.g221.guisocialnetwork.business to javafx.fxml;
     exports ir.map.g221.guisocialnetwork.business;
 
@@ -36,5 +33,7 @@ module ir.map.g221.guisocialnetwork {
 
     opens ir.map.g221.guisocialnetwork.persistence to javafx.fxml;
     exports ir.map.g221.guisocialnetwork.persistence;
+    exports ir.map.g221.guisocialnetwork;
+    opens ir.map.g221.guisocialnetwork to javafx.fxml;
 
 }

@@ -56,10 +56,10 @@ public class EditUserController {
             dialogStage.close();
         }
         catch (ValidationException e) {
-            MessageAlerter.showErrorMessage(null, "Validation error: " + e.getMessage());
+            MessageAlerter.showErrorMessage(null, "Validation error", e.getMessage());
         }
         catch (RuntimeException e) {
-            MessageAlerter.showErrorMessage(null, "There has been an error: " + e.getMessage());
+            MessageAlerter.showErrorMessage(null, "There has been an error", e.getMessage());
         }
     }
 
@@ -72,10 +72,10 @@ public class EditUserController {
             dialogStage.close();
         }
         catch (ValidationException e) {
-            MessageAlerter.showErrorMessage(null, "Validation error: " + e.getMessage());
+            MessageAlerter.showErrorMessage(null, "Validation error", e.getMessage());
         }
         catch (RuntimeException e) {
-            MessageAlerter.showErrorMessage(null, "There has been an error: " + e.getMessage());
+            MessageAlerter.showErrorMessage(null, "There has been an error", e.getMessage());
         }
     }
 

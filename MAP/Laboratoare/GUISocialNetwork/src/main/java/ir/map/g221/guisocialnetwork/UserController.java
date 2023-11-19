@@ -4,6 +4,8 @@ import ir.map.g221.guisocialnetwork.business.UserService;
 import ir.map.g221.guisocialnetwork.controllers.EditUserController;
 import ir.map.g221.guisocialnetwork.controllers.MessageAlerter;
 import ir.map.g221.guisocialnetwork.domain.entities.User;
+import ir.map.g221.guisocialnetwork.business.SampleGenerator;
+import ir.map.g221.guisocialnetwork.exceptions.SampleGeneratedException;
 import ir.map.g221.guisocialnetwork.utils.events.UserChangeEvent;
 import ir.map.g221.guisocialnetwork.utils.observer.Observer;
 import javafx.collections.FXCollections;
@@ -29,6 +31,8 @@ import java.util.stream.Collectors;
 
 public class UserController implements Observer<UserChangeEvent> {
     private UserService userService = null;
+
+    private SampleGenerator sampleGenerator = null;
     private final ObservableList<User> usersModel = FXCollections.observableArrayList();
 
     @FXML
@@ -41,6 +45,7 @@ public class UserController implements Observer<UserChangeEvent> {
     @FXML
     public void initialize() {
         tableColumnFirstName.setCellValueFactory(new PropertyValueFactory<>("firstName"));
+        //tableColumnFirstName.setCellFactory();
         tableColumnLastName.setCellValueFactory(new PropertyValueFactory<>("lastName"));
         tableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         tableView.setItems(usersModel);
@@ -50,6 +55,10 @@ public class UserController implements Observer<UserChangeEvent> {
         this.userService = userService;
         userService.addObserver(this);
         initUserModel();
+    }
+
+    public void setSampleGenerator(SampleGenerator sampleGenerator) {
+        this.sampleGenerator = sampleGenerator;
     }
 
     @Override
@@ -78,12 +87,12 @@ public class UserController implements Observer<UserChangeEvent> {
                         "User(s) deleted successfully");
             }
             catch(Exception e) {
-                MessageAlerter.showErrorMessage(null, "Error occurred while deleting users: " +
+                MessageAlerter.showErrorMessage(null, "Delete error", "Error occurred while deleting users: " +
                         e.getMessage());
             }
         }
         else {
-            MessageAlerter.showErrorMessage(null, "You must select at least one user.");
+            MessageAlerter.showErrorMessage(null, "Selection error", "You must select at least one user.");
         }
     }
 
@@ -94,10 +103,27 @@ public class UserController implements Observer<UserChangeEvent> {
             showUserEditDialog(Optional.of(selectedUsers.get(0)));
         }
         else if (selectedUsers.isEmpty()) {
-            MessageAlerter.showErrorMessage(null, "You must select one user.");
+            MessageAlerter.showErrorMessage(null, "Selection error", "You must select one user.");
         }
         else {
-            MessageAlerter.showErrorMessage(null, "Only one user can updated at once.");
+            MessageAlerter.showErrorMessage(null, "Selection error", "Only one user can be updated at once.");
+        }
+    }
+
+    @FXML
+    private void handleGenerateSampleButton(ActionEvent actionEvent) {
+        try {
+            sampleGenerator.generateSample();
+            MessageAlerter.showMessage(null,
+                    Alert.AlertType.INFORMATION,
+                    "Generated sample info",
+                    "Users were generated with success.");
+        }
+        catch(SampleGeneratedException e) {
+            MessageAlerter.showErrorMessage(null,"Sample generating error",  e.getMessage());
+        }
+        catch(Exception e) {
+            MessageAlerter.showErrorMessage(null, "Error while generating sample", e.getMessage());
         }
     }
 

@@ -5,11 +5,10 @@
 --     CONNECTION LIMIT = -1
 --     IS_TEMPLATE = False;
 
-
+DROP TABLE IF EXISTS public.friendships;
+DROP TABLE IF EXISTS public.users;
 
 -- Table: public.users
-
--- DROP TABLE IF EXISTS public.users;
 
 CREATE TABLE IF NOT EXISTS public.users
 (
@@ -27,8 +26,6 @@ ALTER TABLE IF EXISTS public.users
 	
 	
 -- Table: public.friendships
-
--- DROP TABLE IF EXISTS public.friendships;
 
 CREATE TABLE IF NOT EXISTS public.friendships
 (

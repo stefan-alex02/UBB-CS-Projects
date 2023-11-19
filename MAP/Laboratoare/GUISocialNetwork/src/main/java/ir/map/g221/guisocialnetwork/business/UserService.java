@@ -1,23 +1,25 @@
 package ir.map.g221.guisocialnetwork.business;
 
-import ir.map.g221.guisocialnetwork.utils.events.ChangeEventType;
+import ir.map.g221.guisocialnetwork.exceptions.NotFoundException;
+import ir.map.g221.guisocialnetwork.exceptions.ValidationException;
+import ir.map.g221.guisocialnetwork.persistence.Repository;
+import ir.map.g221.guisocialnetwork.persistence.inmemoryrepos.FriendshipInMemoryRepo;
 import ir.map.g221.guisocialnetwork.utils.events.UserChangeEvent;
 import ir.map.g221.guisocialnetwork.utils.generictypes.ObjectTransformer;
 import ir.map.g221.guisocialnetwork.utils.generictypes.UnorderedPair;
+import ir.map.g221.guisocialnetwork.utils.events.ChangeEventType;
 import ir.map.g221.guisocialnetwork.utils.graphs.Edge;
 import ir.map.g221.guisocialnetwork.utils.graphs.UndirectedGraph;
 import ir.map.g221.guisocialnetwork.domain.Community;
-import ir.map.g221.guisocialnetwork.exceptions.NotFoundException;
-import ir.map.g221.guisocialnetwork.exceptions.ValidationException;
 import ir.map.g221.guisocialnetwork.domain.entities.Friendship;
 import ir.map.g221.guisocialnetwork.domain.entities.User;
-import ir.map.g221.guisocialnetwork.persistence.Repository;
 import ir.map.g221.guisocialnetwork.utils.observer.Observable;
 import ir.map.g221.guisocialnetwork.utils.observer.Observer;
 
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class UserService implements Observable<UserChangeEvent> {
     private final Repository<UnorderedPair<Long, Long>, Friendship> friendshipRepository;
@@ -56,14 +58,17 @@ public class UserService implements Observable<UserChangeEvent> {
     }
 
     public void removeUser(Long id) throws NotFoundException {
-//        userRepository.findOne(id).ifPresentOrElse(user ->
-//                ObjectTransformer.iterableToCollection(friendshipRepository.findAll())
-//                        .stream()
-//                        .filter(friendship -> friendship.hasUser(user))
-//                        .forEach(friendship -> friendshipRepository.delete(friendship.getId()))
-//        , () -> {
-//            throw new NotFoundException("User could not be found.");
-//        });
+        // If it's a FriendshipInMemoryRepo, delete the friendships as well:
+        if (friendshipRepository instanceof FriendshipInMemoryRepo) {
+            userRepository.findOne(id).ifPresentOrElse(user ->
+                            ObjectTransformer.iterableToCollection(friendshipRepository.findAll())
+                                    .stream()
+                                    .filter(friendship -> friendship.hasUser(user))
+                                    .forEach(friendship -> friendshipRepository.delete(friendship.getId()))
+                    , () -> {
+                        throw new NotFoundException("User could not be found.");
+                    });
+        }
         userRepository.delete(id).ifPresentOrElse(
                 deletedUser -> notifyObservers(
                         UserChangeEvent.ofOldData(ChangeEventType.DELETE, deletedUser)
@@ -80,7 +85,7 @@ public class UserService implements Observable<UserChangeEvent> {
 
     public List<Community> calculateCommunities() {
         return createGraphFromUsers()
-                .getAllComponents().stream()
+                .getComponents().stream()
                 .map(Community::new)
                 .toList();
     }
@@ -90,15 +95,12 @@ public class UserService implements Observable<UserChangeEvent> {
     }
 
     private UndirectedGraph<User> createGraphFromUsers() {
-        UndirectedGraph<User> graph = new UndirectedGraph<>(
-                ObjectTransformer.iterableToSet(userRepository.findAll())
+        return new UndirectedGraph<>(
+                ObjectTransformer.iterableToSet(userRepository.findAll()),
+                ObjectTransformer.iterableToCollection(friendshipRepository.findAll()).stream()
+                        .map(fr -> Edge.of(fr.getFirstUser(),fr.getSecondUser()))
+                        .collect(Collectors.toSet())
         );
-
-        graph.tryAddEdges(ObjectTransformer.iterableToCollection(friendshipRepository.findAll()).stream()
-                .map(fr -> Edge.of(fr.getFirstUser(),fr.getSecondUser()))
-                .toList()
-        );
-        return graph;
     }
 
     @Override
