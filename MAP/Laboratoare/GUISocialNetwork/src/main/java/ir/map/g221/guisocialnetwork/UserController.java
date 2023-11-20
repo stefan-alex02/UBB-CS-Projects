@@ -41,10 +41,18 @@ public class UserController implements Observer<UserChangeEvent> {
     @FXML
     TableColumn<User, String> tableColumnLastName;
 
-    private static final List<String> colorList = Arrays.asList("d39898", "d3cb98", "7be7b1", "B49DE1");
+    private static final List<String> colorList =
+            Arrays.asList("E3B5A3", "EF8C8A", "EFC38A", "F5D075", "D5E183",
+                    "B8E19F", "9FE1C8", "4FE5E8", "89AAD2", "A6A6DC",
+                    "C6A6DC", "DCA6D3");
 
     private static String getColorCode(int hashCode) {
-        return colorList.get(hashCode % colorList.size());
+        int sum = 0;
+        while(hashCode > 0) {
+            sum += hashCode % 10;
+            hashCode /= 10;
+        }
+        return colorList.get(sum % colorList.size());
     }
 
     @FXML

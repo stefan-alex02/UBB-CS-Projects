@@ -42,8 +42,8 @@
     -fx-border-color: #8a665b;
 }
 .delete-button.button:hover {
-    -fx-background-color: #e18569;
-    -fx-border-color: #834b3c;
+    -fx-background-color: #ea7656;
+    -fx-border-color: #a64f38;
 }
 .delete-button.button:pressed {
     -fx-background-color: #ab8375;
@@ -88,7 +88,8 @@
 }
 
 .table-row-cell:selected {
-    -fx-background-color: #d2b358;
+    -fx-background-color: #757575;
+    -fx-font-weight: 700;
 }
 .table-row-cell:selected.text {
     -fx-fill: #ffffff;
