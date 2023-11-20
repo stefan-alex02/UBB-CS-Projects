@@ -1,18 +1,28 @@
 package ir.map.g221.graphs;
 
 import ir.map.g221.generictypes.UnorderedPair;
+import ir.map.g221.graphexceptions.InvalidEdgeException;
 
-public class Edge<T, W> {
-    private final W data;
-    private final UnorderedPair unorderedPair;
+public class Edge<T> {
+    private final UnorderedPair<Node<T>, Node<T>> unorderedPair;
 
-    public Edge(W data, UnorderedPair unorderedPair) {
-        this.data = data;
+    private Edge(UnorderedPair<Node<T>, Node<T>> unorderedPair) {
         this.unorderedPair = unorderedPair;
     }
 
-    public Edge(UnorderedPair unorderedPair) {
-        this.unorderedPair = unorderedPair;
-        this.data = null;
+    /**
+     * Creates a new edge, and also connects the specified nodes.
+     * @param nodeA a node
+     * @param nodeB another node
+     * @return the newly created edge having the given nodes
+     * @param <T> the type of data contained in the nodes
+     * @throws InvalidEdgeException if the two nodes are equal
+     */
+    static <T> Edge<T> ofData(Node<T> nodeA, Node<T> nodeB) throws InvalidEdgeException {
+        if (nodeA.equals(nodeB)) {
+            throw new InvalidEdgeException("Edge nodes must be different");
+        }
+        Node.connect(nodeA, nodeB);
+        return new Edge<>(UnorderedPair.of(nodeA, nodeB));
     }
 }

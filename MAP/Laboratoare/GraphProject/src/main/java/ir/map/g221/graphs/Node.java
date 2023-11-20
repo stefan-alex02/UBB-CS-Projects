@@ -13,34 +13,52 @@ public class Node<T> {
         neighbours = new HashSet<>();
     }
 
-    public static <T> Node<T> of(T data) {
+    /**
+     * Creates a node containing given data.
+     * @param data the data to be contained
+     * @return the created Node
+     * @param <T> the type of data to be contained
+     */
+    static <T> Node<T> of(T data) {
         return new Node<>(data);
     }
 
-    public T getData() {
+    /**
+     * Gets the data contained inside the node.
+     * @return data
+     */
+    T getData() {
         return data;
     }
 
-    public Set<Node<T>> getNeighbours() {
+    /**
+     * Gets the neighbouring nodes.
+     * @return the set of neighbours
+     */
+    Set<Node<T>> getNeighbours() {
         return neighbours;
     }
 
     /**
-     * Adds a neighbour to the node's set of neighbours.
-     * @param newNeighbour The new neighbour.
-     * @return true if the node did not already have the specified neighbour, false otherwise.
+     * Connects the two specified nodes, by adding each one to the other's list of neighbours.
+     * @param nodeA a node to connect
+     * @param nodeB another node to connect
+     * @param <T> the type of the data contained inside the nodes
      */
-    public boolean addNeighbour(Node<T> newNeighbour) {
-        return neighbours.add(newNeighbour);
+    static <T> void connect(Node<T> nodeA, Node<T> nodeB) {
+        nodeA.neighbours.add(nodeB);
+        nodeB.neighbours.add(nodeA);
     }
 
     /**
-     * Removes a neighbour from the node's set of neighbours.
-     * @param neighbourToRemove The neighbour to be removed.
-     * @return true if the node had the specified neighbour, false otherwise.
+     * Disconnects the two specified nodes, by removing each one from the other's list of neighbours.
+     * @param nodeA a node to disconnect
+     * @param nodeB another node to disconnect
+     * @param <T> the type of the data contained inside the nodes
      */
-    public boolean removeNeighbour(Node<T> neighbourToRemove) {
-        return neighbours.remove(neighbourToRemove);
+    static <T> void disconnect(Node<T> nodeA, Node<T> nodeB) {
+        nodeA.neighbours.remove(nodeB);
+        nodeB.neighbours.remove(nodeA);
     }
 
     @Override
