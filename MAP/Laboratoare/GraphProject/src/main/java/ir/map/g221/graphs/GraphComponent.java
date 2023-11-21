@@ -26,6 +26,11 @@ public class GraphComponent<T> implements Graph<T> {
     }
 
     @Override
+    public boolean hasVertex(T vertexData) {
+        return vertices.contains(Vertex.of(vertexData));
+    }
+
+    @Override
     public boolean isEmpty() {
         return size() == 0;
     }
