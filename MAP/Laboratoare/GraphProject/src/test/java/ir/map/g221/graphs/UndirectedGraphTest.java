@@ -1,17 +1,16 @@
 package ir.map.g221.graphs;
 
+import ir.map.g221.generictypes.UnorderedPair;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 class UndirectedGraphTest {
 
     @Test
     void addVertex() {
-        UndirectedGraph<Integer> undirectedGraph = UndirectedGraph.empty();
+        UndirectedGraph<Integer> undirectedGraph = UndirectedGraph.ofEmpty();
 
         Assertions.assertTrue(undirectedGraph.addVertex(5));
         Assertions.assertEquals(1, undirectedGraph.size());
@@ -22,7 +21,7 @@ class UndirectedGraphTest {
 
     @Test
     void hasVertex() {
-        UndirectedGraph<Integer> undirectedGraph = UndirectedGraph.empty();
+        UndirectedGraph<Integer> undirectedGraph = UndirectedGraph.ofEmpty();
 
         Assertions.assertTrue(undirectedGraph.addVertex(5));
         Assertions.assertTrue(undirectedGraph.addVertex(7));
@@ -35,7 +34,7 @@ class UndirectedGraphTest {
 
     @Test
     void testAddVertices() {
-        UndirectedGraph<Integer> undirectedGraph = UndirectedGraph.empty();
+        UndirectedGraph<Integer> undirectedGraph = UndirectedGraph.ofEmpty();
 
         Assertions.assertTrue(undirectedGraph.addVertices(Set.of(5, 8, 9)));
         Assertions.assertEquals(3, undirectedGraph.size());
@@ -49,5 +48,31 @@ class UndirectedGraphTest {
 
         Assertions.assertFalse(undirectedGraph.addVertices(Set.of(5, 6, 9)));
         Assertions.assertEquals(4, undirectedGraph.size());
+    }
+
+    @Test
+    void addEdge() {
+        UndirectedGraph<Integer> undirectedGraph = UndirectedGraph.ofEmpty();
+
+        Assertions.assertTrue(undirectedGraph.addVertices(Set.of(5, 8, 9)));
+        Assertions.assertEquals(3, undirectedGraph.numberOfComponents());
+
+        Assertions.assertTrue(undirectedGraph.addEdge(5, 8));
+        Assertions.assertEquals(2, undirectedGraph.numberOfComponents());
+
+        Assertions.assertFalse(undirectedGraph.addEdge(5, 8));
+
+        Assertions.assertTrue(undirectedGraph.addEdges(
+                Set.of(
+                        UnorderedPair.of(5,8),
+                        UnorderedPair.of(5,9)))
+        );
+        Assertions.assertEquals(1, undirectedGraph.numberOfComponents());
+
+        Assertions.assertFalse(undirectedGraph.addEdges(
+                Set.of(
+                        UnorderedPair.of(5,8),
+                        UnorderedPair.of(5,9)))
+        );
     }
 }

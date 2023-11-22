@@ -13,7 +13,7 @@ public class Edge<T> {
     }
 
     /**
-     * Creates a new edge, and also connects the specified nodes.
+     * Creates a new edge, and also connects the specified nodes in their implementation.
      * @param vertexA a node
      * @param vertexB another node
      * @return the newly created edge having the given nodes
