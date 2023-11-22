@@ -24,7 +24,6 @@ public class Edge<T> {
         if (vertexA.equals(vertexB)) {
             throw new InvalidEdgeException("Edge nodes must be different");
         }
-        Vertex.connect(vertexA, vertexB);
         return new Edge<>(UnorderedPair.of(vertexA, vertexB));
     }
 

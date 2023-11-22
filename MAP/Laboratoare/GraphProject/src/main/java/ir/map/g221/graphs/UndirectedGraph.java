@@ -2,6 +2,7 @@ package ir.map.g221.graphs;
 
 import ir.map.g221.generictypes.UnorderedPair;
 import ir.map.g221.graphexceptions.InvalidEdgeException;
+import ir.map.g221.graphexceptions.InvalidVertexException;
 
 import java.util.HashSet;
 import java.util.Optional;
@@ -18,12 +19,7 @@ public class UndirectedGraph<T> implements Graph<T> {
         return new UndirectedGraph<>();
     }
 
-    /**
-     * Adds a vertex to the graph.
-     * @param vertexData the data of the vertex to be added
-     * @return true if the graph did not already contain the vertex with the specified data, false otherwise
-     */
-    boolean addVertex(T vertexData) {
+    public boolean addVertex(T vertexData) {
         if (!hasVertex(vertexData)) {
             components.add(ConnectedComponent.ofVertex(vertexData));
             return true;
@@ -68,6 +64,11 @@ public class UndirectedGraph<T> implements Graph<T> {
         }
 
         return wasEdgeNew;
+    }
+
+    @Override
+    public boolean removeEdge(T vertexDataA, T vertexDataB) throws InvalidVertexException {
+        return false;
     }
 
     /**

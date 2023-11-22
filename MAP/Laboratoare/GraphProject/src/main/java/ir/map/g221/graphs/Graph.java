@@ -1,6 +1,7 @@
 package ir.map.g221.graphs;
 
 import ir.map.g221.graphexceptions.InvalidEdgeException;
+import ir.map.g221.graphexceptions.InvalidVertexException;
 
 public interface Graph<T> {
     /**
@@ -29,6 +30,13 @@ public interface Graph<T> {
     boolean hasVertex(T vertexData);
 
     /**
+     * Adds a vertex to the graph.
+     * @param vertexData the data of the vertex to be added
+     * @return true if the graph did not already contain the vertex with the specified data, false otherwise
+     */
+    boolean addVertex(T vertexData);
+
+    /**
      * Adds an edge to the graph.
      * @param vertexDataA data of one vertex, that belongs to the graph
      * @param vertexDataB data of another vertex, that belongs to the graph
@@ -36,6 +44,15 @@ public interface Graph<T> {
      * @throws InvalidEdgeException if any of the specified vertices do not belong to the graph
      */
     boolean addEdge(T vertexDataA, T vertexDataB) throws InvalidEdgeException;
+
+    /**
+     * Removes an edge to the graph, specified by the data of its two vertices.
+     * @param vertexDataA data of one vertex, that belongs to the graph
+     * @param vertexDataB data of another vertex, that belongs to the graph
+     * @return true if the graph contained the specified edge, false otherwise
+     * @throws InvalidVertexException if any of the given data does not belong to any vertex in the graph
+     */
+    boolean removeEdge(T vertexDataA, T vertexDataB) throws InvalidVertexException;
 
     /**
      * Clears the entire content of the graph.
