@@ -27,9 +27,9 @@ class UndirectedGraphTest {
         Assertions.assertTrue(undirectedGraph.addVertex(7));
 
 
-        Assertions.assertTrue(undirectedGraph.hasVertex(5));
-        Assertions.assertTrue(undirectedGraph.hasVertex(7));
-        Assertions.assertFalse(undirectedGraph.hasVertex(8));
+        Assertions.assertTrue(undirectedGraph.containsVertex(5));
+        Assertions.assertTrue(undirectedGraph.containsVertex(7));
+        Assertions.assertFalse(undirectedGraph.containsVertex(8));
     }
 
     @Test
@@ -38,13 +38,13 @@ class UndirectedGraphTest {
 
         Assertions.assertTrue(undirectedGraph.addVertices(Set.of(5, 8, 9)));
         Assertions.assertEquals(3, undirectedGraph.size());
-        Assertions.assertTrue(undirectedGraph.hasVertex(5));
-        Assertions.assertFalse(undirectedGraph.hasVertex(6));
+        Assertions.assertTrue(undirectedGraph.containsVertex(5));
+        Assertions.assertFalse(undirectedGraph.containsVertex(6));
 
         Assertions.assertTrue(undirectedGraph.addVertices(Set.of(5, 6)));
         Assertions.assertEquals(4, undirectedGraph.size());
-        Assertions.assertTrue(undirectedGraph.hasVertex(5));
-        Assertions.assertTrue(undirectedGraph.hasVertex(6));
+        Assertions.assertTrue(undirectedGraph.containsVertex(5));
+        Assertions.assertTrue(undirectedGraph.containsVertex(6));
 
         Assertions.assertFalse(undirectedGraph.addVertices(Set.of(5, 6, 9)));
         Assertions.assertEquals(4, undirectedGraph.size());

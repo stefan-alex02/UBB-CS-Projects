@@ -30,7 +30,7 @@ public class VertexExplorer<T> {
         visitedVertices.remove(vertex);
     }
 
-    ConnectedComponent<T> createComponentExploringFrom(Vertex<T> vertex) {
+    static <T> ConnectedComponent<T> createComponentExploringFrom(Vertex<T> vertex) {
         VertexExplorer<T> vertexExplorer = new VertexExplorer<>();
         vertexExplorer.BFSCreate(vertex);
         return vertexExplorer.getExploredComponent();

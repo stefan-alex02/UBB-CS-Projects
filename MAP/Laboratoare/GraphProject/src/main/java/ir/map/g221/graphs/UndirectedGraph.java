@@ -20,7 +20,7 @@ public class UndirectedGraph<T> implements Graph<T> {
     }
 
     public boolean addVertex(T vertexData) {
-        if (!hasVertex(vertexData)) {
+        if (!containsVertex(vertexData)) {
             components.add(ConnectedComponent.ofVertex(vertexData));
             return true;
         }
@@ -68,7 +68,10 @@ public class UndirectedGraph<T> implements Graph<T> {
 
     @Override
     public boolean removeEdge(T vertexDataA, T vertexDataB) throws InvalidVertexException {
-        return false;
+        if (!containsVertex(vertexDataA) || !containsVertex(vertexDataB)) {
+            throw new InvalidVertexException("At least one of the vertices does not belong to the graph.");
+        }
+        return getComponentOf(vertexDataA).orElseThrow().removeEdge(vertexDataA, vertexDataB);
     }
 
     /**
@@ -89,7 +92,7 @@ public class UndirectedGraph<T> implements Graph<T> {
      * or an empty {@code Optional} if the vertex does not belong to the graph
      */
     Optional<ConnectedComponent<T>> getComponentOf(T vertexData) {
-        return components.stream().filter(component -> component.hasVertex(vertexData)).findAny();
+        return components.stream().filter(component -> component.containsVertex(vertexData)).findAny();
     }
 
     /**
@@ -101,8 +104,14 @@ public class UndirectedGraph<T> implements Graph<T> {
     }
 
     @Override
-    public boolean hasVertex(T vertexData) {
-        return components.stream().anyMatch(component -> component.hasVertex(vertexData));
+    public boolean containsVertex(T vertexData) {
+        return components.stream().anyMatch(component -> component.containsVertex(vertexData));
+    }
+
+    @Override
+    public boolean containsAllVertices(Set<T> verticesData) {
+        return verticesData.stream()
+                .allMatch(this::containsVertex);
     }
 
     @Override

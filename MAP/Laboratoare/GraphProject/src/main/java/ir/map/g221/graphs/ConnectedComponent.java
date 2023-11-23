@@ -1,11 +1,13 @@
 package ir.map.g221.graphs;
 
+import ir.map.g221.generictypes.Pair;
 import ir.map.g221.graphexceptions.InvalidComponentException;
 import ir.map.g221.graphexceptions.InvalidEdgeException;
 import ir.map.g221.graphexceptions.InvalidVertexException;
 
 import java.util.HashSet;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 
 public class ConnectedComponent<T> implements Graph<T> {
@@ -49,12 +51,6 @@ public class ConnectedComponent<T> implements Graph<T> {
         if (componentA.isEmpty() || componentB.isEmpty()) {
             throw new InvalidComponentException("None of the given components can be empty.");
         }
-        if (!componentA.hasVertex(vertexDataA)) {
-            throw new InvalidVertexException("First given vertex must belong to the first given component.");
-        }
-        if (!componentB.hasVertex(vertexDataB)) {
-            throw new InvalidVertexException("Second given vertex must belong to the second given component.");
-        }
 
         Vertex<T> vertexA = componentA.getVertex(vertexDataA);
         Vertex<T> vertexB = componentB.getVertex(vertexDataB);
@@ -95,6 +91,95 @@ public class ConnectedComponent<T> implements Graph<T> {
     }
 
     /**
+     * @throws InvalidComponentException if the component is not empty and the given vertex
+     * is not already included in the component
+     */
+    @Override
+    public boolean addVertex(T vertexData) throws InvalidComponentException {
+        if (isEmpty() || containsVertex(vertexData)) {
+            return vertices.add(Vertex.of(vertexData));
+        }
+        throw new InvalidComponentException("Component would lose connectivity property if given vertex was added.");
+    }
+
+
+    public boolean addEdge(T vertexDataA, T vertexDataB) throws InvalidEdgeException {
+        if (!containsVertex(vertexDataA) || !containsVertex(vertexDataB)) {
+            throw new InvalidEdgeException("Edge vertices do not belong to the graph.");
+        }
+
+        Vertex<T> vertexA = getVertex(vertexDataA);
+        Vertex<T> vertexB = getVertex(vertexDataB);
+
+        Vertex.connect(vertexA, vertexB);
+        return edges.add(Edge.of(vertexA, vertexB));
+    }
+
+    /**
+     * Removes an edge, and if it is a bridge, returns the two resulted components.
+     * @param component the component to remove the edge from
+     * @param vertexDataA data of one vertex, that belongs to the graph
+     * @param vertexDataB data of another vertex, that belongs to the graph
+     * @return an {@link Optional} containing the pair of components (first one containing vertexDataA
+     * and second one containing vertexDataB respectively), if the edge was a bridge,
+     * or an empty {@code Optional}, otherwise
+     * @implNote If the edge is a bridge and a pair of components is returned,
+     * the old component that contained the edge will be entirely cleared.
+     * @param <T> the type of data contained in all vertices
+     * @throws InvalidVertexException if any of the given vertices does not belong to the component
+     */
+    static <T> Optional<Pair<ConnectedComponent<T>, ConnectedComponent<T>>> removeEdge(
+            ConnectedComponent<T> component, T vertexDataA, T vertexDataB) throws InvalidVertexException {
+        Vertex<T> vertexA = component.getVertex(vertexDataA);
+        Vertex<T> vertexB = component.getVertex(vertexDataB);
+
+        // -- Beginning of critical code (Component briefly losses its connectivity property) --
+        if (!component.edges.remove(Edge.of(vertexA, vertexB))) {
+            return Optional.empty();
+        }
+        Vertex.disconnect(vertexA, vertexB);
+
+        ConnectedComponent<T> componentOfVertexA = VertexExplorer.createComponentExploringFrom(vertexA);
+        if(!componentOfVertexA.containsVertex(vertexDataB)) {
+            ConnectedComponent<T> componentOfVertexB = VertexExplorer.createComponentExploringFrom(vertexB);
+            component.clear();
+            // -- End of critical code : branch 1 --
+            return Optional.of(Pair.of(componentOfVertexA, componentOfVertexB));
+        }
+        // -- End of critical code : branch 2 --
+
+        return Optional.empty();
+    }
+
+    /**
+     * @throws InvalidVertexException If any of the vertices does not belong to the graph
+     * @throws InvalidComponentException If the specified edge would break connectivity in component
+     * (in other words, if the edge is a bridge in the component)
+     */
+    @Override
+    public boolean removeEdge(T vertexDataA, T vertexDataB) throws InvalidVertexException, InvalidComponentException {
+        Vertex<T> vertexA = getVertex(vertexDataA);
+        Vertex<T> vertexB = getVertex(vertexDataB);
+
+        // -- Beginning of critical code (Component briefly losses its connectivity property) --
+        if (!edges.remove(Edge.of(vertexA, vertexB))) {
+            return false;
+        }
+        Vertex.disconnect(vertexA, vertexB);
+
+        ConnectedComponent<T> componentOfVertexA = VertexExplorer.createComponentExploringFrom(vertexA);
+        if(!componentOfVertexA.containsVertex(vertexDataB)) {
+            addEdge(vertexDataA, vertexDataB);
+            // -- End of critical code : branch 1 --
+            throw new InvalidComponentException(
+                    "Component would lose connectivity property if specified edge was removed.");
+        }
+        // -- End of critical code : branch 2 --
+
+        return true;
+    }
+
+    /**
      * Expands the component by adding a new vertex and a new edge that connects it to another existing vertex.
      * @param existingVertexData data of the existing vertex
      * @param newVertexData data of the new vertex
@@ -102,10 +187,10 @@ public class ConnectedComponent<T> implements Graph<T> {
      * or if {@code newVertexData} is already contained in the graph
      */
     void expand(T existingVertexData, T newVertexData) throws InvalidVertexException {
-        if (!hasVertex(existingVertexData)) {
+        if (!containsVertex(existingVertexData)) {
             throw new InvalidVertexException("1st given vertex parameter must exist in the component.");
         }
-        if (hasVertex(newVertexData)) {
+        if (containsVertex(newVertexData)) {
             throw new InvalidVertexException("2nd given vertex parameter must not exist in the component.");
         }
 
@@ -119,48 +204,15 @@ public class ConnectedComponent<T> implements Graph<T> {
         // -- End of critical code --
     }
 
-    public boolean addEdge(T vertexDataA, T vertexDataB) throws InvalidEdgeException {
-        if (!hasVertex(vertexDataA) || !hasVertex(vertexDataB)) {
-            throw new InvalidEdgeException("Edge vertices do not belong to the graph.");
-        }
-
-        Vertex<T> vertexA = getVertex(vertexDataA);
-        Vertex<T> vertexB = getVertex(vertexDataB);
-
-        Vertex.connect(vertexA, vertexB);
-        return edges.add(Edge.of(vertexA, vertexB));
-    }
-
     @Override
-    public boolean removeEdge(T vertexDataA, T vertexDataB) throws InvalidVertexException {
-        if (!hasVertex(vertexDataA) || !hasVertex(vertexDataB)) {
-            throw new InvalidVertexException("At least one of the vertices does not belong to the graph.");
-        }
-
-        Vertex<T> vertexA = getVertex(vertexDataA);
-        Vertex<T> vertexB = getVertex(vertexDataB);
-
-        boolean edgeExisted = edges.remove(Edge.of(vertexA, vertexB));
-
-
-        return edgeExisted;
-    }
-
-    @Override
-    public boolean hasVertex(T vertexData) {
+    public boolean containsVertex(T vertexData) {
         return vertices.stream().anyMatch(vertex -> vertex.equals(vertexData));
     }
 
-    /**
-     * @throws InvalidComponentException if the component is not empty and the given vertex
-     * is not already included in the component
-     */
     @Override
-    public boolean addVertex(T vertexData) throws InvalidComponentException {
-        if (isEmpty() || hasVertex(vertexData)) {
-            return vertices.add(Vertex.of(vertexData));
-        }
-        throw new InvalidComponentException("Component would lose connectivity property if given vertex was added.");
+    public boolean containsAllVertices(Set<T> verticesData) {
+        return verticesData.stream()
+                .allMatch(this::containsVertex);
     }
 
     @Override

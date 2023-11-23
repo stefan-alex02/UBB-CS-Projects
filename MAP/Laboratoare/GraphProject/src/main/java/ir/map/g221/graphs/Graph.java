@@ -3,6 +3,8 @@ package ir.map.g221.graphs;
 import ir.map.g221.graphexceptions.InvalidEdgeException;
 import ir.map.g221.graphexceptions.InvalidVertexException;
 
+import java.util.Set;
+
 public interface Graph<T> {
     /**
      * Tells if the graph has no vertices.
@@ -27,7 +29,14 @@ public interface Graph<T> {
      * @param vertexData the vertex data to look for
      * @return true if there is a vertex with the specified data in the graph, false otherwise
      */
-    boolean hasVertex(T vertexData);
+    boolean containsVertex(T vertexData);
+
+    /**
+     * Checks if graph contains a vertex for every given data in the set.
+     * @param verticesData the set of data to search for in the graph
+     * @return true if graph contains all vertices, false otherwise
+     */
+    boolean containsAllVertices(Set<T> verticesData);
 
     /**
      * Adds a vertex to the graph.
