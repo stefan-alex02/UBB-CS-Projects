@@ -7,6 +7,8 @@ import ir.map.g221.guisocialnetwork.controllers.MessageAlerter;
 import ir.map.g221.guisocialnetwork.domain.entities.User;
 import ir.map.g221.guisocialnetwork.business.SampleGenerator;
 import ir.map.g221.guisocialnetwork.exceptions.SampleGeneratedException;
+import ir.map.g221.guisocialnetwork.utils.events.Event;
+import ir.map.g221.guisocialnetwork.utils.events.EventType;
 import ir.map.g221.guisocialnetwork.utils.events.UserChangeEvent;
 import ir.map.g221.guisocialnetwork.utils.observer.Observer;
 import javafx.collections.FXCollections;
@@ -28,7 +30,7 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class UserController implements Observer<UserChangeEvent> {
+public class UserController implements Observer {
     private UserService userService = null;
     private CommunityHandler communityHandler = null;
     private SampleGenerator sampleGenerator = null;
@@ -93,8 +95,10 @@ public class UserController implements Observer<UserChangeEvent> {
     }
 
     @Override
-    public void update(UserChangeEvent userChangeEventArgs) {
-        initUserModel();
+    public void update(Event event) {
+        if (event.getEventType() == EventType.USER) {
+            initUserModel();
+        }
     }
 
     private void initUserModel() {

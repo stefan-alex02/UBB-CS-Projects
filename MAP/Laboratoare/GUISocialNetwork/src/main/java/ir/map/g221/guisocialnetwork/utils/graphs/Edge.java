@@ -1,38 +1,30 @@
 package ir.map.g221.guisocialnetwork.utils.graphs;
 
+import ir.map.g221.guisocialnetwork.exceptions.graphs.InvalidEdgeException;
 import ir.map.g221.guisocialnetwork.utils.generictypes.UnorderedPair;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.Objects;
 
-public class Edge<TNode extends Node<TNode>>{
-    private final UnorderedPair<TNode, TNode> unorderedPair;
+public class Edge<T> {
+    private final UnorderedPair<Vertex<T>, Vertex<T>> unorderedPair;
 
-    public Edge(TNode first, TNode second) {
-        unorderedPair = new UnorderedPair<>(first, second);
-    }
-
-    public Edge(UnorderedPair<TNode, TNode> unorderedPair) {
+    private Edge(UnorderedPair<Vertex<T>, Vertex<T>> unorderedPair) {
         this.unorderedPair = unorderedPair;
     }
 
-    public static <T extends Node<T>> Edge<T> of(T first, T second) {
-        return new Edge<>(first, second);
-    }
-
-    public TNode getFirstNode() {
-        return unorderedPair.getFirst();
-    }
-
-    public TNode getSecondNode() {
-        return unorderedPair.getSecond();
-    }
-
-    public Set<TNode> getNodes() {
-        return new HashSet<>() {{
-            add(getFirstNode());
-            add(getSecondNode());
-        }};
+    /**
+     * Creates a new edge, and also connects the specified nodes in their implementation.
+     * @param vertexA a node
+     * @param vertexB another node
+     * @return the newly created edge having the given nodes
+     * @param <T> the type of data contained in the nodes
+     * @throws InvalidEdgeException if the two nodes are equal
+     */
+    static <T> Edge<T> of(Vertex<T> vertexA, Vertex<T> vertexB) throws InvalidEdgeException {
+        if (vertexA.equals(vertexB)) {
+            throw new InvalidEdgeException("Edge nodes must be different");
+        }
+        return new Edge<>(UnorderedPair.of(vertexA, vertexB));
     }
 
     @Override
@@ -40,11 +32,11 @@ public class Edge<TNode extends Node<TNode>>{
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Edge<?> edge = (Edge<?>) o;
-        return unorderedPair.equals(edge.unorderedPair);
+        return Objects.equals(unorderedPair, edge.unorderedPair);
     }
 
     @Override
     public int hashCode() {
-        return unorderedPair.hashCode();
+        return Objects.hash(unorderedPair);
     }
 }

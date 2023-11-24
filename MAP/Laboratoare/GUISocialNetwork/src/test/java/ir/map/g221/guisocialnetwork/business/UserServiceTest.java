@@ -13,7 +13,6 @@ import static org.junit.jupiter.api.Assertions.*;
 class UserServiceTest {
     private static UserInMemoryRepo userRepo;
     private static FriendshipInMemoryRepo friendshipRepo;
-    private static CommunityHandler communityHandler;
 
     @Test
     void addUser() {
@@ -97,15 +96,14 @@ class UserServiceTest {
     private static void initialiseRepos() {
         userRepo = new UserInMemoryRepo(UserValidator.getInstance());
         friendshipRepo = new FriendshipInMemoryRepo(FriendshipValidator.getInstance());
-        communityHandler = new CommunityHandler(userRepo, friendshipRepo);
     }
 
     private static UserService createUserService() {
-        return new UserService(userRepo, friendshipRepo, communityHandler);
+        return new UserService(userRepo, friendshipRepo);
     }
 
     private static FriendshipService createFriendshipService() {
-        return new FriendshipService(userRepo, friendshipRepo, communityHandler);
+        return new FriendshipService(userRepo, friendshipRepo);
     }
 
     private static void addSampleUsers(UserService userService) {

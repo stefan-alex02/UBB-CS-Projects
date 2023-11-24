@@ -2,14 +2,13 @@ package ir.map.g221.graphs;
 
 import ir.map.g221.generictypes.Pair;
 import ir.map.g221.generictypes.UnorderedPair;
+import ir.map.g221.graphexceptions.ExistingVertexException;
 import ir.map.g221.graphexceptions.InvalidComponentException;
 import ir.map.g221.graphexceptions.InvalidEdgeException;
 import ir.map.g221.graphexceptions.InvalidVertexException;
 
 import java.net.ConnectException;
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 public class UndirectedGraph<T> implements Graph<T> {
     private final Set<ConnectedComponent<T>> components;
@@ -29,6 +28,22 @@ public class UndirectedGraph<T> implements Graph<T> {
         }
         return false;
     }
+
+    @Override
+    public void updateVertex(T oldData, T newData) throws InvalidVertexException, ExistingVertexException {
+        if (!containsVertex(oldData)) {
+            throw new InvalidVertexException("No vertex with specified data exists in component.");
+        }
+        if (oldData.equals(newData)) {
+            return;
+        }
+        if (containsVertex(newData)) {
+            throw new ExistingVertexException("New vertex data is already present in the graph.");
+        }
+
+        getComponentOf(oldData).orElseThrow().updateVertex(oldData, newData);
+    }
+
     @Override
     public boolean removeVertex(T vertexData) {
         if (!containsVertex(vertexData)) {
@@ -63,6 +78,9 @@ public class UndirectedGraph<T> implements Graph<T> {
                 .reduce(false, (anyNew, isNew) -> isNew || anyNew);
     }
 
+    /**
+     * @throws InvalidEdgeException if any of the vertices of given edge does not belong to the graph
+     */
     public boolean addEdge(T vertexDataA, T vertexDataB) throws InvalidEdgeException {
         ConnectedComponent<T> componentA = getComponentOf(vertexDataA).orElseThrow(
                 () -> new InvalidEdgeException("Vertex A of given edge does not belong to the graph."));
@@ -92,12 +110,12 @@ public class UndirectedGraph<T> implements Graph<T> {
     }
 
     /**
-     * @throws InvalidVertexException If any of the vertices does not belong to the graph
+     * @throws InvalidEdgeException If any of the edge vertices does not belong to the graph
      */
     @Override
-    public boolean removeEdge(T vertexDataA, T vertexDataB) throws InvalidVertexException {
+    public boolean removeEdge(T vertexDataA, T vertexDataB) throws InvalidEdgeException {
         if (!containsVertex(vertexDataA) || !containsVertex(vertexDataB)) {
-            throw new InvalidVertexException("At least one of the vertices does not belong to the graph.");
+            throw new InvalidEdgeException("At least one of the vertices does not belong to the graph.");
         }
         ConnectedComponent<T> component = getComponentOf(vertexDataA).orElseThrow();
         int oldNumberOfEdges = component.numberOfEdges();
@@ -143,6 +161,21 @@ public class UndirectedGraph<T> implements Graph<T> {
     }
 
     /**
+     * Gets the component that has the longest simple path (with no repeating vertices or edges).
+     * @return the pair of component and its longest path
+     */
+    Pair<ConnectedComponent<T>, List<T>> getComponentWithLongestPath() {
+        return components.stream()
+                .map(component -> Pair.of(component, ComponentExplorer.getLongestPathFrom(component)
+                        .stream()
+                        .map(Vertex::getData)
+                        .toList()))
+                .reduce(Pair.of(ConnectedComponent.ofEmpty(), new ArrayList<>()), (longestPathPair, currentPair) ->
+                        currentPair.getSecond().size() > longestPathPair.getSecond().size() ?
+                        currentPair : longestPathPair);
+    }
+
+    /**
      * Gets the number of all connected components contained inside the graph.
      * @return the number of components
      */
@@ -182,6 +215,7 @@ public class UndirectedGraph<T> implements Graph<T> {
 
     @Override
     public void clear() {
+        components.forEach(ConnectedComponent::clear);
         components.clear();
     }
 }

@@ -1,9 +1,9 @@
-package ir.map.g221.graphs;
+package ir.map.g221.guisocialnetwork.utils.graphs;
 
-import ir.map.g221.graphexceptions.ExistingVertexException;
-import ir.map.g221.graphexceptions.InvalidComponentException;
-import ir.map.g221.graphexceptions.InvalidEdgeException;
-import ir.map.g221.graphexceptions.InvalidVertexException;
+import ir.map.g221.guisocialnetwork.exceptions.graphs.ExistingVertexException;
+import ir.map.g221.guisocialnetwork.exceptions.graphs.InvalidComponentException;
+import ir.map.g221.guisocialnetwork.exceptions.graphs.InvalidEdgeException;
+import ir.map.g221.guisocialnetwork.exceptions.graphs.InvalidVertexException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

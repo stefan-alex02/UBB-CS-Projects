@@ -1,72 +1,87 @@
 package ir.map.g221.guisocialnetwork.utils.graphs;
 
+import ir.map.g221.guisocialnetwork.exceptions.graphs.ExistingVertexException;
 import ir.map.g221.guisocialnetwork.exceptions.graphs.InvalidEdgeException;
+import ir.map.g221.guisocialnetwork.exceptions.graphs.InvalidVertexException;
 
 import java.util.Set;
 
-public interface Graph<TNode extends Node<TNode>> {
+public interface Graph<T> {
     /**
-     * Gets the set of all nodes in the graph.
-     * @return the nodes.
-     */
-    Set<TNode> getNodes();
-
-    /**
-     * Checks if the graph has any nodes.
-     * @return true if the graph has no nodes, false otherwise.
+     * Tells if the graph has no vertices.
+     * @return true if graph is empty, false otherwise
      */
     boolean isEmpty();
 
     /**
-     * Gets the number of nodes in the graph
-     * @return the number of nodes.
+     * Gets the number of vertices in the graph.
+     * @return the number of vertices
      */
     int size();
 
     /**
-     * Checks if the graph has a specific node.
-     * @param node the node to be looked for.
-     * @return true if the graph contains the node, false otherwise.
+     * Gets the number of edges in the graph.
+     * @return the number of edges
      */
-    boolean hasNode(TNode node);
+    int numberOfEdges();
 
     /**
-     * Checks if the graph has a specific edge.
-     * @param edge the edge to be looked for.
-     * @return true if the graph contains the edge, false otherwise.
+     * Checks if the graph contains a vertex with the given data.
+     * @param vertexData the vertex data to look for
+     * @return true if there is a vertex with the specified data in the graph, false otherwise
      */
-    boolean hasEdge(Edge<TNode> edge);
+    boolean containsVertex(T vertexData);
 
     /**
-     * Adds an edge to the graph, if it can be added, otherwise throws exception.
-     * @param edge The edge that must be added.
-     * @throws InvalidEdgeException If the edge could not be added.
+     * Checks if graph contains a vertex for every given data in the set.
+     * @param verticesData the set of data to search for in the graph
+     * @return true if graph contains all vertices, false otherwise
      */
-    void forceAddEdge(Edge<TNode> edge) throws InvalidEdgeException;
+    boolean containsAllVertices(Set<T> verticesData);
 
     /**
-     * Tries to add an edge to the graph.
-     * @param edge The edge that should be added.
-     * @return true if the edge was added successfully, otherwise false.
+     * Adds a vertex to the graph.
+     * @param vertexData the data of the vertex to be added
+     * @return true if the graph did not already contain the vertex with the specified data, false otherwise
      */
-    boolean tryAddEdge(Edge<TNode> edge);
+    boolean addVertex(T vertexData);
 
     /**
-     * Adds all edges to the graph, if all of them can be added, otherwise throws exception.
-     * @param edges The edges that must be added.
-     * @throws InvalidEdgeException If there are any edge that cannot be added.
+     * Updates the data of a specific vertex in the graph.
+     * @param oldData the old data of the vertex
+     * @param newData the new data for the vertex to update to
+     * @throws InvalidVertexException if the is no vertex that contains the specified {@code oldData}
+     * @throws ExistingVertexException if the graph already has a vertex that contains the specified {@code newData}
      */
-    void forceAddEdges(Set<Edge<TNode>> edges) throws InvalidEdgeException;
+    void updateVertex(T oldData, T newData) throws InvalidVertexException, ExistingVertexException;
 
     /**
-     * Tries to add the edges to the graph.
-     * @param edges The edges that should be added.
-     * @return true if all edges were added successfully, otherwise false.
+     * Removes a vertex from the graph.
+     * @param vertexData the data of the vertex to be removed
+     * @return true if the graph contained the vertex with the specified data before removing, false otherwise
      */
-    boolean tryAddEdges(Set<Edge<TNode>> edges);
+    boolean removeVertex(T vertexData);
 
     /**
-     * Deletes all content stored in the graph.
+     * Adds an edge to the graph.
+     * @param vertexDataA data of one vertex, that belongs to the graph
+     * @param vertexDataB data of another vertex, that belongs to the graph
+     * @return true if the graph did not already contain the given edge, false otherwise
+     * @throws InvalidEdgeException if any of the specified vertices do not belong to the graph
      */
-    void reset();
+    boolean addEdge(T vertexDataA, T vertexDataB) throws InvalidEdgeException;
+
+    /**
+     * Removes an edge to the graph, specified by the data of its two vertices.
+     * @param vertexDataA data of one vertex, that belongs to the graph
+     * @param vertexDataB data of another vertex, that belongs to the graph
+     * @return true if the graph contained the specified edge, false otherwise
+     * @throws InvalidVertexException if given edge vertices do not belong to the graph
+     */
+    boolean removeEdge(T vertexDataA, T vertexDataB) throws InvalidEdgeException;
+
+    /**
+     * Clears the entire content of the graph.
+     */
+    void clear();
 }

@@ -1,5 +1,6 @@
 package ir.map.g221.graphs;
 
+import ir.map.g221.graphexceptions.ExistingVertexException;
 import ir.map.g221.graphexceptions.InvalidEdgeException;
 import ir.map.g221.graphexceptions.InvalidVertexException;
 
@@ -46,6 +47,15 @@ public interface Graph<T> {
     boolean addVertex(T vertexData);
 
     /**
+     * Updates the data of a specific vertex in the graph.
+     * @param oldData the old data of the vertex
+     * @param newData the new data for the vertex to update to
+     * @throws InvalidVertexException if the is no vertex that contains the specified {@code oldData}
+     * @throws ExistingVertexException if the graph already has a vertex that contains the specified {@code newData}
+     */
+    void updateVertex(T oldData, T newData) throws InvalidVertexException, ExistingVertexException;
+
+    /**
      * Removes a vertex from the graph.
      * @param vertexData the data of the vertex to be removed
      * @return true if the graph contained the vertex with the specified data before removing, false otherwise
@@ -68,7 +78,7 @@ public interface Graph<T> {
      * @return true if the graph contained the specified edge, false otherwise
      * @throws InvalidVertexException if given edge vertices do not belong to the graph
      */
-    boolean removeEdge(T vertexDataA, T vertexDataB) throws InvalidVertexException;
+    boolean removeEdge(T vertexDataA, T vertexDataB) throws InvalidEdgeException;
 
     /**
      * Clears the entire content of the graph.

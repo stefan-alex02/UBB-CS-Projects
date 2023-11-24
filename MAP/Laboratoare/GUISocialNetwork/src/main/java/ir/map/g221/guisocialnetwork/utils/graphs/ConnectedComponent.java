@@ -1,15 +1,16 @@
-package ir.map.g221.graphs;
+package ir.map.g221.guisocialnetwork.utils.graphs;
 
-import ir.map.g221.generictypes.Pair;
-import ir.map.g221.graphexceptions.ExistingVertexException;
-import ir.map.g221.graphexceptions.InvalidComponentException;
-import ir.map.g221.graphexceptions.InvalidEdgeException;
-import ir.map.g221.graphexceptions.InvalidVertexException;
+import ir.map.g221.guisocialnetwork.exceptions.graphs.ExistingVertexException;
+import ir.map.g221.guisocialnetwork.exceptions.graphs.InvalidComponentException;
+import ir.map.g221.guisocialnetwork.exceptions.graphs.InvalidEdgeException;
+import ir.map.g221.guisocialnetwork.exceptions.graphs.InvalidVertexException;
+import ir.map.g221.guisocialnetwork.utils.generictypes.Pair;
 
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class ConnectedComponent<T> implements Graph<T> {
     private final Set<Vertex<T>> vertices;
@@ -97,6 +98,32 @@ public class ConnectedComponent<T> implements Graph<T> {
      */
     Set<Vertex<T>> getVertices() {
         return vertices;
+    }
+
+    /**
+     * Gets the data of all vertices in the component.
+     * @return a set containing all vertices data
+     */
+    public Set<T> getVerticesData() {
+        return vertices.stream()
+                .map(Vertex::getData)
+                .collect(Collectors.toSet());
+    }
+
+    /**
+     * Gets the set of all neighbours data of given vertex.
+     * @param vertexData the vertex
+     * @return the set of all neighbours data
+     * @throws InvalidEdgeException if component has no vertex containing given data
+     */
+    public Set<T> getNeighboursDataOf(T vertexData) throws InvalidEdgeException {
+        if (!containsVertex(vertexData)) {
+            throw new InvalidEdgeException("Given vertex does not belong to the component.");
+        }
+        return getVertex(vertexData).getNeighbours()
+                .stream()
+                .map(Vertex::getData)
+                .collect(Collectors.toSet());
     }
 
     /**

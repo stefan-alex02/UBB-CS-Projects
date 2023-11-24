@@ -91,7 +91,7 @@ public class UserConsole implements UserInterface{
         }
         else {
             System.out.println("\nThere are " + communities.size() + " communities:");
-            communityHandler.calculateCommunities().forEach(System.out::println);
+            communities.forEach(System.out::println);
         }
     }
 

@@ -1,4 +1,4 @@
-package ir.map.g221.graphs;
+package ir.map.g221.guisocialnetwork.utils.graphs;
 
 import java.util.HashSet;
 import java.util.Objects;

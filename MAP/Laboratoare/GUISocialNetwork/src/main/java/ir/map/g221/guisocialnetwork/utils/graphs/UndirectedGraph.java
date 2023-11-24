@@ -1,186 +1,227 @@
 package ir.map.g221.guisocialnetwork.utils.graphs;
 
+import ir.map.g221.guisocialnetwork.exceptions.graphs.ExistingVertexException;
 import ir.map.g221.guisocialnetwork.exceptions.graphs.InvalidEdgeException;
-import ir.map.g221.guisocialnetwork.exceptions.graphs.InvalidNodeException;
-import org.jetbrains.annotations.NotNull;
+import ir.map.g221.guisocialnetwork.exceptions.graphs.InvalidVertexException;
+import ir.map.g221.guisocialnetwork.utils.generictypes.Pair;
+import ir.map.g221.guisocialnetwork.utils.generictypes.UnorderedPair;
 
 import java.util.*;
-import java.util.function.Consumer;
 
-public class UndirectedGraph<TNode extends Node<TNode>> extends AbstractGraph<TNode> implements Iterable<TNode> {
-    private final Set<GraphComponent<TNode>> components;
+public class UndirectedGraph<T> implements Graph<T> {
+    private final Set<ConnectedComponent<T>> components;
 
-    public UndirectedGraph() {
-        super();
-        this.components = new HashSet<>();
+    private UndirectedGraph() {
+        components = new HashSet<>();
     }
 
-    public UndirectedGraph(Set<TNode> nodes) {
-        super();
-        this.components = new HashSet<>();
-        addNodes(nodes);
+    public static <T> UndirectedGraph<T> ofEmpty() {
+        return new UndirectedGraph<>();
     }
 
-    public UndirectedGraph(Set<TNode> nodes, Set<Edge<TNode>> edges) {
-        super();
-        this.components = new HashSet<>();
-        addNodes(nodes);
-        forceAddEdges(edges);
-    }
-
-    public static <TNode extends Node<TNode>> UndirectedGraph<TNode> ofAbstractGraph(
-            AbstractGraph<TNode> abstractGraph) {
-        return new UndirectedGraph<>(abstractGraph.nodes, abstractGraph.edges);
-    }
-
-    public GraphComponent<TNode> toComponent() {
-        return new GraphComponent<>(nodes, edges);
-    }
-
-    public void addNodes(Collection<TNode> nodes) {
-        nodes.forEach(this::addNode);
-    }
-
-    public void addNode(TNode node) {
-        if (!nodes.contains(node)) {
-            components.add(new GraphComponent<>(node));
-        }
-        super.addNode(node);
-    }
-
-    @Override
-    public void updateNode(TNode oldNode, TNode newNode) {
-        nodes.remove(oldNode);
-        oldNode.getNeighbours().forEach(neighbour -> edges.remove(Edge.of(oldNode, neighbour)));
-        GraphComponent<TNode> component = componentOf(oldNode).orElseThrow();
-        components.remove(component);
-        component.updateNode(oldNode, newNode);
-        components.add(component);
-    }
-
-    public void forceRemoveNode(TNode node) throws InvalidNodeException {
-        if (!hasNode(node)) {
-            throw new InvalidNodeException("Node must belong to subject graph.");
-        }
-        nodes.remove(node);
-        node.getNeighbours().forEach(neighbour -> edges.remove(Edge.of(node, neighbour)));
-        GraphComponent<TNode> component = componentOf(node).orElseThrow();
-        components.remove(component);
-        Set<GraphComponent<TNode>> resultedComponents = component.breakByNode(node);
-        if (resultedComponents.size() > 1) {
-            components.addAll(resultedComponents);
-        }
-        else if(!component.isEmpty()) {
-            components.add(component);
-        }
-    }
-
-    public void forceAddEdge(Edge<TNode> edge) throws InvalidEdgeException {
-        super.forceAddEdge(edge);
-        if (!tryCombineComponents(edge)) {
-            GraphComponent<TNode> component = componentOf(edge.getFirstNode()).orElseThrow();
-            components.remove(component);
-            component.forceAddEdge(edge);
-            components.add(component);
-        }
-    }
-
-    public boolean tryAddEdge(Edge<TNode> edge) {
-        boolean wasAdded = super.tryAddEdge(edge);
-        if (wasAdded && !tryCombineComponents(edge)) {
-            GraphComponent<TNode> component = componentOf(edge.getFirstNode()).orElseThrow();
-            components.remove(component);
-            component.tryAddEdge(edge);
-            components.add(component);
-        }
-        return wasAdded;
-    }
-
-    public void forceAddEdges(Set<Edge<TNode>> edges) throws InvalidEdgeException {
-        super.forceAddEdges(edges);
-    }
-
-    public boolean tryAddEdges(Set<Edge<TNode>> edges) {
-        return super.tryAddEdges(edges);
-    }
-
-    public void forceRemoveEdge(Edge<TNode> edge) throws InvalidEdgeException {
-        if (!isEdgeIncludable(edge) || !hasEdge(edge)) {
-            throw new InvalidEdgeException("Edge must exist in the subject component.");
-        }
-//        edge.getFirstNode().unpairWith(edge.getSecondNode());
-        edges.remove(edge);
-
-        GraphComponent<TNode> component = componentOf(edge.getFirstNode()).orElseThrow();
-        components.remove(component);
-        Set<GraphComponent<TNode>> resultedComponents = component.breakByEdge(edge);
-        if (resultedComponents.size() > 1) {
-            components.addAll(resultedComponents);
-        }
-        else {
-            components.add(component);
-        }
-    }
-
-    private boolean tryCombineComponents(Edge<TNode> edge) {
-        GraphComponent<TNode> firstComponent = componentOf(edge.getFirstNode()).orElseThrow();
-        GraphComponent<TNode> secondComponent = componentOf(edge.getSecondNode()).orElseThrow();
-        if (!firstComponent.equals(secondComponent)) {
-            components.remove(firstComponent);
-            components.remove(secondComponent);
-            components.add(GraphComponent.bridge(firstComponent, secondComponent, edge));
+    public boolean addVertex(T vertexData) {
+        if (!containsVertex(vertexData)) {
+            components.add(ConnectedComponent.ofVertex(vertexData));
             return true;
         }
         return false;
     }
 
-    public void reset() {
-        super.reset();
-        this.components.clear();
+    @Override
+    public void updateVertex(T oldData, T newData) throws InvalidVertexException, ExistingVertexException {
+        if (!containsVertex(oldData)) {
+            throw new InvalidVertexException("No vertex with specified data exists in component.");
+        }
+        if (oldData.equals(newData)) {
+            return;
+        }
+        if (containsVertex(newData)) {
+            throw new ExistingVertexException("New vertex data is already present in the graph.");
+        }
+
+        getComponentOf(oldData).orElseThrow().updateVertex(oldData, newData);
     }
 
-    public Set<GraphComponent<TNode>> getComponents() {
+    @Override
+    public boolean removeVertex(T vertexData) {
+        if (!containsVertex(vertexData)) {
+            return false;
+        }
+        ConnectedComponent<T> component = getComponentOf(vertexData).orElseThrow();
+
+        // -- Beginning of critical code (Graph briefly losses the component that is about to change) --
+        components.remove(component);
+        Optional<Set<ConnectedComponent<T>>> resultedComponents =
+                ConnectedComponent.removeVertex(component, vertexData);
+        if (resultedComponents.isEmpty()) {
+            components.add(component);
+            // -- End of critical code : branch 1 --
+
+            return true;
+        }
+        components.addAll(resultedComponents.get());
+        // -- End of critical code : branch 2 --
+
+        return true;
+    }
+
+    /**
+     * Adds vertices to the graph.
+     * @param verticesData the set of data of the new vertices to be added
+     * @return true if the set had some data which was not contained in the graph, false otherwise
+     */
+    boolean addVertices(Set<T> verticesData) {
+        return verticesData.stream()
+                .map(this::addVertex)
+                .reduce(false, (anyNew, isNew) -> isNew || anyNew);
+    }
+
+    /**
+     * @throws InvalidEdgeException if any of the vertices of given edge does not belong to the graph
+     */
+    public boolean addEdge(T vertexDataA, T vertexDataB) throws InvalidEdgeException {
+        ConnectedComponent<T> componentA = getComponentOf(vertexDataA).orElseThrow(
+                () -> new InvalidEdgeException("Vertex A of given edge does not belong to the graph."));
+        ConnectedComponent<T> componentB = getComponentOf(vertexDataB).orElseThrow(
+                () -> new InvalidEdgeException("Vertex B of given edge does not belong to the graph."));
+
+        boolean wasEdgeNew;
+
+        if (componentA.equals(componentB)) {
+            // -- Beginning of critical code (Graph briefly losses the component that is about to extend) --
+            components.remove(componentA);
+            wasEdgeNew = componentA.addEdge(vertexDataA, vertexDataB);
+            components.add(componentA);
+            // -- End of critical code --
+        }
+        else {
+            // -- Beginning of critical code (Graph briefly losses the components that are about to connect) --
+            components.remove(componentA);
+            components.remove(componentB);
+            components.add(ConnectedComponent.ofConnection(componentA, componentB, vertexDataA, vertexDataB));
+            // -- End of critical code --
+
+            wasEdgeNew = true;
+        }
+
+        return wasEdgeNew;
+    }
+
+    /**
+     * @throws InvalidEdgeException If any of the edge vertices does not belong to the graph
+     */
+    @Override
+    public boolean removeEdge(T vertexDataA, T vertexDataB) throws InvalidEdgeException {
+        if (!containsVertex(vertexDataA) || !containsVertex(vertexDataB)) {
+            throw new InvalidEdgeException("At least one of the vertices does not belong to the graph.");
+        }
+        ConnectedComponent<T> component = getComponentOf(vertexDataA).orElseThrow();
+        int oldNumberOfEdges = component.numberOfEdges();
+
+        // -- Beginning of critical code (Graph briefly losses the component that is about to change) --
+        components.remove(component);
+        Optional<Pair<ConnectedComponent<T>, ConnectedComponent<T>>> resultedComponents =
+                ConnectedComponent.removeEdge(component, vertexDataA, vertexDataB);
+        if (resultedComponents.isEmpty()) {
+            components.add(component);
+            // -- End of critical code : branch 1 --
+
+            return component.numberOfEdges() < oldNumberOfEdges;
+        }
+        ConnectedComponent<T> firstComponent = resultedComponents.get().getFirst();
+        ConnectedComponent<T> secondComponent = resultedComponents.get().getSecond();
+        components.add(firstComponent);
+        components.add(secondComponent);
+        // -- End of critical code : branch 2 --
+
+        return firstComponent.numberOfEdges() + secondComponent.numberOfEdges() < oldNumberOfEdges;
+    }
+
+    /**
+     * Adds edges to the graph.
+     * @param vertexDataPairs the set of vertex data pairs that should form the edges that must be added
+     * @return true if the set had some pairs whose edges were not contained in the graph, false otherwise
+     */
+    public boolean addEdges(Set<UnorderedPair<T,T>> vertexDataPairs) {
+        return vertexDataPairs.stream()
+                .map(pair -> addEdge(pair.getFirst(), pair.getSecond()))
+                .reduce(false, (anyNew, isNew) -> isNew || anyNew);
+    }
+
+    /**
+     * Gets the set of all non-empty components.
+     * @return the set of all components
+     */
+    public Set<ConnectedComponent<T>> getComponents() {
         return components;
     }
 
-    public GraphComponent<TNode> getComponentWithLongestPath() {
+    /**
+     * Gets the component that has a vertex with the specified data
+     * @param vertexData the vertex data to search for in the graph
+     * @return an {@link Optional} containing the component with the searched vertex,
+     * or an empty {@code Optional} if the vertex does not belong to the graph
+     */
+    public Optional<ConnectedComponent<T>> getComponentOf(T vertexData) {
+        return components.stream().filter(component -> component.containsVertex(vertexData)).findAny();
+    }
+
+    /**
+     * Gets the component that has the longest simple path (with no repeating vertices or edges).
+     * @return the pair of component and its longest path
+     */
+    public Pair<ConnectedComponent<T>, List<T>> getComponentWithLongestPath() {
         return components.stream()
-                .max(Comparator.comparing(
-                        GraphComponent::getLongestPath)
-                )
-                .orElse(new GraphComponent<>());
+                .map(component -> Pair.of(component, ComponentExplorer.getLongestPathFrom(component)
+                        .stream()
+                        .map(Vertex::getData)
+                        .toList()))
+                .reduce(Pair.of(ConnectedComponent.ofEmpty(), new ArrayList<>()), (longestPathPair, currentPair) ->
+                        currentPair.getSecond().size() > longestPathPair.getSecond().size() ?
+                        currentPair : longestPathPair);
     }
 
-    public static <TNode extends Node<TNode>> UndirectedGraph<TNode> union(UndirectedGraph<TNode> componentA,
-                                                                           UndirectedGraph<TNode> componentB) {
-        UndirectedGraph<TNode> unionGraph = new UndirectedGraph<>();
-        unionGraph.nodes.addAll(componentA.nodes);
-        unionGraph.nodes.addAll(componentB.nodes);
-        unionGraph.edges.addAll(componentA.edges);
-        unionGraph.edges.addAll(componentB.edges);
-        unionGraph.components.addAll(componentA.components);
-        unionGraph.components.addAll(componentB.components);
-        return unionGraph;
+    /**
+     * Gets the number of all connected components contained inside the graph.
+     * @return the number of components
+     */
+    public int numberOfComponents() {
+        return components.size();
     }
 
-    public Optional<GraphComponent<TNode>> componentOf(TNode node) {
+    @Override
+    public boolean containsVertex(T vertexData) {
+        return components.stream().anyMatch(component -> component.containsVertex(vertexData));
+    }
+
+    @Override
+    public boolean containsAllVertices(Set<T> verticesData) {
+        return verticesData.stream()
+                .allMatch(this::containsVertex);
+    }
+
+    @Override
+    public boolean isEmpty() {
+        return components.isEmpty();
+    }
+
+    @Override
+    public int size() {
         return components.stream()
-                .filter(component -> component.hasNode(node))
-                .findAny();
+                .map(ConnectedComponent::size)
+                .reduce(0, Integer::sum);
     }
 
     @Override
-    public @NotNull Iterator<TNode> iterator() {
-        return nodes.iterator();
+    public int numberOfEdges() {
+        return components.stream()
+                .map(ConnectedComponent::numberOfEdges)
+                .reduce(0, Integer::sum);
     }
 
     @Override
-    public void forEach(Consumer<? super TNode> action) {
-        nodes.forEach(action);
-    }
-
-    @Override
-    public Spliterator<TNode> spliterator() {
-        return nodes.spliterator();
+    public void clear() {
+        components.forEach(ConnectedComponent::clear);
+        components.clear();
     }
 }

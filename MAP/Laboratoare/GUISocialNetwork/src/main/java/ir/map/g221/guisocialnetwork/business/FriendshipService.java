@@ -4,13 +4,14 @@ import ir.map.g221.guisocialnetwork.domain.entities.Friendship;
 import ir.map.g221.guisocialnetwork.domain.entities.User;
 import ir.map.g221.guisocialnetwork.domain.entities.dtos.FriendshipDetails;
 import ir.map.g221.guisocialnetwork.persistence.Repository;
+import ir.map.g221.guisocialnetwork.utils.events.ChangeEventType;
 import ir.map.g221.guisocialnetwork.utils.events.EventType;
 import ir.map.g221.guisocialnetwork.utils.events.FriendshipChangeEvent;
+import ir.map.g221.guisocialnetwork.exceptions.ExistingEntityException;
+import ir.map.g221.guisocialnetwork.exceptions.NotFoundException;
 import ir.map.g221.guisocialnetwork.utils.generictypes.ObjectTransformer;
 import ir.map.g221.guisocialnetwork.utils.generictypes.Pair;
 import ir.map.g221.guisocialnetwork.utils.generictypes.UnorderedPair;
-import ir.map.g221.guisocialnetwork.exceptions.ExistingEntityException;
-import ir.map.g221.guisocialnetwork.exceptions.NotFoundException;
 import ir.map.g221.guisocialnetwork.utils.observer.Observable;
 import ir.map.g221.guisocialnetwork.utils.observer.Observer;
 import org.jetbrains.annotations.NotNull;
@@ -26,15 +27,12 @@ import java.util.stream.Stream;
 public class FriendshipService implements Observable<FriendshipChangeEvent> {
     private final Repository<UnorderedPair<Long, Long>, Friendship> friendshipRepository;
     private final Repository<Long, User> userRepository;
-    private final CommunityHandler communityHandler;
-    private final Set<Observer<FriendshipChangeEvent>> observers;
+    private final Set<Observer> observers;
 
     public FriendshipService(Repository<Long, User> userRepository,
-                             Repository<UnorderedPair<Long, Long>, Friendship> friendshipRepository,
-                             CommunityHandler communityHandler) {
+                             Repository<UnorderedPair<Long, Long>, Friendship> friendshipRepository) {
         this.userRepository = userRepository;
         this.friendshipRepository = friendshipRepository;
-        this.communityHandler = communityHandler;
         observers = new HashSet<>();
     }
 
@@ -51,7 +49,7 @@ public class FriendshipService implements Observable<FriendshipChangeEvent> {
 
         Friendship friendship = new Friendship(user1, user2, friendsFromDate);
         if (friendshipRepository.save(friendship).isEmpty()) {
-            notifyObservers(FriendshipChangeEvent.ofNewData(EventType.ADD, friendship));
+            notifyObservers(FriendshipChangeEvent.ofNewData(ChangeEventType.ADD, friendship));
         }
     }
 
@@ -68,7 +66,7 @@ public class FriendshipService implements Observable<FriendshipChangeEvent> {
         friendshipRepository.delete(new Friendship(user1, user2).getId())
             .ifPresentOrElse(
                 deletedFriendship -> notifyObservers(
-                        FriendshipChangeEvent.ofOldData(EventType.DELETE, deletedFriendship)
+                        FriendshipChangeEvent.ofOldData(ChangeEventType.DELETE, deletedFriendship)
                 )
             , () -> {
                 throw new NotFoundException("The specified friendship does not exist.");
@@ -116,18 +114,17 @@ public class FriendshipService implements Observable<FriendshipChangeEvent> {
     }
 
     @Override
-    public void addObserver(Observer<FriendshipChangeEvent> observer) {
+    public void addObserver(Observer observer) {
         observers.add(observer);
     }
 
     @Override
-    public void removeObserver(Observer<FriendshipChangeEvent> observer) {
+    public void removeObserver(Observer observer) {
         observers.remove(observer);
     }
 
     @Override
     public void notifyObservers(FriendshipChangeEvent event) {
         observers.forEach(observer -> observer.update(event));
-        communityHandler.update(event);
     }
 }

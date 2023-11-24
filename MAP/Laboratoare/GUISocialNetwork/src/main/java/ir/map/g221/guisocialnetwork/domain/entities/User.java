@@ -1,13 +1,12 @@
 package ir.map.g221.guisocialnetwork.domain.entities;
 
-import ir.map.g221.guisocialnetwork.exceptions.graphs.InvalidEdgeException;
-import ir.map.g221.guisocialnetwork.utils.graphs.Node;
+import ir.map.g221.guisocialnetwork.utils.graphs.ConnectedComponent;
 
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class User extends Entity<Long> implements Node<User> {
+public class User extends Entity<Long> {
     private String firstName;
     private String lastName;
     private final Set<User> friends = new HashSet<>();
@@ -68,48 +67,17 @@ public class User extends Entity<Long> implements Node<User> {
     }
 
     @Override
-    public void pairWith(User neighbour) {
-        this.addFriend(neighbour);
-        neighbour.addFriend(this);
-    }
-
-    @Override
-    public void unpairWith(User neighbour) throws InvalidEdgeException {
-        if (!hasFriend(neighbour) || !neighbour.hasFriend(this)) {
-            throw new InvalidEdgeException("The edge to be removed does not exist.");
-        }
-        this.removeFriend(neighbour);
-        neighbour.removeFriend(this);
-    }
-
-    @Override
-    public boolean hasNeighbour(User neighbour) {
-        return hasFriend(neighbour);
-    }
-
-    @Override
-    public Set<User> getNeighbours() {
-        return getFriends();
-    }
-
-    @Override
-    public Integer getDegree() {
-        return getFriends().size();
-    }
-
-    @Override
     public String toString() {
         return "ID : " + id + " | " +
                 "First name : '" + firstName + "' | " +
-                "Last name : '" + lastName + "' | " +
-                "Friends list : [ " +
-                friends.stream()
-                        .map(user -> user.getId().toString())
-                        .collect(Collectors.joining(" , ")) + " ].";
+                "Last name : '" + lastName + "' | ";
     }
 
-    @Override
-    public String indexToString() {
-        return getId().toString();
+    public String toString(ConnectedComponent<User> usersComponent) {
+        return this + "Friends list : [ " +
+                usersComponent.getNeighboursDataOf(this).stream()
+                        .map(neighbour -> neighbour.getId().toString())
+                        .collect(Collectors.joining(" , ")) +
+                " ].";
     }
 }

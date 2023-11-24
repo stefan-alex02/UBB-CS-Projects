@@ -1,29 +1,47 @@
 package ir.map.g221.guisocialnetwork.domain;
 
+import ir.map.g221.guisocialnetwork.business.CommunityHandler;
 import ir.map.g221.guisocialnetwork.domain.entities.User;
-import ir.map.g221.guisocialnetwork.utils.graphs.GraphComponent;
-import ir.map.g221.guisocialnetwork.utils.graphs.Path;
+import ir.map.g221.guisocialnetwork.utils.graphs.ConnectedComponent;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class Community {
-    private final GraphComponent<User> graphComponent;
+    private final ConnectedComponent<User> component;
+    private final Optional<List<User>> longestPath;
 
-    public Community(GraphComponent<User> graphComponent) {
-        this.graphComponent = graphComponent;
+    private Community(ConnectedComponent<User> component) {
+        this.component = component;
+        longestPath = Optional.empty();
     }
 
-    public Path<User> getFriendshipPath() {
-        return graphComponent.getLongestPath();
+    private Community(ConnectedComponent<User> component, List<User> longestPath) {
+        this.component = component;
+        this.longestPath = Optional.of(longestPath);
+    }
+
+    public static Community of(ConnectedComponent<User> component) {
+        return new Community(component);
+    }
+
+    public static Community of(ConnectedComponent<User> component, List<User> longestPath) {
+        return new Community(component, longestPath);
+    }
+
+    public List<User> getFriendshipPath() {
+        return longestPath.orElseThrow();
     }
 
     public int size() {
-        return graphComponent.size();
+        return component.size();
     }
 
     public boolean isEmpty() {
-        return graphComponent.isEmpty();
+        return component.isEmpty();
     }
 
     @Override
@@ -31,18 +49,19 @@ public class Community {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Community community = (Community) o;
-        return Objects.equals(graphComponent, community.graphComponent);
+        return Objects.equals(component, community.component);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(graphComponent);
+        return Objects.hash(component);
     }
 
     @Override
     public String toString() {
-        return (size() > 1 ? "Community:" : "Single user:") + "\n" + graphComponent.getNodes().stream()
-                .map(User::toString)
-                .collect(Collectors.joining("\n"));
+        return (size() > 1 ? "Community:" : "Single user:") + "\n" +
+                component.getVerticesData().stream()
+                    .map(user -> user.toString(component))
+                    .collect(Collectors.joining("\n"));
     }
 }
