@@ -9,6 +9,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class ConnectedComponent<T> implements Graph<T> {
     private final Set<Vertex<T>> vertices;
@@ -91,6 +92,24 @@ public class ConnectedComponent<T> implements Graph<T> {
     }
 
     /**
+     * Checks if given vertex is a cut vertex (a.k.a. an articulation point)
+     * @param data the data of the vertex to be checked for
+     * @return true if the vertex is a cut vertex, false otherwise
+     * @throws InvalidVertexException if the vertex does not belong to the component
+     */
+    boolean isCutVertex(T data) throws InvalidVertexException {
+        if (!containsVertex(data)) {
+            throw new InvalidVertexException("Given vertex does not belong to the component.");
+        }
+        Vertex<T> vertex = getVertex(data);
+
+        Set<Vertex<T>> neighbours = vertex.getNeighbours();
+        return !VertexExplorer.visitVerticesFromButIgnore(
+                        neighbours.iterator().next(), Set.of(vertex))
+                .containsAll(neighbours);
+    }
+
+    /**
      * @throws InvalidComponentException if the component is not empty and the given vertex
      * is not already included in the component
      */
@@ -100,6 +119,90 @@ public class ConnectedComponent<T> implements Graph<T> {
             return vertices.add(Vertex.of(vertexData));
         }
         throw new InvalidComponentException("Component would lose connectivity property if given vertex was added.");
+    }
+
+
+    /**
+     * @throws InvalidComponentException if the specified vertex would break connectivity in component if removed
+     * (in other words, if the component has more than one vertex and the given vertex is a cut vertex
+     * (a.k.a. an articulation point)
+     */
+    @Override
+    public boolean removeVertex(T vertexData) throws InvalidComponentException {
+        if (isEmpty() || size() == 1) {
+            return vertices.remove(Vertex.of(vertexData));
+        }
+        if (!containsVertex(vertexData)) {
+            return false;
+        }
+        Vertex<T> vertex = getVertex(vertexData);
+
+        if (vertex.getNeighbours().size() == 1) {
+            retractTerminal(vertexData);
+            return true;
+        }
+
+        if (isCutVertex(vertexData)) {
+            throw new InvalidComponentException(
+                    "Component would lose connectivity property if specified vertex was removed.");
+        }
+        Set<Vertex<T>> vertexNeighbours = vertex.getNeighbours();
+
+        // -- Beginning of critical code (Component briefly losses its connectivity property) --
+        Set.copyOf(vertexNeighbours).forEach(neighbour -> {
+            Vertex.disconnect(vertex, neighbour);
+            edges.remove(Edge.of(vertex, neighbour));
+        });
+        vertices.remove(vertex);
+        // -- End of critical code --
+
+        return true;
+    }
+
+    /**
+     * Removes a vertex, and if it is a cut vertex, returns the set of resulted components.
+     * @param component the component to remove the vertex from
+     * @param vertexData data of the vertex to remove, that belongs to the graph
+     * @return an {@link Optional} containing the set of components, if the vertex was a cut vertex
+     * (a.k.a. an articulation point), or an empty {@code Optional}, otherwise
+     * @implNote If the vertex is a cut vertex and a set of components is returned,
+     * the old component that contained the vertex will be entirely cleared.
+     * @param <T> the type of data contained in all vertices
+     */
+    static <T> Optional<Set<ConnectedComponent<T>>> removeVertex(ConnectedComponent<T> component, T vertexData) {
+        if (component.isEmpty() || component.size() == 1) {
+            component.vertices.remove(Vertex.of(vertexData));
+            return Optional.empty();
+        }
+        if (!component.containsVertex(vertexData)) {
+            return Optional.empty();
+        }
+        Vertex<T> vertex = component.getVertex(vertexData);
+
+        if (vertex.getNeighbours().size() == 1) {
+            component.retractTerminal(vertexData);
+            return Optional.empty();
+        }
+        Set<Vertex<T>> vertexNeighbours = Set.copyOf(vertex.getNeighbours());
+
+        boolean isCutVertex = component.isCutVertex(vertexData);
+
+        // -- Beginning of critical code (Component briefly losses its connectivity property) --
+        vertexNeighbours.forEach(neighbour -> {
+            Vertex.disconnect(vertex, neighbour);
+            component.edges.remove(Edge.of(vertex, neighbour));
+        });
+        component.vertices.remove(vertex);
+
+        if (!isCutVertex) {
+            // -- End of critical code : branch 1 --
+            return  Optional.empty();
+        }
+        Set<ConnectedComponent<T>> components = VertexExplorer.createComponentsExploringFrom(vertexNeighbours);
+        component.clear();
+        // -- End of critical code : branch 2 --
+
+        return Optional.of(components);
     }
 
 
@@ -116,48 +219,16 @@ public class ConnectedComponent<T> implements Graph<T> {
     }
 
     /**
-     * Removes an edge, and if it is a bridge, returns the two resulted components.
-     * @param component the component to remove the edge from
-     * @param vertexDataA data of one vertex, that belongs to the graph
-     * @param vertexDataB data of another vertex, that belongs to the graph
-     * @return an {@link Optional} containing the pair of components (first one containing vertexDataA
-     * and second one containing vertexDataB respectively), if the edge was a bridge,
-     * or an empty {@code Optional}, otherwise
-     * @implNote If the edge is a bridge and a pair of components is returned,
-     * the old component that contained the edge will be entirely cleared.
-     * @param <T> the type of data contained in all vertices
-     * @throws InvalidVertexException if any of the given vertices does not belong to the component
-     */
-    static <T> Optional<Pair<ConnectedComponent<T>, ConnectedComponent<T>>> removeEdge(
-            ConnectedComponent<T> component, T vertexDataA, T vertexDataB) throws InvalidVertexException {
-        Vertex<T> vertexA = component.getVertex(vertexDataA);
-        Vertex<T> vertexB = component.getVertex(vertexDataB);
-
-        // -- Beginning of critical code (Component briefly losses its connectivity property) --
-        if (!component.edges.remove(Edge.of(vertexA, vertexB))) {
-            return Optional.empty();
-        }
-        Vertex.disconnect(vertexA, vertexB);
-
-        ConnectedComponent<T> componentOfVertexA = VertexExplorer.createComponentExploringFrom(vertexA);
-        if(!componentOfVertexA.containsVertex(vertexDataB)) {
-            ConnectedComponent<T> componentOfVertexB = VertexExplorer.createComponentExploringFrom(vertexB);
-            component.clear();
-            // -- End of critical code : branch 1 --
-            return Optional.of(Pair.of(componentOfVertexA, componentOfVertexB));
-        }
-        // -- End of critical code : branch 2 --
-
-        return Optional.empty();
-    }
-
-    /**
      * @throws InvalidVertexException If any of the vertices does not belong to the graph
-     * @throws InvalidComponentException If the specified edge would break connectivity in component
+     * @throws InvalidComponentException If the specified edge would break connectivity in component if removed
      * (in other words, if the edge is a bridge in the component)
      */
     @Override
     public boolean removeEdge(T vertexDataA, T vertexDataB) throws InvalidVertexException, InvalidComponentException {
+        if (!containsVertex(vertexDataA) || !containsVertex(vertexDataB)) {
+            throw new InvalidEdgeException("Edge vertices do not belong to component.");
+        }
+
         Vertex<T> vertexA = getVertex(vertexDataA);
         Vertex<T> vertexB = getVertex(vertexDataB);
 
@@ -177,6 +248,46 @@ public class ConnectedComponent<T> implements Graph<T> {
         // -- End of critical code : branch 2 --
 
         return true;
+    }
+
+    /**
+     * Removes an edge, and if it is a bridge, returns the two resulted components.
+     * @param component the component to remove the edge from
+     * @param vertexDataA data of one vertex, that belongs to the graph
+     * @param vertexDataB data of another vertex, that belongs to the graph
+     * @return an {@link Optional} containing the pair of components (first one containing vertexDataA
+     * and second one containing vertexDataB respectively), if the edge was a bridge,
+     * or an empty {@code Optional}, otherwise
+     * @implNote If the edge is a bridge and a pair of components is returned,
+     * the old component that contained the edge will be entirely cleared.
+     * @param <T> the type of data contained in all vertices
+     * @throws InvalidVertexException if any of the given edge vertices does not belong to the graph
+     */
+    static <T> Optional<Pair<ConnectedComponent<T>, ConnectedComponent<T>>> removeEdge(
+            ConnectedComponent<T> component, T vertexDataA, T vertexDataB) throws InvalidVertexException {
+        if (!component.containsVertex(vertexDataA) || !component.containsVertex(vertexDataB)) {
+            throw new InvalidVertexException("At least one vertex do not belong to component.");
+        }
+
+        Vertex<T> vertexA = component.getVertex(vertexDataA);
+        Vertex<T> vertexB = component.getVertex(vertexDataB);
+
+        // -- Beginning of critical code (Component briefly losses its connectivity property) --
+        if (!component.edges.remove(Edge.of(vertexA, vertexB))) {
+            return Optional.empty();
+        }
+        Vertex.disconnect(vertexA, vertexB);
+
+        ConnectedComponent<T> componentOfVertexA = VertexExplorer.createComponentExploringFrom(vertexA);
+        if(!componentOfVertexA.containsVertex(vertexDataB)) {
+            ConnectedComponent<T> componentOfVertexB = VertexExplorer.createComponentExploringFrom(vertexB);
+            component.clear();
+            // -- End of critical code : branch 1 --
+            return Optional.of(Pair.of(componentOfVertexA, componentOfVertexB));
+        }
+        // -- End of critical code : branch 2 --
+
+        return Optional.empty();
     }
 
     /**
@@ -201,6 +312,29 @@ public class ConnectedComponent<T> implements Graph<T> {
         vertices.add(newVertex);
         Vertex.connect(existingVertex, newVertex);
         edges.add(Edge.of(existingVertex, newVertex));
+        // -- End of critical code --
+    }
+
+    /**
+     * Retracts the component by removing a terminal vertex, along the edge that connects it.
+     * @param vertexDataToRemove the terminal vertex that is about to be removed, along its only edge
+     * @throws InvalidVertexException if the vertex is not terminal (has only one neighbour)
+     */
+    void retractTerminal(T vertexDataToRemove) throws InvalidVertexException {
+        if (!containsVertex(vertexDataToRemove)) {
+            throw new InvalidVertexException("Given vertex must exist in the component.");
+        }
+        Vertex<T> vertexToRemove = getVertex(vertexDataToRemove);
+
+        if (vertexToRemove.getNeighbours().size() != 1) {
+            throw new InvalidVertexException("Given vertex is not terminal.");
+        }
+        Vertex<T> neighbour = vertexToRemove.getNeighbours().iterator().next();
+
+        // -- Beginning of critical code (Component briefly losses its connectivity property) --
+        edges.remove(Edge.of(vertexToRemove, neighbour));
+        Vertex.disconnect(vertexToRemove, neighbour);
+        vertices.remove(vertexToRemove);
         // -- End of critical code --
     }
 

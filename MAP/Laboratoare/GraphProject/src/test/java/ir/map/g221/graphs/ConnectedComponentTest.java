@@ -1,6 +1,7 @@
 package ir.map.g221.graphs;
 
 import ir.map.g221.graphexceptions.InvalidComponentException;
+import ir.map.g221.graphexceptions.InvalidVertexException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -161,5 +162,113 @@ class ConnectedComponentTest {
         Assertions.assertTrue(component.containsAllVertices(Set.of(1,2,3,4,5)));
         Assertions.assertFalse(component.containsAllVertices(Set.of(6)));
         Assertions.assertFalse(component.containsAllVertices(Set.of(1,2,3,4,5,6)));
+    }
+
+    @Test
+    void removeVertex() {
+        ConnectedComponent<Integer> component = ConnectedComponent.ofVertex(2);
+        component.expand(2, 1);
+        component.expand(2, 3);
+        component.expand(2, 4);
+        component.expand(2, 5);
+
+        component.addEdge(3, 5);
+        component.addEdge(4, 5);
+        component.addEdge(3, 4);
+
+        /* ASCII diagram of created component :
+                    -- 3 --
+                   /   |   \
+            1 --- 2 ---+--- 5
+                   \   |   /
+                    -- 4 --
+         */
+
+        Assertions.assertFalse(component.removeVertex(8));
+
+        Assertions.assertThrowsExactly(InvalidComponentException.class, () -> component.removeVertex(2));
+
+        Assertions.assertTrue(component.removeVertex(5));
+        Assertions.assertEquals(4, component.size());
+        Assertions.assertEquals(4, component.numberOfEdges());
+        Assertions.assertTrue(component.containsAllVertices(Set.of(1,2,3,4)));
+
+        Assertions.assertThrowsExactly(InvalidComponentException.class, () -> component.removeVertex(2));
+
+        Assertions.assertTrue(component.removeVertex(3));
+        Assertions.assertEquals(3, component.size());
+        Assertions.assertEquals(2, component.numberOfEdges());
+        Assertions.assertTrue(component.containsAllVertices(Set.of(1,2,4)));
+
+        Assertions.assertThrowsExactly(InvalidComponentException.class, () -> component.removeVertex(2));
+
+        Assertions.assertTrue(component.removeVertex(1));
+        Assertions.assertEquals(2, component.size());
+        Assertions.assertEquals(1, component.numberOfEdges());
+        Assertions.assertTrue(component.containsAllVertices(Set.of(2,4)));
+
+        Assertions.assertTrue(component.removeVertex(2));
+        Assertions.assertEquals(1, component.size());
+        Assertions.assertEquals(0, component.numberOfEdges());
+        Assertions.assertTrue(component.containsVertex(4));
+
+        Assertions.assertTrue(component.removeVertex(4));
+        Assertions.assertTrue(component.isEmpty());
+    }
+
+    @Test
+    void testRemoveVertex() {
+        ConnectedComponent<Integer> component = ConnectedComponent.ofVertex(2);
+        component.expand(2, 1);
+        component.expand(2, 3);
+        component.expand(2, 4);
+        component.expand(2, 5);
+
+        component.addEdge(3, 5);
+        component.addEdge(4, 5);
+        component.addEdge(3, 4);
+
+        /* ASCII diagram of created component :
+                    -- 3 --
+                   /   |   \
+            1 --- 2 ---+--- 5
+                   \   |   /
+                    -- 4 --
+         */
+
+        Assertions.assertTrue(ConnectedComponent.removeVertex(component, 8).isEmpty());
+        var components = ConnectedComponent.removeVertex(component, 2);
+        Assertions.assertTrue(components.isPresent());
+        Assertions.assertTrue(components.get().stream().anyMatch(comp ->
+                comp.size() == 1 &&
+                comp.numberOfEdges() == 0 &&
+                comp.containsVertex(1)));
+        Assertions.assertTrue(components.get().stream().anyMatch(comp ->
+                comp.size() == 3 &&
+                comp.numberOfEdges() == 3 &&
+                comp.containsAllVertices(Set.of(3,4,5))));
+
+        var component1 = components.get().stream().filter(comp ->
+                comp.size() == 1 &&
+                comp.numberOfEdges() == 0 &&
+                comp.containsVertex(1))
+                .findFirst()
+                .orElseThrow();
+        Assertions.assertTrue(ConnectedComponent.removeVertex(component1, 1).isEmpty());
+
+        var component345 = components.get().stream().filter(comp ->
+                comp.size() == 3 &&
+                comp.numberOfEdges() == 3 &&
+                comp.containsAllVertices(Set.of(3,4,5)))
+                .findFirst()
+                .orElseThrow();
+        Assertions.assertTrue(ConnectedComponent.removeVertex(component345, 5).isEmpty());
+        Assertions.assertEquals(2, component345.size());
+        Assertions.assertTrue(component345.containsAllVertices(Set.of(3,4)));
+
+        Assertions.assertTrue(ConnectedComponent.removeVertex(component345, 5).isEmpty());
+        Assertions.assertTrue(ConnectedComponent.removeVertex(component345, 4).isEmpty());
+        Assertions.assertTrue(ConnectedComponent.removeVertex(component345, 3).isEmpty());
+        Assertions.assertTrue(component345.isEmpty());
     }
 }

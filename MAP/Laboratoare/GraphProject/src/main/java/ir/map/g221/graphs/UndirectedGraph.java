@@ -1,9 +1,12 @@
 package ir.map.g221.graphs;
 
+import ir.map.g221.generictypes.Pair;
 import ir.map.g221.generictypes.UnorderedPair;
+import ir.map.g221.graphexceptions.InvalidComponentException;
 import ir.map.g221.graphexceptions.InvalidEdgeException;
 import ir.map.g221.graphexceptions.InvalidVertexException;
 
+import java.net.ConnectException;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
@@ -26,6 +29,28 @@ public class UndirectedGraph<T> implements Graph<T> {
         }
         return false;
     }
+    @Override
+    public boolean removeVertex(T vertexData) {
+        if (!containsVertex(vertexData)) {
+            return false;
+        }
+        ConnectedComponent<T> component = getComponentOf(vertexData).orElseThrow();
+
+        // -- Beginning of critical code (Graph briefly losses the component that is about to change) --
+        components.remove(component);
+        Optional<Set<ConnectedComponent<T>>> resultedComponents =
+                ConnectedComponent.removeVertex(component, vertexData);
+        if (resultedComponents.isEmpty()) {
+            components.add(component);
+            // -- End of critical code : branch 1 --
+
+            return true;
+        }
+        components.addAll(resultedComponents.get());
+        // -- End of critical code : branch 2 --
+
+        return true;
+    }
 
     /**
      * Adds vertices to the graph.
@@ -47,18 +72,18 @@ public class UndirectedGraph<T> implements Graph<T> {
         boolean wasEdgeNew;
 
         if (componentA.equals(componentB)) {
-            // Beginning of critical code (Graph briefly losses the component that is about to extend)
+            // -- Beginning of critical code (Graph briefly losses the component that is about to extend) --
             components.remove(componentA);
             wasEdgeNew = componentA.addEdge(vertexDataA, vertexDataB);
             components.add(componentA);
-            // End of critical code
+            // -- End of critical code --
         }
         else {
-            // Beginning of critical code (Graph briefly losses the components that are about to connect)
+            // -- Beginning of critical code (Graph briefly losses the components that are about to connect) --
             components.remove(componentA);
             components.remove(componentB);
             components.add(ConnectedComponent.ofConnection(componentA, componentB, vertexDataA, vertexDataB));
-            // End of critical code
+            // -- End of critical code --
 
             wasEdgeNew = true;
         }
@@ -66,12 +91,34 @@ public class UndirectedGraph<T> implements Graph<T> {
         return wasEdgeNew;
     }
 
+    /**
+     * @throws InvalidVertexException If any of the vertices does not belong to the graph
+     */
     @Override
     public boolean removeEdge(T vertexDataA, T vertexDataB) throws InvalidVertexException {
         if (!containsVertex(vertexDataA) || !containsVertex(vertexDataB)) {
             throw new InvalidVertexException("At least one of the vertices does not belong to the graph.");
         }
-        return getComponentOf(vertexDataA).orElseThrow().removeEdge(vertexDataA, vertexDataB);
+        ConnectedComponent<T> component = getComponentOf(vertexDataA).orElseThrow();
+        int oldNumberOfEdges = component.numberOfEdges();
+
+        // -- Beginning of critical code (Graph briefly losses the component that is about to change) --
+        components.remove(component);
+        Optional<Pair<ConnectedComponent<T>, ConnectedComponent<T>>> resultedComponents =
+                ConnectedComponent.removeEdge(component, vertexDataA, vertexDataB);
+        if (resultedComponents.isEmpty()) {
+            components.add(component);
+            // -- End of critical code : branch 1 --
+
+            return component.numberOfEdges() < oldNumberOfEdges;
+        }
+        ConnectedComponent<T> firstComponent = resultedComponents.get().getFirst();
+        ConnectedComponent<T> secondComponent = resultedComponents.get().getSecond();
+        components.add(firstComponent);
+        components.add(secondComponent);
+        // -- End of critical code : branch 2 --
+
+        return firstComponent.numberOfEdges() + secondComponent.numberOfEdges() < oldNumberOfEdges;
     }
 
     /**

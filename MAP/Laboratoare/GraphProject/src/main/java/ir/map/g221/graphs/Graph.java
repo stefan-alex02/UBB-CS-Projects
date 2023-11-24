@@ -46,6 +46,13 @@ public interface Graph<T> {
     boolean addVertex(T vertexData);
 
     /**
+     * Removes a vertex from the graph.
+     * @param vertexData the data of the vertex to be removed
+     * @return true if the graph contained the vertex with the specified data before removing, false otherwise
+     */
+    boolean removeVertex(T vertexData);
+
+    /**
      * Adds an edge to the graph.
      * @param vertexDataA data of one vertex, that belongs to the graph
      * @param vertexDataB data of another vertex, that belongs to the graph
@@ -59,7 +66,7 @@ public interface Graph<T> {
      * @param vertexDataA data of one vertex, that belongs to the graph
      * @param vertexDataB data of another vertex, that belongs to the graph
      * @return true if the graph contained the specified edge, false otherwise
-     * @throws InvalidVertexException if any of the given data does not belong to any vertex in the graph
+     * @throws InvalidVertexException if given edge vertices do not belong to the graph
      */
     boolean removeEdge(T vertexDataA, T vertexDataB) throws InvalidVertexException;
 
