@@ -16,5 +16,4 @@ public class Message extends Entity<Long> {
         this.message = message;
         this.date = date;
     }
-
 }
