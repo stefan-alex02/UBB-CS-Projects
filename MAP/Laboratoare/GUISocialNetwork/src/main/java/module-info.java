@@ -48,4 +48,6 @@ module ir.map.g221.guisocialnetwork {
 
     opens ir.map.g221.guisocialnetwork to javafx.fxml;
     exports ir.map.g221.guisocialnetwork;
+    exports ir.map.g221.guisocialnetwork.gui;
+    opens ir.map.g221.guisocialnetwork.gui to javafx.fxml;
 }

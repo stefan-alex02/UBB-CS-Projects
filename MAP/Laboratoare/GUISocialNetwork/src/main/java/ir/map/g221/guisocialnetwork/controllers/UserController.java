@@ -1,5 +1,6 @@
-package ir.map.g221.guisocialnetwork;
+package ir.map.g221.guisocialnetwork.controllers;
 
+import ir.map.g221.guisocialnetwork.OldMain;
 import ir.map.g221.guisocialnetwork.business.CommunityHandler;
 import ir.map.g221.guisocialnetwork.business.UserService;
 import ir.map.g221.guisocialnetwork.controllers.EditUserController;
@@ -9,7 +10,6 @@ import ir.map.g221.guisocialnetwork.business.SampleGenerator;
 import ir.map.g221.guisocialnetwork.exceptions.SampleGeneratedException;
 import ir.map.g221.guisocialnetwork.utils.events.Event;
 import ir.map.g221.guisocialnetwork.utils.events.EventType;
-import ir.map.g221.guisocialnetwork.utils.events.UserChangeEvent;
 import ir.map.g221.guisocialnetwork.utils.observer.Observer;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -165,7 +165,7 @@ public class UserController implements Observer {
     public void showUserEditDialog(Optional<User> user) {
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("views/edituser-view.fxml"));
+            loader.setLocation(OldMain.class.getResource("gui/views/edituser-view.fxml"));
 
             AnchorPane root = loader.load();
 

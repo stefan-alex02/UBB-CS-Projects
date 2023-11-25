@@ -1,4 +1,4 @@
-package ir.map.g221.guisocialnetwork;
+package ir.map.g221.guisocialnetwork.gui;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

@@ -1,5 +1,6 @@
-package ir.map.g221.guisocialnetwork;
+package ir.map.g221.guisocialnetwork.gui;
 
+import ir.map.g221.guisocialnetwork.controllers.UserController;
 import ir.map.g221.guisocialnetwork.factory.BuildContainer;
 import ir.map.g221.guisocialnetwork.factory.Factory;
 import javafx.application.Application;
