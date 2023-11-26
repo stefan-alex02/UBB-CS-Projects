@@ -14,6 +14,14 @@ public class UserChangeEvent implements Event {
         this.oldData = oldData;
     }
 
+    public static UserChangeEvent ofNewData(ChangeEventType changeEventType, User newData) {
+        return new UserChangeEvent(changeEventType, newData, null);
+    }
+
+    public static UserChangeEvent ofOldData(ChangeEventType changeEventType, User oldData) {
+        return new UserChangeEvent(changeEventType, null, oldData);
+    }
+
     @Override
     public EventType getEventType() {
         return eventType;
@@ -29,13 +37,5 @@ public class UserChangeEvent implements Event {
 
     public User getOldData() {
         return oldData;
-    }
-
-    public static UserChangeEvent ofNewData(ChangeEventType changeEventType, User newData) {
-        return new UserChangeEvent(changeEventType, newData, null);
-    }
-
-    public static UserChangeEvent ofOldData(ChangeEventType changeEventType, User oldData) {
-        return new UserChangeEvent(changeEventType, null, oldData);
     }
 }

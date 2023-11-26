@@ -20,7 +20,7 @@ public class FriendshipValidator implements Validator<Friendship>{
     }
 
     @Override
-    public void validate(Friendship entity) throws ValidationException {
+    public List<String> findErrors(Friendship entity) {
         List<String> errors = new ArrayList<>();
 
         if (entity.getId().getFirst() < 0) {
@@ -39,8 +39,6 @@ public class FriendshipValidator implements Validator<Friendship>{
             errors.add("Creation date is too old.");
         }
 
-        if (!errors.isEmpty()) {
-            throw new ValidationException(errors);
-        }
+        return errors;
     }
 }

@@ -26,8 +26,24 @@ public class FriendshipDBRepository implements Repository<UnorderedPair<Long, Lo
         this.validator = validator;
     }
 
+    private @NotNull Friendship createFriendshipFrom(ResultSet resultSet) throws SQLException {
+        Long id1 = resultSet.getLong("id1");
+        String firstName1 = resultSet.getString("first_name1");
+        String lastName1 = resultSet.getString("last_name1");
+        User user1 = new User(id1, firstName1, lastName1);
+
+        Long id2 = resultSet.getLong("id2");
+        String firstName2 = resultSet.getString("first_name2");
+        String lastName2 = resultSet.getString("last_name2");
+        User user2 = new User(id2, firstName2, lastName2);
+
+        LocalDateTime friendsFrom = resultSet.getTimestamp("friends_from").toLocalDateTime();
+
+        return new Friendship(user1, user2, friendsFrom);
+    }
+
     @Override
-    public Optional<Friendship> findOne(UnorderedPair<Long, Long> unorderedPair) {
+    public Optional<Friendship> findOne(UnorderedPair<Long, Long> unorderedPair) throws IllegalArgumentException {
         if (unorderedPair == null) {
             throw new IllegalArgumentException("Id cannot be null");
         }
@@ -89,22 +105,6 @@ public class FriendshipDBRepository implements Repository<UnorderedPair<Long, Lo
         }
     }
 
-    private @NotNull Friendship createFriendshipFrom(ResultSet resultSet) throws SQLException {
-        Long id1 = resultSet.getLong("id1");
-        String firstName1 = resultSet.getString("first_name1");
-        String lastName1 = resultSet.getString("last_name1");
-        User user1 = new User(id1, firstName1, lastName1);
-
-        Long id2 = resultSet.getLong("id2");
-        String firstName2 = resultSet.getString("first_name2");
-        String lastName2 = resultSet.getString("last_name2");
-        User user2 = new User(id2, firstName2, lastName2);
-
-        LocalDateTime friendsFrom = resultSet.getTimestamp("friends_from").toLocalDateTime();
-
-        return new Friendship(user1, user2, friendsFrom);
-    }
-
     @Override
     public Integer getSize() {
         try (Connection connection = DriverManager.getConnection(url, username, password);
@@ -119,7 +119,7 @@ public class FriendshipDBRepository implements Repository<UnorderedPair<Long, Lo
     }
 
     @Override
-    public Optional<Friendship> save(Friendship entity) {
+    public Optional<Friendship> save(Friendship entity) throws IllegalArgumentException {
         if (entity == null) {
             throw new IllegalArgumentException("Friendship cannot be null");
         }
@@ -142,7 +142,7 @@ public class FriendshipDBRepository implements Repository<UnorderedPair<Long, Lo
     }
 
     @Override
-    public Optional<Friendship> delete(UnorderedPair<Long, Long> unorderedPair) {
+    public Optional<Friendship> delete(UnorderedPair<Long, Long> unorderedPair) throws IllegalArgumentException {
         if (unorderedPair == null) {
             throw new IllegalArgumentException("Id cannot be null");
         }
@@ -169,7 +169,7 @@ public class FriendshipDBRepository implements Repository<UnorderedPair<Long, Lo
     }
 
     @Override
-    public Optional<Friendship> update(Friendship entity) {
+    public Optional<Friendship> update(Friendship entity) throws IllegalArgumentException {
         if(entity == null) {
             throw new IllegalArgumentException("Entity cannot be null!");
         }

@@ -1,5 +1,7 @@
-package ir.map.g221.guisocialnetwork.business;
+package ir.map.g221.guisocialnetwork.factory;
 
+import ir.map.g221.guisocialnetwork.business.FriendshipService;
+import ir.map.g221.guisocialnetwork.business.UserService;
 import ir.map.g221.guisocialnetwork.exceptions.SampleGeneratedException;
 
 import java.time.LocalDateTime;

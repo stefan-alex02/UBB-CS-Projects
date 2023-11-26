@@ -76,11 +76,22 @@ FROM reply_messages;
 -- INNER JOIN messages_receivers R ON R.message_id = M.id
 -- LEFT JOIN reply_messages RM ON RM.message_id = M.id;
 
-SELECT id, from_user_id, message, date, reply_to_id
+SELECT M.id, M.from_user_id, U.first_name, U.last_name, M.message, M.date, 
+	R.reply_to_id, M2.message as reply_to_message, 
+	M2.from_user_id as reply_to_user_id, 
+	U2.first_name as reply_to_user_first_name, 
+	U2.last_name as reply_to_user_last_name,
+	M2.date as reply_to_message_date
 FROM messages M
-LEFT JOIN reply_messages R ON R.message_id = M.id;
+INNER JOIN users U ON U.id = M.from_user_id
+LEFT JOIN reply_messages R ON R.message_id = M.id
+LEFT JOIN messages M2 ON M2.id = R.reply_to_id
+LEFT JOIN users U2 ON U2.id = M2.from_user_id
+WHERE M.id = 2;
 
 
-SELECT id, receiver_id
+SELECT M.id, M.from_user_id, U.id, U.first_name, U.last_name
 FROM messages M
-INNER JOIN messages_receivers MR ON MR.message_id = M.id;
+INNER JOIN messages_receivers MR ON MR.message_id = M.id
+INNER JOIN users U ON U.id = MR.receiver_id
+WHERE M.id = 1;

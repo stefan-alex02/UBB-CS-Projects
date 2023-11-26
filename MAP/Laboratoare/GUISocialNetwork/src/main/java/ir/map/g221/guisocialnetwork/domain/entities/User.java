@@ -70,7 +70,7 @@ public class User extends Entity<Long> {
     public String toString() {
         return "ID : " + id + " | " +
                 "First name : '" + firstName + "' | " +
-                "Last name : '" + lastName + "' | ";
+                "Last name : '" + lastName;
     }
 
     public String toString(ConnectedComponent<User> usersComponent) {

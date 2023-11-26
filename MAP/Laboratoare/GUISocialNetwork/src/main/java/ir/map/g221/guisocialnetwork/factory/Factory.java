@@ -2,11 +2,15 @@ package ir.map.g221.guisocialnetwork.factory;
 
 import ir.map.g221.guisocialnetwork.business.CommunityHandler;
 import ir.map.g221.guisocialnetwork.business.FriendshipService;
-import ir.map.g221.guisocialnetwork.business.SampleGenerator;
+import ir.map.g221.guisocialnetwork.business.MessageService;
 import ir.map.g221.guisocialnetwork.business.UserService;
 import ir.map.g221.guisocialnetwork.domain.entities.Friendship;
+import ir.map.g221.guisocialnetwork.domain.entities.Message;
 import ir.map.g221.guisocialnetwork.domain.entities.User;
+import ir.map.g221.guisocialnetwork.domain.validation.MessageValidator;
+import ir.map.g221.guisocialnetwork.domain.validation.ReplyMessageValidator;
 import ir.map.g221.guisocialnetwork.persistence.Repository;
+import ir.map.g221.guisocialnetwork.persistence.dbrepos.MessageDBRepository;
 import ir.map.g221.guisocialnetwork.persistence.dbrepos.UserDBRepository;
 import ir.map.g221.guisocialnetwork.domain.validation.FriendshipValidator;
 import ir.map.g221.guisocialnetwork.domain.validation.UserValidator;
@@ -37,17 +41,22 @@ public class Factory {
                 new UserDBRepository(url, username, password, UserValidator.getInstance());
         Repository<UnorderedPair<Long, Long>, Friendship> friendshipRepo =
                 new FriendshipDBRepository(url, username, password, FriendshipValidator.getInstance());
+        Repository<Long, Message> messageRepo =
+                new MessageDBRepository(url, username, password,
+                        MessageValidator.getInstance(),
+                        ReplyMessageValidator.getInstance());
 
         CommunityHandler communityHandler = new CommunityHandler(userRepo, friendshipRepo);
 
         UserService userService = new UserService(userRepo, friendshipRepo);
         FriendshipService friendshipService = new FriendshipService(userRepo, friendshipRepo);
+        MessageService messageService = new MessageService(messageRepo, userRepo);
 
         userService.addObserver(communityHandler);
         friendshipService.addObserver(communityHandler);
 
         SampleGenerator sampleGenerator = new SampleGenerator(userService, friendshipService);
-        UserInterface ui = new UserConsole(userService, friendshipService, communityHandler, sampleGenerator);
+        UserInterface ui = new UserConsole(userService, friendshipService, messageService, communityHandler, sampleGenerator);
 
         return new BuildContainer(userService, friendshipService, communityHandler, ui, sampleGenerator);
     }

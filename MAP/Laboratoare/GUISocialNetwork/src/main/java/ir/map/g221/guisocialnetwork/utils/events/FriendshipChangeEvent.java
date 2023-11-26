@@ -14,6 +14,14 @@ public class FriendshipChangeEvent implements Event {
         this.oldData = oldData;
     }
 
+    public static FriendshipChangeEvent ofNewData(ChangeEventType changeEventType, Friendship newData) {
+        return new FriendshipChangeEvent(changeEventType, newData, null);
+    }
+
+    public static FriendshipChangeEvent ofOldData(ChangeEventType changeEventType, Friendship oldData) {
+        return new FriendshipChangeEvent(changeEventType, null, oldData);
+    }
+
     @Override
     public EventType getEventType() {
         return eventType;
@@ -29,13 +37,5 @@ public class FriendshipChangeEvent implements Event {
 
     public Friendship getOldData() {
         return oldData;
-    }
-
-    public static FriendshipChangeEvent ofNewData(ChangeEventType changeEventType, Friendship newData) {
-        return new FriendshipChangeEvent(changeEventType, newData, null);
-    }
-
-    public static FriendshipChangeEvent ofOldData(ChangeEventType changeEventType, Friendship oldData) {
-        return new FriendshipChangeEvent(changeEventType, null, oldData);
     }
 }

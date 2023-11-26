@@ -20,7 +20,7 @@ public class UserValidator implements Validator<User>{
     }
 
     @Override
-    public void validate(User entity) throws ValidationException {
+    public List<String> findErrors(User entity) {
         List<String> errors = new ArrayList<>();
 
         if (entity.getId() < 0) {
@@ -35,8 +35,6 @@ public class UserValidator implements Validator<User>{
             errors.add("Last name must not be empty.");
         }
 
-        if (!errors.isEmpty()) {
-            throw new ValidationException(errors);
-        }
+        return errors;
     }
 }

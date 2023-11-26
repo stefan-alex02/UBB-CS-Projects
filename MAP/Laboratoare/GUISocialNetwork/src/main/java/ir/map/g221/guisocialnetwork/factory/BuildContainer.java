@@ -2,7 +2,6 @@ package ir.map.g221.guisocialnetwork.factory;
 
 import ir.map.g221.guisocialnetwork.business.CommunityHandler;
 import ir.map.g221.guisocialnetwork.business.FriendshipService;
-import ir.map.g221.guisocialnetwork.business.SampleGenerator;
 import ir.map.g221.guisocialnetwork.business.UserService;
 import ir.map.g221.guisocialnetwork.ui.UserInterface;
 
