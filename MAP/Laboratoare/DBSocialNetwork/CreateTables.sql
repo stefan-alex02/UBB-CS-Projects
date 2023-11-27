@@ -5,6 +5,7 @@
 --     CONNECTION LIMIT = -1
 --     IS_TEMPLATE = False;
 
+DROP TABLE IF EXISTS public.friend_requests;
 DROP TABLE IF EXISTS public.reply_messages;
 DROP TABLE IF EXISTS public.messages_receivers;
 DROP TABLE IF EXISTS public.messages;
@@ -109,4 +110,25 @@ CREATE TABLE public.reply_messages
 );
 
 ALTER TABLE IF EXISTS public.reply_messages
+    OWNER to postgres;
+	
+	
+CREATE TABLE public.friend_requests
+(
+    id bigint NOT NULL GENERATED ALWAYS AS IDENTITY,
+    from_id bigint NOT NULL,
+    to_id bigint NOT NULL,
+    date timestamp without time zone NOT NULL,
+    PRIMARY KEY (id),
+    CONSTRAINT fk_from_id FOREIGN KEY (from_id)
+        REFERENCES public.users (id) MATCH SIMPLE
+        ON UPDATE CASCADE
+        ON DELETE CASCADE,
+    CONSTRAINT fk_to_id FOREIGN KEY (to_id)
+        REFERENCES public.users (id) MATCH SIMPLE
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
+);
+
+ALTER TABLE IF EXISTS public.friend_requests
     OWNER to postgres;

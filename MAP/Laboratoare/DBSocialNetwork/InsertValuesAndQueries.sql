@@ -95,3 +95,10 @@ FROM messages M
 INNER JOIN messages_receivers MR ON MR.message_id = M.id
 INNER JOIN users U ON U.id = MR.receiver_id
 WHERE M.id = 1;
+
+
+INSERT INTO friend_requests(from_id, to_id, date) VALUES
+	(2, 3, '2023-11-26 12:45');
+	
+SELECT * FROM friend_requests;
+
