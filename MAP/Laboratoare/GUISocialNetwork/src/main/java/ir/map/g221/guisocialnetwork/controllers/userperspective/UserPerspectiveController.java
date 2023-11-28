@@ -34,6 +34,7 @@ public class UserPerspectiveController implements Observer {
         this.user = user;
         this.stage = stage;
         buildContainer.getUserService().addObserver(this);
+        stage.setOnCloseRequest(e -> dispose());
 
         searchUsersController.setContent(buildContainer, user);
         friendRequestController.setContent(buildContainer, user);

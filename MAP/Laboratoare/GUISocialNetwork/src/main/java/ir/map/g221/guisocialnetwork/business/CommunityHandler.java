@@ -35,7 +35,7 @@ public class CommunityHandler implements Observer {
     }
 
     public Integer getNoOfFriendOfUser(User user) {
-        return graph.numberOfNeighboursOf(user);
+        return getGeneratedGraph().numberOfNeighboursOf(user);
     }
 
     public Community getCommunityOfUser(User user) {
