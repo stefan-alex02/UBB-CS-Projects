@@ -189,6 +189,20 @@ public class UndirectedGraph<T> implements Graph<T> {
         return components.size();
     }
 
+    /**
+     * Gets the number of neighbours of a given vertex.
+     * @param vertexData the data of the vertex to be looked for
+     * @return the number of neighbours
+     * @throws InvalidVertexException if the vertex does not belong to graph
+     */
+    public int numberOfNeighboursOf(T vertexData) throws InvalidVertexException {
+        if (!containsVertex(vertexData)) {
+            throw new InvalidVertexException("Vertex does not belong to subject component.");
+        }
+        return getComponentOf(vertexData).orElseThrow()
+                .numberOfNeighboursOf(vertexData);
+    }
+
     @Override
     public boolean containsVertex(T vertexData) {
         return components.stream().anyMatch(component -> component.containsVertex(vertexData));

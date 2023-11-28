@@ -46,6 +46,9 @@ dependencies {
 
     // https://mvnrepository.com/artifact/org.postgresql/postgresql
     implementation group: 'org.postgresql', name: 'postgresql', version: '42.6.0'
+
+    // https://mvnrepository.com/artifact/org.openjfx/javafx-media
+    implementation group: 'org.openjfx', name: 'javafx-media', version: '22-ea+16'
 }
 
 test {

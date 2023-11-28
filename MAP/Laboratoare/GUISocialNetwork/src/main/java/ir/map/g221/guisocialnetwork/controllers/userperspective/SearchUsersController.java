@@ -59,9 +59,8 @@ public class SearchUsersController implements Observer {
                 new ObservableValueBase<>() {
                     @Override
                     public Integer getValue() {
-                        return buildContainer.getFriendshipService()
-                                .getFriendsOfUser(userCell.getValue().getId())
-                                .size();
+                        return buildContainer.getCommunityHandler()
+                                .getNoOfFriendOfUser(userCell.getValue());
                     }
                 });
 

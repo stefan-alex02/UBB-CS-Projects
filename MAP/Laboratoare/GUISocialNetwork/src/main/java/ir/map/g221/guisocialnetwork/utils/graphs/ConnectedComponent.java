@@ -127,6 +127,19 @@ public class ConnectedComponent<T> implements Graph<T> {
     }
 
     /**
+     * Gets the number of neighbours of a given vertex.
+     * @param vertexData the data of the vertex to be looked for
+     * @return the number of neighbours
+     * @throws InvalidVertexException if the vertex does not belong to component
+     */
+    public int numberOfNeighboursOf(T vertexData) throws InvalidVertexException {
+        if (!containsVertex(vertexData)) {
+            throw new InvalidEdgeException("Given vertex does not belong to the component.");
+        }
+        return getVertex(vertexData).getNeighbours().size();
+    }
+
+    /**
      * Checks if given vertex is a cut vertex (a.k.a. an articulation point)
      * @param data the data of the vertex to be checked for
      * @return true if the vertex is a cut vertex, false otherwise

@@ -47,12 +47,13 @@ public class UserService implements Observable {
     }
 
     public void updateUser(Long id, String firstName, String lastName) {
-        User userToUpdate = new User(id, firstName, lastName);
-        userRepository.update(userToUpdate).ifPresentOrElse(
+        User oldUser = getUser(id);
+        User updatedUser = new User(id, firstName, lastName);
+        userRepository.update(updatedUser).ifPresentOrElse(
                 u -> {
                     throw new RuntimeException("Error while trying to update user.");
                 },
-                () -> notifyObservers(UserChangeEvent.ofNewData(ChangeEventType.UPDATE, userToUpdate)));
+                () -> notifyObservers(UserChangeEvent.of(ChangeEventType.UPDATE, updatedUser, oldUser)));
     }
 
     public void removeUser(Long id) throws NotFoundException {

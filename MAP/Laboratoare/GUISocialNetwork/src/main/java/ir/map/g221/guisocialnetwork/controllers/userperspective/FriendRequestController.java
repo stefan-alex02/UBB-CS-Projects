@@ -4,17 +4,16 @@ import ir.map.g221.guisocialnetwork.controllers.othercontrollers.MessageAlerter;
 import ir.map.g221.guisocialnetwork.domain.entities.FriendRequest;
 import ir.map.g221.guisocialnetwork.domain.entities.User;
 import ir.map.g221.guisocialnetwork.factory.BuildContainer;
-import ir.map.g221.guisocialnetwork.utils.events.ChangeEventType;
-import ir.map.g221.guisocialnetwork.utils.events.Event;
-import ir.map.g221.guisocialnetwork.utils.events.EventType;
-import ir.map.g221.guisocialnetwork.utils.events.UserChangeEvent;
+import ir.map.g221.guisocialnetwork.utils.events.*;
 import ir.map.g221.guisocialnetwork.utils.observer.Observer;
 import javafx.beans.value.ObservableValueBase;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.stage.Popup;
 import javafx.util.Callback;
+import java.io.File;
 
 import java.time.LocalDateTime;
 
@@ -30,13 +29,23 @@ public class FriendRequestController implements Observer {
     @FXML TableColumn<FriendRequest, Void> tableColumnApprove;
     @FXML TableColumn<FriendRequest, Void> tableColumnReject;
 
+    String musicFile = "sounds/notification1.mp3";     // For example
+    private final Popup popup = new Popup();
+    EventHandler<FriendRequestChangeEvent> newFriendRequestHandler =
+            e -> {
+                if (!popup.isShowing()) {
+                    popup.getContent().add(new Label("New friend request"));
+                    popup.show(null);
+                }
+                else
+                    popup.hide();
+            };
+
     public void setContent(BuildContainer buildContainer, User user) {
         this.buildContainer = buildContainer;
         this.user = user;
         buildContainer.getFriendRequestService().addObserver(this);
         buildContainer.getUserService().addObserver(this);
-
-//        initUserModel();
     }
 
     @FXML
@@ -151,11 +160,30 @@ public class FriendRequestController implements Observer {
 
     @Override
     public void update(Event event) {
+        switch(event.getEventType()) {
+            case USER:
+                UserChangeEvent userChangeEvent = (UserChangeEvent) event;
+                if (userChangeEvent.getChangeEventType() != ChangeEventType.DELETE ||
+                        !userChangeEvent.getOldData().equals(user)) {
+                    initUserModel();
+                }
+                break;
+            case FRIEND_REQUEST:
+                if (event.getEventType() == EventType.FRIEND_REQUEST) {
+                    initUserModel();
+                }
+                break;
+            default:;
+        }
         if (event.getEventType() == EventType.USER &&
                 !(((UserChangeEvent)event).getChangeEventType() == ChangeEventType.DELETE &&
                 ((UserChangeEvent)event).getOldData().equals(user)) ||
             event.getEventType() == EventType.FRIEND_REQUEST ||
-            event.getEventType() == EventType.OPENED && friendRequestsModel.isEmpty()) {
+            event.getEventType() == EventType.OPENED && friendRequestsModel.isEmpty()
+        ) {
+            if (event.getEventType() == EventType.FRIEND_REQUEST) {
+
+            }
             initUserModel();
         }
     }

@@ -38,8 +38,6 @@ public class FriendListController implements Observer {
         this.user = user;
         buildContainer.getFriendshipService().addObserver(this);
         buildContainer.getUserService().addObserver(this);
-
-//        initUserModel();
     }
 
     @FXML
