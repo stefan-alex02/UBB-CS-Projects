@@ -125,10 +125,10 @@ public class FriendshipDBRepository implements Repository<UnorderedPair<Long, Lo
         }
         validator.validate(entity);
 
-        String insertSQL = "insert into friendships (id1, id2, friends_from) values(?,?,?)";
         try (var connection = DriverManager.getConnection(url, username, password);
-             PreparedStatement statement=connection.prepareStatement(insertSQL))
-        {
+             PreparedStatement statement = connection.prepareStatement(
+                     "INSERT INTO friendships (id1, id2, friends_from) VALUES (?,?,?)")
+        ) {
             statement.setLong(1, entity.getId().getFirst());
             statement.setLong(2, entity.getId().getSecond());
             statement.setTimestamp(3, Timestamp.valueOf(entity.getFriendsFromDate()));
