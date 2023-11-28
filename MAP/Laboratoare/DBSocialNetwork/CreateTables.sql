@@ -118,6 +118,8 @@ CREATE TABLE public.friend_requests
     id bigint NOT NULL GENERATED ALWAYS AS IDENTITY,
     from_id bigint NOT NULL,
     to_id bigint NOT NULL,
+	status character varying NOT NULL DEFAULT 'PENDING',
+    CONSTRAINT ch_status CHECK (status = 'PENDING' OR status = 'APPROVED' OR status = 'REJECTED'),
     date timestamp without time zone NOT NULL,
     PRIMARY KEY (id),
     CONSTRAINT fk_from_id FOREIGN KEY (from_id)

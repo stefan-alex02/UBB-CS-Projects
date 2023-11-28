@@ -5,6 +5,7 @@ import ir.map.g221.guisocialnetwork.domain.entities.User;
 import ir.map.g221.guisocialnetwork.exceptions.NotFoundException;
 import ir.map.g221.guisocialnetwork.persistence.Repository;
 import ir.map.g221.guisocialnetwork.utils.events.ChangeEventType;
+import ir.map.g221.guisocialnetwork.utils.events.Event;
 import ir.map.g221.guisocialnetwork.utils.events.MessageChangeEvent;
 import ir.map.g221.guisocialnetwork.utils.generictypes.ObjectTransformer;
 import ir.map.g221.guisocialnetwork.utils.observer.Observable;
@@ -12,8 +13,9 @@ import ir.map.g221.guisocialnetwork.utils.observer.Observer;
 
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
-public class MessageService implements Observable<MessageChangeEvent> {
+public class MessageService implements Observable {
     private final Repository<Long, Message> messageRepository;
     private final Repository<Long, User> userRepository;
     private final Set<Observer> observers;
@@ -21,7 +23,7 @@ public class MessageService implements Observable<MessageChangeEvent> {
     public MessageService(Repository<Long, Message> messageRepository, Repository<Long, User> userRepository) {
         this.messageRepository = messageRepository;
         this.userRepository = userRepository;
-        observers = new HashSet<>();
+        observers = Collections.newSetFromMap(new ConcurrentHashMap<>(0));
     }
 
     public Message getMessage(Long id) {
@@ -87,7 +89,7 @@ public class MessageService implements Observable<MessageChangeEvent> {
     }
 
     @Override
-    public void notifyObservers(MessageChangeEvent event) {
+    public void notifyObservers(Event event) {
         observers.forEach(observer -> observer.update(event));
     }
 }

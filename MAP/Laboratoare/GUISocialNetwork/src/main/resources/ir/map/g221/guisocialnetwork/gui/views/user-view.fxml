@@ -26,15 +26,15 @@
                 <padding>
                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                 </padding>
-                <Button alignment="CENTER" mnemonicParsing="false" onAction="#handleAddButton" prefWidth="100" styleClass="add-button" text="Add" />
-                <Button alignment="CENTER" mnemonicParsing="false" onAction="#handleDeleteButton" prefWidth="100" styleClass="delete-button" text="Delete" />
-                <Button alignment="CENTER" mnemonicParsing="false" onAction="#handleUpdateButton" prefWidth="100" styleClass="update-button" text="Update" />
+                <Button alignment="CENTER" mnemonicParsing="false" onAction="#handleAddButton" prefWidth="100" styleClass="green-button" text="Add" />
+                <Button alignment="CENTER" mnemonicParsing="false" onAction="#handleDeleteButton" prefWidth="100" styleClass="red-button" text="Delete" />
+                <Button alignment="CENTER" mnemonicParsing="false" onAction="#handleUpdateButton" prefWidth="100" styleClass="blue-button" text="Update" />
             </VBox>
             <VBox alignment="CENTER" prefHeight="34.0" prefWidth="655.0" spacing="20.0" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="0.0">
                 <padding>
                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                 </padding>
-                <Button alignment="CENTER" mnemonicParsing="false" onAction="#handleGenerateSampleButton" styleClass="other-button" text="Generate sample" />
+                <Button alignment="CENTER" mnemonicParsing="false" onAction="#handleGenerateSampleButton" styleClass="yellow-button" text="Generate sample" />
             </VBox>
         </AnchorPane>
     </SplitPane>

@@ -14,6 +14,10 @@ public class UserChangeEvent implements Event {
         this.oldData = oldData;
     }
 
+    public static UserChangeEvent of(ChangeEventType changeEventType, User newData, User oldData) {
+        return new UserChangeEvent(changeEventType, newData, oldData);
+    }
+
     public static UserChangeEvent ofNewData(ChangeEventType changeEventType, User newData) {
         return new UserChangeEvent(changeEventType, newData, null);
     }

@@ -18,66 +18,54 @@
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.2 , 2 , 2.5 );
 }
 /* ------------------------------------------------------------------------------------ */
-
-/* ------------------------------------------------------------------------------------ */
-/* Add button */
-.add-button {
+.green-button {
     -fx-background-color: #a0d3a0;
     -fx-border-color: #4a6b4d;
 }
-.add-button.button:hover {
+.green-button.button:hover {
     -fx-background-color: #8de88d;
     -fx-border-color: #60806a;
 }
-.add-button.button:pressed {
+.green-button.button:pressed {
     -fx-background-color: #90bb90;
     -fx-border-color: #3c5241;
 }
 /* ------------------------------------------------------------------------------------ */
-
-/* ------------------------------------------------------------------------------------ */
-/* Delete button */
-.delete-button {
+.red-button {
     -fx-background-color: #d7a696;
     -fx-border-color: #8a665b;
 }
-.delete-button.button:hover {
+.red-button.button:hover {
     -fx-background-color: #ea7656;
     -fx-border-color: #a64f38;
 }
-.delete-button.button:pressed {
+.red-button.button:pressed {
     -fx-background-color: #ab8375;
     -fx-border-color: #564136;
 }
 /* ------------------------------------------------------------------------------------ */
-
-/* ------------------------------------------------------------------------------------ */
-/* Update button */
-.update-button {
+.blue-button {
     -fx-background-color: #8ac9d5;
     -fx-border-color: #3b6b75;
 }
-.update-button.button:hover {
+.blue-button.button:hover {
     -fx-background-color: #2ccde8;
     -fx-border-color: #25728c;
 }
-.update-button.button:pressed {
+.blue-button.button:pressed {
     -fx-background-color: #55929d;
     -fx-border-color: #24464f;
 }
 /* ------------------------------------------------------------------------------------ */
-
-/* ------------------------------------------------------------------------------------ */
-/* Other button */
-.other-button {
+.yellow-button {
     -fx-background-color: #dacb8a;
     -fx-border-color: #888057;
 }
-.other-button.button:hover {
+.yellow-button.button:hover {
     -fx-background-color: #f6d525;
     -fx-border-color: #776b20;
 }
-.other-button.button:pressed {
+.yellow-button.button:pressed {
     -fx-background-color: #9d8e4e;
     -fx-border-color: #4d4625;
 }

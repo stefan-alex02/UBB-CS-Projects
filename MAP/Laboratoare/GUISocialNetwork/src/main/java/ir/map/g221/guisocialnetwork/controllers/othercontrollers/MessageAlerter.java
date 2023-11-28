@@ -1,4 +1,4 @@
-package ir.map.g221.guisocialnetwork.controllers;
+package ir.map.g221.guisocialnetwork.controllers.othercontrollers;
 
 import javafx.scene.control.Alert;
 import javafx.stage.Stage;

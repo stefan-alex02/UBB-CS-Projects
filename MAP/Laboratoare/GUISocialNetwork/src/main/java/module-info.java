@@ -52,4 +52,8 @@ module ir.map.g221.guisocialnetwork {
     opens ir.map.g221.guisocialnetwork.gui to javafx.fxml;
     exports ir.map.g221.guisocialnetwork.factory;
     opens ir.map.g221.guisocialnetwork.factory to javafx.fxml;
+    exports ir.map.g221.guisocialnetwork.controllers.userperspective;
+    opens ir.map.g221.guisocialnetwork.controllers.userperspective to javafx.fxml;
+    exports ir.map.g221.guisocialnetwork.controllers.othercontrollers;
+    opens ir.map.g221.guisocialnetwork.controllers.othercontrollers to javafx.fxml;
 }

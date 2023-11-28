@@ -5,6 +5,7 @@ import ir.map.g221.guisocialnetwork.exceptions.ValidationException;
 import ir.map.g221.guisocialnetwork.persistence.Repository;
 import ir.map.g221.guisocialnetwork.persistence.inmemoryrepos.FriendshipInMemoryRepo;
 import ir.map.g221.guisocialnetwork.utils.events.ChangeEventType;
+import ir.map.g221.guisocialnetwork.utils.events.Event;
 import ir.map.g221.guisocialnetwork.utils.events.UserChangeEvent;
 import ir.map.g221.guisocialnetwork.domain.entities.Friendship;
 import ir.map.g221.guisocialnetwork.domain.entities.User;
@@ -13,10 +14,12 @@ import ir.map.g221.guisocialnetwork.utils.generictypes.UnorderedPair;
 import ir.map.g221.guisocialnetwork.utils.observer.Observable;
 import ir.map.g221.guisocialnetwork.utils.observer.Observer;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
-public class UserService implements Observable<UserChangeEvent> {
+public class UserService implements Observable {
     private final Repository<UnorderedPair<Long, Long>, Friendship> friendshipRepository;
     private final Repository<Long, User> userRepository;
     private final Set<Observer> observers;
@@ -25,12 +28,12 @@ public class UserService implements Observable<UserChangeEvent> {
                        Repository<UnorderedPair<Long, Long>, Friendship> friendshipRepository) {
         this.userRepository = userRepository;
         this.friendshipRepository = friendshipRepository;
-        this.observers = new HashSet<>();
+        this.observers = Collections.newSetFromMap(new ConcurrentHashMap<>(0));
     }
 
     public void addUser(String firstName, String lastName) throws ValidationException {
         User userToAdd = new User(firstName, lastName);
-        if(userRepository.save(userToAdd).isEmpty()) {
+        if (userRepository.save(userToAdd).isEmpty()) {
             notifyObservers(UserChangeEvent.ofNewData(ChangeEventType.ADD, userToAdd));
         }
     }
@@ -49,7 +52,7 @@ public class UserService implements Observable<UserChangeEvent> {
                 u -> {
                     throw new RuntimeException("Error while trying to update user.");
                 },
-                () -> notifyObservers(UserChangeEvent.ofNewData(ChangeEventType.ADD, userToUpdate)));
+                () -> notifyObservers(UserChangeEvent.ofNewData(ChangeEventType.UPDATE, userToUpdate)));
     }
 
     public void removeUser(Long id) throws NotFoundException {
@@ -69,7 +72,7 @@ public class UserService implements Observable<UserChangeEvent> {
                         UserChangeEvent.ofOldData(ChangeEventType.DELETE, deletedUser)
                 ),
                 () -> {
-                    throw new NotFoundException("User could not be found.");
+                    throw new NotFoundException("Failed to delete user.");
                 }
         );
     }
@@ -89,7 +92,7 @@ public class UserService implements Observable<UserChangeEvent> {
     }
 
     @Override
-    public void notifyObservers(UserChangeEvent event) {
+    public void notifyObservers(Event event) {
         observers.forEach(observer -> observer.update(event));
     }
 }

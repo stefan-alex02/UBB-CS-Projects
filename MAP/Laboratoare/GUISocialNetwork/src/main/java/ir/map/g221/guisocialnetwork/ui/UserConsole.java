@@ -1,9 +1,7 @@
 package ir.map.g221.guisocialnetwork.ui;
 
-import ir.map.g221.guisocialnetwork.business.CommunityHandler;
-import ir.map.g221.guisocialnetwork.business.FriendshipService;
-import ir.map.g221.guisocialnetwork.business.MessageService;
-import ir.map.g221.guisocialnetwork.business.UserService;
+import ir.map.g221.guisocialnetwork.business.*;
+import ir.map.g221.guisocialnetwork.domain.entities.FriendRequest;
 import ir.map.g221.guisocialnetwork.exceptions.ValidationException;
 import ir.map.g221.guisocialnetwork.factory.SampleGenerator;
 
@@ -13,21 +11,25 @@ import java.io.InputStreamReader;
 import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public class UserConsole implements UserInterface{
     private final UserService userService;
     private final FriendshipService friendshipService;
     private final MessageService messageService;
+    private final FriendRequestService friendRequestService;
     private final CommunityHandler communityHandler;
+
     private final SampleGenerator sampleGenerator;
 
     public UserConsole(UserService userService,
                        FriendshipService friendshipService,
-                       MessageService messageService, CommunityHandler communityHandler,
+                       MessageService messageService, FriendRequestService friendRequestService, CommunityHandler communityHandler,
                        SampleGenerator sampleGenerator) {
         this.userService = userService;
         this.friendshipService = friendshipService;
         this.messageService = messageService;
+        this.friendRequestService = friendRequestService;
         this.communityHandler = communityHandler;
         this.sampleGenerator = sampleGenerator;
     }
@@ -190,6 +192,63 @@ public class UserConsole implements UserInterface{
         System.out.println("Message sent with success.\n");
     }
 
+    private void sendFriendRequest() throws IOException {
+        BufferedReader reader = new BufferedReader(
+                new InputStreamReader(System.in));
+
+        System.out.print("> Type sender id: ");
+        Long senderId = Long.valueOf(reader.readLine());
+
+        System.out.print("> Type receiver id: ");
+        Long receiverId = Long.valueOf(reader.readLine());
+
+        friendRequestService.sendFriendRequestNow(senderId, receiverId);
+
+        System.out.println("Friend request sent with success.\n");
+    }
+
+    private void approveFriendRequest() throws IOException {
+        BufferedReader reader = new BufferedReader(
+                new InputStreamReader(System.in));
+
+        System.out.print("> Type friend request id: ");
+        Long friendRequestId = Long.valueOf(reader.readLine());
+
+        friendRequestService.approveFriendRequest(friendRequestId);
+
+        System.out.println("Friend request approved with success.\n");
+    }
+
+    private void rejectFriendRequest() throws IOException {
+        BufferedReader reader = new BufferedReader(
+                new InputStreamReader(System.in));
+
+        System.out.print("> Type friend request id: ");
+        Long friendRequestId = Long.valueOf(reader.readLine());
+
+        friendRequestService.rejectFriendRequest(friendRequestId);
+
+        System.out.println("Friend request rejected with success.\n");
+    }
+
+    private void displayPendingFriendRequests() throws IOException {
+        BufferedReader reader = new BufferedReader(
+                new InputStreamReader(System.in));
+
+        System.out.print("> Type receiver id: ");
+        Long receiverId = Long.valueOf(reader.readLine());
+
+        Set<FriendRequest> friendRequests = friendRequestService.getPendingFriendRequests(receiverId);
+
+        if (friendRequests.isEmpty()) {
+            System.out.println("There are no pending friend requests.\n");
+        }
+        else {
+            System.out.println("Pending friend requests:");
+            friendRequests.forEach(System.out::println);
+        }
+    }
+
     private void generateSample() throws RuntimeException {
         sampleGenerator.generateSample();
         System.out.println("Sample generated successfully.\n");
@@ -215,6 +274,10 @@ public class UserConsole implements UserInterface{
             System.out.println("9 - Get user details.");
             System.out.println("10 - Get conversation.");
             System.out.println("11 - Send message.");
+            System.out.println("12 - Send friend request.");
+            System.out.println("13 - Approve friend request.");
+            System.out.println("14 - Reject friend request.");
+            System.out.println("15 - See pending friend requests.");
             System.out.println("========================");
 
             try {
@@ -255,6 +318,18 @@ public class UserConsole implements UserInterface{
                         break;
                     case 11:
                         sendMessage();
+                        break;
+                    case 12:
+                        sendFriendRequest();
+                        break;
+                    case 13:
+                        approveFriendRequest();
+                        break;
+                    case 14:
+                        rejectFriendRequest();
+                        break;
+                    case 15:
+                        displayPendingFriendRequests();
                         break;
                     default:
                         System.out.println("Unknown command");

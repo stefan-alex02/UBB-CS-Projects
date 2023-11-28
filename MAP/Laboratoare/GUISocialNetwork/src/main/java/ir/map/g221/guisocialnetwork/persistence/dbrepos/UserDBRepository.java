@@ -30,9 +30,9 @@ public class UserDBRepository implements Repository<Long, User> {
         }
 
         try(Connection connection = DriverManager.getConnection(url, username, password);
-            PreparedStatement statement1 = connection.prepareStatement("select * from users " +
+            PreparedStatement userStatement = connection.prepareStatement("select * from users " +
                     "where id = ?");
-            PreparedStatement statement2 = connection.prepareStatement(
+            PreparedStatement friendshipsStatement = connection.prepareStatement(
                     "SELECT F.id2 AS id, " +
                     "U.first_name AS first_name, " +
                     "U.last_name AS last_name " +
@@ -48,12 +48,12 @@ public class UserDBRepository implements Repository<Long, User> {
                     "WHERE F.id2 = ? " +
                     "ORDER BY id;")
         ) {
-            statement1.setLong(1, aLong);
-            ResultSet resultSet1 = statement1.executeQuery();
+            userStatement.setLong(1, aLong);
+            ResultSet resultSet1 = userStatement.executeQuery();
 
-            statement2.setLong(1, aLong);
-            statement2.setLong(2, aLong);
-            ResultSet resultSet2 = statement2.executeQuery();
+            friendshipsStatement.setLong(1, aLong);
+            friendshipsStatement.setLong(2, aLong);
+            ResultSet resultSet2 = friendshipsStatement.executeQuery();
 
             if(resultSet1.next()) {
                 String firstName = resultSet1.getString("first_name");

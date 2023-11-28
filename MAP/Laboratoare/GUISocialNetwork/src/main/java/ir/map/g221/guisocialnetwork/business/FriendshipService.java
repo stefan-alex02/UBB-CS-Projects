@@ -5,6 +5,7 @@ import ir.map.g221.guisocialnetwork.domain.entities.User;
 import ir.map.g221.guisocialnetwork.domain.entities.dtos.FriendshipDetails;
 import ir.map.g221.guisocialnetwork.persistence.Repository;
 import ir.map.g221.guisocialnetwork.utils.events.ChangeEventType;
+import ir.map.g221.guisocialnetwork.utils.events.Event;
 import ir.map.g221.guisocialnetwork.utils.events.EventType;
 import ir.map.g221.guisocialnetwork.utils.events.FriendshipChangeEvent;
 import ir.map.g221.guisocialnetwork.exceptions.ExistingEntityException;
@@ -18,13 +19,15 @@ import org.jetbrains.annotations.NotNull;
 
 import java.time.LocalDateTime;
 import java.time.YearMonth;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class FriendshipService implements Observable<FriendshipChangeEvent> {
+public class FriendshipService implements Observable {
     private final Repository<UnorderedPair<Long, Long>, Friendship> friendshipRepository;
     private final Repository<Long, User> userRepository;
     private final Set<Observer> observers;
@@ -33,7 +36,7 @@ public class FriendshipService implements Observable<FriendshipChangeEvent> {
                              Repository<UnorderedPair<Long, Long>, Friendship> friendshipRepository) {
         this.userRepository = userRepository;
         this.friendshipRepository = friendshipRepository;
-        observers = new HashSet<>();
+        observers = Collections.newSetFromMap(new ConcurrentHashMap<>(0));
     }
 
     public void addFriendship(Long id1, Long id2, LocalDateTime friendsFromDate) {
@@ -85,6 +88,17 @@ public class FriendshipService implements Observable<FriendshipChangeEvent> {
         return Pair.of(optionalUser1.get(), optionalUser2.get());
     }
 
+    public Set<User> getNonFriendsOfUser(Long id) throws NotFoundException {
+        User foundUser = userRepository.findOne(id).orElseThrow(() ->
+                new NotFoundException("The specified user does not exist.")
+        );
+
+        return ObjectTransformer.iterableToCollection(userRepository.findAll())
+                .stream()
+                .filter(user -> !foundUser.hasFriend(user) && !user.equals(foundUser))
+                .collect(Collectors.toSet());
+    }
+
     public Set<User> getFriendsOfUser(Long id) throws NotFoundException {
         User foundUser = userRepository.findOne(id).orElseThrow(() ->
                 new NotFoundException("The specified user does not exist.")
@@ -96,18 +110,20 @@ public class FriendshipService implements Observable<FriendshipChangeEvent> {
                 .collect(Collectors.toSet());
     }
 
-    private Stream<FriendshipDetails> getFriendshipDetailsStreamOfUser(Long id) {
+    public Set<FriendshipDetails> getFriendshipDetailsStreamOfUser(Long id) {
         User foundUser = userRepository.findOne(id).orElseThrow(() ->
                 new NotFoundException("The specified user does not exist.")
         );
         return ObjectTransformer.iterableToCollection(friendshipRepository.findAll())
                 .stream()
                 .filter(friendship -> friendship.hasUser(foundUser))
-                .map(friendship -> FriendshipDetails.of(friendship, foundUser));
+                .map(friendship -> FriendshipDetails.of(friendship, foundUser))
+                .collect(Collectors.toSet());
     }
 
     public Set<FriendshipDetails> getFriendshipDetailsInYearMonth(Long id, YearMonth yearMonth) throws NotFoundException {
         return getFriendshipDetailsStreamOfUser(id)
+                .stream()
                 .filter(friendshipDetails ->
                         YearMonth.from(friendshipDetails.getFriendsFromDate()).equals(yearMonth))
                 .collect(Collectors.toSet());
@@ -124,7 +140,7 @@ public class FriendshipService implements Observable<FriendshipChangeEvent> {
     }
 
     @Override
-    public void notifyObservers(FriendshipChangeEvent event) {
+    public void notifyObservers(Event event) {
         observers.forEach(observer -> observer.update(event));
     }
 }

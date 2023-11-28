@@ -33,8 +33,6 @@ public class StartApplication extends Application {
         primaryStage.setScene(new Scene(userLayout));
 
         UserController userController = userLoader.getController();
-        userController.setUserService(container.getUserService());
-        userController.setSampleGenerator(container.getSampleGenerator());
-        userController.setCommunityService(container.getCommunityService());
+        userController.setBuildContainer(container);
     }
 }

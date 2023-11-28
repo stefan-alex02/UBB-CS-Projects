@@ -4,10 +4,10 @@ INSERT INTO users(first_name, last_name) VALUES
 	('firstName3', 'lastName3'),
 	('firstName4', 'lastName4');
 
-INSERT INTO friendships(id1, id2, friends_from) VALUES
-	(1, 2, '20230101'),
-	(1, 3, '20230101'),
-	(3, 4, '20230101');
+-- INSERT INTO friendships(id1, id2, friends_from) VALUES
+-- 	(1, 2, '20230101'),
+-- 	(1, 3, '20230101'),
+-- 	(3, 4, '20230101');
 
 -- SELECT F.id1, 
 -- U1.first_name AS first_name1,
@@ -99,6 +99,19 @@ WHERE M.id = 1;
 
 INSERT INTO friend_requests(from_id, to_id, date) VALUES
 	(2, 3, '2023-11-26 12:45');
+
+INSERT INTO friend_requests(from_id, to_id, status, date) VALUES
+	(3, 4, 'PENDING', '2023-11-27 12:45'),
+	(1, 2, 'PENDING', '2023-11-26 15:45'),
+	(1, 4, 'PENDING', '2023-11-25 13:45');
 	
-SELECT * FROM friend_requests;
+SELECT FR.id, FR.from_id, 
+	UFrom.first_name as from_first_name, UFrom.last_name as from_last_name,
+	FR.to_id, 
+	UTo.first_name as to_first_name, UTo.last_name as to_last_name,
+	FR.status, FR.date
+FROM friend_requests FR
+INNER JOIN users UFrom ON UFrom.id = FR.from_id
+INNER JOIN users UTo ON UTo.id = FR.to_id
+WHERE FR.id = 2;
 

@@ -1,10 +1,10 @@
 package ir.map.g221.guisocialnetwork.controllers;
 
 import ir.map.g221.guisocialnetwork.OldMain;
-import ir.map.g221.guisocialnetwork.business.CommunityHandler;
-import ir.map.g221.guisocialnetwork.business.UserService;
+import ir.map.g221.guisocialnetwork.controllers.othercontrollers.MessageAlerter;
+import ir.map.g221.guisocialnetwork.controllers.userperspective.UserPerspectiveController;
 import ir.map.g221.guisocialnetwork.domain.entities.User;
-import ir.map.g221.guisocialnetwork.factory.SampleGenerator;
+import ir.map.g221.guisocialnetwork.factory.BuildContainer;
 import ir.map.g221.guisocialnetwork.exceptions.SampleGeneratedException;
 import ir.map.g221.guisocialnetwork.utils.events.Event;
 import ir.map.g221.guisocialnetwork.utils.events.EventType;
@@ -22,16 +22,11 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class UserController implements Observer {
-    private UserService userService = null;
-    private CommunityHandler communityHandler = null;
-    private SampleGenerator sampleGenerator = null;
+    private BuildContainer buildContainer = null;
     private final ObservableList<User> usersModel = FXCollections.observableArrayList();
 
     @FXML
@@ -57,19 +52,29 @@ public class UserController implements Observer {
 
     @FXML
     public void initialize() {
-        tableView.setRowFactory(tv -> new TableRow<>() {
-                    @Override
-                    public void updateItem(User item, boolean empty) {
+        tableView.setRowFactory(tv -> {
+            TableRow<User> row = new TableRow<>() {
+                @Override
+                public void updateItem(User item, boolean empty) {
                     super.updateItem(item, empty);
                     if (item == null || empty || isSelected()) {
                         setStyle("");
                     }
                     else {
                         setStyle("-fx-background-color: #" +
-                                getColorCode(communityHandler.getCommunityOfUser(item).hashCode())
+                                getColorCode(
+                                        buildContainer.getCommunityHandler()
+                                                .getCommunityOfUser(item)
+                                                .hashCode())
                         );
                     }
+                }};
+            row.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 2 && (! row.isEmpty()) ) {
+                    openUserPerspective(row.getItem());
                 }
+            });
+            return row;
             }
         );
         tableColumnFirstName.setCellValueFactory(new PropertyValueFactory<>("firstName"));
@@ -78,29 +83,49 @@ public class UserController implements Observer {
         tableView.setItems(usersModel);
     }
 
-    public void setUserService(UserService userService) {
-        this.userService = userService;
-        userService.addObserver(this);
+    public void setBuildContainer(BuildContainer buildContainer) {
+        this.buildContainer = buildContainer;
+        buildContainer.getUserService().addObserver(this);
+        buildContainer.getFriendRequestService().addObserver(this);
+        buildContainer.getFriendshipService().addObserver(this);
         initUserModel();
     }
 
-    public void setCommunityService(CommunityHandler communityHandler) {
-        this.communityHandler = communityHandler;
-    }
+    public void openUserPerspective(User user) {
+        try {
+            FXMLLoader userPerspectiveLoader = new FXMLLoader();
+            userPerspectiveLoader.setLocation(OldMain.class.getResource("gui/views/user-perspective.fxml"));
 
-    public void setSampleGenerator(SampleGenerator sampleGenerator) {
-        this.sampleGenerator = sampleGenerator;
-    }
+            AnchorPane root = userPerspectiveLoader.load();
 
-    @Override
-    public void update(Event event) {
-        if (event.getEventType() == EventType.USER) {
-            initUserModel();
+            // Create the dialog Stage.
+            Stage stage = new Stage();
+            stage.setTitle("User account : " + user.getFirstName() + " " + user.getLastName());
+            stage.initModality(Modality.WINDOW_MODAL);
+            Scene scene = new Scene(root);
+            scene.getStylesheets().add(Objects.requireNonNull(OldMain.class.getResource("gui/css/style.css"))
+                    .toExternalForm());
+            stage.setScene(scene);
+
+            UserPerspectiveController userPerspectiveController = userPerspectiveLoader.getController();
+            userPerspectiveController.setContent(buildContainer, user, stage);
+
+            stage.show();
+         } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 
     private void initUserModel() {
-        usersModel.setAll(userService.getAllUsers());
+        usersModel.setAll(buildContainer.getUserService().getAllUsers());
+    }
+
+    @Override
+    public void update(Event event) {
+        if (event.getEventType() == EventType.USER ||
+            event.getEventType() == EventType.FRIENDSHIP) {
+            initUserModel();
+        }
     }
 
     @FXML
@@ -113,7 +138,7 @@ public class UserController implements Observer {
         Set<Long> selectedUsersIds = tableView.getSelectionModel().getSelectedItems().stream().map(User::getId).collect(Collectors.toSet());
         if (!selectedUsersIds.isEmpty()) {
             try {
-                selectedUsersIds.forEach(id -> userService.removeUser(id));
+                selectedUsersIds.forEach(id -> buildContainer.getUserService().removeUser(id));
                 MessageAlerter.showMessage(null,
                         Alert.AlertType.INFORMATION,
                         "Delete info",
@@ -146,7 +171,7 @@ public class UserController implements Observer {
     @FXML
     private void handleGenerateSampleButton(ActionEvent actionEvent) {
         try {
-            sampleGenerator.generateSample();
+            buildContainer.getSampleGenerator().generateSample();
             MessageAlerter.showMessage(null,
                     Alert.AlertType.INFORMATION,
                     "Generated sample info",
@@ -175,7 +200,7 @@ public class UserController implements Observer {
             dialogStage.setScene(scene);
 
             EditUserController editUserController = loader.getController();
-            editUserController.setService(userService, dialogStage, user);
+            editUserController.setService(buildContainer.getUserService(), dialogStage, user);
 
             dialogStage.show();
         }

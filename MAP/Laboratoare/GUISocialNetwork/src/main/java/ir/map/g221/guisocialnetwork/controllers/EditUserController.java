@@ -1,7 +1,7 @@
 package ir.map.g221.guisocialnetwork.controllers;
 
 import ir.map.g221.guisocialnetwork.business.UserService;
-import ir.map.g221.guisocialnetwork.controllers.MessageAlerter;
+import ir.map.g221.guisocialnetwork.controllers.othercontrollers.MessageAlerter;
 import ir.map.g221.guisocialnetwork.domain.entities.User;
 import ir.map.g221.guisocialnetwork.exceptions.ValidationException;
 import javafx.fxml.FXML;
