@@ -4,8 +4,6 @@ import ir.map.g221.guisocialnetwork.domain.entities.User;
 import ir.map.g221.guisocialnetwork.factory.BuildContainer;
 import ir.map.g221.guisocialnetwork.utils.events.*;
 import ir.map.g221.guisocialnetwork.utils.observer.Observer;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
@@ -36,6 +34,7 @@ public class UserPerspectiveController implements Observer {
         buildContainer.getUserService().addObserver(this);
         stage.setOnCloseRequest(e -> dispose());
 
+        userChatController.setBuildContainer(buildContainer, user);
         searchUsersController.setContent(buildContainer, user);
         friendRequestController.setContent(buildContainer, user);
         friendListController.setContent(buildContainer, user);
@@ -44,19 +43,16 @@ public class UserPerspectiveController implements Observer {
     @FXML
     public void initialize() {
         tabPane.getSelectionModel().selectedItemProperty().addListener(
-                new ChangeListener<Tab>() {
-                    @Override
-                    public void changed(ObservableValue<? extends Tab> ov, Tab oldTab, Tab newTab) {
-                        System.out.println("Tab Selection changed");
-                        if (newTab.equals(searchUsersPage)) {
-                            searchUsersController.update(new OpenedEvent());
-                        }
-                        else if (newTab.equals(friendRequestPage)) {
-                            friendRequestController.update(new OpenedEvent());
-                        }
-                        else if (newTab.equals(friendListPage)) {
-                            friendListController.update(new OpenedEvent());
-                        }
+                (ov, oldTab, newTab) -> {
+                    System.out.println("Tab Selection changed");
+                    if (newTab.equals(searchUsersPage)) {
+                        searchUsersController.update(new OpenedEvent());
+                    }
+                    else if (newTab.equals(friendRequestPage)) {
+                        friendRequestController.update(new OpenedEvent());
+                    }
+                    else if (newTab.equals(friendListPage)) {
+                        friendListController.update(new OpenedEvent());
                     }
                 }
         );
@@ -76,6 +72,7 @@ public class UserPerspectiveController implements Observer {
     private void dispose() {
         buildContainer.getUserService().removeObserver(this);
 
+        userChatController.dispose();
         searchUsersController.dispose();
         friendRequestController.dispose();
         friendListController.dispose();

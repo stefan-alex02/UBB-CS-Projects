@@ -70,9 +70,10 @@
     -fx-border-color: #4d4625;
 }
 /* ------------------------------------------------------------------------------------ */
+/* Table styling */
 
 .user-table-column.table-column.column-header {
-    -fx-background-color: #629bd2; /* Set your desired color here */
+    -fx-background-color: #629bd2;
 }
 
 .table-row-cell:selected {
@@ -81,4 +82,39 @@
 }
 .table-row-cell:selected.text {
     -fx-fill: #ffffff;
+}
+
+/* ------------------------------------------------------------------------------------ */
+/* List styling */
+.list-cell:selected {
+    -fx-background-color: #757575;
+    -fx-font-weight: 700;
+}
+
+.list-cell:selected.text {
+    -fx-fill: #ffffff;
+}
+
+/* ------------------------------------------------------------------------------------ */
+/* Chat styling */
+.chat-message.label {
+    -fx-padding: 5;
+    -fx-border-style: solid inline;
+    -fx-border-width: 2;
+    -fx-border-insets: -2.5;
+    -fx-border-radius: 5;
+    -fx-border-color: #6e9169;
+    -fx-background-color: #c4e1ce;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.2 , 2 , 2.5 );
+}
+
+.selected-chat-message.label {
+    -fx-padding: 5;
+    -fx-border-style: solid inline;
+    -fx-border-width: 2;
+    -fx-border-insets: -2.5;
+    -fx-border-radius: 5;
+    -fx-border-color: #d0b032;
+    -fx-background-color: #eecea5;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.2 , 2 , 2.5 );
 }

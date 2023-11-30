@@ -50,6 +50,11 @@ public class Message extends Entity<Long> {
         return date;
     }
 
+    public boolean belongsToConversation(User user1, User user2) {
+        return getFrom().equals(user1) && getTo().contains(user2) ||
+                getFrom().equals(user2) && getTo().contains(user1);
+    }
+
     @Override
     public String toString() {
         return "From: " + from + " | " +

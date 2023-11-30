@@ -1,6 +1,7 @@
 package ir.map.g221.guisocialnetwork.business;
 
 import ir.map.g221.guisocialnetwork.domain.entities.Message;
+import ir.map.g221.guisocialnetwork.domain.entities.ReplyMessage;
 import ir.map.g221.guisocialnetwork.domain.entities.User;
 import ir.map.g221.guisocialnetwork.exceptions.NotFoundException;
 import ir.map.g221.guisocialnetwork.persistence.Repository;
@@ -8,12 +9,15 @@ import ir.map.g221.guisocialnetwork.utils.events.ChangeEventType;
 import ir.map.g221.guisocialnetwork.utils.events.Event;
 import ir.map.g221.guisocialnetwork.utils.events.MessageChangeEvent;
 import ir.map.g221.guisocialnetwork.utils.generictypes.ObjectTransformer;
+import ir.map.g221.guisocialnetwork.utils.generictypes.Pair;
+import ir.map.g221.guisocialnetwork.utils.graphs.ConnectedComponent;
 import ir.map.g221.guisocialnetwork.utils.observer.Observable;
 import ir.map.g221.guisocialnetwork.utils.observer.Observer;
 
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Collectors;
 
 public class MessageService implements Observable {
     private final Repository<Long, Message> messageRepository;
@@ -34,20 +38,40 @@ public class MessageService implements Observable {
                 );
     }
 
+    public Set<User> getConversationUsers(Long id) {
+        Collection<Message> messages = ObjectTransformer.iterableToCollection(messageRepository.findAll());
+        Set<User> receiverUsers = messages
+                .stream()
+                .filter(message -> Objects.equals(message.getFrom().getId(), id))
+                .map(Message::getTo)
+                .reduce(new HashSet<>(), (conversationUsers, users) -> {
+                    conversationUsers.addAll(users);
+                    return conversationUsers;
+                });
+        Set<User> senderUsers = messages
+                .stream()
+                .filter(message -> message.getTo().stream().anyMatch(receiver ->
+                        Objects.equals(receiver.getId(), id)))
+                .map(Message::getFrom)
+                .collect(Collectors.toSet());
+        receiverUsers.addAll(senderUsers);
+        return receiverUsers;
+    }
+
     public List<Message> getConversation(Long id1, Long id2) {
-        if (userRepository.findOne(id1).isEmpty() || userRepository.findOne(id2).isEmpty()) {
+        Optional<User> optionalUser1 = userRepository.findOne(id1);
+        Optional<User> optionalUser2 = userRepository.findOne(id2);
+
+        if (optionalUser1.isEmpty() || optionalUser2.isEmpty()) {
             throw new NotFoundException("At least one user could not be found.");
         }
 
+        User user1 = optionalUser1.get();
+        User user2 = optionalUser2.get();
+
         return ObjectTransformer.iterableToCollection(messageRepository.findAll())
                 .stream()
-                .filter(message ->
-                        (Objects.equals(message.getFrom().getId(), id1) &&
-                            message.getTo().stream().anyMatch(receiver ->
-                                    Objects.equals(receiver.getId(), id2))) ||
-                        (Objects.equals(message.getFrom().getId(), id2) &&
-                            message.getTo().stream().anyMatch(receiver ->
-                                    Objects.equals(receiver.getId(), id1))))
+                .filter(message -> message.belongsToConversation(user1, user2))
                 .sorted(Comparator.comparing(Message::getDate))
                 .toList();
     }
@@ -65,6 +89,9 @@ public class MessageService implements Observable {
             if (optionalReceiver.isEmpty()) {
                 throw new NotFoundException("A receiver user could not be found.");
             }
+            if (!fromUser.hasFriend(optionalReceiver.get())) {
+                throw new NotFoundException("Receiver must be friends with sender user.");
+            }
             users.add(optionalReceiver.get());
         });
 
@@ -74,8 +101,31 @@ public class MessageService implements Observable {
         }
     }
 
-    public void sendReplyMessageNow(Long fromUserId, List<Long> toUsersIds, String message, Message messageRepliedTo) {
+    public void sendReplyMessageNow(Long fromUserId, List<Long> toUsersIds, String message, Long replyToId) {
+        Optional<User> optionalUser = userRepository.findOne(fromUserId);
+        if (optionalUser.isEmpty()) {
+            throw new NotFoundException("Sender user could not be found.");
+        }
+        User fromUser = optionalUser.get();
 
+        Set<User> users = new HashSet<>();
+        toUsersIds.forEach(id -> {
+            Optional<User> optionalReceiver = userRepository.findOne(id);
+            if (optionalReceiver.isEmpty()) {
+                throw new NotFoundException("A receiver user could not be found.");
+            }
+            if (!fromUser.hasFriend(optionalReceiver.get())) {
+                throw new NotFoundException("Receiver must be friends with sender user.");
+            }
+            users.add(optionalReceiver.get());
+        });
+
+        Message replyTo = getMessage(replyToId);
+
+        ReplyMessage replyMessageToAdd = new ReplyMessage(fromUser, users, message, LocalDateTime.now(), replyTo);
+        if(messageRepository.save(replyMessageToAdd).isEmpty()) {
+            notifyObservers(MessageChangeEvent.ofNewData(ChangeEventType.ADD, replyMessageToAdd));
+        }
     }
 
     @Override

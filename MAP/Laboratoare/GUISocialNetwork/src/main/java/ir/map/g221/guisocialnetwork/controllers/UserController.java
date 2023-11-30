@@ -94,7 +94,7 @@ public class UserController implements Observer {
     public void openUserPerspective(User user) {
         try {
             FXMLLoader userPerspectiveLoader = new FXMLLoader();
-            userPerspectiveLoader.setLocation(OldMain.class.getResource("gui/views/user-perspective.fxml"));
+            userPerspectiveLoader.setLocation(OldMain.class.getResource("views/user-perspective.fxml"));
 
             AnchorPane root = userPerspectiveLoader.load();
 
@@ -103,7 +103,7 @@ public class UserController implements Observer {
             stage.setTitle("User account : " + user.getFirstName() + " " + user.getLastName());
             stage.initModality(Modality.WINDOW_MODAL);
             Scene scene = new Scene(root);
-            scene.getStylesheets().add(Objects.requireNonNull(OldMain.class.getResource("gui/css/style.css"))
+            scene.getStylesheets().add(Objects.requireNonNull(OldMain.class.getResource("css/style.css"))
                     .toExternalForm());
             stage.setScene(scene);
 
@@ -188,7 +188,7 @@ public class UserController implements Observer {
     public void showUserEditDialog(Optional<User> user) {
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(OldMain.class.getResource("gui/views/edituser-view.fxml"));
+            loader.setLocation(OldMain.class.getResource("views/edituser-view.fxml"));
 
             AnchorPane root = loader.load();
 

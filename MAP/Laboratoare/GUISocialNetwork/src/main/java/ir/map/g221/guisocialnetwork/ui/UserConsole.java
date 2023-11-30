@@ -2,6 +2,7 @@ package ir.map.g221.guisocialnetwork.ui;
 
 import ir.map.g221.guisocialnetwork.business.*;
 import ir.map.g221.guisocialnetwork.domain.entities.FriendRequest;
+import ir.map.g221.guisocialnetwork.domain.entities.User;
 import ir.map.g221.guisocialnetwork.exceptions.ValidationException;
 import ir.map.g221.guisocialnetwork.factory.SampleGenerator;
 
@@ -10,6 +11,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.time.YearMonth;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -192,6 +194,24 @@ public class UserConsole implements UserInterface{
         System.out.println("Message sent with success.\n");
     }
 
+    private void displayConversationUsers() throws IOException {
+        BufferedReader reader = new BufferedReader(
+                new InputStreamReader(System.in));
+
+        System.out.print("> Type sender id: ");
+        Long senderId = Long.valueOf(reader.readLine());
+
+        Set<User> conversationUsers = messageService.getConversationUsers(senderId);
+        if (conversationUsers.isEmpty()) {
+            System.out.println("User has no conversation users.");
+        }
+        else {
+            System.out.println("The list of conversation users:");
+            conversationUsers.forEach(System.out::println);
+        }
+
+    }
+
     private void sendFriendRequest() throws IOException {
         BufferedReader reader = new BufferedReader(
                 new InputStreamReader(System.in));
@@ -274,10 +294,11 @@ public class UserConsole implements UserInterface{
             System.out.println("9 - Get user details.");
             System.out.println("10 - Get conversation.");
             System.out.println("11 - Send message.");
-            System.out.println("12 - Send friend request.");
-            System.out.println("13 - Approve friend request.");
-            System.out.println("14 - Reject friend request.");
-            System.out.println("15 - See pending friend requests.");
+            System.out.println("12 - Get conversation users.");
+            System.out.println("13 - Send friend request.");
+            System.out.println("14 - Approve friend request.");
+            System.out.println("15 - Reject friend request.");
+            System.out.println("16 - See pending friend requests.");
             System.out.println("========================");
 
             try {
@@ -320,15 +341,18 @@ public class UserConsole implements UserInterface{
                         sendMessage();
                         break;
                     case 12:
-                        sendFriendRequest();
+                        displayConversationUsers();
                         break;
                     case 13:
-                        approveFriendRequest();
+                        sendFriendRequest();
                         break;
                     case 14:
-                        rejectFriendRequest();
+                        approveFriendRequest();
                         break;
                     case 15:
+                        rejectFriendRequest();
+                        break;
+                    case 16:
                         displayPendingFriendRequests();
                         break;
                     default:

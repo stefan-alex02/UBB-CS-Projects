@@ -1,7 +1,9 @@
 package ir.map.g221.guisocialnetwork.controllers.userperspective;
 
-import ir.map.g221.guisocialnetwork.OldMain;
 import ir.map.g221.guisocialnetwork.controllers.othercontrollers.MessageAlerter;
+import ir.map.g221.guisocialnetwork.controllers.othercontrollers.NotificationAlerter;
+import ir.map.g221.guisocialnetwork.controllers.othercontrollers.NotificationImage;
+import ir.map.g221.guisocialnetwork.controllers.othercontrollers.SoundFile;
 import ir.map.g221.guisocialnetwork.domain.entities.FriendRequest;
 import ir.map.g221.guisocialnetwork.domain.entities.FriendRequestStatus;
 import ir.map.g221.guisocialnetwork.domain.entities.User;
@@ -16,16 +18,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.image.ImageView;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 import javafx.util.Callback;
-import javafx.util.Duration;
-import org.controlsfx.control.Notifications;
 
-import java.net.URISyntaxException;
 import java.time.LocalDateTime;
-import java.util.Objects;
 
 public class FriendRequestController implements Observer {
     private User user = null;
@@ -39,54 +34,34 @@ public class FriendRequestController implements Observer {
     @FXML TableColumn<FriendRequest, Void> tableColumnApprove;
     @FXML TableColumn<FriendRequest, Void> tableColumnReject;
 
-    String notificationFile = Objects.requireNonNull(
-            OldMain.class.getResource("gui/sounds/notification1.mp3"))
-            .toString();
     EventHandler<FriendRequestChangeEvent> friendRequestNotificationHandler =
         e -> {
-                Media pick = new Media(notificationFile);
-                MediaPlayer player = new MediaPlayer(pick);
-                player.setVolume(0.2);
+            switch (e.getChangeEventType()) {
+                case ADD :
+                    if (e.getNewData().getTo().equals(user)) {
+                        NotificationAlerter.playSound(SoundFile.RING_SOUND_1);
 
-                ImageView imageView = new ImageView(String.valueOf(
-                        OldMain.class.getResource("gui/images/users.png")));
-                imageView.setPreserveRatio(true);
-                imageView.setFitHeight(100);
+                        NotificationAlerter.displayNotification("Friend request",
+                                "New friend request from " +
+                                        e.getNewData().getFrom().getFirstName() + " " +
+                                        e.getNewData().getFrom().getLastName(),
+                                NotificationImage.USERS_1);
+                    }
+                    break;
+                case UPDATE :
+                    if (e.getNewData().getFrom().equals(user) &&
+                        e.getNewData().getStatus() == FriendRequestStatus.APPROVED) {
+                        NotificationAlerter.playSound(SoundFile.RING_SOUND_1);
 
-                switch (e.getChangeEventType()) {
-                    case ADD :
-                        if (e.getNewData().getTo().equals(user)) {
-                            player.play();
-
-                            Notifications.create()
-                                    .darkStyle()
-                                    .title("Friend request")
-                                    .graphic(imageView)
-                                    .text("New friend request from " +
-                                            e.getNewData().getFrom().getFirstName() + " " +
-                                            e.getNewData().getFrom().getLastName())
-                                    .hideAfter(Duration.seconds(10))
-                                    .show();
-                        }
-                        break;
-                    case UPDATE :
-                        if (e.getNewData().getFrom().equals(user) &&
-                            e.getNewData().getStatus() == FriendRequestStatus.APPROVED) {
-                            player.play();
-
-                            Notifications.create()
-                                .darkStyle()
-                                .title("Friend request")
-                                .graphic(imageView)
-                                .text(e.getNewData().getTo().getFirstName() + " " +
+                        NotificationAlerter.displayNotification("Friend request",
+                                e.getNewData().getTo().getFirstName() + " " +
                                         e.getNewData().getTo().getLastName() +
-                                        " accepted your friend request.")
-                                .hideAfter(Duration.seconds(10))
-                                .show();
-                        }
-                        break;
-                    default:;
-                }
+                                        " accepted your friend request.",
+                                NotificationImage.USERS_1);
+                    }
+                    break;
+                default:;
+            }
     };
 
     public void setContent(BuildContainer buildContainer, User user) {
@@ -123,13 +98,12 @@ public class FriendRequestController implements Observer {
         tableColumnApprove.setCellFactory(new Callback<>() {
             @Override
             public TableCell<FriendRequest, Void> call(final TableColumn<FriendRequest, Void> param) {
-                final TableCell<FriendRequest, Void> tableCell = new TableCell<>() {
+                return new TableCell<>() {
                     private final Button button = new Button("Approve");
 
                     {
                         button.setOnAction(event -> {
                             FriendRequest friendRequest = getTableView().getItems().get(getIndex());
-                            System.out.println("Approve for: " + friendRequest.toString());
 
                             try {
                                 buildContainer.getFriendRequestService().approveFriendRequest(friendRequest.getId());
@@ -154,20 +128,18 @@ public class FriendRequestController implements Observer {
                         }
                     }
                 };
-                return tableCell;
             }
         });
 
         tableColumnReject.setCellFactory(new Callback<>() {
             @Override
             public TableCell<FriendRequest, Void> call(final TableColumn<FriendRequest, Void> param) {
-                final TableCell<FriendRequest, Void> tableCell = new TableCell<>() {
+                return new TableCell<>() {
                     private final Button button = new Button("Reject");
 
                     {
                         button.setOnAction(event -> {
                             FriendRequest friendRequest = getTableView().getItems().get(getIndex());
-                            System.out.println("Approve for: " + friendRequest.toString());
 
                             try {
                                 buildContainer.getFriendRequestService().rejectFriendRequest(friendRequest.getId());
@@ -192,7 +164,6 @@ public class FriendRequestController implements Observer {
                         }
                     }
                 };
-                return tableCell;
             }
         });
 

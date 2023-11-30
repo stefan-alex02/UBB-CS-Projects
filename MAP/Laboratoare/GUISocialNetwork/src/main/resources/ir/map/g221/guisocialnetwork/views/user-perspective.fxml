@@ -12,9 +12,11 @@
             prefHeight = "400.0" prefWidth="600.0">
     <TabPane fx:id = "tabPane" xmlns="http://javafx.com/javafx/8.0.40"
              xmlns:fx = "http://www.w3.org/2001/XInclude"
-             tabClosingPolicy = "UNAVAILABLE">
+             tabClosingPolicy = "UNAVAILABLE"
+             AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+             AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <Tab fx:id = "chatPage" text = "Chat">
-            <fx:include source="user-chat.fxml"/>
+            <fx:include fx:id="userChat" source="user-chat.fxml"/>
         </Tab>
         <Tab fx:id="friendListPage" text="Friend List">
             <fx:include fx:id="friendList" source="friend-list.fxml"/>

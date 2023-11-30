@@ -12,6 +12,12 @@ public class ReplyMessage extends Message {
         this.messageRepliedTo = messageRepliedTo;
     }
 
+    public ReplyMessage(User from, Set<User> toUsers, String message, LocalDateTime date,
+                        Message messageRepliedTo) {
+        super(0L, from, toUsers, message, date);
+        this.messageRepliedTo = messageRepliedTo;
+    }
+
     public Message getMessageRepliedTo() {
         return messageRepliedTo;
     }

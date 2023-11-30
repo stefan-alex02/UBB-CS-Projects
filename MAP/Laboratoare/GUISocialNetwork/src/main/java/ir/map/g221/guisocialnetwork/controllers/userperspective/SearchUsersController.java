@@ -67,7 +67,7 @@ public class SearchUsersController implements Observer {
         tableColumnSendRequest.setCellFactory(new Callback<>() {
             @Override
             public TableCell<User, Void> call(final TableColumn<User, Void> param) {
-                final TableCell<User, Void> tableCell = new TableCell<>() {
+                return new TableCell<>() {
                     private final Button button = new Button("Add friend");
 
                     {
@@ -99,7 +99,6 @@ public class SearchUsersController implements Observer {
                         }
                     }
                 };
-                return tableCell;
             }
         });
 

@@ -1,5 +1,6 @@
 package ir.map.g221.guisocialnetwork.gui;
 
+import ir.map.g221.guisocialnetwork.OldMain;
 import ir.map.g221.guisocialnetwork.controllers.UserController;
 import ir.map.g221.guisocialnetwork.factory.BuildContainer;
 import ir.map.g221.guisocialnetwork.factory.Factory;
@@ -28,7 +29,7 @@ public class StartApplication extends Application {
 
     private void initView(Stage primaryStage) throws IOException {
         FXMLLoader userLoader = new FXMLLoader();
-        userLoader.setLocation(getClass().getResource("views/user-view.fxml"));
+        userLoader.setLocation(OldMain.class.getResource("views/user-view.fxml"));
         AnchorPane userLayout = userLoader.load();
         primaryStage.setScene(new Scene(userLayout));
 
