@@ -36,6 +36,7 @@ public class FriendListController extends AbstractTabController implements Obser
         this.buildContainer = buildContainer;
         this.user = user;
         buildContainer.getFriendshipService().addObserver(this);
+        buildContainer.getFriendRequestService().addObserver(this);
         buildContainer.getUserService().addObserver(this);
     }
 

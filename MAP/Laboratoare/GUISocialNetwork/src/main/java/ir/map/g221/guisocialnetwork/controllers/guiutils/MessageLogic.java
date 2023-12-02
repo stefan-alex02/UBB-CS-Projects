@@ -72,16 +72,16 @@ public class MessageLogic {
         this.state = state;
     }
 
-    public Label getSelectedLabel() {
+    public MessageLabel getSelectedLabel() {
         return selectedLabel;
     }
 
     public void setSelectedLabel(MessageLabel label) {
         if (!label.equals(this.selectedLabel)) {
             if (this.selectedLabel != null) {
-                this.selectedLabel.getStyleClass().remove("selected-chat-message");
+                this.selectedLabel.setUnselectedStyle();
             }
-            label.getStyleClass().add("selected-chat-message");
+            label.setSelectedStyle();
             this.selectedLabel = label;
             setState(State.SELECTED);
         }
@@ -89,7 +89,7 @@ public class MessageLogic {
 
     public void deselectLabel() {
         if (this.selectedLabel != null) {
-            this.selectedLabel.getStyleClass().remove("selected-chat-message");
+            this.selectedLabel.setUnselectedStyle();
         }
         this.selectedLabel = null;
         setState(State.UNSELECTED);

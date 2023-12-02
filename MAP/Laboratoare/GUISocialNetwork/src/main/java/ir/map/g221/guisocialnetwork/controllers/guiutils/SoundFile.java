@@ -3,7 +3,8 @@ package ir.map.g221.guisocialnetwork.controllers.guiutils;
 import ir.map.g221.guisocialnetwork.OldMain;
 
 public enum SoundFile {
-    RING_SOUND_1("sounds/notification1.mp3");
+    RING_SOUND_1("sounds/notification1.mp3"),
+    MESSAGE_SOUND_1("sounds/message1.mp3");
 
     private final String filePath;
 

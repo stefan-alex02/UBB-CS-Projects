@@ -18,6 +18,11 @@ public class ReplyMessage extends Message {
         this.messageRepliedTo = messageRepliedTo;
     }
 
+    public ReplyMessage(Long aLong, User from, String message, LocalDateTime date) {
+        super(aLong, from, null, message, date);
+        this.messageRepliedTo = null;
+    }
+
     @Override
     public Message copyOf() {
         return new ReplyMessage(id, from,

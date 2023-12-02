@@ -60,7 +60,13 @@ public class MessageDBRepository implements Repository<Long, Message> {
                     .toLocalDateTime();
             User replyToUser = new User(replyToUserId, replyToUserFirstName, replyToUserLastName);
 
-            Message repliedMessage = new Message(replyToId, replyToUser, replyToMessage, replyToMessageDate);
+            Message repliedMessage;
+            if (messageResultSet.getLong("reply_to_reply_to_id") != 0) {
+                repliedMessage = new ReplyMessage(replyToId, replyToUser, replyToMessage, replyToMessageDate);
+            }
+            else {
+                repliedMessage = new Message(replyToId, replyToUser, replyToMessage, replyToMessageDate);
+            }
 
             msg = new ReplyMessage(id, fromUser, receivers, message, date, repliedMessage);
         }
@@ -84,12 +90,14 @@ public class MessageDBRepository implements Repository<Long, Message> {
                             "M2.from_user_id as reply_to_user_id, " +
                             "U2.first_name as reply_to_user_first_name, " +
                             "U2.last_name as reply_to_user_last_name, " +
-                            "M2.date as reply_to_message_date " +
+                            "M2.date as reply_to_message_date, " +
+                            "R2.reply_to_id as reply_to_reply_to_id " +
                             "FROM messages M " +
                             "INNER JOIN users U ON U.id = M.from_user_id " +
                             "LEFT JOIN reply_messages R ON R.message_id = M.id " +
                             "LEFT JOIN messages M2 ON M2.id = R.reply_to_id " +
                             "LEFT JOIN users U2 ON U2.id = M2.from_user_id " +
+                            "LEFT JOIN reply_messages R2 ON R2.message_id = R.reply_to_id " +
                             "WHERE M.id = ?");
             PreparedStatement receiversStatement = connection.prepareStatement(
                     "SELECT U.id, U.first_name, U.last_name " +
@@ -123,12 +131,14 @@ public class MessageDBRepository implements Repository<Long, Message> {
                              "M2.from_user_id as reply_to_user_id, " +
                              "U2.first_name as reply_to_user_first_name, " +
                              "U2.last_name as reply_to_user_last_name, " +
-                             "M2.date as reply_to_message_date " +
+                             "M2.date as reply_to_message_date, " +
+                             "R2.reply_to_id as reply_to_reply_to_id " +
                              "FROM messages M " +
                              "INNER JOIN users U ON U.id = M.from_user_id " +
                              "LEFT JOIN reply_messages R ON R.message_id = M.id " +
                              "LEFT JOIN messages M2 ON M2.id = R.reply_to_id " +
-                             "LEFT JOIN users U2 ON U2.id = M2.from_user_id ");
+                             "LEFT JOIN users U2 ON U2.id = M2.from_user_id " +
+                             "LEFT JOIN reply_messages R2 ON R2.message_id = R.reply_to_id");
              PreparedStatement receiversStatement = connection.prepareStatement(
                      "SELECT U.id, U.first_name, U.last_name " +
                              "FROM messages M " +

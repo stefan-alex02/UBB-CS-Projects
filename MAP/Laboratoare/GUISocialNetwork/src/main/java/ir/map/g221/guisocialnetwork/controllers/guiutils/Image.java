@@ -7,14 +7,16 @@ public enum Image {
     USERS_1("images/users.png"),
     EDIT("images/edit.png", 18),
     DELETE("images/delete.png", 18),
-    REPLY("images/reply.png", 18);
+    REPLY("images/reply.png", 18),
+    REPLY_TO_ICON("images/reply.png", 16),
+    MESSAGE("images/message.png");
 
 
     private final String filePath;
     private final int size;
 
     Image(String filePath) {
-        this(filePath, 100);
+        this(filePath, 80);
     }
 
     Image(String filePath, int size) {

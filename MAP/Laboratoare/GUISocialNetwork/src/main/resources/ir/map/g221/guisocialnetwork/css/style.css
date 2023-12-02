@@ -82,24 +82,47 @@
 
 /* ------------------------------------------------------------------------------------ */
 /* User list styling */
+.user-list-view {
+    -fx-background-color: linear-gradient(to bottom right, #e1ccd6 0%, #d3c2d7 50%, #c4c5d9 100%);
+}
+
+.user-list-cell:filled {
+    -fx-background-color: #d2b8d9;
+    -fx-text-fill: white;
+}
+
+.user-list-cell:filled:hover {
+    -fx-background-color: #c88bd9;
+    -fx-text-fill: white;
+}
+
 .user-list-cell:filled:selected {
     -fx-background-color: linear-gradient(#d9768d 0%, #9c72c4 50%, #7482bb 100%);
     -fx-text-fill: white;
     -fx-font-weight: 700;
 }
 
-/* ------------------------------------------------------------------------------------ */
-/* Chat box styling */
-.chat-hbox, .chat-list-view.list-view {
-    -fx-background-color: linear-gradient(#d9768d 0%, #9c72c4 50%, #7482bb 100%);
+.user-list-cell:empty {
+    -fx-background-color: rgba(0, 0, 0, 0);
+    -fx-text-fill: rgba(0, 0, 0, 0);
 }
 
-.chat-hbox:selected, .chat-list-view.list-view:selected {
-    -fx-background-color: linear-gradient(#d9768d 0%, #9c72c4 50%, #7482bb 100%);
+/* ------------------------------------------------------------------------------------ */
+/* Chat box styling */
+.chat-hbox {
+    -fx-background-color: rgba(255, 255, 255, 0);
+}
+
+.chat-hbox:filled:hover {
+    -fx-background-color: rgba(0, 0, 0, 0.08);
 }
 
 .chat-hbox:selected .text {
     -fx-fill: #000000;
+}
+
+.chat-list-view.list-view {
+    -fx-background-color: linear-gradient(to bottom right, #daacc1 0%, #d2acda 50%, #acb0da 100%);
 }
 
 /* ------------------------------------------------------------------------------------ */
@@ -122,16 +145,21 @@
     -fx-background-color: #999dcc;
 }
 .selected-chat-sender-message.label {
-    -fx-border-color: #8cded3;
-    -fx-background-color: #58918a;
+    -fx-border-color: #588491;
+    -fx-background-color: #8cd2de;
 }
 
 /* Receptor message styling */
 .chat-receptor-message.label {
-    -fx-border-color: #d389aa;
-    -fx-background-color: #8a4e6c;
+    -fx-border-color: #8a4e6c;
+    -fx-background-color: #d389aa;
 }
 .selected-chat-receptor-message.label {
-    -fx-border-color: #deb18c;
-    -fx-background-color: #917058;
+    -fx-border-color: #916958;
+    -fx-background-color: #de9b8c;
 }
+
+.icon-label {
+    -fx-background-color: rgba(255, 255, 255, 0);
+}
+
