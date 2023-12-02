@@ -1,4 +1,4 @@
-package ir.map.g221.guisocialnetwork.controllers.othercontrollers;
+package ir.map.g221.guisocialnetwork.controllers.guiutils;
 
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -14,11 +14,11 @@ public class NotificationAlerter {
         player.play();
     }
 
-    public static void displayNotification(String title, String message, NotificationImage image) {
+    public static void displayNotification(String title, String message, Image image) {
         Notifications.create()
                 .darkStyle()
                 .title(title)
-                .graphic(image.getImageView())
+                .graphic(image.createImageView())
                 .text(message)
                 .hideAfter(Duration.seconds(10))
                 .show();

@@ -8,6 +8,7 @@ import ir.map.g221.guisocialnetwork.persistence.Repository;
 import ir.map.g221.guisocialnetwork.utils.events.ChangeEventType;
 import ir.map.g221.guisocialnetwork.utils.events.Event;
 import ir.map.g221.guisocialnetwork.utils.events.MessageChangeEvent;
+import ir.map.g221.guisocialnetwork.utils.events.UserChangeEvent;
 import ir.map.g221.guisocialnetwork.utils.generictypes.ObjectTransformer;
 import ir.map.g221.guisocialnetwork.utils.generictypes.Pair;
 import ir.map.g221.guisocialnetwork.utils.graphs.ConnectedComponent;
@@ -126,6 +127,29 @@ public class MessageService implements Observable {
         if(messageRepository.save(replyMessageToAdd).isEmpty()) {
             notifyObservers(MessageChangeEvent.ofNewData(ChangeEventType.ADD, replyMessageToAdd));
         }
+    }
+
+    public void editMessage(Long messageId, String newMessageText) {
+        Message message = getMessage(messageId);
+
+        Message updatedMessage = message.copyOf();
+        updatedMessage.setMessage(newMessageText);
+
+        if(messageRepository.update(updatedMessage).isEmpty()) {
+            notifyObservers(MessageChangeEvent.ofData(
+                    ChangeEventType.UPDATE, updatedMessage, message));
+        }
+    }
+
+    public void removeMessage(Long messageId) {
+        messageRepository.delete(messageId).ifPresentOrElse(
+                deletedMessage -> notifyObservers(
+                        MessageChangeEvent.ofOldData(ChangeEventType.DELETE, deletedMessage)
+                ),
+                () -> {
+                    throw new NotFoundException("Failed to delete message.");
+                }
+        );
     }
 
     @Override

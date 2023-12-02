@@ -71,7 +71,6 @@
 }
 /* ------------------------------------------------------------------------------------ */
 /* Table styling */
-
 .user-table-column.table-column.column-header {
     -fx-background-color: #629bd2;
 }
@@ -80,41 +79,59 @@
     -fx-background-color: #757575;
     -fx-font-weight: 700;
 }
-.table-row-cell:selected.text {
-    -fx-fill: #ffffff;
-}
 
 /* ------------------------------------------------------------------------------------ */
-/* List styling */
-.list-cell:selected {
-    -fx-background-color: #757575;
+/* User list styling */
+.user-list-cell:filled:selected {
+    -fx-background-color: linear-gradient(#d9768d 0%, #9c72c4 50%, #7482bb 100%);
+    -fx-text-fill: white;
     -fx-font-weight: 700;
 }
 
-.list-cell:selected.text {
-    -fx-fill: #ffffff;
+/* ------------------------------------------------------------------------------------ */
+/* Chat box styling */
+.chat-hbox, .chat-list-view.list-view {
+    -fx-background-color: linear-gradient(#d9768d 0%, #9c72c4 50%, #7482bb 100%);
+}
+
+.chat-hbox:selected, .chat-list-view.list-view:selected {
+    -fx-background-color: linear-gradient(#d9768d 0%, #9c72c4 50%, #7482bb 100%);
+}
+
+.chat-hbox:selected .text {
+    -fx-fill: #000000;
 }
 
 /* ------------------------------------------------------------------------------------ */
 /* Chat styling */
-.chat-message.label {
+.chat-message {
     -fx-padding: 5;
     -fx-border-style: solid inline;
     -fx-border-width: 2;
-    -fx-border-insets: -2.5;
+    -fx-border-insets: -2;
     -fx-border-radius: 5;
-    -fx-border-color: #6e9169;
-    -fx-background-color: #c4e1ce;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.2 , 2 , 2.5 );
 }
+.chat-message.label .text {
+    -fx-fill: #000000;
+}
 
-.selected-chat-message.label {
-    -fx-padding: 5;
-    -fx-border-style: solid inline;
-    -fx-border-width: 2;
-    -fx-border-insets: -2.5;
-    -fx-border-radius: 5;
-    -fx-border-color: #d0b032;
-    -fx-background-color: #eecea5;
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.2 , 2 , 2.5 );
+/* Sender message styling */
+.chat-sender-message.label {
+    -fx-border-color: #4455a2;
+    -fx-background-color: #999dcc;
+}
+.selected-chat-sender-message.label {
+    -fx-border-color: #8cded3;
+    -fx-background-color: #58918a;
+}
+
+/* Receptor message styling */
+.chat-receptor-message.label {
+    -fx-border-color: #d389aa;
+    -fx-background-color: #8a4e6c;
+}
+.selected-chat-receptor-message.label {
+    -fx-border-color: #deb18c;
+    -fx-background-color: #917058;
 }

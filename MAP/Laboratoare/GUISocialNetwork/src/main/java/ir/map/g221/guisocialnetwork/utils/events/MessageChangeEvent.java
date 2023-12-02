@@ -22,6 +22,12 @@ public class MessageChangeEvent implements Event {
         return new MessageChangeEvent(changeEventType, null, oldData);
     }
 
+    public static MessageChangeEvent ofData(ChangeEventType changeEventType,
+                                            Message newData,
+                                            Message oldData) {
+        return new MessageChangeEvent(changeEventType, newData, oldData);
+    }
+
     @Override
     public EventType getEventType() {
         return eventType;

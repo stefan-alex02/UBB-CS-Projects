@@ -1,11 +1,10 @@
 package ir.map.g221.guisocialnetwork.controllers.userperspective;
 
-import ir.map.g221.guisocialnetwork.controllers.othercontrollers.MessageAlerter;
+import ir.map.g221.guisocialnetwork.controllers.guiutils.MessageAlerter;
 import ir.map.g221.guisocialnetwork.domain.entities.User;
 import ir.map.g221.guisocialnetwork.factory.BuildContainer;
 import ir.map.g221.guisocialnetwork.utils.events.ChangeEventType;
 import ir.map.g221.guisocialnetwork.utils.events.Event;
-import ir.map.g221.guisocialnetwork.utils.events.EventType;
 import ir.map.g221.guisocialnetwork.utils.events.UserChangeEvent;
 import ir.map.g221.guisocialnetwork.utils.observer.Observer;
 import javafx.beans.value.ObservableValueBase;
@@ -18,8 +17,9 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.util.Callback;
 
-public class SearchUsersController implements Observer {
+public class SearchUsersController extends AbstractTabController implements Observer {
     private User user;
+    private boolean isLoaded = false;
     private BuildContainer buildContainer;
     private final ObservableList<User> usersModel = FXCollections.observableArrayList();
     public TableView<User> tableView;
@@ -113,12 +113,25 @@ public class SearchUsersController implements Observer {
 
     @Override
     public void update(Event event) {
-        if (event.getEventType() == EventType.USER &&
-                !(((UserChangeEvent)event).getChangeEventType() == ChangeEventType.DELETE &&
-                ((UserChangeEvent)event).getOldData().equals(user)) ||
-            event.getEventType() == EventType.FRIENDSHIP ||
-            event.getEventType() == EventType.OPENED && usersModel.isEmpty()) {
-            initUserModel();
+        switch(event.getEventType()) {
+            case USER:
+                UserChangeEvent userChangeEvent = (UserChangeEvent) event;
+                if (userChangeEvent.getChangeEventType() == ChangeEventType.DELETE &&
+                        !userChangeEvent.getOldData().equals(user)) {
+                    initUserModel();
+                }
+                break;
+            case FRIENDSHIP:
+                initUserModel();
+                break;
+            case OPENED:
+                if (!isLoaded) {
+                    isLoaded = true;
+                    initUserModel();
+                }
+                break;
+            default:
+                ;
         }
     }
 

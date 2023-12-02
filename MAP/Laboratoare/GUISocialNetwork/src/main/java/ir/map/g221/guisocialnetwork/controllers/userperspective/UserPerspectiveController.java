@@ -8,6 +8,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 
+import java.util.Set;
+
 public class UserPerspectiveController implements Observer {
     private Stage stage;
     private User user;
@@ -27,14 +29,24 @@ public class UserPerspectiveController implements Observer {
     @FXML Tab friendListPage;
     @FXML FriendListController friendListController;
 
+    private Set<AbstractTabController> tabControllers;
+
     public void setContent(BuildContainer buildContainer, User user, Stage stage) {
         this.buildContainer = buildContainer;
         this.user = user;
         this.stage = stage;
-        buildContainer.getUserService().addObserver(this);
-        stage.setOnCloseRequest(e -> dispose());
+        this.buildContainer.getUserService().addObserver(this);
+        this.stage.setOnCloseRequest(e -> dispose());
+        this.tabControllers = Set.of(
+                userChatController, friendRequestController,
+                searchUsersController, friendListController);
 
-        userChatController.setBuildContainer(buildContainer, user);
+        tabControllers.forEach(controller -> controller.setOwnerController(this));
+
+        userChatController.setOwnerTab(chatPage);
+        friendRequestController.setOwnerTab(friendRequestPage);
+
+        userChatController.setContent(buildContainer, user);
         searchUsersController.setContent(buildContainer, user);
         friendRequestController.setContent(buildContainer, user);
         friendListController.setContent(buildContainer, user);
@@ -54,18 +66,28 @@ public class UserPerspectiveController implements Observer {
                     else if (newTab.equals(friendListPage)) {
                         friendListController.update(new OpenedEvent());
                     }
+                    else if (newTab.equals(chatPage)) {
+                        userChatController.update(new OpenedEvent());
+                    }
                 }
         );
     }
 
     @Override
     public void update(Event event) {
-        if (event.getEventType() == EventType.USER) {
-            UserChangeEvent userChangeEvent = (UserChangeEvent) event;
-            if (userChangeEvent.getChangeEventType() == ChangeEventType.DELETE &&
-                userChangeEvent.getOldData().equals(user)) {
-                dispose();
-            }
+        switch(event.getEventType()) {
+            case USER:
+                UserChangeEvent userChangeEvent = (UserChangeEvent) event;
+                if (userChangeEvent.getChangeEventType() == ChangeEventType.DELETE &&
+                        userChangeEvent.getOldData().equals(user)) {
+                    dispose();
+                }
+                break;
+            case CHAT_USER:
+                tabPane.getSelectionModel().select(chatPage);
+                userChatController.update(event);
+                break;
+            default:;
         }
     }
 

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
@@ -9,7 +8,7 @@
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
             <SplitPane orientation="VERTICAL" prefHeight="329.0" prefWidth="300.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
-                    <ListView fx:id="listView" minHeight="-Infinity" minWidth="-Infinity" prefHeight="381.0" prefWidth="300.0" styleClass="list-view" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                    <ListView fx:id="userListView" minHeight="-Infinity" minWidth="-Infinity" prefHeight="381.0" prefWidth="300.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                 </AnchorPane>
             </SplitPane>
         </AnchorPane>
@@ -19,26 +18,18 @@
               <items>
                 <AnchorPane prefHeight="100.0" prefWidth="160.0">
                      <children>
-                        <ScrollPane fitToWidth="true" hbarPolicy="NEVER" prefHeight="293.0" prefWidth="415.0" vbarPolicy="ALWAYS" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                          <content>
-                            <AnchorPane minHeight="0.0" minWidth="0.0">
-                                 <children>
-                                    <VBox fx:id="chatBox" alignment="CENTER" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                       <padding>
-                                          <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                                       </padding>
-                                    </VBox>
-                                 </children>
-                              </AnchorPane>
-                          </content>
-                        </ScrollPane>
+                        <ListView fx:id="chatListView" prefHeight="273.0" prefWidth="375.0" styleClass="chat-list-view" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                      </children>
                   </AnchorPane>
                 <AnchorPane prefHeight="100.0" prefWidth="160.0">
                      <children>
                         <TextArea fx:id="textAreaMessage" disable="true" layoutX="14.0" prefHeight="70.0" prefWidth="398.0" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="5.0" />
-                        <Button fx:id="sendButton" disable="true" layoutX="333.0" layoutY="76.0" mnemonicParsing="false" onAction="#handleSendMessageButton" prefHeight="28.0" prefWidth="69.0" text="Send" AnchorPane.bottomAnchor="11.333333333333329" AnchorPane.rightAnchor="10.333333333333357" />
-                     </children></AnchorPane>
+                        <Button fx:id="buttonSend" onAction="#handleSendMessageButton" disable="true" layoutX="333.0" layoutY="76.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="69.0" styleClass="green-button" text="Send" AnchorPane.bottomAnchor="11.333333333333329" AnchorPane.rightAnchor="10.333333333333357" />
+                        <Button fx:id="buttonReply" onAction="#handleReplyButton" disable="true" layoutX="14.0" layoutY="78.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="28.0" styleClass="blue-button" AnchorPane.bottomAnchor="9.333333333333329" />
+                        <Button fx:id="buttonEdit" onAction="#handleEditButton" disable="true" layoutX="55.0" layoutY="78.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="28.0" styleClass="yellow-button" AnchorPane.bottomAnchor="9.333333333333329" AnchorPane.leftAnchor="55.0" />
+                        <Button fx:id="buttonDelete" onAction="#handleDeleteButton" disable="true" layoutX="99.0" layoutY="78.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="28.0" styleClass="red-button" AnchorPane.bottomAnchor="9.333333333333329" AnchorPane.leftAnchor="97.0" />
+                     </children>
+                </AnchorPane>
               </items>
             </SplitPane>
          </children></AnchorPane>

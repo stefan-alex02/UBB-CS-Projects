@@ -1,13 +1,10 @@
 package ir.map.g221.guisocialnetwork.controllers.userperspective;
 
-import ir.map.g221.guisocialnetwork.controllers.othercontrollers.MessageAlerter;
+import ir.map.g221.guisocialnetwork.controllers.guiutils.MessageAlerter;
 import ir.map.g221.guisocialnetwork.domain.entities.User;
 import ir.map.g221.guisocialnetwork.domain.entities.dtos.FriendshipDetails;
 import ir.map.g221.guisocialnetwork.factory.BuildContainer;
-import ir.map.g221.guisocialnetwork.utils.events.ChangeEventType;
-import ir.map.g221.guisocialnetwork.utils.events.Event;
-import ir.map.g221.guisocialnetwork.utils.events.EventType;
-import ir.map.g221.guisocialnetwork.utils.events.UserChangeEvent;
+import ir.map.g221.guisocialnetwork.utils.events.*;
 import ir.map.g221.guisocialnetwork.utils.observer.Observer;
 import javafx.beans.value.ObservableValueBase;
 import javafx.collections.FXCollections;
@@ -21,9 +18,10 @@ import javafx.util.Callback;
 
 import java.time.LocalDateTime;
 
-public class FriendListController implements Observer {
+public class FriendListController extends AbstractTabController implements Observer {
     private User user;
     private BuildContainer buildContainer;
+    private boolean isLoaded = false;
     private final ObservableList<FriendshipDetails> friendshipDetailsModel = FXCollections.observableArrayList();
     @FXML TableView<FriendshipDetails> tableView;
 
@@ -31,6 +29,7 @@ public class FriendListController implements Observer {
     TableColumn<FriendshipDetails, String> tableColumnFirstName;
     @FXML TableColumn<FriendshipDetails, String> tableColumnLastName;
     @FXML TableColumn<FriendshipDetails, LocalDateTime> tableColumnFriendsFrom;
+    @FXML TableColumn<FriendshipDetails, Void> tableColumnMessageFriend;
     @FXML TableColumn<FriendshipDetails, Void> tableColumnRemoveFriend;
 
     public void setContent(BuildContainer buildContainer, User user) {
@@ -64,10 +63,48 @@ public class FriendListController implements Observer {
                     }
                 });
 
-        tableColumnRemoveFriend.setCellFactory(new Callback<>() {
+        tableColumnMessageFriend.setCellFactory(new Callback<>() {
             @Override
-            public TableCell<FriendshipDetails, Void> call(final TableColumn<FriendshipDetails, Void> param) {
-                final TableCell<FriendshipDetails, Void> tableCell = new TableCell<>() {
+            public TableCell<FriendshipDetails, Void> call(TableColumn<FriendshipDetails, Void> param) {
+                return new TableCell<>() {
+                    private final Button button = new Button("Send message");
+
+                    {
+                        button.setOnAction(event -> {
+                            User friend = getTableView().getItems().get(getIndex()).getFriend();
+                            System.out.println("Messaging user: " + friend.toString());
+
+                            try {
+                                notifyOwnerController(
+                                        ChatUserEvent.ofData(ChangeEventType.ADD, friend));
+                            } catch (RuntimeException re) {
+                                MessageAlerter.showErrorMessage(null,
+                                        "Messaging error",
+                                        re.getMessage());
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void updateItem(Void item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (empty) {
+                            setGraphic(null);
+                        } else {
+                            setGraphic(button);
+                            setAlignment(javafx.geometry.Pos.CENTER);
+                            button.getStyleClass().add("blue-button");
+                        }
+                    }
+                };
+            }
+        });
+
+        tableColumnRemoveFriend.setCellFactory(new Callback<>()
+            {
+                @Override
+                public TableCell<FriendshipDetails, Void> call ( final TableColumn<FriendshipDetails, Void> param){
+                    return new TableCell<>() {
                     private final Button button = new Button("Remove friend");
 
                     {
@@ -78,8 +115,7 @@ public class FriendListController implements Observer {
                             try {
                                 buildContainer.getFriendshipService()
                                         .removeFriendship(user.getId(), friend.getId());
-                            }
-                            catch(RuntimeException re) {
+                            } catch (RuntimeException re) {
                                 MessageAlerter.showErrorMessage(null,
                                         "Database error",
                                         re.getMessage());
@@ -94,18 +130,17 @@ public class FriendListController implements Observer {
                             setGraphic(null);
                         } else {
                             setGraphic(button);
-                            setAlignment(javafx.geometry.Pos.CENTER); // Center the button
-                            button.getStyleClass().add("red-button"); // Apply a style from CSS
+                            setAlignment(javafx.geometry.Pos.CENTER);
+                            button.getStyleClass().add("red-button");
                         }
                     }
                 };
-                return tableCell;
             }
-        });
+            });
 
         tableColumnRemoveFriend.setSortable(false);
         tableView.setItems(friendshipDetailsModel);
-    }
+        }
 
     private void initUserModel() {
         friendshipDetailsModel.setAll(buildContainer.getFriendshipService()
@@ -115,12 +150,24 @@ public class FriendListController implements Observer {
 
     @Override
     public void update(Event event) {
-        if (event.getEventType() == EventType.USER &&
-                !(((UserChangeEvent)event).getChangeEventType() == ChangeEventType.DELETE &&
-                ((UserChangeEvent)event).getOldData().equals(user)) ||
-            event.getEventType() == EventType.FRIENDSHIP ||
-            event.getEventType() == EventType.OPENED && friendshipDetailsModel.isEmpty()) {
-            initUserModel();
+        switch(event.getEventType()) {
+            case USER:
+                UserChangeEvent userChangeEvent = (UserChangeEvent) event;
+                if (userChangeEvent.getChangeEventType() == ChangeEventType.DELETE &&
+                        !userChangeEvent.getOldData().equals(user)) {
+                        initUserModel();
+                }
+                break;
+            case FRIENDSHIP:
+                initUserModel();
+                break;
+            case OPENED:
+                if (!isLoaded) {
+                    isLoaded = true;
+                    initUserModel();
+                }
+                break;
+            default:;
         }
     }
 

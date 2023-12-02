@@ -1,4 +1,4 @@
-package ir.map.g221.guisocialnetwork.controllers.othercontrollers;
+package ir.map.g221.guisocialnetwork.controllers.guiutils;
 
 import ir.map.g221.guisocialnetwork.OldMain;
 

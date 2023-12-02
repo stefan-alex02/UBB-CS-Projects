@@ -3,7 +3,6 @@ package ir.map.g221.guisocialnetwork.utils.events;
 import ir.map.g221.guisocialnetwork.domain.entities.FriendRequest;
 
 public class FriendRequestChangeEvent implements Event {
-    private final EventType eventType = EventType.FRIEND_REQUEST;
     private final ChangeEventType changeEventType;
     private final FriendRequest newData;
     private final FriendRequest oldData;
@@ -24,7 +23,7 @@ public class FriendRequestChangeEvent implements Event {
 
     @Override
     public EventType getEventType() {
-        return eventType;
+        return EventType.FRIEND_REQUEST;
     }
 
     public ChangeEventType getChangeEventType() {

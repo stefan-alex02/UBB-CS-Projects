@@ -5,10 +5,10 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class Message extends Entity<Long> {
-    private User from;
-    private Set<User> to;
-    private String message;
-    private LocalDateTime date;
+    protected User from;
+    protected Set<User> to;
+    protected String message;
+    protected LocalDateTime date;
 
     public Message(Long aLong, User from, Set<User> toUsers, String message, LocalDateTime date) {
         super(aLong);
@@ -34,6 +34,10 @@ public class Message extends Entity<Long> {
         this.date = date;
     }
 
+    public Message copyOf() {
+        return new Message(id, from, to, message, date);
+    }
+
     public User getFrom() {
         return from;
     }
@@ -44,6 +48,10 @@ public class Message extends Entity<Long> {
 
     public String getMessage() {
         return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 
     public LocalDateTime getDate() {

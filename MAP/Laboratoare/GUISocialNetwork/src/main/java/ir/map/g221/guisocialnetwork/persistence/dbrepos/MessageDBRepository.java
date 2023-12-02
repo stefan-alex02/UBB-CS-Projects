@@ -184,6 +184,8 @@ public class MessageDBRepository implements Repository<Long, Message> {
                      "INSERT INTO messages(from_user_id, message, date) VALUES (?,?,?)", Statement.RETURN_GENERATED_KEYS);
              PreparedStatement receiversStatement = connection.prepareStatement(
                      "INSERT INTO messages_receivers(message_id, receiver_id) VALUES (?,?)");
+             PreparedStatement replyStatement = connection.prepareStatement(
+                     "INSERT INTO reply_messages(message_id, reply_to_id) VALUES (?,?)");
         ) {
             messageStatement.setLong(1, entity.getFrom().getId());
             messageStatement.setString(2, entity.getMessage());
@@ -205,6 +207,17 @@ public class MessageDBRepository implements Repository<Long, Message> {
 
                     if (response == 0) {
                         throw new SQLException("Failed to save one message receiver.");
+                    }
+                }
+
+                if (entity instanceof ReplyMessage replyMessage) {
+                    replyStatement.setLong(1, generatedKeys.getLong(1));
+                    replyStatement.setLong(2, replyMessage.getMessageRepliedTo().getId());
+
+                    response = replyStatement.executeUpdate();
+
+                    if (response == 0) {
+                        throw new SQLException("Failed to save reply data.");
                     }
                 }
             }

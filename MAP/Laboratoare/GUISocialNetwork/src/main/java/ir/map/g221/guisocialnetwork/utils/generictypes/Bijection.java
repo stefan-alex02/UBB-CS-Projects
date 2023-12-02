@@ -20,7 +20,7 @@ public class Bijection<TA, TB> {
     public Bijection(Iterable<Pair<TA, TB>> pairs) {
         domToCodom = new HashMap<>();
         codomToDom = new HashMap<>();
-        addPairs(pairs);
+        putPairs(pairs);
     }
 
     public Bijection<TB, TA> inverseFunction() {
@@ -47,7 +47,7 @@ public class Bijection<TA, TB> {
      * @param fx the codomain element (image of x or f(x)).
      * @throws FunctionFailureException if either x or f(x) already exists in the domain or codomain respectively.
      */
-    public void addPair(TA x, TB fx) throws FunctionFailureException {
+    public void putPair(TA x, TB fx) throws FunctionFailureException {
         if (domToCodom.containsKey(x) && codomToDom.containsKey(fx)) {
             return;
         }
@@ -63,12 +63,36 @@ public class Bijection<TA, TB> {
         codomToDom.put(fx, x);
     }
 
-    public void addInversePair(TB fx, TA x) throws FunctionFailureException {
-        addPair(x, fx);
+    public void putInversePair(TB fx, TA x) throws FunctionFailureException {
+        putPair(x, fx);
     }
 
-    public void addPairs(Iterable<Pair<TA, TB>> pairs) throws FunctionFailureException {
-        pairs.forEach(pair -> this.addPair(pair.getFirst(), pair.getSecond()));
+    public void putPairs(Iterable<Pair<TA, TB>> pairs) throws FunctionFailureException {
+        pairs.forEach(pair -> this.putPair(pair.getFirst(), pair.getSecond()));
+    }
+
+    public boolean removePairOfX(TA x) throws FunctionFailureException {
+        if (!domToCodom.containsKey(x)) {
+            return false;
+        }
+
+        TB y = imageOf(x);
+        domToCodom.remove(x);
+        codomToDom.remove(y);
+
+        return true;
+    }
+
+    public boolean removePairOfY(TB y) throws FunctionFailureException {
+        if (!codomToDom.containsKey(y)) {
+            return false;
+        }
+
+        TA x = preimageOf(y);
+        codomToDom.remove(y);
+        domToCodom.remove(x);
+
+        return true;
     }
 
     public TB imageOf(TA domainElem) {
@@ -77,5 +101,10 @@ public class Bijection<TA, TB> {
 
     public TA preimageOf(TB codomainElem) {
         return codomToDom.get(codomainElem);
+    }
+
+    public void clear() {
+        domToCodom.clear();
+        codomToDom.clear();
     }
 }

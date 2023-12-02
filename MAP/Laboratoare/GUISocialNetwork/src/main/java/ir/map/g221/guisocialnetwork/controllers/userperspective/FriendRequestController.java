@@ -1,9 +1,9 @@
 package ir.map.g221.guisocialnetwork.controllers.userperspective;
 
-import ir.map.g221.guisocialnetwork.controllers.othercontrollers.MessageAlerter;
-import ir.map.g221.guisocialnetwork.controllers.othercontrollers.NotificationAlerter;
-import ir.map.g221.guisocialnetwork.controllers.othercontrollers.NotificationImage;
-import ir.map.g221.guisocialnetwork.controllers.othercontrollers.SoundFile;
+import ir.map.g221.guisocialnetwork.controllers.guiutils.MessageAlerter;
+import ir.map.g221.guisocialnetwork.controllers.guiutils.NotificationAlerter;
+import ir.map.g221.guisocialnetwork.controllers.guiutils.Image;
+import ir.map.g221.guisocialnetwork.controllers.guiutils.SoundFile;
 import ir.map.g221.guisocialnetwork.domain.entities.FriendRequest;
 import ir.map.g221.guisocialnetwork.domain.entities.FriendRequestStatus;
 import ir.map.g221.guisocialnetwork.domain.entities.User;
@@ -22,8 +22,9 @@ import javafx.util.Callback;
 
 import java.time.LocalDateTime;
 
-public class FriendRequestController implements Observer {
+public class FriendRequestController extends AbstractTabController implements Observer {
     private User user = null;
+    private boolean isLoaded = false;
     private BuildContainer buildContainer = null;
     private final ObservableList<FriendRequest> friendRequestsModel = FXCollections.observableArrayList();
     public TableView<FriendRequest> tableView;
@@ -39,13 +40,15 @@ public class FriendRequestController implements Observer {
             switch (e.getChangeEventType()) {
                 case ADD :
                     if (e.getNewData().getTo().equals(user)) {
-                        NotificationAlerter.playSound(SoundFile.RING_SOUND_1);
+                            NotificationAlerter.playSound(SoundFile.RING_SOUND_1);
 
-                        NotificationAlerter.displayNotification("Friend request",
-                                "New friend request from " +
-                                        e.getNewData().getFrom().getFirstName() + " " +
-                                        e.getNewData().getFrom().getLastName(),
-                                NotificationImage.USERS_1);
+                        if (!isSelected()) {
+                            NotificationAlerter.displayNotification("Friend request",
+                                    "New friend request from " +
+                                            e.getNewData().getFrom().getFirstName() + " " +
+                                            e.getNewData().getFrom().getLastName(),
+                                    Image.USERS_1);
+                        }
                     }
                     break;
                 case UPDATE :
@@ -57,7 +60,7 @@ public class FriendRequestController implements Observer {
                                 e.getNewData().getTo().getFirstName() + " " +
                                         e.getNewData().getTo().getLastName() +
                                         " accepted your friend request.",
-                                NotificationImage.USERS_1);
+                                Image.USERS_1);
                     }
                     break;
                 default:;
@@ -195,7 +198,8 @@ public class FriendRequestController implements Observer {
                 }
                 break;
             case OPENED:
-                if (friendRequestsModel.isEmpty()) {
+                if (!isLoaded) {
+                    isLoaded = true;
                     initUserModel();
                 }
                 break;

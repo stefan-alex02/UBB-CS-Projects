@@ -1,7 +1,7 @@
 package ir.map.g221.guisocialnetwork.controllers;
 
 import ir.map.g221.guisocialnetwork.OldMain;
-import ir.map.g221.guisocialnetwork.controllers.othercontrollers.MessageAlerter;
+import ir.map.g221.guisocialnetwork.controllers.guiutils.MessageAlerter;
 import ir.map.g221.guisocialnetwork.controllers.userperspective.UserPerspectiveController;
 import ir.map.g221.guisocialnetwork.domain.entities.User;
 import ir.map.g221.guisocialnetwork.factory.BuildContainer;

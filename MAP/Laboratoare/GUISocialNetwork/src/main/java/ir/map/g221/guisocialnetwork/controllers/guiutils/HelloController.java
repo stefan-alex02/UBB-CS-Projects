@@ -1,4 +1,4 @@
-package ir.map.g221.guisocialnetwork.controllers.othercontrollers;
+package ir.map.g221.guisocialnetwork.controllers.guiutils;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
