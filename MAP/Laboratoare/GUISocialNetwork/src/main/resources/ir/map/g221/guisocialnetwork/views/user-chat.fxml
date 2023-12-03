@@ -8,7 +8,7 @@
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
             <SplitPane orientation="VERTICAL" prefHeight="329.0" prefWidth="300.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
-                    <ListView fx:id="userListView" styleClass="user-list-view" minHeight="-Infinity" minWidth="-Infinity" prefHeight="381.0" prefWidth="300.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                    <ListView fx:id="userListView" minHeight="-Infinity" minWidth="-Infinity" prefHeight="381.0" prefWidth="300.0" styleClass="user-list-view" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                 </AnchorPane>
             </SplitPane>
         </AnchorPane>
@@ -24,10 +24,11 @@
                 <AnchorPane prefHeight="100.0" prefWidth="160.0">
                      <children>
                         <TextArea fx:id="textAreaMessage" disable="true" layoutX="14.0" prefHeight="70.0" prefWidth="398.0" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="5.0" />
-                        <Button fx:id="buttonSend" onAction="#handleSendMessageButton" disable="true" layoutX="333.0" layoutY="76.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="69.0" styleClass="green-button" text="Send" AnchorPane.bottomAnchor="11.333333333333329" AnchorPane.rightAnchor="10.333333333333357" />
-                        <Button fx:id="buttonReply" onAction="#handleReplyButton" disable="true" layoutX="14.0" layoutY="78.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="28.0" styleClass="blue-button" AnchorPane.bottomAnchor="9.333333333333329" />
-                        <Button fx:id="buttonEdit" onAction="#handleEditButton" disable="true" layoutX="55.0" layoutY="78.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="28.0" styleClass="yellow-button" AnchorPane.bottomAnchor="9.333333333333329" AnchorPane.leftAnchor="55.0" />
-                        <Button fx:id="buttonDelete" onAction="#handleDeleteButton" disable="true" layoutX="99.0" layoutY="78.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="28.0" styleClass="red-button" AnchorPane.bottomAnchor="9.333333333333329" AnchorPane.leftAnchor="97.0" />
+                        <Button fx:id="buttonSend" disable="true" layoutX="333.0" layoutY="76.0" mnemonicParsing="false" onAction="#handleSendMessageButton" prefHeight="28.0" prefWidth="69.0" styleClass="green-button" text="Send" AnchorPane.bottomAnchor="11.333333333333329" AnchorPane.rightAnchor="10.333333333333357" />
+                        <Button fx:id="buttonReply" disable="true" layoutX="14.0" layoutY="78.0" mnemonicParsing="false" onAction="#handleReplyButton" prefHeight="28.0" prefWidth="28.0" styleClass="blue-button" AnchorPane.bottomAnchor="9.333333333333329" />
+                        <Button fx:id="buttonEdit" disable="true" layoutX="55.0" layoutY="78.0" mnemonicParsing="false" onAction="#handleEditButton" prefHeight="28.0" prefWidth="28.0" styleClass="yellow-button" AnchorPane.bottomAnchor="9.333333333333329" AnchorPane.leftAnchor="55.0" />
+                        <Button fx:id="buttonDelete" disable="true" layoutX="99.0" layoutY="78.0" mnemonicParsing="false" onAction="#handleDeleteButton" prefHeight="28.0" prefWidth="28.0" styleClass="red-button" AnchorPane.bottomAnchor="9.333333333333329" AnchorPane.leftAnchor="97.0" />
+                        <Button fx:id="buttonShare" layoutX="255.0" layoutY="76.0" mnemonicParsing="false" prefHeight="28.0" onAction="#handleShareToUsers" prefWidth="28.0" styleClass="green-button" AnchorPane.bottomAnchor="11.333333333333329" AnchorPane.rightAnchor="91.66666666666669" />
                      </children>
                 </AnchorPane>
               </items>

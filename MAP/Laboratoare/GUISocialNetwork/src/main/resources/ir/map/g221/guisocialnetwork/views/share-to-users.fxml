@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="378.0" prefWidth="487.0" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ir.map.g221.guisocialnetwork.controllers.userperspective.ShareToUsersController">
+   <children>
+      <ListView fx:id="listViewUsers" layoutX="55.0" layoutY="35.0" prefHeight="272.0" prefWidth="378.0" />
+      <Button layoutX="201.0" layoutY="322.0" mnemonicParsing="false" onAction="#handleShare" prefHeight="25.0" prefWidth="85.0" styleClass="green-button" text="Share" />
+   </children>
+</AnchorPane>

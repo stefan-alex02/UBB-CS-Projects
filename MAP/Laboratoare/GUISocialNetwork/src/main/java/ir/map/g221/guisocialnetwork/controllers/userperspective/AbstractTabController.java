@@ -1,5 +1,7 @@
 package ir.map.g221.guisocialnetwork.controllers.userperspective;
 
+import ir.map.g221.guisocialnetwork.domain.entities.User;
+import ir.map.g221.guisocialnetwork.factory.BuildContainer;
 import ir.map.g221.guisocialnetwork.utils.events.Event;
 import ir.map.g221.guisocialnetwork.utils.observer.Observer;
 import javafx.scene.control.Tab;

@@ -15,17 +15,20 @@ public class MessageLogic {
     private Button buttonReply;
     private Button buttonEdit;
     private Button buttonDelete;
+    private Button buttonShare;
     private TextArea textArea;
     private MessageLabel selectedLabel;
 
     public MessageLogic(User user, Button buttonSend, Button buttonReply,
                         Button buttonEdit, Button buttonDelete,
+                        Button buttonShare,
                         TextArea textArea) {
         this.user = user;
         this.buttonSend = buttonSend;
         this.buttonReply = buttonReply;
         this.buttonEdit = buttonEdit;
         this.buttonDelete = buttonDelete;
+        this.buttonShare = buttonShare;
         this.textArea = textArea;
         this.selectedLabel = null;
         setState(State.UNSELECTED);
@@ -41,6 +44,8 @@ public class MessageLogic {
                 buttonReply.setDisable(true);
                 buttonEdit.setDisable(true);
                 buttonDelete.setDisable(true);
+                buttonShare.setDisable(false);
+                textArea.setDisable(false);
                 buttonSend.setText("Send");
                 textArea.setText("");
                 break;
@@ -48,12 +53,16 @@ public class MessageLogic {
                 buttonReply.setDisable(false);
                 buttonEdit.setDisable(false);
                 buttonDelete.setDisable(false);
+                buttonShare.setDisable(false);
+                textArea.setDisable(true);
                 buttonSend.setText("Send");
                 break;
             case EDIT:
                 buttonReply.setDisable(false);
                 buttonEdit.setDisable(true);
                 buttonDelete.setDisable(false);
+                buttonShare.setDisable(true);
+                textArea.setDisable(false);
                 buttonSend.setText("Re-send");
                 textArea.setText(selectedLabel.getText());
                 break;
@@ -61,6 +70,11 @@ public class MessageLogic {
                 buttonReply.setDisable(true);
                 buttonEdit.setDisable(false);
                 buttonDelete.setDisable(false);
+                buttonShare.setDisable(false);
+                textArea.setDisable(false);
+                if (this.state == State.EDIT) {
+                    textArea.setText("");
+                }
                 buttonSend.setText("Reply");
                 break;
             default:;

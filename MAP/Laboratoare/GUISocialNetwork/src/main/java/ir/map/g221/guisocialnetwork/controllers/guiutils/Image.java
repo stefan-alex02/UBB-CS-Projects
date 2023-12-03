@@ -8,6 +8,7 @@ public enum Image {
     EDIT("images/edit.png", 18),
     DELETE("images/delete.png", 18),
     REPLY("images/reply.png", 18),
+    SHARE("images/share.png", 18),
     REPLY_TO_ICON("images/reply.png", 16),
     MESSAGE("images/message.png");
 

@@ -1,5 +1,6 @@
 package ir.map.g221.guisocialnetwork.controllers.userperspective;
 
+import ir.map.g221.guisocialnetwork.OldMain;
 import ir.map.g221.guisocialnetwork.controllers.guiutils.*;
 import ir.map.g221.guisocialnetwork.domain.entities.FriendRequestStatus;
 import ir.map.g221.guisocialnetwork.domain.entities.Message;
@@ -13,18 +14,24 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import javafx.util.Callback;
 import org.jetbrains.annotations.NotNull;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class UserChatController extends AbstractTabController implements Observer {
     private User user;
@@ -44,7 +51,7 @@ public class UserChatController extends AbstractTabController implements Observe
     @FXML Button buttonReply;
     @FXML Button buttonEdit;
     @FXML Button buttonDelete;
-
+    @FXML Button buttonShare;
 
     EventHandler<MessageChangeEvent> messageNotificationHandler =
             e -> {
@@ -116,6 +123,7 @@ public class UserChatController extends AbstractTabController implements Observe
         buttonReply.setGraphic(Image.REPLY.createImageView());
         buttonEdit.setGraphic(Image.EDIT.createImageView());
         buttonDelete.setGraphic(Image.DELETE.createImageView());
+        buttonShare.setGraphic(Image.SHARE.createImageView());
         userListView.setItems(receptorsModel);
         chatListView.setItems(messageHBoxes);
     }
@@ -127,7 +135,7 @@ public class UserChatController extends AbstractTabController implements Observe
         buildContainer.getMessageService().addObserver(this);
 
         messageLogic = new MessageLogic(user, buttonSend, buttonReply,
-                buttonEdit, buttonDelete, textAreaMessage);
+                buttonEdit, buttonDelete, buttonShare, textAreaMessage);
         receptorsModel.setAll(buildContainer.getMessageService().getConversationUsers(user.getId()));
         closeChat();
     }
@@ -155,6 +163,7 @@ public class UserChatController extends AbstractTabController implements Observe
         messageLogic.deselectLabel();
         textAreaMessage.setDisable(false);
         buttonSend.setDisable(false);
+        buttonShare.setDisable(false);
 
         messageHBoxBijection.clear();
         hBoxMessageLabelBijection.clear();
@@ -180,6 +189,7 @@ public class UserChatController extends AbstractTabController implements Observe
         receptor = null;
         textAreaMessage.setDisable(true);
         buttonSend.setDisable(true);
+        buttonShare.setDisable(true);
     }
 
     private void addMessage(Message message) {
@@ -407,6 +417,32 @@ public class UserChatController extends AbstractTabController implements Observe
                 reloadChat(chatUserEvent.getUserData());
                 break;
             default:;
+        }
+    }
+
+    @FXML void handleShareToUsers() {
+        try {
+            FXMLLoader userPerspectiveLoader = new FXMLLoader();
+            userPerspectiveLoader.setLocation(OldMain.class.getResource("views/share-to-users.fxml"));
+
+            AnchorPane root = userPerspectiveLoader.load();
+
+            // Create the dialog Stage.
+            Stage stage = new Stage();
+            stage.setTitle("Share to users");
+            stage.initModality(Modality.WINDOW_MODAL);
+            Scene scene = new Scene(root);
+            scene.getStylesheets().add(Objects.requireNonNull(OldMain.class.getResource("css/style.css"))
+                    .toExternalForm());
+            stage.setScene(scene);
+
+            ShareToUsersController shareToUsersController = userPerspectiveLoader.getController();
+            shareToUsersController.setContent(buildContainer, user, receptor, messageLogic,
+                    textAreaMessage, messageHBoxBijection, hBoxMessageLabelBijection, stage);
+
+            stage.show();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 
