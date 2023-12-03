@@ -46,6 +46,10 @@ public class Message extends Entity<Long> {
         return to;
     }
 
+    public void setTo(Set<User> to) {
+        this.to = to;
+    }
+
     public String getMessage() {
         return message;
     }

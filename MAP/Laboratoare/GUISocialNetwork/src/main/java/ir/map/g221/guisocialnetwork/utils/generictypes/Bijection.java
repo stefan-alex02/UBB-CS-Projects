@@ -95,10 +95,22 @@ public class Bijection<TA, TB> {
         return true;
     }
 
+    /**
+     * Gets the corresponding image Y of given element X in the bijection.
+     * @param domainElem the element X whose associated Y is to be returned
+     * @return the value to which the specified X is mapped, or
+     *      {@code null} if this bijection contains no mapping for X
+     */
     public TB imageOf(TA domainElem) {
         return domToCodom.get(domainElem);
     }
 
+    /**
+     * Gets the corresponding pre-image X of given element Y in the bijection.
+     * @param codomainElem the element Y whose associated X is to be returned
+     * @return the value to which the specified Y is mapped, or
+     *      {@code null} if this bijection contains no mapping for Y
+     */
     public TA preimageOf(TB codomainElem) {
         return codomToDom.get(codomainElem);
     }

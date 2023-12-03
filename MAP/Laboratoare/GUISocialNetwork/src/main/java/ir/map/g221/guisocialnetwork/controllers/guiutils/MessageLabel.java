@@ -6,28 +6,26 @@ import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 
 public class MessageLabel extends Label {
-    private final Message message;
     private final String baseStyle;
     private final String unselectedStyle;
     private final String selectedStyle;
-    private MessageLogic messageLogic;
+    private ChatLogic chatLogic;
 
     EventHandler<MouseEvent> clickEventHandler = event -> {
-        if (this.messageLogic.isSelected(this)) {
-            this.messageLogic.deselectLabel();
+        if (this.chatLogic.isSelected(this)) {
+            this.chatLogic.deselectLabel();
         }
         else {
-            this.messageLogic.setSelectedLabel(this);
+            this.chatLogic.setSelectedLabel(this);
         }
     };
 
-    public MessageLabel(String text, Message message, String baseStyle, String unselectedStyle, String selectedStyle, MessageLogic messageLogic) {
+    public MessageLabel(String text, Message message, String baseStyle, String unselectedStyle, String selectedStyle, ChatLogic chatLogic) {
         super(text);
-        this.message = message;
         this.baseStyle = baseStyle;
         this.unselectedStyle = unselectedStyle;
         this.selectedStyle = selectedStyle;
-        this.messageLogic = messageLogic;
+        this.chatLogic = chatLogic;
 
         this.getStyleClass().add(baseStyle);
         this.setUnselectedStyle();
@@ -37,10 +35,6 @@ public class MessageLabel extends Label {
 
     public void onMouseClicked() {
         clickEventHandler.handle(null);
-    }
-
-    public Message getMessage() {
-        return message;
     }
 
     public void setSelectedStyle() {

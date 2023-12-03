@@ -1,6 +1,5 @@
 package ir.map.g221.guisocialnetwork.persistence.dbrepos;
 
-import ir.map.g221.guisocialnetwork.domain.entities.Friendship;
 import ir.map.g221.guisocialnetwork.domain.entities.Message;
 import ir.map.g221.guisocialnetwork.domain.entities.ReplyMessage;
 import ir.map.g221.guisocialnetwork.domain.entities.User;
@@ -28,6 +27,19 @@ public class MessageDBRepository implements Repository<Long, Message> {
         this.replyMessageValidator = replyMessageValidator;
     }
 
+    private Set<User> createReceiversFrom(ResultSet receiversResultSet) throws SQLException {
+        Set<User> receivers = new HashSet<>();
+        while(receiversResultSet.next()) {
+            Long receiverId = receiversResultSet.getLong("id");
+            String receiverFirstName = receiversResultSet.getString("first_name");
+            String receiverLastName = receiversResultSet.getString("last_name");
+
+            receivers.add(new User(receiverId, receiverFirstName, receiverLastName));
+        }
+
+        return receivers;
+    }
+
     private Message createMessageFrom(ResultSet messageResultSet, ResultSet receiversResultSet) throws SQLException {
         Message msg = null;
 
@@ -39,15 +51,6 @@ public class MessageDBRepository implements Repository<Long, Message> {
         String fromUserFirstName = messageResultSet.getString("first_name");
         String fromUserLastName = messageResultSet.getString("last_name");
         User fromUser = new User(fromUserId, fromUserFirstName, fromUserLastName);
-
-        Set<User> receivers = new HashSet<>();
-        while(receiversResultSet.next()) {
-            Long receiverId = receiversResultSet.getLong("id");
-            String receiverFirstName = receiversResultSet.getString("first_name");
-            String receiverLastName = receiversResultSet.getString("last_name");
-
-            receivers.add(new User(receiverId, receiverFirstName, receiverLastName));
-        }
 
         Long replyToId = messageResultSet.getLong("reply_to_id");
         if (replyToId != 0) {
@@ -68,10 +71,10 @@ public class MessageDBRepository implements Repository<Long, Message> {
                 repliedMessage = new Message(replyToId, replyToUser, replyToMessage, replyToMessageDate);
             }
 
-            msg = new ReplyMessage(id, fromUser, receivers, message, date, repliedMessage);
+            msg = new ReplyMessage(id, fromUser, createReceiversFrom(receiversResultSet), message, date, repliedMessage);
         }
         else {
-            msg = new Message(id, fromUser, receivers, message, date);
+            msg = new Message(id, fromUser, createReceiversFrom(receiversResultSet), message, date);
         }
 
         return msg;
@@ -113,6 +116,13 @@ public class MessageDBRepository implements Repository<Long, Message> {
             ResultSet receiversResultSet = receiversStatement.executeQuery();
             if(messageResultSet.next()) {
                 Message message = createMessageFrom(messageResultSet, receiversResultSet);
+
+                if (message instanceof ReplyMessage replyMessage) {
+                    receiversStatement.setLong(1, replyMessage.getMessageRepliedTo().getId());
+                    receiversResultSet = receiversStatement.executeQuery();
+                    replyMessage.getMessageRepliedTo().setTo(createReceiversFrom(receiversResultSet));
+                }
+
                 return Optional.of(message);
             }
 
@@ -155,6 +165,13 @@ public class MessageDBRepository implements Repository<Long, Message> {
                 ResultSet receiversResultSet = receiversStatement.executeQuery();
 
                 Message message = createMessageFrom(messageResultSet, receiversResultSet);
+
+                if (message instanceof ReplyMessage replyMessage) {
+                    receiversStatement.setLong(1, replyMessage.getMessageRepliedTo().getId());
+                    receiversResultSet = receiversStatement.executeQuery();
+                    replyMessage.getMessageRepliedTo().setTo(createReceiversFrom(receiversResultSet));
+                }
+
                 messages.add(message);
             }
 

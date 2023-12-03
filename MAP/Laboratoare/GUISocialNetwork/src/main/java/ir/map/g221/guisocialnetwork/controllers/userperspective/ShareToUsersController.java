@@ -1,23 +1,22 @@
 package ir.map.g221.guisocialnetwork.controllers.userperspective;
 
 import ir.map.g221.guisocialnetwork.controllers.guiutils.MessageAlerter;
-import ir.map.g221.guisocialnetwork.controllers.guiutils.MessageLabel;
-import ir.map.g221.guisocialnetwork.controllers.guiutils.MessageLogic;
+import ir.map.g221.guisocialnetwork.controllers.guiutils.ChatLogic;
 import ir.map.g221.guisocialnetwork.domain.entities.Message;
 import ir.map.g221.guisocialnetwork.domain.entities.User;
 import ir.map.g221.guisocialnetwork.factory.BuildContainer;
 import ir.map.g221.guisocialnetwork.utils.events.Event;
-import ir.map.g221.guisocialnetwork.utils.events.OpenedEvent;
-import ir.map.g221.guisocialnetwork.utils.generictypes.Bijection;
 import ir.map.g221.guisocialnetwork.utils.observer.Observer;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TextArea;
-import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 
 import java.util.List;
 import java.util.Set;
@@ -25,35 +24,49 @@ import java.util.Set;
 public class ShareToUsersController extends AbstractTabController implements Observer {
     private User user;
     private User receptor;
-    private MessageLogic messageLogic;
+    private ChatLogic chatLogic;
     private BuildContainer buildContainer = null;
     private final ObservableList<User> usersModel = FXCollections.observableArrayList();
 
     @FXML ListView<User> listViewUsers;
-    private Stage stage;
+    private Message selectedMessage;
     private TextArea textAreaMessage;
-    private Bijection<Message, HBox> messageHBoxBijection = new Bijection<>();
-    private Bijection<HBox, MessageLabel> hBoxMessageLabelBijection = new Bijection<>();
+    private Stage stage;
 
 
     @FXML
     public void initialize() {
+        listViewUsers.setCellFactory(new Callback<>() {
+            @Override
+            public ListCell<User> call(ListView<User> param) {
+                ListCell<User> cell = new ListCell<>() {
+                    @Override
+                    protected void updateItem(User user, boolean empty) {
+                        super.updateItem(user, empty);
+                        if (user != null) {
+                            setText(user.getFirstName() + " " + user.getLastName());
+                            setAlignment(Pos.BASELINE_CENTER);
+                        }
+                    }
+                };
+                cell.getStyleClass().add("user-list-cell");
+                return cell;
+            }
+        });
         listViewUsers.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         listViewUsers.setItems(usersModel);
     }
 
     public void setContent(BuildContainer buildContainer, User user, User receptor,
-                           MessageLogic messageLogic, TextArea textAreaMessage,
-                           Bijection<Message, HBox> messageHBoxBijection,
-                           Bijection<HBox, MessageLabel> hBoxMessageLabelBijection,
+                           ChatLogic chatLogic, TextArea textAreaMessage,
+                           Message selectedMessage,
                            Stage stage) {
         this.buildContainer = buildContainer;
         this.user = user;
         this.receptor = receptor;
-        this.messageLogic = messageLogic;
+        this.chatLogic = chatLogic;
         this.textAreaMessage = textAreaMessage;
-        this.messageHBoxBijection = messageHBoxBijection;
-        this.hBoxMessageLabelBijection = hBoxMessageLabelBijection;
+        this.selectedMessage = selectedMessage;
         this.stage = stage;
         this.buildContainer.getUserService().addObserver(this);
         this.buildContainer.getFriendshipService().addObserver(this);
@@ -63,12 +76,13 @@ public class ShareToUsersController extends AbstractTabController implements Obs
     }
 
     public void initUserModel() {
-        if (messageLogic.getState() == MessageLogic.State.REPLY) {
+        if (chatLogic.getState() == ChatLogic.MessageState.REPLY) {
             Set<User> commonFriends = buildContainer.getFriendshipService()
                     .getFriendsOfUser(user.getId());
             commonFriends.retainAll(buildContainer
                     .getFriendshipService()
                     .getFriendsOfUser(receptor.getId()));
+            commonFriends.add(receptor);
 
             usersModel.setAll(commonFriends);
         }
@@ -79,17 +93,15 @@ public class ShareToUsersController extends AbstractTabController implements Obs
 
     @FXML void handleShare() {
         try {
-            Message selectedMessage;
             List<Long> receptorsIDs = listViewUsers.getSelectionModel()
                     .getSelectedItems()
                     .stream()
                     .map(User::getId)
                     .toList();
-            switch(messageLogic.getState()) {
+            switch(chatLogic.getState()) {
                 case SELECTED:
-                    selectedMessage = messageHBoxBijection.preimageOf(
-                            hBoxMessageLabelBijection.preimageOf(
-                                    messageLogic.getSelectedLabel()));
+                    // Note: a message reply will be shared as a normal message, and this is intended
+                    // (FEATURE, NOT A BUG)
                     buildContainer.getMessageService()
                             .sendMessageNow(user.getId(),
                                     receptorsIDs,
@@ -102,9 +114,6 @@ public class ShareToUsersController extends AbstractTabController implements Obs
                                     textAreaMessage.getText());
                     break;
                 case REPLY:
-                    selectedMessage = messageHBoxBijection.preimageOf(
-                            hBoxMessageLabelBijection.preimageOf(
-                                    messageLogic.getSelectedLabel()));
                     buildContainer.getMessageService()
                             .sendReplyMessageNow(
                                     user.getId(),
@@ -114,7 +123,7 @@ public class ShareToUsersController extends AbstractTabController implements Obs
                     break;
                 default:;
             }
-            messageLogic.deselectLabel();
+            chatLogic.deselectLabel();
             stage.close();
         }
         catch (Exception e) {

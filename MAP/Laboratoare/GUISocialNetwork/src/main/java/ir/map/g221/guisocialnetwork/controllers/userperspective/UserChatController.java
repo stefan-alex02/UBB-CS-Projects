@@ -2,7 +2,6 @@ package ir.map.g221.guisocialnetwork.controllers.userperspective;
 
 import ir.map.g221.guisocialnetwork.OldMain;
 import ir.map.g221.guisocialnetwork.controllers.guiutils.*;
-import ir.map.g221.guisocialnetwork.domain.entities.FriendRequestStatus;
 import ir.map.g221.guisocialnetwork.domain.entities.Message;
 import ir.map.g221.guisocialnetwork.domain.entities.ReplyMessage;
 import ir.map.g221.guisocialnetwork.domain.entities.User;
@@ -20,8 +19,6 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseButton;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -36,7 +33,7 @@ import java.util.Objects;
 public class UserChatController extends AbstractTabController implements Observer {
     private User user;
     private User receptor;
-    private MessageLogic messageLogic;
+    private ChatLogic chatLogic;
     private BuildContainer buildContainer = null;
     private final ObservableList<User> receptorsModel = FXCollections.observableArrayList();
     private final ObservableList<HBox> messageHBoxes = FXCollections.observableArrayList();
@@ -134,8 +131,9 @@ public class UserChatController extends AbstractTabController implements Observe
         buildContainer.getUserService().addObserver(this);
         buildContainer.getMessageService().addObserver(this);
 
-        messageLogic = new MessageLogic(user, buttonSend, buttonReply,
-                buttonEdit, buttonDelete, buttonShare, textAreaMessage);
+        chatLogic = new ChatLogic(user, buttonSend, buttonReply,
+                buttonEdit, buttonDelete, buttonShare, textAreaMessage,
+                messageHBoxBijection, hBoxMessageLabelBijection);
         receptorsModel.setAll(buildContainer.getMessageService().getConversationUsers(user.getId()));
         closeChat();
     }
@@ -160,7 +158,7 @@ public class UserChatController extends AbstractTabController implements Observe
             this.receptor = receptor;
             userListView.getSelectionModel().select(receptor);
         }
-        messageLogic.deselectLabel();
+        chatLogic.deselectLabel();
         textAreaMessage.setDisable(false);
         buttonSend.setDisable(false);
         buttonShare.setDisable(false);
@@ -177,6 +175,7 @@ public class UserChatController extends AbstractTabController implements Observe
                     hBoxes.add(hBox);
                 });
         messageHBoxes.setAll(hBoxes);
+        chatListView.scrollTo(messageHBoxes.size() - 1);
     }
 
     private void closeChat() {
@@ -184,7 +183,7 @@ public class UserChatController extends AbstractTabController implements Observe
         hBoxMessageLabelBijection.clear();
 
         messageHBoxes.clear();
-        messageLogic.deselectLabel();
+        chatLogic.deselectLabel();
         textAreaMessage.setText("");
         receptor = null;
         textAreaMessage.setDisable(true);
@@ -226,12 +225,12 @@ public class UserChatController extends AbstractTabController implements Observe
         if (message.getFrom().equals(user)) {
             label = new MessageLabel(message.getMessage(), message,
                     "chat-message", "chat-sender-message",
-                    "selected-chat-sender-message", messageLogic);
+                    "selected-chat-sender-message", chatLogic);
         }
         else {
             label = new MessageLabel(message.getMessage(), message,
                     "chat-message", "chat-receptor-message",
-                    "selected-chat-receptor-message", messageLogic);
+                    "selected-chat-receptor-message", chatLogic);
         }
         label.setWrapText(true);
         label.setMaxWidth(200);
@@ -248,20 +247,27 @@ public class UserChatController extends AbstractTabController implements Observe
         label.setMaxWidth(150);
 
         label.getStyleClass().add("chat-message");
-        if (replyMessage.getMessageRepliedTo().getFrom().equals(user)) {
-            label.getStyleClass().add("chat-sender-message");
+        if (!replyMessage.getMessageRepliedTo().belongsToConversation(user, receptor)) {
+            label.getStyleClass().add("external-replied-message");
         }
         else {
-            label.getStyleClass().add("chat-receptor-message");
-        }
+            if (replyMessage.getMessageRepliedTo().getFrom().equals(user)) {
+                label.getStyleClass().add("chat-sender-message");
+            }
+            else {
+                label.getStyleClass().add("chat-receptor-message");
+            }
 
-        label.setOnMouseClicked(event -> {
-            System.out.println("Replied message clicked : " + replyMessage.getMessage());
-            chatListView.scrollTo(messageHBoxBijection.imageOf(replyMessage.getMessageRepliedTo()));
-            messageLogic.setSelectedLabel(
-                    hBoxMessageLabelBijection.imageOf(
-                            messageHBoxBijection.imageOf(replyMessage.getMessageRepliedTo())));
-        });
+            label.setOnMouseClicked(event -> {
+                System.out.println("Replied message clicked : " + replyMessage.getMessage());
+
+                HBox hboxReplied = messageHBoxBijection.imageOf(replyMessage.getMessageRepliedTo());
+                if (hboxReplied != null) {
+                    chatListView.scrollTo(hboxReplied);
+                    chatLogic.setSelectedLabel(hBoxMessageLabelBijection.imageOf(hboxReplied));
+                }
+            });
+        }
 
         return label;
     }
@@ -311,7 +317,7 @@ public class UserChatController extends AbstractTabController implements Observe
     @FXML public void handleSendMessageButton(ActionEvent actionEvent) {
         try {
             Message selectedMessage;
-            switch(messageLogic.getState()) {
+            switch(chatLogic.getState()) {
                 case SELECTED:
                 case UNSELECTED:
                     buildContainer.getMessageService()
@@ -322,7 +328,7 @@ public class UserChatController extends AbstractTabController implements Observe
                 case EDIT:
                     selectedMessage = messageHBoxBijection.preimageOf(
                             hBoxMessageLabelBijection.preimageOf(
-                                    messageLogic.getSelectedLabel()));
+                                    chatLogic.getSelectedLabel()));
                     buildContainer.getMessageService()
                             .editMessage(
                                     selectedMessage.getId(),
@@ -331,7 +337,7 @@ public class UserChatController extends AbstractTabController implements Observe
                 case REPLY:
                     selectedMessage = messageHBoxBijection.preimageOf(
                             hBoxMessageLabelBijection.preimageOf(
-                                    messageLogic.getSelectedLabel()));
+                                    chatLogic.getSelectedLabel()));
                     buildContainer.getMessageService()
                             .sendReplyMessageNow(
                                 user.getId(),
@@ -341,7 +347,7 @@ public class UserChatController extends AbstractTabController implements Observe
                     break;
                 default:;
             }
-            messageLogic.deselectLabel();
+            chatLogic.deselectLabel();
         }
         catch (Exception e) {
             MessageAlerter.showErrorMessage(null, "Send error",
@@ -350,11 +356,11 @@ public class UserChatController extends AbstractTabController implements Observe
     }
 
     public void handleReplyButton(ActionEvent actionEvent) {
-        messageLogic.setState(MessageLogic.State.REPLY);
+        chatLogic.setState(ChatLogic.MessageState.REPLY);
     }
 
     public void handleEditButton(ActionEvent actionEvent) {
-        messageLogic.setState(MessageLogic.State.EDIT);
+        chatLogic.setState(ChatLogic.MessageState.EDIT);
     }
 
     public void handleDeleteButton(ActionEvent actionEvent) {
@@ -362,9 +368,9 @@ public class UserChatController extends AbstractTabController implements Observe
                 .removeMessage(
                         messageHBoxBijection.preimageOf(
                                 hBoxMessageLabelBijection.preimageOf(
-                                        messageLogic.getSelectedLabel()))
+                                        chatLogic.getSelectedLabel()))
                         .getId());
-        messageLogic.deselectLabel();
+        chatLogic.deselectLabel();
     }
 
     @Override
@@ -386,13 +392,22 @@ public class UserChatController extends AbstractTabController implements Observe
                 MessageChangeEvent messageChangeEvent = (MessageChangeEvent) event;
                 switch(messageChangeEvent.getChangeEventType()) {
                     case ADD:
+                        User sender = messageChangeEvent.getNewData().getFrom();
                         if (messageChangeEvent.getNewData().belongsToConversation(user, receptor)) {
                             reloadChat(receptor);
                             chatListView.scrollTo(chatListView.getItems().size());
                         }
                         else if (messageChangeEvent.getNewData().getTo().contains(user) &&
-                                !receptorsModel.contains(messageChangeEvent.getNewData().getFrom())) {
-                            addReceptor(messageChangeEvent.getNewData().getFrom());
+                                !receptorsModel.contains(sender)) {
+                            addReceptor(sender);
+                        }
+
+                        if (sender.equals(user)) {
+                            messageChangeEvent.getNewData().getTo().forEach(receptor -> {
+                                if (!receptorsModel.contains(receptor)) {
+                                    addReceptor(receptor);
+                                }
+                            });
                         }
                         break;
                     case UPDATE:
@@ -437,8 +452,11 @@ public class UserChatController extends AbstractTabController implements Observe
             stage.setScene(scene);
 
             ShareToUsersController shareToUsersController = userPerspectiveLoader.getController();
-            shareToUsersController.setContent(buildContainer, user, receptor, messageLogic,
-                    textAreaMessage, messageHBoxBijection, hBoxMessageLabelBijection, stage);
+            shareToUsersController.setContent(buildContainer, user, receptor, chatLogic,
+                    textAreaMessage, messageHBoxBijection.preimageOf(
+                            hBoxMessageLabelBijection.preimageOf(
+                                    chatLogic.getSelectedLabel())),
+                    stage);
 
             stage.show();
         } catch (IOException e) {

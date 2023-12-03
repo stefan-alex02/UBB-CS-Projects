@@ -83,21 +83,21 @@
 /* ------------------------------------------------------------------------------------ */
 /* User list styling */
 .user-list-view {
-    -fx-background-color: linear-gradient(to bottom right, #e1ccd6 0%, #d3c2d7 50%, #c4c5d9 100%);
+    -fx-background-color: linear-gradient(to bottom right, #e1a5d9 0%, #c1a0d5 50%, #acb5d7 100%);
 }
 
 .user-list-cell:filled {
-    -fx-background-color: #d2b8d9;
-    -fx-text-fill: white;
+    -fx-background-color: #c3bfd5;
+    -fx-text-fill: black;
 }
 
 .user-list-cell:filled:hover {
-    -fx-background-color: #c88bd9;
+    -fx-background-color: #8c7fad;
     -fx-text-fill: white;
 }
 
 .user-list-cell:filled:selected {
-    -fx-background-color: linear-gradient(#d9768d 0%, #9c72c4 50%, #7482bb 100%);
+    -fx-background-color: linear-gradient(#a976d9 0%, #8772c4 50%, #7482bb 100%);
     -fx-text-fill: white;
     -fx-font-weight: 700;
 }
@@ -122,7 +122,7 @@
 }
 
 .chat-list-view.list-view {
-    -fx-background-color: linear-gradient(to bottom right, #daacc1 0%, #d2acda 50%, #acb0da 100%);
+    -fx-background-color: linear-gradient(to bottom right, #d995d6 0%, #b696da 50%, #8c9ad9 100%);
 }
 
 /* ------------------------------------------------------------------------------------ */
@@ -157,6 +157,11 @@
 .selected-chat-receptor-message.label {
     -fx-border-color: #916958;
     -fx-background-color: #de9b8c;
+}
+
+.external-replied-message.label {
+    -fx-border-color: #868686;
+    -fx-background-color: #d9d9d9;
 }
 
 .icon-label {

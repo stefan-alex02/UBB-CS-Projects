@@ -1,15 +1,18 @@
 package ir.map.g221.guisocialnetwork.controllers.guiutils;
 
+import ir.map.g221.guisocialnetwork.domain.entities.Message;
 import ir.map.g221.guisocialnetwork.domain.entities.User;
+import ir.map.g221.guisocialnetwork.utils.generictypes.Bijection;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.layout.HBox;
 
-public class MessageLogic {
-    public enum State {
+public class ChatLogic {
+    public enum MessageState {
         UNSELECTED, SELECTED, EDIT, REPLY;
     }
-    private State state;
+    private MessageState messageState;
     private final User user;
     private Button buttonSend;
     private Button buttonReply;
@@ -17,12 +20,15 @@ public class MessageLogic {
     private Button buttonDelete;
     private Button buttonShare;
     private TextArea textArea;
+    private final Bijection<Message, HBox> messageHBoxBijection;
+    private final Bijection<HBox, MessageLabel> hBoxMessageLabelBijection;
     private MessageLabel selectedLabel;
 
-    public MessageLogic(User user, Button buttonSend, Button buttonReply,
-                        Button buttonEdit, Button buttonDelete,
-                        Button buttonShare,
-                        TextArea textArea) {
+    public ChatLogic(User user, Button buttonSend, Button buttonReply,
+                     Button buttonEdit, Button buttonDelete,
+                     Button buttonShare,
+                     TextArea textArea, Bijection<Message, HBox> messageHBoxBijection,
+                     Bijection<HBox, MessageLabel> hBoxMessageLabelBijection) {
         this.user = user;
         this.buttonSend = buttonSend;
         this.buttonReply = buttonReply;
@@ -30,16 +36,18 @@ public class MessageLogic {
         this.buttonDelete = buttonDelete;
         this.buttonShare = buttonShare;
         this.textArea = textArea;
+        this.messageHBoxBijection = messageHBoxBijection;
+        this.hBoxMessageLabelBijection = hBoxMessageLabelBijection;
         this.selectedLabel = null;
-        setState(State.UNSELECTED);
+        setState(MessageState.UNSELECTED);
     }
 
-    public State getState() {
-        return state;
+    public MessageState getState() {
+        return messageState;
     }
 
-    public void setState(State state) {
-        switch(state) {
+    public void setState(MessageState messageState) {
+        switch(messageState) {
             case UNSELECTED:
                 buttonReply.setDisable(true);
                 buttonEdit.setDisable(true);
@@ -72,18 +80,22 @@ public class MessageLogic {
                 buttonDelete.setDisable(false);
                 buttonShare.setDisable(false);
                 textArea.setDisable(false);
-                if (this.state == State.EDIT) {
+                if (this.messageState == MessageState.EDIT) {
                     textArea.setText("");
                 }
                 buttonSend.setText("Reply");
                 break;
             default:;
         }
-        if (selectedLabel != null && !selectedLabel.getMessage().getFrom().equals(user)) {
+        if (selectedLabel != null &&
+                !messageHBoxBijection.preimageOf(
+                        hBoxMessageLabelBijection.preimageOf(selectedLabel))
+                        .getFrom()
+                        .equals(user)) {
             buttonEdit.setDisable(true);
             buttonDelete.setDisable(true);
         }
-        this.state = state;
+        this.messageState = messageState;
     }
 
     public MessageLabel getSelectedLabel() {
@@ -97,7 +109,7 @@ public class MessageLogic {
             }
             label.setSelectedStyle();
             this.selectedLabel = label;
-            setState(State.SELECTED);
+            setState(MessageState.SELECTED);
         }
     }
 
@@ -106,7 +118,7 @@ public class MessageLogic {
             this.selectedLabel.setUnselectedStyle();
         }
         this.selectedLabel = null;
-        setState(State.UNSELECTED);
+        setState(MessageState.UNSELECTED);
     }
 
     public boolean isSelected(Label label) {
