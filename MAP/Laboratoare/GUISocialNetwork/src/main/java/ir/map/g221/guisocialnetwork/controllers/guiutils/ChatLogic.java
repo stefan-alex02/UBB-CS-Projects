@@ -10,7 +10,7 @@ import javafx.scene.layout.HBox;
 
 public class ChatLogic {
     public enum MessageState {
-        UNSELECTED, SELECTED, EDIT, REPLY;
+        UNSELECTED, SELECTED, EDIT, REPLY, CLOSED;
     }
     private MessageState messageState;
     private final User user;
@@ -47,7 +47,20 @@ public class ChatLogic {
     }
 
     public void setState(MessageState messageState) {
+        if (this.messageState == MessageState.EDIT) {
+            textArea.setText("");
+        }
         switch(messageState) {
+            case CLOSED:
+                buttonReply.setDisable(true);
+                buttonEdit.setDisable(true);
+                buttonDelete.setDisable(true);
+                buttonShare.setDisable(false);
+                textArea.setDisable(false);
+                buttonSend.setDisable(true);
+                buttonSend.setText("Send");
+                textArea.setText("");
+                break;
             case UNSELECTED:
                 buttonReply.setDisable(true);
                 buttonEdit.setDisable(true);
@@ -55,7 +68,6 @@ public class ChatLogic {
                 buttonShare.setDisable(false);
                 textArea.setDisable(false);
                 buttonSend.setText("Send");
-                textArea.setText("");
                 break;
             case SELECTED:
                 buttonReply.setDisable(false);
@@ -80,18 +92,11 @@ public class ChatLogic {
                 buttonDelete.setDisable(false);
                 buttonShare.setDisable(false);
                 textArea.setDisable(false);
-                if (this.messageState == MessageState.EDIT) {
-                    textArea.setText("");
-                }
                 buttonSend.setText("Reply");
                 break;
             default:;
         }
-        if (selectedLabel != null &&
-                !messageHBoxBijection.preimageOf(
-                        hBoxMessageLabelBijection.preimageOf(selectedLabel))
-                        .getFrom()
-                        .equals(user)) {
+        if (selectedLabel != null && !getSelectedMessage().getFrom().equals(user)) {
             buttonEdit.setDisable(true);
             buttonDelete.setDisable(true);
         }
@@ -100,6 +105,11 @@ public class ChatLogic {
 
     public MessageLabel getSelectedLabel() {
         return selectedLabel;
+    }
+
+    public Message getSelectedMessage() {
+        return messageHBoxBijection.preimageOf(
+                hBoxMessageLabelBijection.preimageOf(selectedLabel));
     }
 
     public void setSelectedLabel(MessageLabel label) {
@@ -125,4 +135,11 @@ public class ChatLogic {
         return label.equals(selectedLabel);
     }
 
+    public void closeChat() {
+        if (this.selectedLabel != null) {
+            this.selectedLabel.setUnselectedStyle();
+        }
+        this.selectedLabel = null;
+        setState(MessageState.CLOSED);
+    }
 }

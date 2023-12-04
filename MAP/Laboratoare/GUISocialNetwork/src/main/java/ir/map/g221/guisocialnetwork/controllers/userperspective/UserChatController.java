@@ -18,7 +18,6 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -52,26 +51,21 @@ public class UserChatController extends AbstractTabController implements Observe
 
     EventHandler<MessageChangeEvent> messageNotificationHandler =
             e -> {
-                switch (e.getChangeEventType()) {
-                    case ADD :
-                        if (e.getNewData().getTo().contains(user)) {
-
-                            if (isSelected() && e.getNewData().belongsToConversation(user, receptor)) {
-                                NotificationAlerter.playSound(SoundFile.MESSAGE_SOUND_2);
-                            }
-                            else {
-                                NotificationAlerter.playSound(SoundFile.MESSAGE_SOUND_1);
-                                if (!isSelected()) {
-                                    NotificationAlerter.displayNotification("New message",
-                                            "New message from " +
-                                                    e.getNewData().getFrom().getFirstName() + " " +
-                                                    e.getNewData().getFrom().getLastName(),
-                                            Image.MESSAGE);
-                                }
+                if (Objects.requireNonNull(e.getChangeEventType()) == ChangeEventType.ADD) {
+                    if (e.getNewData().getTo().contains(user)) {
+                        if (isSelected() && e.getNewData().belongsToConversation(user, receptor)) {
+                            NotificationAlerter.playSound(SoundFile.MESSAGE_SOUND_2);
+                        } else {
+                            NotificationAlerter.playSound(SoundFile.MESSAGE_SOUND_1);
+                            if (!isSelected()) {
+                                NotificationAlerter.displayNotification("New message",
+                                        "New message from " +
+                                                e.getNewData().getFrom().getFirstName() + " " +
+                                                e.getNewData().getFrom().getLastName(),
+                                        Image.MESSAGE);
                             }
                         }
-                        break;
-                    default:;
+                    }
                 }
             };
 
@@ -118,10 +112,6 @@ public class UserChatController extends AbstractTabController implements Observe
                 };
             }
         });
-//        chatListView.getSelectionModel().selectedItemProperty().addListener(
-//                (obs, oldSelection, newSelection) -> {
-//            hBoxMessageLabelBijection.imageOf(newSelection).onMouseClicked();
-//        });
         buttonReply.setGraphic(Image.REPLY.createImageView());
         buttonEdit.setGraphic(Image.EDIT.createImageView());
         buttonDelete.setGraphic(Image.DELETE.createImageView());
@@ -147,8 +137,6 @@ public class UserChatController extends AbstractTabController implements Observe
         if (!receptorsModel.contains(user)) {
             receptorsModel.add(user);
         }
-//        userListView.refresh();
-        /// TODO test adding a new conversation by sending a message from new friend
     }
 
     private void removeReceptor(User receptor) {
@@ -186,42 +174,10 @@ public class UserChatController extends AbstractTabController implements Observe
     private void closeChat() {
         messageHBoxBijection.clear();
         hBoxMessageLabelBijection.clear();
-
         messageHBoxes.clear();
-        chatLogic.deselectLabel();
-        textAreaMessage.setText("");
         receptor = null;
-        textAreaMessage.setDisable(true);
-        buttonSend.setDisable(true);
-        buttonShare.setDisable(true);
-    }
 
-    private void addMessage(Message message) {
-        /// TODO apply these functions after modifying the repository save() return logic
-        messageHBoxBijection.putPair(message, createHBoxWithMessage(message));
-        messageHBoxes.add(messageHBoxBijection.imageOf(message));
-    }
-
-    private void updateMessage(Message oldMessage, Message newMessage) {
-        /// TODO apply these functions after modifying the repository save() return logic
-        HBox oldHBox = messageHBoxBijection.imageOf(oldMessage);
-        int messageIndex = messageHBoxes.indexOf(oldHBox);
-
-        hBoxMessageLabelBijection.removePairOfX(oldHBox);
-        messageHBoxBijection.removePairOfX(oldMessage);
-        messageHBoxBijection.putPair(newMessage, createHBoxWithMessage(newMessage));
-
-        messageHBoxes.set(messageIndex, messageHBoxBijection.imageOf(newMessage));
-    }
-
-    private void removeMessage(Message message) {
-        /// TODO apply these functions after modifying the repository save() return logic
-        HBox deletedHBox = messageHBoxBijection.imageOf(message);
-
-        hBoxMessageLabelBijection.removePairOfX(deletedHBox);
-        messageHBoxBijection.removePairOfX(message);
-
-        messageHBoxes.remove(deletedHBox);
+        chatLogic.closeChat();
     }
 
     @NotNull
@@ -239,8 +195,6 @@ public class UserChatController extends AbstractTabController implements Observe
         }
         label.setWrapText(true);
         label.setMaxWidth(200);
-//                        label.setPrefWidth(100); // Set an initial preferred width
-//                        label.setMinWidth(Region.USE_PREF_SIZE);
 
         return label;
     }
@@ -266,10 +220,10 @@ public class UserChatController extends AbstractTabController implements Observe
             label.setOnMouseClicked(event -> {
                 System.out.println("Replied message clicked : " + replyMessage.getMessage());
 
-                HBox hboxReplied = messageHBoxBijection.imageOf(replyMessage.getMessageRepliedTo());
-                if (hboxReplied != null) {
-                    chatListView.scrollTo(hboxReplied);
-                    chatLogic.setSelectedLabel(hBoxMessageLabelBijection.imageOf(hboxReplied));
+                HBox hBoxReplied = messageHBoxBijection.imageOf(replyMessage.getMessageRepliedTo());
+                if (hBoxReplied != null) {
+                    chatListView.scrollTo(hBoxReplied);
+                    chatLogic.setSelectedLabel(hBoxMessageLabelBijection.imageOf(hBoxReplied));
                 }
             });
         }
@@ -288,25 +242,25 @@ public class UserChatController extends AbstractTabController implements Observe
 
         HBox hBox;
         if (message instanceof ReplyMessage) {
-            ImageView replyToIcon = Image.REPLY_TO_ICON.createImageView();
             Label labelReplyToIcon = new Label();
             labelReplyToIcon.getStyleClass().add("icon-label");
-            labelReplyToIcon.setGraphic(replyToIcon);
+            labelReplyToIcon.setGraphic(Image.REPLY_TO_ICON.createImageView());
 
             if (message.getFrom().equals(user)) {
                 hBox = new HBox(createRepliedMessageLabelFrom((ReplyMessage)message), labelReplyToIcon, messageLabel);
             }
             else {
-                replyToIcon.setScaleX(-1);
+                labelReplyToIcon.getGraphic().setScaleX(-1);
                 hBox = new HBox(messageLabel, labelReplyToIcon, createRepliedMessageLabelFrom((ReplyMessage)message));
             }
         }
         else {
             hBox = new HBox(messageLabel);
         }
+        hBox.setSpacing(10);
+
         hBoxMessageLabelBijection.putPair(hBox, messageLabel);
 
-        hBox.setSpacing(10);
         if (message.getFrom().equals(user)) {
             hBox.setAlignment(Pos.CENTER_RIGHT);
             hBox.setPadding(new Insets(3, 0, 3, 30));
@@ -321,7 +275,6 @@ public class UserChatController extends AbstractTabController implements Observe
 
     @FXML public void handleSendMessageButton(ActionEvent actionEvent) {
         try {
-            Message selectedMessage;
             switch(chatLogic.getState()) {
                 case SELECTED:
                 case UNSELECTED:
@@ -331,24 +284,18 @@ public class UserChatController extends AbstractTabController implements Observe
                                     textAreaMessage.getText());
                     break;
                 case EDIT:
-                    selectedMessage = messageHBoxBijection.preimageOf(
-                            hBoxMessageLabelBijection.preimageOf(
-                                    chatLogic.getSelectedLabel()));
                     buildContainer.getMessageService()
                             .editMessage(
-                                    selectedMessage.getId(),
+                                    chatLogic.getSelectedMessage().getId(),
                                     textAreaMessage.getText());
                     break;
                 case REPLY:
-                    selectedMessage = messageHBoxBijection.preimageOf(
-                            hBoxMessageLabelBijection.preimageOf(
-                                    chatLogic.getSelectedLabel()));
                     buildContainer.getMessageService()
                             .sendReplyMessageNow(
                                 user.getId(),
                                 List.of(receptor.getId()),
                                 textAreaMessage.getText(),
-                                selectedMessage.getId());
+                                    chatLogic.getSelectedMessage().getId());
                     break;
                 default:;
             }
