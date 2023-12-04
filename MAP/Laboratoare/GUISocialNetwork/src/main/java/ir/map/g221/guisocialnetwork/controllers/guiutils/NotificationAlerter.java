@@ -9,7 +9,7 @@ public class NotificationAlerter {
     public static void playSound(SoundFile soundFile) {
         Media pick = new Media(soundFile.getFilePath());
         MediaPlayer player = new MediaPlayer(pick);
-        player.setVolume(0.2);
+        player.setVolume(soundFile.getIntensity());
 
         player.play();
     }
