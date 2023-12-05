@@ -11,6 +11,7 @@
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                     <TableView fx:id="tableView" minHeight="-Infinity" minWidth="-Infinity" prefHeight="381.0" prefWidth="663.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                         <columns>
+                            <TableColumn styleClass="user-table-column" fx:id="tableColumnUsername" prefWidth="75.0" text="Username" />
                             <TableColumn styleClass="user-table-column" fx:id="tableColumnFirstName" prefWidth="75.0" text="First name" />
                             <TableColumn styleClass="user-table-column" fx:id="tableColumnLastName" prefWidth="75.0" text="Last name" />
                         </columns>

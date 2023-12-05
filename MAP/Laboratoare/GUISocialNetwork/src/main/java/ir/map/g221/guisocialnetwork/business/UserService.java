@@ -1,5 +1,6 @@
 package ir.map.g221.guisocialnetwork.business;
 
+import ir.map.g221.guisocialnetwork.domain.PasswordEncoder;
 import ir.map.g221.guisocialnetwork.exceptions.NotFoundException;
 import ir.map.g221.guisocialnetwork.exceptions.ValidationException;
 import ir.map.g221.guisocialnetwork.persistence.Repository;
@@ -24,14 +25,14 @@ public class UserService implements Observable {
     private final Set<Observer> observers;
 
     public UserService(Repository<Long, User> userRepository,
-                       Repository<UnorderedPair<Long, Long>, Friendship> friendshipRepository) {
+                       Repository<UnorderedPair<Long, Long>, Friendship> friendshipRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.friendshipRepository = friendshipRepository;
         this.observers = Collections.newSetFromMap(new ConcurrentHashMap<>(0));
     }
 
-    public void addUser(String firstName, String lastName) throws ValidationException {
-        User userToAdd = new User(firstName, lastName);
+    public void addUser(String username, String firstName, String lastName, String password) throws ValidationException {
+        User userToAdd = new User(username, firstName, lastName, password);
         if (userRepository.save(userToAdd).isEmpty()) {
             notifyObservers(UserChangeEvent.ofNewData(ChangeEventType.ADD, userToAdd));
         }
@@ -45,9 +46,9 @@ public class UserService implements Observable {
                 );
     }
 
-    public void updateUser(Long id, String firstName, String lastName) {
+    public void updateUser(Long id, String username, String firstName, String lastName, String password) {
         User oldUser = getUser(id);
-        User updatedUser = new User(id, firstName, lastName);
+        User updatedUser = new User(id, username, firstName, lastName, password);
         userRepository.update(updatedUser).ifPresentOrElse(
                 u -> {
                     throw new RuntimeException("Error while trying to update user.");

@@ -27,12 +27,23 @@ public class UserValidator implements Validator<User>{
             errors.add("Id must not be a negative number.");
         }
 
+        if (entity.getUsername().isEmpty()) {
+            errors.add("Username must not be empty.");
+        }
+
         if (entity.getFirstName().isEmpty()) {
             errors.add("First name must not be empty.");
         }
 
         if (entity.getLastName().isEmpty()) {
             errors.add("Last name must not be empty.");
+        }
+
+        if (entity.getPassword().isEmpty()) {
+            errors.add("Password must not be empty.");
+        }
+        else if (entity.getPassword().length() < 6) {
+            errors.add("Password is too weak.");
         }
 
         return errors;

@@ -68,6 +68,7 @@ public class ChatLogic {
                 buttonShare.setDisable(false);
                 textArea.setDisable(false);
                 buttonSend.setText("Send");
+                textArea.setText("");
                 break;
             case SELECTED:
                 buttonReply.setDisable(false);

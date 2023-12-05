@@ -32,6 +32,8 @@ public class UserController implements Observer {
     @FXML
     TableView<User> tableView;
     @FXML
+    TableColumn<User, String> tableColumnUsername;
+    @FXML
     TableColumn<User, String> tableColumnFirstName;
     @FXML
     TableColumn<User, String> tableColumnLastName;
@@ -77,6 +79,7 @@ public class UserController implements Observer {
             return row;
             }
         );
+        tableColumnUsername.setCellValueFactory(new PropertyValueFactory<>("username"));
         tableColumnFirstName.setCellValueFactory(new PropertyValueFactory<>("firstName"));
         tableColumnLastName.setCellValueFactory(new PropertyValueFactory<>("lastName"));
         tableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);

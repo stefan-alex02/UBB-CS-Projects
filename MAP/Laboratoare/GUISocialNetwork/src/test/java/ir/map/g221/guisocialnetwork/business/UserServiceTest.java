@@ -1,5 +1,6 @@
 package ir.map.g221.guisocialnetwork.business;
 
+import ir.map.g221.guisocialnetwork.domain.PasswordEncoder;
 import ir.map.g221.guisocialnetwork.domain.validation.FriendshipValidator;
 import ir.map.g221.guisocialnetwork.domain.validation.UserValidator;
 import ir.map.g221.guisocialnetwork.exceptions.NotFoundException;
@@ -99,7 +100,7 @@ class UserServiceTest {
     }
 
     private static UserService createUserService() {
-        return new UserService(userRepo, friendshipRepo);
+        return new UserService(userRepo, friendshipRepo, PasswordEncoder.getInstance());
     }
 
     private static FriendshipService createFriendshipService() {
@@ -107,9 +108,9 @@ class UserServiceTest {
     }
 
     private static void addSampleUsers(UserService userService) {
-        userService.addUser("fn1", "ln1");
-        userService.addUser("fn2", "ln2");
-        userService.addUser("fn3", "ln3");
+        userService.addUser("usr1", "fn1", "ln1", "pass1");
+        userService.addUser("usr2", "fn2", "ln2", "pass2");
+        userService.addUser("usr3", "fn3", "ln3", "pass3");
     }
 
     private static void addSampleFriendships(FriendshipService friendshipService) {

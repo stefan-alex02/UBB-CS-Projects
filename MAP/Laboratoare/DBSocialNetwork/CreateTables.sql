@@ -17,9 +17,12 @@ DROP TABLE IF EXISTS public.users;
 CREATE TABLE IF NOT EXISTS public.users
 (
     id bigint NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 9223372036854775807 CACHE 1 ),
-    first_name character varying COLLATE pg_catalog."default",
+    username character varying NOT NULL,
+	first_name character varying COLLATE pg_catalog."default",
     last_name character varying COLLATE pg_catalog."default",
-    CONSTRAINT users_pkey PRIMARY KEY (id)
+	password character varying NOT NULL,
+    CONSTRAINT users_pkey PRIMARY KEY (id),
+	CONSTRAINT username_unique UNIQUE (username)
 )
 
 TABLESPACE pg_default;

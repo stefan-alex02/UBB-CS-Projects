@@ -26,14 +26,6 @@ public class Message extends Entity<Long> {
         this.date = date;
     }
 
-    public Message(Long aLong, User from, String message, LocalDateTime date) {
-        super(aLong);
-        this.from = from;
-        this.to = null;
-        this.message = message;
-        this.date = date;
-    }
-
     public Message copyOf() {
         return new Message(id, from, to, message, date);
     }

@@ -2,6 +2,7 @@ package ir.map.g221.guisocialnetwork.persistence.dbrepos;
 
 import ir.map.g221.guisocialnetwork.domain.entities.*;
 import ir.map.g221.guisocialnetwork.domain.validation.Validator;
+import ir.map.g221.guisocialnetwork.persistence.DatabaseConnection;
 import ir.map.g221.guisocialnetwork.persistence.Repository;
 import org.jetbrains.annotations.NotNull;
 
@@ -12,15 +13,11 @@ import java.util.Optional;
 import java.util.Set;
 
 public class FriendRequestDBRepository implements Repository<Long, FriendRequest> {
-    private final String url;
-    private final String username;
-    private final String password;
     private final Validator<FriendRequest> validator;
+    private final DatabaseConnection databaseConnection;
 
-    public FriendRequestDBRepository(String url, String username, String password, Validator<FriendRequest> validator) {
-        this.url = url;
-        this.username = username;
-        this.password = password;
+    public FriendRequestDBRepository(DatabaseConnection databaseConnection, Validator<FriendRequest> validator) {
+        this.databaseConnection = databaseConnection;
         this.validator = validator;
     }
 
@@ -28,14 +25,20 @@ public class FriendRequestDBRepository implements Repository<Long, FriendRequest
         Long id = resultSet.getLong("id");
 
         Long fromUserId = resultSet.getLong("from_id");
+        String fromUserUsername = resultSet.getString("from_username");
         String fromUserFirstName = resultSet.getString("from_first_name");
         String fromUserLastName = resultSet.getString("from_last_name");
-        User fromUser = new User(fromUserId, fromUserFirstName, fromUserLastName);
+        String fromUserPassword = resultSet.getString("from_password");
+        User fromUser = new User(fromUserId, fromUserUsername,
+                fromUserFirstName, fromUserLastName, fromUserPassword);
 
         Long toUserId = resultSet.getLong("to_id");
+        String toUserUsername = resultSet.getString("to_username");
         String toUserFirstName = resultSet.getString("to_first_name");
         String toUserLastName = resultSet.getString("to_last_name");
-        User toUser = new User(toUserId, toUserFirstName, toUserLastName);
+        String toUserPassword = resultSet.getString("to_password");
+        User toUser = new User(toUserId, toUserUsername,
+                toUserFirstName, toUserLastName, toUserPassword);
 
         FriendRequestStatus status = FriendRequestStatus.valueOf(resultSet.getString("status"));
         LocalDateTime date = resultSet.getTimestamp("date").toLocalDateTime();
@@ -49,18 +52,23 @@ public class FriendRequestDBRepository implements Repository<Long, FriendRequest
             throw new IllegalArgumentException("Id cannot be null");
         }
 
-        try(Connection connection = DriverManager.getConnection(url, username, password);
+        try {
+            Connection connection = databaseConnection.getConnection();
             PreparedStatement statement = connection.prepareStatement(
                     "SELECT FR.id, FR.from_id, " +
+                            "UFrom.username as from_username, " +
                             "UFrom.first_name as from_first_name, UFrom.last_name as from_last_name, " +
+                            "UFrom.password as from_password, " +
                             "FR.to_id,  " +
+                            "UTo.username as to_username, " +
                             "UTo.first_name as to_first_name, UTo.last_name as to_last_name, " +
+                            "Uto.password as to_password, " +
                             "FR.status, FR.date " +
                             "FROM friend_requests FR " +
                             "INNER JOIN users UFrom ON UFrom.id = FR.from_id " +
                             "INNER JOIN users UTo ON UTo.id = FR.to_id " +
-                            "WHERE FR.id = ?")
-        ) {
+                            "WHERE FR.id = ?");
+
             statement.setLong(1, aLong);
 
             ResultSet resultSet = statement.executeQuery();
@@ -76,17 +84,22 @@ public class FriendRequestDBRepository implements Repository<Long, FriendRequest
 
     @Override
     public Iterable<FriendRequest> findAll() {
-        try (Connection connection = DriverManager.getConnection(url, username, password);
-             PreparedStatement statement = connection.prepareStatement(
+        try {
+            Connection connection = databaseConnection.getConnection();
+            PreparedStatement statement = connection.prepareStatement(
                      "SELECT FR.id, FR.from_id, " +
+                             "UFrom.username as from_username, " +
                              "UFrom.first_name as from_first_name, UFrom.last_name as from_last_name, " +
+                             "UFrom.password as from_password, " +
                              "FR.to_id,  " +
+                             "UTo.username as to_username, " +
                              "UTo.first_name as to_first_name, UTo.last_name as to_last_name, " +
+                             "Uto.password as to_password, " +
                              "FR.status, FR.date " +
                              "FROM friend_requests FR " +
                              "INNER JOIN users UFrom ON UFrom.id = FR.from_id " +
                              "INNER JOIN users UTo ON UTo.id = FR.to_id ");
-        ) {
+
             ResultSet resultSet = statement.executeQuery();
 
             Set<FriendRequest> friendRequests = new HashSet<>();
@@ -104,10 +117,11 @@ public class FriendRequestDBRepository implements Repository<Long, FriendRequest
 
     @Override
     public Integer getSize() {
-        try (Connection connection = DriverManager.getConnection(url, username, password);
-             PreparedStatement statement = connection.prepareStatement(
-                     "select COUNT(*) AS FRIEND_REQUEST_COUNT from friend_requests")
-        ) {
+        try {
+            Connection connection = databaseConnection.getConnection();
+            PreparedStatement statement = connection.prepareStatement(
+                     "select COUNT(*) AS FRIEND_REQUEST_COUNT from friend_requests");
+
             ResultSet resultSet = statement.executeQuery();
             return resultSet.next() ? resultSet.getInt("FRIEND_REQUEST_COUNT") : 0;
         } catch (SQLException e) {
@@ -122,11 +136,12 @@ public class FriendRequestDBRepository implements Repository<Long, FriendRequest
         }
         validator.validate(entity);
 
-        try (var connection = DriverManager.getConnection(url, username, password);
-             PreparedStatement statement=connection.prepareStatement(
+        try {
+            Connection connection = databaseConnection.getConnection();
+            PreparedStatement statement=connection.prepareStatement(
                      "INSERT INTO friend_requests(from_id, to_id, status, date) " +
-                             "VALUES (?,?,?,?)"))
-        {
+                             "VALUES (?,?,?,?)");
+
             statement.setLong(1, entity.getFrom().getId());
             statement.setLong(2, entity.getTo().getId());
             statement.setString(3, entity.getStatus().name());
@@ -146,11 +161,12 @@ public class FriendRequestDBRepository implements Repository<Long, FriendRequest
             throw new IllegalArgumentException("Id cannot be null");
         }
 
-        try (var connection = DriverManager.getConnection(url, username, password);
-             PreparedStatement statement = connection.prepareStatement(
+        try {
+            Connection connection = databaseConnection.getConnection();
+            PreparedStatement statement = connection.prepareStatement(
                      "DELETE FROM friend_requests FR " +
-                             "WHERE FR.id = ?")
-        ) {
+                             "WHERE FR.id = ?");
+
             statement.setLong(1, aLong);
 
             Optional<FriendRequest> foundFriendRequest = findOne(aLong);
@@ -168,17 +184,18 @@ public class FriendRequestDBRepository implements Repository<Long, FriendRequest
 
     @Override
     public Optional<FriendRequest> update(FriendRequest entity) {
-        if(entity == null) {
+        if (entity == null) {
             throw new IllegalArgumentException("Entity cannot be null!");
         }
         validator.validate(entity);
 
-        try(var connection = DriverManager.getConnection(url, username, password);
+        try {
+            Connection connection = databaseConnection.getConnection();
             PreparedStatement statement = connection.prepareStatement(
                     "UPDATE friend_requests " +
                             "SET from_id = ?, to_id = ?, status = ?, date = ? " +
-                            "WHERE id = ?")
-        ) {
+                            "WHERE id = ?");
+
             statement.setLong(1, entity.getFrom().getId());
             statement.setLong(2, entity.getTo().getId());
             statement.setString(3, entity.getStatus().name());

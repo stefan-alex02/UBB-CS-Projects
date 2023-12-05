@@ -7,22 +7,36 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 public class User extends Entity<Long> {
+    private final String username;
     private String firstName;
     private String lastName;
+    private final String password;
     private final Set<User> friends = new HashSet<>();
 
-    public User(Long Id, String firstName, String lastName) {
+    public User(Long Id, String username, String firstName, String lastName, String password) {
         super(Id);
 
+        this.username = username;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.password = password;
     }
 
-    public User(String firstName, String lastName) {
+    public User(String username, String firstName, String lastName, String password) {
         super(0L);
 
+        this.username = username;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.password = password;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getPassword() {
+        return password;
     }
 
     public String getFirstName() {
@@ -69,6 +83,7 @@ public class User extends Entity<Long> {
     @Override
     public String toString() {
         return "ID : " + id + " | " +
+                "Username: " + username + " | " +
                 "First name : '" + firstName + "' | " +
                 "Last name : '" + lastName;
     }

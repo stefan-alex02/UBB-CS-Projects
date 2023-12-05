@@ -11,9 +11,9 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.time.YearMonth;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.io.Console;
 
 public class UserConsole implements UserInterface{
     private final UserService userService;
@@ -40,13 +40,19 @@ public class UserConsole implements UserInterface{
         BufferedReader reader = new BufferedReader(
                 new InputStreamReader(System.in));
 
+        System.out.print("> Type username: ");
+        String username = reader.readLine();
+
         System.out.print("> Type first name: ");
         String firstName = reader.readLine();
 
         System.out.print("> Type last name: ");
         String lastName = reader.readLine();
 
-        userService.addUser(firstName, lastName);
+        System.out.print("> Type password: ");
+        String password = reader.readLine();
+
+        userService.addUser(username, firstName, lastName, password);
 
         System.out.println("User added successfully.\n");
     }
@@ -360,10 +366,10 @@ public class UserConsole implements UserInterface{
                 }
             }
             catch(ValidationException ve) {
-                System.out.println("Validation Error:\n" + ve.getMessage() + "\n");
+                System.err.println("Validation Error:\n" + ve.getMessage() + "\n");
             }
             catch(Exception e) {
-                System.out.println("There has been an error:\n" + e.getMessage() + "\n");
+                System.err.println("There has been an error:\n" + e.getMessage() + "\n");
             }
         }
     }

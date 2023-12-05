@@ -1,9 +1,13 @@
 package ir.map.g221.guisocialnetwork.factory;
 
 import ir.map.g221.guisocialnetwork.business.*;
+import ir.map.g221.guisocialnetwork.persistence.DatabaseConnection;
 import ir.map.g221.guisocialnetwork.ui.UserInterface;
 
+import java.sql.SQLException;
+
 public class BuildContainer {
+    private final DatabaseConnection databaseConnection;
     private final UserService userService;
     private final FriendshipService friendshipService;
     private final MessageService messageService;
@@ -13,13 +17,15 @@ public class BuildContainer {
 
     private final SampleGenerator sampleGenerator;
 
-    public BuildContainer(UserService userService,
+    public BuildContainer(DatabaseConnection databaseConnection,
+                          UserService userService,
                           FriendshipService friendshipService,
                           MessageService messageService,
                           FriendRequestService friendRequestService,
                           CommunityHandler communityHandler,
                           UserInterface ui,
                           SampleGenerator sampleGenerator) {
+        this.databaseConnection = databaseConnection;
         this.userService = userService;
         this.friendshipService = friendshipService;
         this.messageService = messageService;
@@ -55,5 +61,13 @@ public class BuildContainer {
 
     public CommunityHandler getCommunityHandler() {
         return communityHandler;
+    }
+
+    public void closeSQLConnection() throws SQLException {
+        databaseConnection.closeConnection();
+    }
+
+    public DatabaseConnection getDatabaseConnection() {
+        return databaseConnection;
     }
 }

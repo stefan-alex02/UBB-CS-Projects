@@ -1,8 +1,8 @@
-INSERT INTO users(first_name, last_name) VALUES
-	('firstName1', 'lastName1'),
-	('firstName2', 'lastName2'),
-	('firstName3', 'lastName3'),
-	('firstName4', 'lastName4');
+INSERT INTO users(username, first_name, last_name, password) VALUES
+	('username1', 'firstName1', 'lastName1', '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8'),
+	('username2', 'firstName2', 'lastName2', '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8'),
+	('username3', 'firstName3', 'lastName3', '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8'),
+	('username4', 'firstName4', 'lastName4', '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8');
 
 -- INSERT INTO friendships(id1, id2, friends_from) VALUES
 -- 	(1, 2, '20230101'),
