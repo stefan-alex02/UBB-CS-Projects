@@ -32,16 +32,16 @@
 }
 /* ------------------------------------------------------------------------------------ */
 .red-button {
-    -fx-background-color: #d7a696;
-    -fx-border-color: #8a665b;
+    -fx-background-color: #d79696;
+    -fx-border-color: #8a5b5b;
 }
 .red-button.button:hover {
-    -fx-background-color: #ea7656;
-    -fx-border-color: #a64f38;
+    -fx-background-color: #ea5656;
+    -fx-border-color: #a63838;
 }
 .red-button.button:pressed {
-    -fx-background-color: #ab8375;
-    -fx-border-color: #564136;
+    -fx-background-color: #ab7575;
+    -fx-border-color: #563636;
 }
 /* ------------------------------------------------------------------------------------ */
 .blue-button {
@@ -68,6 +68,19 @@
 .yellow-button.button:pressed {
     -fx-background-color: #9d8e4e;
     -fx-border-color: #4d4625;
+}
+/* ------------------------------------------------------------------------------------ */
+.orange-button {
+    -fx-background-color: #daae8a;
+    -fx-border-color: #886857;
+}
+.orange-button.button:hover {
+    -fx-background-color: #f68325;
+    -fx-border-color: #773e20;
+}
+.orange-button.button:pressed {
+    -fx-background-color: #9d6c4e;
+    -fx-border-color: #4d3325;
 }
 /* ------------------------------------------------------------------------------------ */
 /* Table styling */

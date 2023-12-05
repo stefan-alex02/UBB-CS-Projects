@@ -54,11 +54,11 @@ public class UserChatController extends AbstractTabController implements Observe
                 if (Objects.requireNonNull(e.getChangeEventType()) == ChangeEventType.ADD) {
                     if (e.getNewData().getTo().contains(user)) {
                         if (isSelected() && e.getNewData().belongsToConversation(user, receptor)) {
-                            NotificationAlerter.playSound(SoundFile.MESSAGE_SOUND_2);
+                            MessageAlerter.playSound(SoundFile.MESSAGE_SOUND_2);
                         } else {
-                            NotificationAlerter.playSound(SoundFile.MESSAGE_SOUND_1);
+                            MessageAlerter.playSound(SoundFile.MESSAGE_SOUND_1);
                             if (!isSelected()) {
-                                NotificationAlerter.displayNotification("New message",
+                                MessageAlerter.displayNotification("New message",
                                         "New message from " +
                                                 e.getNewData().getFrom().getFirstName() + " " +
                                                 e.getNewData().getFrom().getLastName(),

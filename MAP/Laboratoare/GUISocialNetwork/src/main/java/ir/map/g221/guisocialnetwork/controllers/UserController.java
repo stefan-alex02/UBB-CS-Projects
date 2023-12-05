@@ -2,7 +2,6 @@ package ir.map.g221.guisocialnetwork.controllers;
 
 import ir.map.g221.guisocialnetwork.OldMain;
 import ir.map.g221.guisocialnetwork.controllers.guiutils.MessageAlerter;
-import ir.map.g221.guisocialnetwork.controllers.userperspective.UserPerspectiveController;
 import ir.map.g221.guisocialnetwork.domain.entities.User;
 import ir.map.g221.guisocialnetwork.factory.BuildContainer;
 import ir.map.g221.guisocialnetwork.exceptions.SampleGeneratedException;
@@ -25,8 +24,7 @@ import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class UserController implements Observer {
-    private BuildContainer buildContainer = null;
+public class UserController extends AbstractUserController implements Observer {
     private final ObservableList<User> usersModel = FXCollections.observableArrayList();
 
     @FXML
@@ -86,37 +84,12 @@ public class UserController implements Observer {
         tableView.setItems(usersModel);
     }
 
-    public void setBuildContainer(BuildContainer buildContainer) {
+    public void setContent(BuildContainer buildContainer) {
         this.buildContainer = buildContainer;
         buildContainer.getUserService().addObserver(this);
         buildContainer.getFriendRequestService().addObserver(this);
         buildContainer.getFriendshipService().addObserver(this);
         initUserModel();
-    }
-
-    public void openUserPerspective(User user) {
-        try {
-            FXMLLoader userPerspectiveLoader = new FXMLLoader();
-            userPerspectiveLoader.setLocation(OldMain.class.getResource("views/user-perspective.fxml"));
-
-            AnchorPane root = userPerspectiveLoader.load();
-
-            // Create the dialog Stage.
-            Stage stage = new Stage();
-            stage.setTitle("User account : " + user.getFirstName() + " " + user.getLastName());
-            stage.initModality(Modality.WINDOW_MODAL);
-            Scene scene = new Scene(root);
-            scene.getStylesheets().add(Objects.requireNonNull(OldMain.class.getResource("css/style.css"))
-                    .toExternalForm());
-            stage.setScene(scene);
-
-            UserPerspectiveController userPerspectiveController = userPerspectiveLoader.getController();
-            userPerspectiveController.setContent(buildContainer, user, stage);
-
-            stage.show();
-         } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
     }
 
     private void initUserModel() {

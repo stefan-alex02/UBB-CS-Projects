@@ -1,7 +1,6 @@
 package ir.map.g221.guisocialnetwork.controllers.userperspective;
 
 import ir.map.g221.guisocialnetwork.controllers.guiutils.MessageAlerter;
-import ir.map.g221.guisocialnetwork.controllers.guiutils.NotificationAlerter;
 import ir.map.g221.guisocialnetwork.controllers.guiutils.Image;
 import ir.map.g221.guisocialnetwork.controllers.guiutils.SoundFile;
 import ir.map.g221.guisocialnetwork.domain.entities.FriendRequest;
@@ -40,10 +39,10 @@ public class FriendRequestController extends AbstractTabController implements Ob
             switch (e.getChangeEventType()) {
                 case ADD :
                     if (e.getNewData().getTo().equals(user)) {
-                            NotificationAlerter.playSound(SoundFile.RING_SOUND_1);
+                            MessageAlerter.playSound(SoundFile.RING_SOUND_1);
 
                         if (!isSelected()) {
-                            NotificationAlerter.displayNotification("Friend request",
+                            MessageAlerter.displayNotification("Friend request",
                                     "New friend request from " +
                                             e.getNewData().getFrom().getFirstName() + " " +
                                             e.getNewData().getFrom().getLastName(),
@@ -54,9 +53,9 @@ public class FriendRequestController extends AbstractTabController implements Ob
                 case UPDATE :
                     if (e.getNewData().getFrom().equals(user) &&
                         e.getNewData().getStatus() == FriendRequestStatus.APPROVED) {
-                        NotificationAlerter.playSound(SoundFile.RING_SOUND_1);
+                        MessageAlerter.playSound(SoundFile.RING_SOUND_1);
 
-                        NotificationAlerter.displayNotification("Friend request",
+                        MessageAlerter.displayNotification("Friend request",
                                 e.getNewData().getTo().getFirstName() + " " +
                                         e.getNewData().getTo().getLastName() +
                                         " accepted your friend request.",
