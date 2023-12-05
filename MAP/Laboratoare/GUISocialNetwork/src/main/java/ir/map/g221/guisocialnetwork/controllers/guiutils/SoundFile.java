@@ -3,9 +3,9 @@ package ir.map.g221.guisocialnetwork.controllers.guiutils;
 import ir.map.g221.guisocialnetwork.OldMain;
 
 public enum SoundFile {
-    RING_SOUND_1("sounds/notification1.mp3", 0.2),
-    MESSAGE_SOUND_1("sounds/message1.mp3", 0.9),
-    MESSAGE_SOUND_2("sounds/message2.mp3", 0.6);
+    RING_SOUND_1("sounds/notification1.mp3", 0.3),
+    MESSAGE_SOUND_1("sounds/message1.mp3", 0.8),
+    MESSAGE_SOUND_2("sounds/message2.mp3", 0.65);
 
     private final String filePath;
     private final Double intensity;
