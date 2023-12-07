@@ -1,0 +1,182 @@
+/* ------------------------------------------------------------------------------------ */
+/* General button style effects */
+.button {
+    -fx-border-width: 1.5;
+    -fx-border-radius: 5,5,5,5;
+    -fx-background-radius: 5,5,5,5;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
+
+    /* Default colours */
+    -fx-background-color: #aadece;
+    -fx-border-color: #729a90;
+}
+.button:hover {
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.1 , 2 , 2.5 );
+}
+.button:pressed {
+    -fx-border-width: 2;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.2 , 2 , 2.5 );
+}
+/* ------------------------------------------------------------------------------------ */
+.green-button {
+    -fx-background-color: #a0d3a0;
+    -fx-border-color: #4a6b4d;
+}
+.green-button.button:hover {
+    -fx-background-color: #8de88d;
+    -fx-border-color: #60806a;
+}
+.green-button.button:pressed {
+    -fx-background-color: #90bb90;
+    -fx-border-color: #3c5241;
+}
+/* ------------------------------------------------------------------------------------ */
+.red-button {
+    -fx-background-color: #d79696;
+    -fx-border-color: #8a5b5b;
+}
+.red-button.button:hover {
+    -fx-background-color: #ea5656;
+    -fx-border-color: #a63838;
+}
+.red-button.button:pressed {
+    -fx-background-color: #ab7575;
+    -fx-border-color: #563636;
+}
+/* ------------------------------------------------------------------------------------ */
+.blue-button {
+    -fx-background-color: #8ac9d5;
+    -fx-border-color: #3b6b75;
+}
+.blue-button.button:hover {
+    -fx-background-color: #2ccde8;
+    -fx-border-color: #25728c;
+}
+.blue-button.button:pressed {
+    -fx-background-color: #55929d;
+    -fx-border-color: #24464f;
+}
+/* ------------------------------------------------------------------------------------ */
+.yellow-button {
+    -fx-background-color: #dacb8a;
+    -fx-border-color: #888057;
+}
+.yellow-button.button:hover {
+    -fx-background-color: #f6d525;
+    -fx-border-color: #776b20;
+}
+.yellow-button.button:pressed {
+    -fx-background-color: #9d8e4e;
+    -fx-border-color: #4d4625;
+}
+/* ------------------------------------------------------------------------------------ */
+.orange-button {
+    -fx-background-color: #daae8a;
+    -fx-border-color: #886857;
+}
+.orange-button.button:hover {
+    -fx-background-color: #f68325;
+    -fx-border-color: #773e20;
+}
+.orange-button.button:pressed {
+    -fx-background-color: #9d6c4e;
+    -fx-border-color: #4d3325;
+}
+/* ------------------------------------------------------------------------------------ */
+/* Table styling */
+.user-table-column.table-column.column-header {
+    -fx-background-color: #629bd2;
+}
+
+.table-row-cell:selected {
+    -fx-background-color: #757575;
+    -fx-font-weight: 700;
+}
+
+/* ------------------------------------------------------------------------------------ */
+/* User list styling */
+.user-list-view {
+    -fx-background-color: linear-gradient(to bottom right, #e1a5d9 0%, #c1a0d5 50%, #acb5d7 100%);
+}
+
+.user-list-cell:filled {
+    -fx-background-color: #c3bfd5;
+    -fx-text-fill: black;
+}
+
+.user-list-cell:filled:hover {
+    -fx-background-color: #8c7fad;
+    -fx-text-fill: white;
+}
+
+.user-list-cell:filled:selected {
+    -fx-background-color: linear-gradient(#a976d9 0%, #8772c4 50%, #7482bb 100%);
+    -fx-text-fill: white;
+    -fx-font-weight: 700;
+}
+
+.user-list-cell:empty {
+    -fx-background-color: rgba(0, 0, 0, 0);
+    -fx-text-fill: rgba(0, 0, 0, 0);
+}
+
+/* ------------------------------------------------------------------------------------ */
+/* Chat box styling */
+.chat-hbox {
+    -fx-background-color: rgba(255, 255, 255, 0);
+}
+
+.chat-hbox:filled:hover {
+    -fx-background-color: rgba(0, 0, 0, 0.08);
+}
+
+.chat-hbox:selected .text {
+    -fx-fill: #000000;
+}
+
+.chat-list-view.list-view {
+    -fx-background-color: linear-gradient(to bottom right, #d995d6 0%, #b696da 50%, #8c9ad9 100%);
+}
+
+/* ------------------------------------------------------------------------------------ */
+/* Chat styling */
+.chat-message {
+    -fx-padding: 5;
+    -fx-border-style: solid inline;
+    -fx-border-width: 2;
+    -fx-border-insets: -2;
+    -fx-border-radius: 5;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.2 , 2 , 2.5 );
+}
+.chat-message.label .text {
+    -fx-fill: #000000;
+}
+
+/* Sender message styling */
+.chat-sender-message.label {
+    -fx-border-color: #4455a2;
+    -fx-background-color: #999dcc;
+}
+.selected-chat-sender-message.label {
+    -fx-border-color: #588491;
+    -fx-background-color: #8cd2de;
+}
+
+/* Receptor message styling */
+.chat-receptor-message.label {
+    -fx-border-color: #8a4e6c;
+    -fx-background-color: #d389aa;
+}
+.selected-chat-receptor-message.label {
+    -fx-border-color: #916958;
+    -fx-background-color: #de9b8c;
+}
+
+.external-replied-message.label {
+    -fx-border-color: #868686;
+    -fx-background-color: #d9d9d9;
+}
+
+.icon-label {
+    -fx-background-color: rgba(255, 255, 255, 0);
+}

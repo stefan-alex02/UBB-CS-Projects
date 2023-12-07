@@ -20,11 +20,15 @@ public class UserValidator implements Validator<User>{
     }
 
     @Override
-    public void validate(User entity) throws ValidationException {
+    public List<String> findErrors(User entity) {
         List<String> errors = new ArrayList<>();
 
         if (entity.getId() < 0) {
             errors.add("Id must not be a negative number.");
+        }
+
+        if (entity.getUsername().isEmpty()) {
+            errors.add("Username must not be empty.");
         }
 
         if (entity.getFirstName().isEmpty()) {
@@ -35,8 +39,13 @@ public class UserValidator implements Validator<User>{
             errors.add("Last name must not be empty.");
         }
 
-        if (!errors.isEmpty()) {
-            throw new ValidationException(errors);
+        if (entity.getPassword().isEmpty()) {
+            errors.add("Password must not be empty.");
         }
+        else if (entity.getPassword().length() < 6) {
+            errors.add("Password is too weak.");
+        }
+
+        return errors;
     }
 }

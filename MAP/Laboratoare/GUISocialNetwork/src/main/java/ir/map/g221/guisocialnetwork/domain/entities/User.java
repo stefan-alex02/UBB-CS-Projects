@@ -1,28 +1,42 @@
 package ir.map.g221.guisocialnetwork.domain.entities;
 
-import ir.map.g221.guisocialnetwork.domain.graphs.Node;
+import ir.map.g221.guisocialnetwork.utils.graphs.ConnectedComponent;
 
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class User extends Entity<Long> implements Node<User> {
+public class User extends Entity<Long> {
+    private final String username;
     private String firstName;
     private String lastName;
+    private final String password;
     private final Set<User> friends = new HashSet<>();
 
-    public User(Long Id, String firstName, String lastName) {
+    public User(Long Id, String username, String firstName, String lastName, String password) {
         super(Id);
 
+        this.username = username;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.password = password;
     }
 
-    public User(String firstName, String lastName) {
+    public User(String username, String firstName, String lastName, String password) {
         super(0L);
 
+        this.username = username;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.password = password;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getPassword() {
+        return password;
     }
 
     public String getFirstName() {
@@ -49,9 +63,17 @@ public class User extends Entity<Long> implements Node<User> {
     public boolean addFriend(User newFriend) {
         return friends.add(newFriend);
     }
-
     public boolean removeFriend(User removedFriend) {
         return friends.removeIf(friend -> friend.equals(removedFriend));
+    }
+
+    /**
+     * Check if the user has a specific friend.
+     * @param friend The friend.
+     * @return true if the two users are friends, false otherwise.
+     */
+    public boolean hasFriend(User friend) {
+        return friends.contains(friend);
     }
 
     public Set<User> getFriends() {
@@ -59,34 +81,18 @@ public class User extends Entity<Long> implements Node<User> {
     }
 
     @Override
-    public void pairWith(User neighbour) {
-        this.addFriend(neighbour);
-        neighbour.addFriend(this);
-    }
-
-    @Override
-    public Set<User> getNeighbours() {
-        return getFriends();
-    }
-
-    @Override
-    public Integer getDegree() {
-        return getFriends().size();
-    }
-
-    @Override
     public String toString() {
         return "ID : " + id + " | " +
+                "Username: " + username + " | " +
                 "First name : '" + firstName + "' | " +
-                "Last name : '" + lastName + "' | " +
-                "Friends list : [ " +
-                friends.stream()
-                        .map(user -> user.getId().toString())
-                        .collect(Collectors.joining(" , ")) + " ].";
+                "Last name : '" + lastName;
     }
 
-    @Override
-    public String toStringIndex() {
-        return getId().toString();
+    public String toString(ConnectedComponent<User> usersComponent) {
+        return this + "Friends list : [ " +
+                usersComponent.getNeighboursDataOf(this).stream()
+                        .map(neighbour -> neighbour.getId().toString())
+                        .collect(Collectors.joining(" , ")) +
+                " ].";
     }
 }

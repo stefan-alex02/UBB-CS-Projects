@@ -1,30 +1,41 @@
 package ir.map.g221.guisocialnetwork.business;
 
-import ir.map.g221.guisocialnetwork.domain.generaltypes.ObjectTransformer;
-import ir.map.g221.guisocialnetwork.domain.generaltypes.UnorderedPair;
-import ir.map.g221.guisocialnetwork.domain.graphs.Edge;
-import ir.map.g221.guisocialnetwork.domain.graphs.UndirectedGraph;
-import ir.map.g221.guisocialnetwork.domain.Community;
+import ir.map.g221.guisocialnetwork.domain.PasswordEncoder;
 import ir.map.g221.guisocialnetwork.exceptions.NotFoundException;
 import ir.map.g221.guisocialnetwork.exceptions.ValidationException;
+import ir.map.g221.guisocialnetwork.persistence.Repository;
+import ir.map.g221.guisocialnetwork.persistence.inmemoryrepos.FriendshipInMemoryRepo;
+import ir.map.g221.guisocialnetwork.utils.events.ChangeEventType;
+import ir.map.g221.guisocialnetwork.utils.events.Event;
+import ir.map.g221.guisocialnetwork.utils.events.UserChangeEvent;
 import ir.map.g221.guisocialnetwork.domain.entities.Friendship;
 import ir.map.g221.guisocialnetwork.domain.entities.User;
-import ir.map.g221.guisocialnetwork.persistence.Repository;
+import ir.map.g221.guisocialnetwork.utils.generictypes.ObjectTransformer;
+import ir.map.g221.guisocialnetwork.utils.generictypes.UnorderedPair;
+import ir.map.g221.guisocialnetwork.utils.observer.Observable;
+import ir.map.g221.guisocialnetwork.utils.observer.Observer;
 
-import java.util.List;
+import java.util.Collections;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
-public class UserService {
+public class UserService implements Observable {
     private final Repository<UnorderedPair<Long, Long>, Friendship> friendshipRepository;
     private final Repository<Long, User> userRepository;
+    private final Set<Observer> observers;
 
     public UserService(Repository<Long, User> userRepository,
-                       Repository<UnorderedPair<Long, Long>, Friendship> friendshipRepository) {
+                       Repository<UnorderedPair<Long, Long>, Friendship> friendshipRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.friendshipRepository = friendshipRepository;
+        this.observers = Collections.newSetFromMap(new ConcurrentHashMap<>(0));
     }
 
-    public void addUser(String firstName, String lastName) throws ValidationException {
-        userRepository.save(new User(firstName, lastName));
+    public void addUser(String username, String firstName, String lastName, String password) throws ValidationException {
+        User userToAdd = new User(username, firstName, lastName, password);
+        if (userRepository.save(userToAdd).isEmpty()) {
+            notifyObservers(UserChangeEvent.ofNewData(ChangeEventType.ADD, userToAdd));
+        }
     }
 
     public User getUser(Long id) throws NotFoundException {
@@ -35,38 +46,54 @@ public class UserService {
                 );
     }
 
+    public void updateUser(Long id, String username, String firstName, String lastName, String password) {
+        User oldUser = getUser(id);
+        User updatedUser = new User(id, username, firstName, lastName, password);
+        userRepository.update(updatedUser).ifPresentOrElse(
+                u -> {
+                    throw new RuntimeException("Error while trying to update user.");
+                },
+                () -> notifyObservers(UserChangeEvent.of(ChangeEventType.UPDATE, updatedUser, oldUser)));
+    }
+
     public void removeUser(Long id) throws NotFoundException {
-//        userRepository.findOne(id).ifPresentOrElse(user ->
-//                ObjectTransformer.iterableToCollection(friendshipRepository.findAll())
-//                        .stream()
-//                        .filter(friendship -> friendship.hasUser(user))
-//                        .forEach(friendship -> friendshipRepository.delete(friendship.getId()))
-//        , () -> {
-//            throw new NotFoundException("User could not be found.");
-//        });
-        userRepository.delete(id).orElseThrow(() -> new NotFoundException("User could not be found."));
-    }
-
-    public List<Community> calculateCommunities() {
-        return createGraphFromUsers()
-                .getAllComponents().stream()
-                .map(Community::new)
-                .toList();
-    }
-
-    public Community mostSociableCommunity() {
-        return new Community(createGraphFromUsers().getComponentWithLongestPath());
-    }
-
-    private UndirectedGraph<User> createGraphFromUsers() {
-        UndirectedGraph<User> graph = new UndirectedGraph<>(
-                ObjectTransformer.iterableToSet(userRepository.findAll())
+        // If it's a FriendshipInMemoryRepo, delete the friendships as well:
+        if (friendshipRepository instanceof FriendshipInMemoryRepo) {
+            userRepository.findOne(id).ifPresentOrElse(user ->
+                            ObjectTransformer.iterableToCollection(friendshipRepository.findAll())
+                                    .stream()
+                                    .filter(friendship -> friendship.hasUser(user))
+                                    .forEach(friendship -> friendshipRepository.delete(friendship.getId()))
+                    , () -> {
+                        throw new NotFoundException("User could not be found.");
+                    });
+        }
+        userRepository.delete(id).ifPresentOrElse(
+                deletedUser -> notifyObservers(
+                        UserChangeEvent.ofOldData(ChangeEventType.DELETE, deletedUser)
+                ),
+                () -> {
+                    throw new NotFoundException("Failed to delete user.");
+                }
         );
+    }
 
-        graph.tryAddEdges(ObjectTransformer.iterableToCollection(friendshipRepository.findAll()).stream()
-                .map(fr -> Edge.of(fr.getFirstUser(),fr.getSecondUser()))
-                .toList()
-        );
-        return graph;
+    public Set<User> getAllUsers() {
+        return ObjectTransformer.iterableToSet(userRepository.findAll());
+    }
+
+    @Override
+    public void addObserver(Observer observer) {
+        observers.add(observer);
+    }
+
+    @Override
+    public void removeObserver(Observer observer) {
+        observers.remove(observer);
+    }
+
+    @Override
+    public void notifyObservers(Event event) {
+        observers.forEach(observer -> observer.update(event));
     }
 }

@@ -1,6 +1,6 @@
 package ir.map.g221.guisocialnetwork.domain.entities;
 
-import ir.map.g221.guisocialnetwork.domain.generaltypes.UnorderedPair;
+import ir.map.g221.guisocialnetwork.utils.generictypes.UnorderedPair;
 
 import java.time.LocalDateTime;
 

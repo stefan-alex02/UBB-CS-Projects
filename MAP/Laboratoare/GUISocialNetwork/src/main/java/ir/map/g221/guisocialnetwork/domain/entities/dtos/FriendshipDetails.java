@@ -25,6 +25,10 @@ public class FriendshipDetails {
         return new FriendshipDetails(ofUser, friendship.theOtherFriend(ofUser), friendship.getFriendsFromDate());
     }
 
+    public User getFriend() {
+        return friend;
+    }
+
     public LocalDateTime getFriendsFromDate() {
         return friendsFromDate;
     }

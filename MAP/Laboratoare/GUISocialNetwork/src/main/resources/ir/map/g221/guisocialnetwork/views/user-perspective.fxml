@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns = "http://javafx.com/javafx"
+            xmlns:fx = "http://javafx.com/fxml"
+            fx:controller = "ir.map.g221.guisocialnetwork.controllers.userperspective.UserPerspectiveController"
+            prefHeight = "400.0" prefWidth="600.0">
+    <TabPane fx:id = "tabPane" xmlns="http://javafx.com/javafx/8.0.40"
+             xmlns:fx = "http://www.w3.org/2001/XInclude"
+             tabClosingPolicy = "UNAVAILABLE"
+             AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+             AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <Tab fx:id = "chatPage" text = "Chat">
+            <fx:include fx:id="userChat" source="user-chat.fxml"/>
+        </Tab>
+        <Tab fx:id="friendListPage" text="Friend List">
+            <fx:include fx:id="friendList" source="friend-list.fxml"/>
+        </Tab>
+        <Tab fx:id="friendRequestPage" text="Friend Requests">
+            <fx:include fx:id="friendRequest" source="friend-request.fxml"/>
+        </Tab>
+        <Tab fx:id="searchUsersPage" text="Search Users">
+            <fx:include fx:id="searchUsers" source="search-users.fxml"/>
+        </Tab>
+    </TabPane>
+</AnchorPane>
