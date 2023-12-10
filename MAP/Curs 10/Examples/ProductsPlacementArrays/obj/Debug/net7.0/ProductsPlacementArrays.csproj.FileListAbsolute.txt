@@ -1,0 +1,15 @@
+C:\Users\Stefan\UBB-CS-Projects\MAP\Curs 10\Examples\ProductsPlacementArrays\obj\Debug\net7.0\ProductsPlacementArrays.csproj.AssemblyReference.cache
+C:\Users\Stefan\UBB-CS-Projects\MAP\Curs 10\Examples\ProductsPlacementArrays\obj\Debug\net7.0\ProductsPlacementArrays.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Stefan\UBB-CS-Projects\MAP\Curs 10\Examples\ProductsPlacementArrays\obj\Debug\net7.0\ProductsPlacementArrays.AssemblyInfoInputs.cache
+C:\Users\Stefan\UBB-CS-Projects\MAP\Curs 10\Examples\ProductsPlacementArrays\obj\Debug\net7.0\ProductsPlacementArrays.AssemblyInfo.cs
+C:\Users\Stefan\UBB-CS-Projects\MAP\Curs 10\Examples\ProductsPlacementArrays\obj\Debug\net7.0\ProductsPlacementArrays.csproj.CoreCompileInputs.cache
+C:\Users\Stefan\UBB-CS-Projects\MAP\Curs 10\Examples\ProductsPlacementArrays\bin\Debug\net7.0\ProductsPlacementArrays.exe
+C:\Users\Stefan\UBB-CS-Projects\MAP\Curs 10\Examples\ProductsPlacementArrays\bin\Debug\net7.0\ProductsPlacementArrays.deps.json
+C:\Users\Stefan\UBB-CS-Projects\MAP\Curs 10\Examples\ProductsPlacementArrays\bin\Debug\net7.0\ProductsPlacementArrays.runtimeconfig.json
+C:\Users\Stefan\UBB-CS-Projects\MAP\Curs 10\Examples\ProductsPlacementArrays\bin\Debug\net7.0\ProductsPlacementArrays.dll
+C:\Users\Stefan\UBB-CS-Projects\MAP\Curs 10\Examples\ProductsPlacementArrays\bin\Debug\net7.0\ProductsPlacementArrays.pdb
+C:\Users\Stefan\UBB-CS-Projects\MAP\Curs 10\Examples\ProductsPlacementArrays\obj\Debug\net7.0\ProductsPlacementArrays.dll
+C:\Users\Stefan\UBB-CS-Projects\MAP\Curs 10\Examples\ProductsPlacementArrays\obj\Debug\net7.0\refint\ProductsPlacementArrays.dll
+C:\Users\Stefan\UBB-CS-Projects\MAP\Curs 10\Examples\ProductsPlacementArrays\obj\Debug\net7.0\ProductsPlacementArrays.pdb
+C:\Users\Stefan\UBB-CS-Projects\MAP\Curs 10\Examples\ProductsPlacementArrays\obj\Debug\net7.0\ProductsPlacementArrays.genruntimeconfig.cache
+C:\Users\Stefan\UBB-CS-Projects\MAP\Curs 10\Examples\ProductsPlacementArrays\obj\Debug\net7.0\ref\ProductsPlacementArrays.dll

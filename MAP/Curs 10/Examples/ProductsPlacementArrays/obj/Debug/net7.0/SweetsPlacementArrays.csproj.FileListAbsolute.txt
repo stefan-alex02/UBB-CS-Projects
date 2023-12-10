@@ -1,0 +1,15 @@
+C:\Users\Stefan\UBB-CS-Projects\MAP\Curs 10\Examples\SweetsPlacementArrays\bin\Debug\net7.0\SweetsPlacementArrays.exe
+C:\Users\Stefan\UBB-CS-Projects\MAP\Curs 10\Examples\SweetsPlacementArrays\bin\Debug\net7.0\SweetsPlacementArrays.deps.json
+C:\Users\Stefan\UBB-CS-Projects\MAP\Curs 10\Examples\SweetsPlacementArrays\bin\Debug\net7.0\SweetsPlacementArrays.runtimeconfig.json
+C:\Users\Stefan\UBB-CS-Projects\MAP\Curs 10\Examples\SweetsPlacementArrays\bin\Debug\net7.0\SweetsPlacementArrays.dll
+C:\Users\Stefan\UBB-CS-Projects\MAP\Curs 10\Examples\SweetsPlacementArrays\bin\Debug\net7.0\SweetsPlacementArrays.pdb
+C:\Users\Stefan\UBB-CS-Projects\MAP\Curs 10\Examples\SweetsPlacementArrays\obj\Debug\net7.0\SweetsPlacementArrays.csproj.AssemblyReference.cache
+C:\Users\Stefan\UBB-CS-Projects\MAP\Curs 10\Examples\SweetsPlacementArrays\obj\Debug\net7.0\SweetsPlacementArrays.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Stefan\UBB-CS-Projects\MAP\Curs 10\Examples\SweetsPlacementArrays\obj\Debug\net7.0\SweetsPlacementArrays.AssemblyInfoInputs.cache
+C:\Users\Stefan\UBB-CS-Projects\MAP\Curs 10\Examples\SweetsPlacementArrays\obj\Debug\net7.0\SweetsPlacementArrays.AssemblyInfo.cs
+C:\Users\Stefan\UBB-CS-Projects\MAP\Curs 10\Examples\SweetsPlacementArrays\obj\Debug\net7.0\SweetsPlacementArrays.csproj.CoreCompileInputs.cache
+C:\Users\Stefan\UBB-CS-Projects\MAP\Curs 10\Examples\SweetsPlacementArrays\obj\Debug\net7.0\SweetsPlacementArrays.dll
+C:\Users\Stefan\UBB-CS-Projects\MAP\Curs 10\Examples\SweetsPlacementArrays\obj\Debug\net7.0\refint\SweetsPlacementArrays.dll
+C:\Users\Stefan\UBB-CS-Projects\MAP\Curs 10\Examples\SweetsPlacementArrays\obj\Debug\net7.0\SweetsPlacementArrays.pdb
+C:\Users\Stefan\UBB-CS-Projects\MAP\Curs 10\Examples\SweetsPlacementArrays\obj\Debug\net7.0\SweetsPlacementArrays.genruntimeconfig.cache
+C:\Users\Stefan\UBB-CS-Projects\MAP\Curs 10\Examples\SweetsPlacementArrays\obj\Debug\net7.0\ref\SweetsPlacementArrays.dll
