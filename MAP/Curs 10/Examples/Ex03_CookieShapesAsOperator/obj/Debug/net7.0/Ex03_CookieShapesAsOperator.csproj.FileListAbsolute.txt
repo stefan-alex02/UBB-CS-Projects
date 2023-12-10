@@ -1,0 +1,15 @@
+C:\Users\Stefan\UBB-CS-Projects\MAP\Curs 10\Examples\Ex03_CookieShapesAsOperator\obj\Debug\net7.0\Ex03_CookieShapesAsOperator.csproj.AssemblyReference.cache
+C:\Users\Stefan\UBB-CS-Projects\MAP\Curs 10\Examples\Ex03_CookieShapesAsOperator\obj\Debug\net7.0\Ex03_CookieShapesAsOperator.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Stefan\UBB-CS-Projects\MAP\Curs 10\Examples\Ex03_CookieShapesAsOperator\obj\Debug\net7.0\Ex03_CookieShapesAsOperator.AssemblyInfoInputs.cache
+C:\Users\Stefan\UBB-CS-Projects\MAP\Curs 10\Examples\Ex03_CookieShapesAsOperator\obj\Debug\net7.0\Ex03_CookieShapesAsOperator.AssemblyInfo.cs
+C:\Users\Stefan\UBB-CS-Projects\MAP\Curs 10\Examples\Ex03_CookieShapesAsOperator\obj\Debug\net7.0\Ex03_CookieShapesAsOperator.csproj.CoreCompileInputs.cache
+C:\Users\Stefan\UBB-CS-Projects\MAP\Curs 10\Examples\Ex03_CookieShapesAsOperator\bin\Debug\net7.0\Ex03_CookieShapesAsOperator.exe
+C:\Users\Stefan\UBB-CS-Projects\MAP\Curs 10\Examples\Ex03_CookieShapesAsOperator\bin\Debug\net7.0\Ex03_CookieShapesAsOperator.deps.json
+C:\Users\Stefan\UBB-CS-Projects\MAP\Curs 10\Examples\Ex03_CookieShapesAsOperator\bin\Debug\net7.0\Ex03_CookieShapesAsOperator.runtimeconfig.json
+C:\Users\Stefan\UBB-CS-Projects\MAP\Curs 10\Examples\Ex03_CookieShapesAsOperator\bin\Debug\net7.0\Ex03_CookieShapesAsOperator.dll
+C:\Users\Stefan\UBB-CS-Projects\MAP\Curs 10\Examples\Ex03_CookieShapesAsOperator\bin\Debug\net7.0\Ex03_CookieShapesAsOperator.pdb
+C:\Users\Stefan\UBB-CS-Projects\MAP\Curs 10\Examples\Ex03_CookieShapesAsOperator\obj\Debug\net7.0\Ex03_CookieShapesAsOperator.dll
+C:\Users\Stefan\UBB-CS-Projects\MAP\Curs 10\Examples\Ex03_CookieShapesAsOperator\obj\Debug\net7.0\refint\Ex03_CookieShapesAsOperator.dll
+C:\Users\Stefan\UBB-CS-Projects\MAP\Curs 10\Examples\Ex03_CookieShapesAsOperator\obj\Debug\net7.0\Ex03_CookieShapesAsOperator.pdb
+C:\Users\Stefan\UBB-CS-Projects\MAP\Curs 10\Examples\Ex03_CookieShapesAsOperator\obj\Debug\net7.0\Ex03_CookieShapesAsOperator.genruntimeconfig.cache
+C:\Users\Stefan\UBB-CS-Projects\MAP\Curs 10\Examples\Ex03_CookieShapesAsOperator\obj\Debug\net7.0\ref\Ex03_CookieShapesAsOperator.dll
