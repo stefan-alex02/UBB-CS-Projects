@@ -20,7 +20,7 @@ public class Shop {
     }
 
     public void PurchaseCutters(IEnumerable<CookieCutter<IShape>> cookieCutters) {
-        Console.WriteLine("Purchasing new cookie cutters...");
+        Console.WriteLine("Shop : Purchasing new cookie cutters...");
         Kitchen.AddCookieCutters(cookieCutters);
     }
 

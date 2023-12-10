@@ -35,7 +35,7 @@ public class Kitchen {
         preparedDough.Enqueue(newDough);
         
         Console.WriteLine("Kitchen : New default dough prepared : " + newDough);
-        // DisplayDough();
+        DisplayDough();
     }
     
     public void PrepareRandomDough(double minimumAmount) {
@@ -43,7 +43,7 @@ public class Kitchen {
         preparedDough.Enqueue(newDough);
         
         Console.WriteLine("Kitchen : New dough with random amount prepared : " + newDough);
-        // DisplayDough();
+        DisplayDough();
     }
 
     public void BakeCookies(List<Cookie> cookies) => cookies.ForEach(cookie => cookie.Bake()); // Expression body
@@ -97,7 +97,7 @@ public class Kitchen {
                 
                 if (preparedDough.Peek().Disposed) {
                     var disposedPackage = preparedDough.Dequeue();
-                    // Console.WriteLine("Kitchen : Disposed empty dough package : " + disposedPackage + ".");
+                    Console.WriteLine("Kitchen : Disposed empty dough package : " + disposedPackage + ".");
                 }
             }
         }

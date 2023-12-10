@@ -22,7 +22,7 @@ shop.SetDefaultBakingCapacity(5);
 CookieRequest request1 = new CookieRequest(new [] {
     typeof(Square),
     typeof(Circle)
-}, 4);
+}, 2);
 
 try {
     var cookies = shop.PlaceOrder(request1);
