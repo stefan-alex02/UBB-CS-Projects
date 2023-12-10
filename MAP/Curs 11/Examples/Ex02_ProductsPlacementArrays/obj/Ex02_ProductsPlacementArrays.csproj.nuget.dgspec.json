@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Stefan\\UBB-CS-Projects\\MAP\\Curs 10\\Examples\\Ex02_ProductsPlacementArrays\\Ex02_ProductsPlacementArrays.csproj": {}
+    "C:\\Users\\Stefan\\UBB-CS-Projects\\MAP\\Curs 11\\Examples\\Ex02_ProductsPlacementArrays\\Ex02_ProductsPlacementArrays.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Stefan\\UBB-CS-Projects\\MAP\\Curs 10\\Examples\\Ex02_ProductsPlacementArrays\\Ex02_ProductsPlacementArrays.csproj": {
+    "C:\\Users\\Stefan\\UBB-CS-Projects\\MAP\\Curs 11\\Examples\\Ex02_ProductsPlacementArrays\\Ex02_ProductsPlacementArrays.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Stefan\\UBB-CS-Projects\\MAP\\Curs 10\\Examples\\Ex02_ProductsPlacementArrays\\Ex02_ProductsPlacementArrays.csproj",
+        "projectUniqueName": "C:\\Users\\Stefan\\UBB-CS-Projects\\MAP\\Curs 11\\Examples\\Ex02_ProductsPlacementArrays\\Ex02_ProductsPlacementArrays.csproj",
         "projectName": "Ex02_ProductsPlacementArrays",
-        "projectPath": "C:\\Users\\Stefan\\UBB-CS-Projects\\MAP\\Curs 10\\Examples\\Ex02_ProductsPlacementArrays\\Ex02_ProductsPlacementArrays.csproj",
+        "projectPath": "C:\\Users\\Stefan\\UBB-CS-Projects\\MAP\\Curs 11\\Examples\\Ex02_ProductsPlacementArrays\\Ex02_ProductsPlacementArrays.csproj",
         "packagesPath": "C:\\Users\\Stefan\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Stefan\\UBB-CS-Projects\\MAP\\Curs 10\\Examples\\Ex02_ProductsPlacementArrays\\obj\\",
+        "outputPath": "C:\\Users\\Stefan\\UBB-CS-Projects\\MAP\\Curs 11\\Examples\\Ex02_ProductsPlacementArrays\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Stefan\\AppData\\Roaming\\NuGet\\NuGet.Config",
