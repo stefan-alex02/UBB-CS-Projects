@@ -1,0 +1,15 @@
+C:\Users\Stefan\UBB-CS-Projects\MAP\Curs 10\Examples\Ex02_ProductsPlacementArrays\bin\Debug\net7.0\Ex02_ProductsPlacementArrays.exe
+C:\Users\Stefan\UBB-CS-Projects\MAP\Curs 10\Examples\Ex02_ProductsPlacementArrays\bin\Debug\net7.0\Ex02_ProductsPlacementArrays.deps.json
+C:\Users\Stefan\UBB-CS-Projects\MAP\Curs 10\Examples\Ex02_ProductsPlacementArrays\bin\Debug\net7.0\Ex02_ProductsPlacementArrays.runtimeconfig.json
+C:\Users\Stefan\UBB-CS-Projects\MAP\Curs 10\Examples\Ex02_ProductsPlacementArrays\bin\Debug\net7.0\Ex02_ProductsPlacementArrays.dll
+C:\Users\Stefan\UBB-CS-Projects\MAP\Curs 10\Examples\Ex02_ProductsPlacementArrays\bin\Debug\net7.0\Ex02_ProductsPlacementArrays.pdb
+C:\Users\Stefan\UBB-CS-Projects\MAP\Curs 10\Examples\Ex02_ProductsPlacementArrays\obj\Debug\net7.0\Ex02_ProductsPlacementArrays.csproj.AssemblyReference.cache
+C:\Users\Stefan\UBB-CS-Projects\MAP\Curs 10\Examples\Ex02_ProductsPlacementArrays\obj\Debug\net7.0\Ex02_ProductsPlacementArrays.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Stefan\UBB-CS-Projects\MAP\Curs 10\Examples\Ex02_ProductsPlacementArrays\obj\Debug\net7.0\Ex02_ProductsPlacementArrays.AssemblyInfoInputs.cache
+C:\Users\Stefan\UBB-CS-Projects\MAP\Curs 10\Examples\Ex02_ProductsPlacementArrays\obj\Debug\net7.0\Ex02_ProductsPlacementArrays.AssemblyInfo.cs
+C:\Users\Stefan\UBB-CS-Projects\MAP\Curs 10\Examples\Ex02_ProductsPlacementArrays\obj\Debug\net7.0\Ex02_ProductsPlacementArrays.csproj.CoreCompileInputs.cache
+C:\Users\Stefan\UBB-CS-Projects\MAP\Curs 10\Examples\Ex02_ProductsPlacementArrays\obj\Debug\net7.0\Ex02_ProductsPlacementArrays.dll
+C:\Users\Stefan\UBB-CS-Projects\MAP\Curs 10\Examples\Ex02_ProductsPlacementArrays\obj\Debug\net7.0\refint\Ex02_ProductsPlacementArrays.dll
+C:\Users\Stefan\UBB-CS-Projects\MAP\Curs 10\Examples\Ex02_ProductsPlacementArrays\obj\Debug\net7.0\Ex02_ProductsPlacementArrays.pdb
+C:\Users\Stefan\UBB-CS-Projects\MAP\Curs 10\Examples\Ex02_ProductsPlacementArrays\obj\Debug\net7.0\Ex02_ProductsPlacementArrays.genruntimeconfig.cache
+C:\Users\Stefan\UBB-CS-Projects\MAP\Curs 10\Examples\Ex02_ProductsPlacementArrays\obj\Debug\net7.0\ref\Ex02_ProductsPlacementArrays.dll
