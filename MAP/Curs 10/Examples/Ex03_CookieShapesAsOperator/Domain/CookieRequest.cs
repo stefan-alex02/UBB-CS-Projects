@@ -4,7 +4,7 @@ using CookieShapesAsOperator.Domain.Shapes;
 namespace CookieShapesAsOperator.Domain;
 
 public class CookieRequest {
-    private Type[] requestedShapes;
+    public Type[] RequestedShapes { get; private set; }
     
     public int CookieAmount { get; private set; }
 
@@ -14,12 +14,12 @@ public class CookieRequest {
                 throw new ArgumentException("Given type must be an IShape");
             }
         }
-        this.requestedShapes = requestedShapes;
+        this.RequestedShapes = requestedShapes;
         this.CookieAmount = cookieAmount;
     }
 
     public bool HasShape(IShape shape) {
-        foreach (var requestedShapeType in requestedShapes) {
+        foreach (var requestedShapeType in RequestedShapes) {
             if (requestedShapeType == shape.GetType())
                 return true;
         }
@@ -30,7 +30,7 @@ public class CookieRequest {
         StringBuilder stringBuilder = new StringBuilder();
         
         stringBuilder.Append(CookieAmount + "\ud83c\udf6a, with shapes : ");
-        foreach (var shape in requestedShapes) {
+        foreach (var shape in RequestedShapes) {
             stringBuilder.Append(shape.Name + " ");
         }
         

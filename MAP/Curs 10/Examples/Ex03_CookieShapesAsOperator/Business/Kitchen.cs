@@ -6,20 +6,19 @@ using CookieShapesAsOperator.Exceptions;
 namespace CookieShapesAsOperator.Business;
 
 public class Kitchen {
-    private List<CookieCutter<IShape>> cookieCutters;
     private Queue<PackagedDough> preparedDough;
-    
     private readonly Random randomizer = new Random();
     
+    public List<CookieCutter<IShape>> CookieCutters { get; private set; }
     public double DefaultDoughAmount { get; set; }
 
     public Kitchen() {
-        this.cookieCutters = new List<CookieCutter<IShape>>();
+        this.CookieCutters = new List<CookieCutter<IShape>>();
         this.preparedDough = new Queue<PackagedDough>();
     }
 
     public void AddCookieCutters(IEnumerable<CookieCutter<IShape>> cookieCutters) {
-        this.cookieCutters.AddRange(cookieCutters);
+        this.CookieCutters.AddRange(cookieCutters);
     }
 
     public void DisplayDough() {
@@ -53,7 +52,7 @@ public class Kitchen {
         List<Cookie> cookies = new List<Cookie>();
         
         // A short demonstration of the use of Linq methods :
-        var suitableCutters = cookieCutters
+        var suitableCutters = CookieCutters
             .Where(cutter => cookieRequest.HasShape(cutter.Shape));
         
         for (int i = 0; i < cookieRequest.CookieAmount; i++) {

@@ -15,6 +15,6 @@ public class Triangle : IShape {
     }
 
     public override string ToString() {
-        return "\u25b3";
+        return "\ud83d\udec6";
     }
 }

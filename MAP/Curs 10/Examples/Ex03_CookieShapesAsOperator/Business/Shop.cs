@@ -1,5 +1,6 @@
 ﻿using CookieShapesAsOperator.Domain;
 using CookieShapesAsOperator.Domain.Shapes;
+using CookieShapesAsOperator.Exceptions;
 
 namespace CookieShapesAsOperator.Business;
 
@@ -25,6 +26,13 @@ public class Shop {
 
     public List<Cookie> PlaceOrder(CookieRequest request) {
         Console.WriteLine("Shop : Received order : " + request);
+        
+        foreach (var shape in request.RequestedShapes) {
+            if (Kitchen.CookieCutters.All(cutter => cutter.Shape.GetType() != shape)) {
+                throw new UnavailableShapeException(shape.Name + " shape is not available for cookies");
+            }
+        }
+        
         return Kitchen.CreateCookies(request);
     }
 }

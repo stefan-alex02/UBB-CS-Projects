@@ -32,5 +32,5 @@ try {
     );
 }
 catch (UnavailableShapeException e) {
-    Console.WriteLine(e.Message);
+    Console.WriteLine("Shop : Unfortunately, " + e.Message);
 }
