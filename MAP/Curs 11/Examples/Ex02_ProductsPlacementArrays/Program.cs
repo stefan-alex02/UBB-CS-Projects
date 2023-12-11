@@ -9,9 +9,9 @@ internal class Program {
         Console.OutputEncoding = Encoding.UTF8;
         Console.WriteLine();
 
-        UseDisplayCase();
+        // UseDisplayCase();
         
-        // UseCookieTray();
+        UseCookieTray();
     }
 
     private static void UseDisplayCase() {
