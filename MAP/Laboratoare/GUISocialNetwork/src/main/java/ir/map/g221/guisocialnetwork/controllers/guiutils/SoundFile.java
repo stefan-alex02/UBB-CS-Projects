@@ -7,6 +7,7 @@ public enum SoundFile {
     MESSAGE_SOUND_1("sounds/message1.mp3", 0.8),
     MESSAGE_SOUND_2("sounds/message2.mp3", 0.65),
     STARTUP("sounds/startup.mp3", 1.0),
+    LOGOFF("sounds/logoff.mp3", 1.0),
     ERROR_1("sounds/error1.mp3", 0.65);
 
     private final String filePath;

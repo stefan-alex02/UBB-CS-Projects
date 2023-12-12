@@ -7,6 +7,4 @@ public interface Page<E> {
     Pageable nextPageable();
 
     Stream<E> getContent();
-
-
 }

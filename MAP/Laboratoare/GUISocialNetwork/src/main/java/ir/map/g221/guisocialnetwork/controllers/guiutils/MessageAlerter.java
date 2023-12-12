@@ -16,13 +16,20 @@ public class MessageAlerter {
         message.showAndWait();
     }
 
-    public static void showErrorMessage(Stage owner, String headerText, String text){
+    public static void showErrorMessage(Stage owner, String headerText, String text, SoundFile sound){
+        if (sound != null) {
+            playSound(SoundFile.ERROR_1);
+        }
         Alert message = new Alert(Alert.AlertType.ERROR);
         message.initOwner(owner);
         message.setHeaderText(headerText);
         message.setTitle("Error");
         message.setContentText(text);
         message.showAndWait();
+    }
+
+    public static void showErrorMessage(Stage owner, String headerText, String text){
+        showErrorMessage(owner, headerText, text, null);
     }
 
     public static void playSound(SoundFile soundFile) {

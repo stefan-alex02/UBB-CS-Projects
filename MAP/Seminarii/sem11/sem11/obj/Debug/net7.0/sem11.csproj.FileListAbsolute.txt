@@ -1,0 +1,30 @@
+D:\01 MAP\wrorkspace_CSharp\sem11\sem11\bin\Debug\net7.0\sem11.exe
+D:\01 MAP\wrorkspace_CSharp\sem11\sem11\bin\Debug\net7.0\sem11.deps.json
+D:\01 MAP\wrorkspace_CSharp\sem11\sem11\bin\Debug\net7.0\sem11.runtimeconfig.json
+D:\01 MAP\wrorkspace_CSharp\sem11\sem11\bin\Debug\net7.0\sem11.dll
+D:\01 MAP\wrorkspace_CSharp\sem11\sem11\bin\Debug\net7.0\sem11.pdb
+D:\01 MAP\wrorkspace_CSharp\sem11\sem11\obj\Debug\net7.0\sem11.csproj.AssemblyReference.cache
+D:\01 MAP\wrorkspace_CSharp\sem11\sem11\obj\Debug\net7.0\sem11.GeneratedMSBuildEditorConfig.editorconfig
+D:\01 MAP\wrorkspace_CSharp\sem11\sem11\obj\Debug\net7.0\sem11.AssemblyInfoInputs.cache
+D:\01 MAP\wrorkspace_CSharp\sem11\sem11\obj\Debug\net7.0\sem11.AssemblyInfo.cs
+D:\01 MAP\wrorkspace_CSharp\sem11\sem11\obj\Debug\net7.0\sem11.csproj.CoreCompileInputs.cache
+D:\01 MAP\wrorkspace_CSharp\sem11\sem11\obj\Debug\net7.0\sem11.dll
+D:\01 MAP\wrorkspace_CSharp\sem11\sem11\obj\Debug\net7.0\refint\sem11.dll
+D:\01 MAP\wrorkspace_CSharp\sem11\sem11\obj\Debug\net7.0\sem11.pdb
+D:\01 MAP\wrorkspace_CSharp\sem11\sem11\obj\Debug\net7.0\sem11.genruntimeconfig.cache
+D:\01 MAP\wrorkspace_CSharp\sem11\sem11\obj\Debug\net7.0\ref\sem11.dll
+C:\Users\Stefan\UBB-CS-Projects\MAP\Seminarii\sem11\sem11\bin\Debug\net7.0\sem11.exe
+C:\Users\Stefan\UBB-CS-Projects\MAP\Seminarii\sem11\sem11\bin\Debug\net7.0\sem11.deps.json
+C:\Users\Stefan\UBB-CS-Projects\MAP\Seminarii\sem11\sem11\bin\Debug\net7.0\sem11.runtimeconfig.json
+C:\Users\Stefan\UBB-CS-Projects\MAP\Seminarii\sem11\sem11\bin\Debug\net7.0\sem11.dll
+C:\Users\Stefan\UBB-CS-Projects\MAP\Seminarii\sem11\sem11\bin\Debug\net7.0\sem11.pdb
+C:\Users\Stefan\UBB-CS-Projects\MAP\Seminarii\sem11\sem11\obj\Debug\net7.0\sem11.csproj.AssemblyReference.cache
+C:\Users\Stefan\UBB-CS-Projects\MAP\Seminarii\sem11\sem11\obj\Debug\net7.0\sem11.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Stefan\UBB-CS-Projects\MAP\Seminarii\sem11\sem11\obj\Debug\net7.0\sem11.AssemblyInfoInputs.cache
+C:\Users\Stefan\UBB-CS-Projects\MAP\Seminarii\sem11\sem11\obj\Debug\net7.0\sem11.AssemblyInfo.cs
+C:\Users\Stefan\UBB-CS-Projects\MAP\Seminarii\sem11\sem11\obj\Debug\net7.0\sem11.csproj.CoreCompileInputs.cache
+C:\Users\Stefan\UBB-CS-Projects\MAP\Seminarii\sem11\sem11\obj\Debug\net7.0\sem11.dll
+C:\Users\Stefan\UBB-CS-Projects\MAP\Seminarii\sem11\sem11\obj\Debug\net7.0\refint\sem11.dll
+C:\Users\Stefan\UBB-CS-Projects\MAP\Seminarii\sem11\sem11\obj\Debug\net7.0\sem11.pdb
+C:\Users\Stefan\UBB-CS-Projects\MAP\Seminarii\sem11\sem11\obj\Debug\net7.0\sem11.genruntimeconfig.cache
+C:\Users\Stefan\UBB-CS-Projects\MAP\Seminarii\sem11\sem11\obj\Debug\net7.0\ref\sem11.dll

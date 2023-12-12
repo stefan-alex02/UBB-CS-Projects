@@ -23,8 +23,9 @@ public class LoginApplication extends AbstractApplication {
 
         FXMLLoader loginLoader = new FXMLLoader();
         loginLoader.setLocation(OldMain.class.getResource("views/login-view.fxml"));
-        AnchorPane userLayout = loginLoader.load();
-        primaryStage.setScene(new Scene(userLayout));
+        AnchorPane loginLayout = loginLoader.load();
+        primaryStage.setTitle("Login");
+        primaryStage.setScene(new Scene(loginLayout));
 
         LoginController loginController = loginLoader.getController();
         loginController.setContent(container, primaryStage);

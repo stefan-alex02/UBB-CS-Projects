@@ -62,15 +62,13 @@ public class LoginController extends AbstractUserController {
 
     public void handleLoginButton(ActionEvent actionEvent) {
         if (textFieldUsername.getText().isEmpty()) {
-            MessageAlerter.playSound(SoundFile.ERROR_1);
             MessageAlerter.showErrorMessage(null, "Login error",
-                    "Username must not be empty.");
+                    "Username must not be empty.", SoundFile.ERROR_1);
             return;
         }
         if (textFieldPassword.getText().isEmpty()) {
-            MessageAlerter.playSound(SoundFile.ERROR_1);
             MessageAlerter.showErrorMessage(null, "Login error",
-                    "Password must not be empty.");
+                    "Password must not be empty.", SoundFile.ERROR_1);
             return;
         }
 
@@ -81,18 +79,16 @@ public class LoginController extends AbstractUserController {
                 .findFirst();
 
         if (optionalUser.isEmpty()) {
-            MessageAlerter.playSound(SoundFile.ERROR_1);
             MessageAlerter.showErrorMessage(null, "Login error",
-                    "There is no user with given username.");
+                    "There is no user with given username.", SoundFile.ERROR_1);
             return;
         }
 
         String encodedInputPassword = PasswordEncoder.getInstance().encodeToSHAHexString(textFieldPassword.getText());
 
         if (!optionalUser.get().getPassword().equals(encodedInputPassword)) {
-            MessageAlerter.playSound(SoundFile.ERROR_1);
             MessageAlerter.showErrorMessage(null, "Login error",
-                    "Wrong password! Please try again.");
+                    "Wrong password! Please try again.", SoundFile.ERROR_1);
             return;
         }
 
