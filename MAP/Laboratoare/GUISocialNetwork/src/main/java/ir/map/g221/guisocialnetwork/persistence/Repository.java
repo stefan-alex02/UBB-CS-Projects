@@ -3,6 +3,7 @@ package ir.map.g221.guisocialnetwork.persistence;
 import ir.map.g221.guisocialnetwork.domain.entities.Entity;
 import ir.map.g221.guisocialnetwork.exceptions.ValidationException;
 
+import java.sql.ResultSet;
 import java.util.Optional;
 
 /**
@@ -59,4 +60,11 @@ public interface Repository<ID, E extends Entity<ID>> {
      * @throws ValidationException      if the entity is not valid.
      */
     Optional<E> update(E entity);
+
+    /**
+     * Creates an entity from given result set.
+     * @param resultSet the result set, containing data
+     * @return the newly created entity
+     */
+    E createEntityFrom(ResultSet resultSet);
 }

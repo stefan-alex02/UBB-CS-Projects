@@ -5,18 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ba91c001-44a4-4efd-b681-577a4cd63951" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../../Laboratoare/GUISocialNetwork/src/main/resources/ir/map/g221/guisocialnetwork/sounds/logoff.mp3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Laboratoare/GUISocialNetwork/src/main/java/ir/map/g221/guisocialnetwork/controllers/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../Laboratoare/GUISocialNetwork/src/main/java/ir/map/g221/guisocialnetwork/controllers/LoginController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Laboratoare/GUISocialNetwork/src/main/java/ir/map/g221/guisocialnetwork/controllers/guiutils/MessageAlerter.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../Laboratoare/GUISocialNetwork/src/main/java/ir/map/g221/guisocialnetwork/controllers/guiutils/MessageAlerter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Laboratoare/GUISocialNetwork/src/main/java/ir/map/g221/guisocialnetwork/controllers/guiutils/SoundFile.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../Laboratoare/GUISocialNetwork/src/main/java/ir/map/g221/guisocialnetwork/controllers/guiutils/SoundFile.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Laboratoare/GUISocialNetwork/src/main/java/ir/map/g221/guisocialnetwork/controllers/userperspective/UserPerspectiveController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../Laboratoare/GUISocialNetwork/src/main/java/ir/map/g221/guisocialnetwork/controllers/userperspective/UserPerspectiveController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Laboratoare/GUISocialNetwork/src/main/java/ir/map/g221/guisocialnetwork/gui/LoginApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../Laboratoare/GUISocialNetwork/src/main/java/ir/map/g221/guisocialnetwork/gui/LoginApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Laboratoare/GUISocialNetwork/src/main/resources/ir/map/g221/guisocialnetwork/views/user-perspective.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/../../Laboratoare/GUISocialNetwork/src/main/resources/ir/map/g221/guisocialnetwork/views/user-perspective.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Laboratoare/GUISocialNetwork/src/main/java/ir/map/g221/guisocialnetwork/persistence/EntityTable.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Laboratoare/GUISocialNetwork/src/main/java/ir/map/g221/guisocialnetwork/persistence/pagingrepos/Page.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Laboratoare/GUISocialNetwork/src/main/java/ir/map/g221/guisocialnetwork/persistence/pagingrepos/PageImplementation.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Laboratoare/GUISocialNetwork/src/main/java/ir/map/g221/guisocialnetwork/persistence/pagingrepos/Pageable.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Laboratoare/GUISocialNetwork/src/main/java/ir/map/g221/guisocialnetwork/persistence/pagingrepos/PageableImplementation.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Laboratoare/GUISocialNetwork/src/main/java/ir/map/g221/guisocialnetwork/persistence/pagingrepos/PagingRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Laboratoare/GUISocialNetwork/src/main/java/ir/map/g221/guisocialnetwork/persistence/Repository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../Laboratoare/GUISocialNetwork/src/main/java/ir/map/g221/guisocialnetwork/persistence/Repository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/sem7gui/repository/paging/Page.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/sem7gui/repository/paging/Page.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../sem9/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../sem9/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../sem9/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../sem9/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,22 +36,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "develop",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/Stefan/UBB-CS-Projects/MAP/Seminarii/sem9",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;develop&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Stefan/UBB-CS-Projects/MAP/Seminarii/sem9&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -73,6 +69,7 @@
       <updated>1701158635499</updated>
       <workItem from="1701158636688" duration="889000" />
       <workItem from="1702364639614" duration="2221000" />
+      <workItem from="1702383931155" duration="733000" />
     </task>
     <servers />
   </component>
