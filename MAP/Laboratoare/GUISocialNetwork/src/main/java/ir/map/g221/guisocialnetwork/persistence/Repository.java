@@ -4,6 +4,7 @@ import ir.map.g221.guisocialnetwork.domain.entities.Entity;
 import ir.map.g221.guisocialnetwork.exceptions.ValidationException;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Optional;
 
 /**
@@ -12,6 +13,20 @@ import java.util.Optional;
  * @param <E> type of entities saved in repository
  */
 public interface Repository<ID, E extends Entity<ID>> {
+    /**
+     * Creates an entity from given result set.
+     * @param resultSet the result set, containing data
+     * @return the newly created entity
+     * @throws SQLException if the entity could not be created from given result set
+     */
+    E createEntityFrom(ResultSet resultSet) throws SQLException;
+
+    /**
+     * Gets the table name corresponding to the entity represented by the repository.
+     * @return the table name
+     */
+    String getTableName();
+
     /**
      * @param id the id of the entity to be returned
      *           id must not be null
@@ -60,11 +75,4 @@ public interface Repository<ID, E extends Entity<ID>> {
      * @throws ValidationException      if the entity is not valid.
      */
     Optional<E> update(E entity);
-
-    /**
-     * Creates an entity from given result set.
-     * @param resultSet the result set, containing data
-     * @return the newly created entity
-     */
-    E createEntityFrom(ResultSet resultSet);
 }

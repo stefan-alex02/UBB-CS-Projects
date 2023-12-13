@@ -5,13 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ba91c001-44a4-4efd-b681-577a4cd63951" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../../Laboratoare/GUISocialNetwork/src/main/java/ir/map/g221/guisocialnetwork/persistence/EntityTable.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../Laboratoare/GUISocialNetwork/src/main/java/ir/map/g221/guisocialnetwork/persistence/pagingrepos/Page.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../Laboratoare/GUISocialNetwork/src/main/java/ir/map/g221/guisocialnetwork/persistence/pagingrepos/PageImplementation.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../Laboratoare/GUISocialNetwork/src/main/java/ir/map/g221/guisocialnetwork/persistence/pagingrepos/Pageable.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../Laboratoare/GUISocialNetwork/src/main/java/ir/map/g221/guisocialnetwork/persistence/pagingrepos/PageableImplementation.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../Laboratoare/GUISocialNetwork/src/main/java/ir/map/g221/guisocialnetwork/persistence/pagingrepos/PagingRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Laboratoare/GUISocialNetwork/src/main/java/ir/map/g221/guisocialnetwork/controllers/userperspective/UserChatController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../Laboratoare/GUISocialNetwork/src/main/java/ir/map/g221/guisocialnetwork/controllers/userperspective/UserChatController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Laboratoare/GUISocialNetwork/src/main/java/ir/map/g221/guisocialnetwork/factory/Factory.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../Laboratoare/GUISocialNetwork/src/main/java/ir/map/g221/guisocialnetwork/factory/Factory.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../Laboratoare/GUISocialNetwork/src/main/java/ir/map/g221/guisocialnetwork/persistence/Repository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../Laboratoare/GUISocialNetwork/src/main/java/ir/map/g221/guisocialnetwork/persistence/Repository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Laboratoare/GUISocialNetwork/src/main/java/ir/map/g221/guisocialnetwork/persistence/dbrepos/FriendRequestDBRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../Laboratoare/GUISocialNetwork/src/main/java/ir/map/g221/guisocialnetwork/persistence/dbrepos/FriendRequestDBRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Laboratoare/GUISocialNetwork/src/main/java/ir/map/g221/guisocialnetwork/persistence/dbrepos/FriendshipDBRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../Laboratoare/GUISocialNetwork/src/main/java/ir/map/g221/guisocialnetwork/persistence/dbrepos/FriendshipDBRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Laboratoare/GUISocialNetwork/src/main/java/ir/map/g221/guisocialnetwork/persistence/dbrepos/MessageDBRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../Laboratoare/GUISocialNetwork/src/main/java/ir/map/g221/guisocialnetwork/persistence/dbrepos/MessageDBRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Laboratoare/GUISocialNetwork/src/main/java/ir/map/g221/guisocialnetwork/persistence/dbrepos/UserDBRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../Laboratoare/GUISocialNetwork/src/main/java/ir/map/g221/guisocialnetwork/persistence/dbrepos/UserDBRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Laboratoare/GUISocialNetwork/src/main/java/ir/map/g221/guisocialnetwork/persistence/inmemoryrepos/InMemoryRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../Laboratoare/GUISocialNetwork/src/main/java/ir/map/g221/guisocialnetwork/persistence/inmemoryrepos/InMemoryRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Laboratoare/GUISocialNetwork/src/main/java/ir/map/g221/guisocialnetwork/persistence/pagingrepos/PagingRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../Laboratoare/GUISocialNetwork/src/main/java/ir/map/g221/guisocialnetwork/persistence/pagingrepos/PagingRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Laboratoare/GUISocialNetwork/src/main/resources/ir/map/g221/guisocialnetwork/views/user-perspective.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/../../Laboratoare/GUISocialNetwork/src/main/resources/ir/map/g221/guisocialnetwork/views/user-perspective.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -23,6 +26,23 @@
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
     </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="sem7gui" type="f1a62948:ProjectNode" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../.." />
@@ -43,7 +63,7 @@
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
     &quot;git-widget-placeholder&quot;: &quot;develop&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Stefan/UBB-CS-Projects/MAP/Seminarii/sem9&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Stefan/UBB-CS-Projects/MAP/Seminarii/sem7gui&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -70,6 +90,8 @@
       <workItem from="1701158636688" duration="889000" />
       <workItem from="1702364639614" duration="2221000" />
       <workItem from="1702383931155" duration="733000" />
+      <workItem from="1702497053611" duration="661000" />
+      <workItem from="1702501008443" duration="4000" />
     </task>
     <servers />
   </component>

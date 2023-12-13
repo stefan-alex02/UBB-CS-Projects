@@ -5,6 +5,7 @@ import ir.map.g221.guisocialnetwork.domain.entities.User;
 import ir.map.g221.guisocialnetwork.domain.validation.Validator;
 import ir.map.g221.guisocialnetwork.persistence.DatabaseConnection;
 import ir.map.g221.guisocialnetwork.persistence.Repository;
+import org.intellij.lang.annotations.Language;
 import org.jetbrains.annotations.NotNull;
 
 import java.sql.*;
@@ -14,23 +15,69 @@ import java.util.Set;
 
 public class UserDBRepository implements Repository<Long, User> {
     private final Validator<User> validator;
-    private final DatabaseConnection databaseConnection;
+    private final DatabaseConnection databaseConnection = DatabaseConnection.getSingleInstance();
     private final PasswordEncoder passwordEncoder;
 
-    public UserDBRepository(DatabaseConnection databaseConnection, Validator<User> validator, PasswordEncoder passwordEncoder) {
-        this.databaseConnection = databaseConnection;
+    public UserDBRepository(Validator<User> validator, PasswordEncoder passwordEncoder) {
         this.validator = validator;
         this.passwordEncoder = passwordEncoder;
     }
 
-    @NotNull
-    private User createUserFrom(ResultSet resultSet) throws SQLException {
+    public User createUserWithoutFriends(ResultSet resultSet) throws SQLException {
         Long id = resultSet.getLong("id");
         String username = resultSet.getString("username");
         String firstName = resultSet.getString("first_name");
         String lastName = resultSet.getString("last_name");
         String password = resultSet.getString("password");
         return new User(id, username, firstName, lastName, password);
+    }
+
+    @Override
+    public User createEntityFrom(ResultSet resultSet) throws SQLException {
+        long id = resultSet.getLong("id");
+        String username = resultSet.getString("username");
+        String firstName = resultSet.getString("first_name");
+        String lastName = resultSet.getString("last_name");
+        String password = resultSet.getString("password");
+        User user = new User(id, username, firstName, lastName, password);
+
+        // Creating friends statement :
+        Connection connection = databaseConnection.getConnection();
+        PreparedStatement friendshipsStatement = connection.prepareStatement(
+                "SELECT F.id2 AS id, " +
+                        "U.username AS username, " +
+                        "U.first_name AS first_name, " +
+                        "U.last_name AS last_name, " +
+                        "U.password AS password " +
+                        "FROM friendships F " +
+                        "INNER JOIN users U ON U.id = F.id2 " +
+                        "WHERE F.id1 = ? " +
+                        "UNION " +
+                        "SELECT F.id1 AS id, " +
+                        "U.username AS username, " +
+                        "U.first_name AS first_name, " +
+                        "U.last_name AS last_name, " +
+                        "U.password AS password " +
+                        "FROM friendships F " +
+                        "INNER JOIN users U ON U.id = F.id1 " +
+                        "WHERE F.id2 = ? " +
+                        "ORDER BY id;");
+
+        friendshipsStatement.setLong(1, id);
+        friendshipsStatement.setLong(2, id);
+        ResultSet friendsResultSet = friendshipsStatement.executeQuery();
+
+        while(friendsResultSet.next()) {
+            User friend = createUserWithoutFriends(friendsResultSet);
+            user.addFriend(friend);
+        }
+
+        return user;
+    }
+
+    @Override
+    public String getTableName() {
+        return "users";
     }
 
     @Override
@@ -41,46 +88,15 @@ public class UserDBRepository implements Repository<Long, User> {
 
         try {
             Connection connection = databaseConnection.getConnection();
-            PreparedStatement userStatement = connection.prepareStatement("select * from users " +
+            PreparedStatement userStatement = connection.prepareStatement(
+                    "select * from users " +
                     "where id = ?");
-            PreparedStatement friendshipsStatement = connection.prepareStatement(
-                    "SELECT F.id2 AS id, " +
-                    "U.username AS username, " +
-                    "U.first_name AS first_name, " +
-                    "U.last_name AS last_name, " +
-                    "U.password AS password " +
-                    "FROM friendships F " +
-                    "INNER JOIN users U ON U.id = F.id2 " +
-                    "WHERE F.id1 = ? " +
-                    "UNION " +
-                    "SELECT F.id1 AS id, " +
-                    "U.username AS username, " +
-                    "U.first_name AS first_name, " +
-                    "U.last_name AS last_name, " +
-                    "U.password AS password " +
-                    "FROM friendships F " +
-                    "INNER JOIN users U ON U.id = F.id1 " +
-                    "WHERE F.id2 = ? " +
-                    "ORDER BY id;");
 
             userStatement.setLong(1, aLong);
-            ResultSet resultSet1 = userStatement.executeQuery();
+            ResultSet resultSet = userStatement.executeQuery();
 
-            friendshipsStatement.setLong(1, aLong);
-            friendshipsStatement.setLong(2, aLong);
-            ResultSet resultSet2 = friendshipsStatement.executeQuery();
-
-            if (resultSet1.next()) {
-                String username = resultSet1.getString("username");
-                String firstName = resultSet1.getString("first_name");
-                String lastName = resultSet1.getString("last_name");
-                String password = resultSet1.getString("password");
-                User user = new User(aLong, username, firstName, lastName, password);
-
-                while(resultSet2.next()) {
-                    User friend = createUserFrom(resultSet2);
-                    user.addFriend(friend);
-                }
+            if (resultSet.next()) {
+                User user = createEntityFrom(resultSet);
                 return Optional.of(user);
             }
             return Optional.empty();
@@ -99,9 +115,8 @@ public class UserDBRepository implements Repository<Long, User> {
 
             Set<User> users = new HashSet<>();
 
-            while (resultSet.next())
-            {
-                User user = createUserFrom(resultSet);
+            while (resultSet.next()) {
+                User user = createEntityFrom(resultSet);
                 users.add(user);
             }
             return users;

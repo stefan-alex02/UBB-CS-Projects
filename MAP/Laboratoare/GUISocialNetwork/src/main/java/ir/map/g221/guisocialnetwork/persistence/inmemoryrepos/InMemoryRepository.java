@@ -6,6 +6,8 @@ import ir.map.g221.guisocialnetwork.domain.validation.Validator;
 import ir.map.g221.guisocialnetwork.exceptions.ValidationException;
 import ir.map.g221.guisocialnetwork.persistence.Repository;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -26,6 +28,16 @@ public class InMemoryRepository<ID, E extends Entity<ID>> implements Repository<
         checkForNullEntity(entity);
         validator.validate(entity);
         return Optional.ofNullable(entities.putIfAbsent(entity.getId(), entity));
+    }
+
+    @Override
+    public E createEntityFrom(ResultSet resultSet) throws SQLException {
+        return null;
+    }
+
+    @Override
+    public String getTableName() {
+        return null;
     }
 
     @Override

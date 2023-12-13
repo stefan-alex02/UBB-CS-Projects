@@ -44,10 +44,10 @@ public class Factory {
         }
 
         Repository<Long, User> userRepo =
-                new UserDBRepository(DatabaseConnection.getSingleInstance(),
+                new UserDBRepository(
                         UserValidator.getInstance(), PasswordEncoder.getInstance());
         Repository<UnorderedPair<Long, Long>, Friendship> friendshipRepo =
-                new FriendshipDBRepository(DatabaseConnection.getSingleInstance(), FriendshipValidator.getInstance());
+                new FriendshipDBRepository(FriendshipValidator.getInstance());
         Repository<Long, Message> messageRepo =
                 new MessageDBRepository(DatabaseConnection.getSingleInstance(), MessageValidator.getInstance(),
                         ReplyMessageValidator.getInstance());

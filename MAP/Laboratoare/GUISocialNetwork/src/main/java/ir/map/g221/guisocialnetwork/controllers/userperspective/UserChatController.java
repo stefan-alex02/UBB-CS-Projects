@@ -368,7 +368,10 @@ public class UserChatController extends AbstractTabController implements Observe
                         }
                         break;
                     case DELETE:
-                        if (messageChangeEvent.getOldData().belongsToConversation(user, receptor)) {
+                        if (messageChangeEvent.getOldData().belongsToConversation(user, receptor) ||
+                            messageHBoxBijection.getDomain().stream().anyMatch(msg ->
+                                    msg instanceof ReplyMessage replyMsg &&
+                                    replyMsg.getMessageRepliedTo().equals(messageChangeEvent.getOldData()))) {
                             reloadChat(receptor);
                         }
                         break;

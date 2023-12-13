@@ -16,14 +16,14 @@ import java.util.Set;
 
 public class FriendshipDBRepository implements Repository<UnorderedPair<Long, Long>, Friendship> {
     private final Validator<Friendship> validator;
-    private final DatabaseConnection databaseConnection;
+    private final DatabaseConnection databaseConnection = DatabaseConnection.getSingleInstance();
 
-    public FriendshipDBRepository(DatabaseConnection databaseConnection, Validator<Friendship> validator) {
-        this.databaseConnection = databaseConnection;
+    public FriendshipDBRepository(Validator<Friendship> validator) {
         this.validator = validator;
     }
 
-    private @NotNull Friendship createFriendshipFrom(ResultSet resultSet) throws SQLException {
+    @Override
+    public Friendship createEntityFrom(ResultSet resultSet) throws SQLException {
         Long id1 = resultSet.getLong("id1");
         String username1 = resultSet.getString("username1");
         String firstName1 = resultSet.getString("first_name1");
@@ -41,6 +41,11 @@ public class FriendshipDBRepository implements Repository<UnorderedPair<Long, Lo
         LocalDateTime friendsFrom = resultSet.getTimestamp("friends_from").toLocalDateTime();
 
         return new Friendship(user1, user2, friendsFrom);
+    }
+
+    @Override
+    public String getTableName() {
+        return "friendships";
     }
 
     @Override
@@ -72,7 +77,7 @@ public class FriendshipDBRepository implements Repository<UnorderedPair<Long, Lo
             statement.setLong(2, unorderedPair.getSecond());
             ResultSet resultSet = statement.executeQuery();
             if(resultSet.next()) {
-                Friendship friendship = createFriendshipFrom(resultSet);
+                Friendship friendship = createEntityFrom(resultSet);
                 return Optional.of(friendship);
             }
             return Optional.empty();
@@ -106,7 +111,7 @@ public class FriendshipDBRepository implements Repository<UnorderedPair<Long, Lo
             Set<Friendship> friendships = new HashSet<>();
             while (resultSet.next())
             {
-                Friendship friendship = createFriendshipFrom(resultSet);
+                Friendship friendship = createEntityFrom(resultSet);
                 friendships.add(friendship);
             }
             return friendships;

@@ -39,7 +39,16 @@ public class MessageDBRepository implements Repository<Long, Message> {
         return receivers;
     }
 
-    private Message createMessageFrom(ResultSet messageResultSet, ResultSet receiversResultSet) throws SQLException {
+    private Message createMessageFrom(ResultSet messageResultSet) throws SQLException {
+        // Initializing receivers query statement :
+        Connection connection = databaseConnection.getConnection();
+        PreparedStatement receiversStatement = connection.prepareStatement(
+                "SELECT U.id, U.username, U.first_name, U.last_name, U.password " +
+                        "FROM messages M " +
+                        "INNER JOIN messages_receivers MR ON MR.message_id = M.id " +
+                        "INNER JOIN users U ON U.id = MR.receiver_id " +
+                        "WHERE M.id = ?");
+
         Message msg = null;
 
         Long id = messageResultSet.getLong("id");
@@ -54,7 +63,7 @@ public class MessageDBRepository implements Repository<Long, Message> {
         User fromUser = new User(fromUserId, fromUserUsername,
                 fromUserFirstName, fromUserLastName, fromUserPassword);
 
-        Long replyToId = messageResultSet.getLong("reply_to_id");
+        long replyToId = messageResultSet.getLong("reply_to_id");
         if (replyToId != 0) {
             String replyToMessage = messageResultSet.getString("reply_to_message");
 
@@ -68,23 +77,44 @@ public class MessageDBRepository implements Repository<Long, Message> {
             User replyToUser = new User(replyToUserId, replyToUserUsername,
                     replyToUserFirstName, replyToUserLastName, replyToUserPassword);
 
+            // Getting the receivers list for the message replied to :
+            receiversStatement.setLong(1, replyToId);
+            ResultSet repliedToReceiversResultSet = receiversStatement.executeQuery();
+
             Message repliedMessage;
             if (messageResultSet.getLong("reply_to_reply_to_id") != 0) {
-                repliedMessage = new ReplyMessage(replyToId, replyToUser, null,
+                repliedMessage = new ReplyMessage(replyToId, replyToUser,
+                        createReceiversFrom(repliedToReceiversResultSet),
                         replyToMessage, replyToMessageDate, null);
             }
             else {
-                repliedMessage = new Message(replyToId, replyToUser, null,
+                repliedMessage = new Message(replyToId, replyToUser,
+                        createReceiversFrom(repliedToReceiversResultSet),
                         replyToMessage, replyToMessageDate);
             }
 
-            msg = new ReplyMessage(id, fromUser, createReceiversFrom(receiversResultSet), message, date, repliedMessage);
+            msg = new ReplyMessage(id, fromUser, null, message, date, repliedMessage);
         }
         else {
-            msg = new Message(id, fromUser, createReceiversFrom(receiversResultSet), message, date);
+            msg = new Message(id, fromUser, null, message, date);
         }
 
+        // Getting the receivers list for the message :
+        receiversStatement.setLong(1, id);
+        ResultSet receiversResultSet = receiversStatement.executeQuery();
+        msg.setTo(createReceiversFrom(receiversResultSet));
+
         return msg;
+    }
+
+    @Override
+    public Message createEntityFrom(ResultSet resultSet) throws SQLException {
+        return null;
+    }
+
+    @Override
+    public String getTableName() {
+        return "messages";
     }
 
     @Override
@@ -113,27 +143,12 @@ public class MessageDBRepository implements Repository<Long, Message> {
                             "LEFT JOIN users U2 ON U2.id = M2.from_user_id " +
                             "LEFT JOIN reply_messages R2 ON R2.message_id = R.reply_to_id " +
                             "WHERE M.id = ?");
-            PreparedStatement receiversStatement = connection.prepareStatement(
-                    "SELECT U.id, U.username, U.first_name, U.last_name, U.password " +
-                            "FROM messages M " +
-                            "INNER JOIN messages_receivers MR ON MR.message_id = M.id " +
-                            "INNER JOIN users U ON U.id = MR.receiver_id " +
-                            "WHERE M.id = ?");
 
             messageStatement.setLong(1, aLong);
-            receiversStatement.setLong(1, aLong);
 
             ResultSet messageResultSet = messageStatement.executeQuery();
-            ResultSet receiversResultSet = receiversStatement.executeQuery();
             if(messageResultSet.next()) {
-                Message message = createMessageFrom(messageResultSet, receiversResultSet);
-
-                if (message instanceof ReplyMessage replyMessage) {
-                    receiversStatement.setLong(1, replyMessage.getMessageRepliedTo().getId());
-                    receiversResultSet = receiversStatement.executeQuery();
-                    replyMessage.getMessageRepliedTo().setTo(createReceiversFrom(receiversResultSet));
-                }
-
+                Message message = createMessageFrom(messageResultSet);
                 return Optional.of(message);
             }
 
@@ -164,29 +179,12 @@ public class MessageDBRepository implements Repository<Long, Message> {
                              "LEFT JOIN messages M2 ON M2.id = R.reply_to_id " +
                              "LEFT JOIN users U2 ON U2.id = M2.from_user_id " +
                              "LEFT JOIN reply_messages R2 ON R2.message_id = R.reply_to_id");
-            PreparedStatement receiversStatement = connection.prepareStatement(
-                     "SELECT U.id, U.username, U.first_name, U.last_name, U.password " +
-                             "FROM messages M " +
-                             "INNER JOIN messages_receivers MR ON MR.message_id = M.id " +
-                             "INNER JOIN users U ON U.id = MR.receiver_id " +
-                             "WHERE M.id = ?");
 
             ResultSet messageResultSet = messageStatement.executeQuery();
 
             Set<Message> messages = new HashSet<>();
-            while (messageResultSet.next())
-            {
-                receiversStatement.setLong(1, messageResultSet.getLong("id"));
-                ResultSet receiversResultSet = receiversStatement.executeQuery();
-
-                Message message = createMessageFrom(messageResultSet, receiversResultSet);
-
-                if (message instanceof ReplyMessage replyMessage) {
-                    receiversStatement.setLong(1, replyMessage.getMessageRepliedTo().getId());
-                    receiversResultSet = receiversStatement.executeQuery();
-                    replyMessage.getMessageRepliedTo().setTo(createReceiversFrom(receiversResultSet));
-                }
-
+            while (messageResultSet.next()) {
+                Message message = createMessageFrom(messageResultSet);
                 messages.add(message);
             }
 

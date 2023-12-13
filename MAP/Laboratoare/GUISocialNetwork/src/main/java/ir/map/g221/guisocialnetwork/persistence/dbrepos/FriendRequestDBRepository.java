@@ -21,7 +21,9 @@ public class FriendRequestDBRepository implements Repository<Long, FriendRequest
         this.validator = validator;
     }
 
-    private @NotNull FriendRequest createFriendRequestFrom(ResultSet resultSet) throws SQLException {
+    @Override
+    public FriendRequest createEntityFrom(ResultSet resultSet) throws SQLException {
+
         Long id = resultSet.getLong("id");
 
         Long fromUserId = resultSet.getLong("from_id");
@@ -44,6 +46,11 @@ public class FriendRequestDBRepository implements Repository<Long, FriendRequest
         LocalDateTime date = resultSet.getTimestamp("date").toLocalDateTime();
 
         return new FriendRequest(id, fromUser, toUser, status, date);
+    }
+
+    @Override
+    public String getTableName() {
+        return "friend_requests";
     }
 
     @Override
@@ -73,7 +80,7 @@ public class FriendRequestDBRepository implements Repository<Long, FriendRequest
 
             ResultSet resultSet = statement.executeQuery();
             if(resultSet.next()) {
-                FriendRequest friendRequest = createFriendRequestFrom(resultSet);
+                FriendRequest friendRequest = createEntityFrom(resultSet);
                 return Optional.of(friendRequest);
             }
             return Optional.empty();
@@ -105,7 +112,7 @@ public class FriendRequestDBRepository implements Repository<Long, FriendRequest
             Set<FriendRequest> friendRequests = new HashSet<>();
             while (resultSet.next())
             {
-                FriendRequest friendRequest = createFriendRequestFrom(resultSet);
+                FriendRequest friendRequest = createEntityFrom(resultSet);
                 friendRequests.add(friendRequest);
             }
 
