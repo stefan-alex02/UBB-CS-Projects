@@ -5,6 +5,7 @@ import ir.map.g221.guisocialnetwork.domain.entities.ReplyMessage;
 import ir.map.g221.guisocialnetwork.domain.entities.User;
 import ir.map.g221.guisocialnetwork.exceptions.NotFoundException;
 import ir.map.g221.guisocialnetwork.persistence.Repository;
+import ir.map.g221.guisocialnetwork.persistence.customqueries.ConversationUsersQuery;
 import ir.map.g221.guisocialnetwork.persistence.customqueries.SortedMessagesQuery;
 import ir.map.g221.guisocialnetwork.persistence.paging.Page;
 import ir.map.g221.guisocialnetwork.persistence.paging.Pageable;

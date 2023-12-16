@@ -28,7 +28,7 @@
                         <Button fx:id="buttonReply" disable="true" layoutX="14.0" layoutY="78.0" mnemonicParsing="false" onAction="#handleReplyButton" prefHeight="28.0" prefWidth="28.0" styleClass="blue-button" AnchorPane.bottomAnchor="9.333333333333329" />
                         <Button fx:id="buttonEdit" disable="true" layoutX="55.0" layoutY="78.0" mnemonicParsing="false" onAction="#handleEditButton" prefHeight="28.0" prefWidth="28.0" styleClass="yellow-button" AnchorPane.bottomAnchor="9.333333333333329" AnchorPane.leftAnchor="55.0" />
                         <Button fx:id="buttonDelete" disable="true" layoutX="99.0" layoutY="78.0" mnemonicParsing="false" onAction="#handleDeleteButton" prefHeight="28.0" prefWidth="28.0" styleClass="red-button" AnchorPane.bottomAnchor="9.333333333333329" AnchorPane.leftAnchor="97.0" />
-                        <Button fx:id="buttonShare" layoutX="255.0" layoutY="76.0" mnemonicParsing="false" prefHeight="28.0" onAction="#handleShareToUsers" prefWidth="28.0" styleClass="green-button" AnchorPane.bottomAnchor="11.333333333333329" AnchorPane.rightAnchor="91.66666666666669" />
+                        <Button fx:id="buttonShare" layoutX="255.0" layoutY="76.0" mnemonicParsing="false" onAction="#handleShareToUsers" prefHeight="28.0" prefWidth="28.0" styleClass="green-button" AnchorPane.bottomAnchor="11.333333333333329" AnchorPane.rightAnchor="91.66666666666669" />
                      </children>
                 </AnchorPane>
               </items>
