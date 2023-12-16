@@ -1,4 +1,4 @@
-package ir.map.g221.guisocialnetwork.persistence.pagingrepos;
+package ir.map.g221.guisocialnetwork.persistence.paging;
 public class PageableImplementation implements Pageable {
 
     private int pageNumber;

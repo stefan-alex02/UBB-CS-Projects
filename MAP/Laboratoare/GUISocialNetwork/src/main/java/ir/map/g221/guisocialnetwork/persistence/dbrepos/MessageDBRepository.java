@@ -6,12 +6,13 @@ import ir.map.g221.guisocialnetwork.domain.entities.User;
 import ir.map.g221.guisocialnetwork.domain.validation.Validator;
 import ir.map.g221.guisocialnetwork.persistence.DatabaseConnection;
 import ir.map.g221.guisocialnetwork.persistence.Repository;
+import ir.map.g221.guisocialnetwork.persistence.paging.PagingRepository;
 
 import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.*;
 
-public class MessageDBRepository implements Repository<Long, Message> {
+public class MessageDBRepository implements PagingRepository<Long, Message> {
     private final DatabaseConnection databaseConnection;
     private final Validator<Message> messageValidator;
     private final Validator<ReplyMessage> replyMessageValidator;
@@ -39,7 +40,8 @@ public class MessageDBRepository implements Repository<Long, Message> {
         return receivers;
     }
 
-    private Message createMessageFrom(ResultSet messageResultSet) throws SQLException {
+    @Override
+    public Message createEntityFrom(ResultSet messageResultSet) throws SQLException {
         // Initializing receivers query statement :
         Connection connection = databaseConnection.getConnection();
         PreparedStatement receiversStatement = connection.prepareStatement(
@@ -108,11 +110,6 @@ public class MessageDBRepository implements Repository<Long, Message> {
     }
 
     @Override
-    public Message createEntityFrom(ResultSet resultSet) throws SQLException {
-        return null;
-    }
-
-    @Override
     public String getTableName() {
         return "messages";
     }
@@ -148,7 +145,7 @@ public class MessageDBRepository implements Repository<Long, Message> {
 
             ResultSet messageResultSet = messageStatement.executeQuery();
             if(messageResultSet.next()) {
-                Message message = createMessageFrom(messageResultSet);
+                Message message = createEntityFrom(messageResultSet);
                 return Optional.of(message);
             }
 
@@ -184,7 +181,7 @@ public class MessageDBRepository implements Repository<Long, Message> {
 
             Set<Message> messages = new HashSet<>();
             while (messageResultSet.next()) {
-                Message message = createMessageFrom(messageResultSet);
+                Message message = createEntityFrom(messageResultSet);
                 messages.add(message);
             }
 

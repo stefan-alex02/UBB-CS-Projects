@@ -5,6 +5,9 @@ import ir.map.g221.guisocialnetwork.controllers.guiutils.MessageAlerter;
 import ir.map.g221.guisocialnetwork.domain.entities.User;
 import ir.map.g221.guisocialnetwork.factory.BuildContainer;
 import ir.map.g221.guisocialnetwork.exceptions.SampleGeneratedException;
+import ir.map.g221.guisocialnetwork.persistence.paging.Page;
+import ir.map.g221.guisocialnetwork.persistence.paging.Pageable;
+import ir.map.g221.guisocialnetwork.persistence.paging.PageableImplementation;
 import ir.map.g221.guisocialnetwork.utils.events.Event;
 import ir.map.g221.guisocialnetwork.utils.events.EventType;
 import ir.map.g221.guisocialnetwork.utils.observer.Observer;
@@ -35,6 +38,10 @@ public class UserController extends AbstractUserController implements Observer {
     TableColumn<User, String> tableColumnFirstName;
     @FXML
     TableColumn<User, String> tableColumnLastName;
+    @FXML Pagination pagination;
+    @FXML ComboBox<Integer> pageSizeComboBox;
+    private Pageable currentPageable;
+    private Page<User> currentUserPage;
 
     private static final List<String> colorList =
             Arrays.asList("E3B5A3", "EF8C8A", "EFC38A", "F5D075", "D5E183",
@@ -80,6 +87,11 @@ public class UserController extends AbstractUserController implements Observer {
         tableColumnUsername.setCellValueFactory(new PropertyValueFactory<>("username"));
         tableColumnFirstName.setCellValueFactory(new PropertyValueFactory<>("firstName"));
         tableColumnLastName.setCellValueFactory(new PropertyValueFactory<>("lastName"));
+
+        pageSizeComboBox.setItems(FXCollections.observableArrayList(1, 2, 3, 5, 8, 10, 20));
+        pageSizeComboBox.valueProperty().addListener(
+                (observable, oldValue, newValue) -> updatePagination(newValue));
+
         tableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         tableView.setItems(usersModel);
     }
@@ -89,18 +101,43 @@ public class UserController extends AbstractUserController implements Observer {
         buildContainer.getUserService().addObserver(this);
         buildContainer.getFriendRequestService().addObserver(this);
         buildContainer.getFriendshipService().addObserver(this);
-        initUserModel();
+
+        int DEFAULT_PAGE_SIZE = 2;
+        updatePagination(DEFAULT_PAGE_SIZE);
     }
 
-    private void initUserModel() {
-        usersModel.setAll(buildContainer.getUserService().getAllUsers());
+    private void refreshPage() {
+        int pageCount = (int) Math.ceil(
+                (double) buildContainer.getUserService().getUserCount() /
+                        currentPageable.getPageSize());
+        if (pagination.getPageCount() != pageCount) {
+            updatePagination(currentPageable.getPageSize());
+        }
+        else {
+            currentUserPage = buildContainer.getUserService().getAllUsers(currentPageable);
+            usersModel.setAll(currentUserPage.getContent().toList());
+        }
+    }
+
+    private void updatePagination(int pageSize) {
+        // Set the page count based on the page size
+        int pageCount = (int) Math.ceil((double) buildContainer.getUserService().getUserCount() / pageSize);
+        pagination.setPageCount(pageCount);
+
+        // Set the page factory
+        pagination.setPageFactory(pageIndex -> {
+            currentPageable = new PageableImplementation(pageIndex + 1, pageSize);
+            currentUserPage = buildContainer.getUserService().getAllUsers(currentPageable);
+            usersModel.setAll(currentUserPage.getContent().toList());
+            return tableView;
+        });
     }
 
     @Override
     public void update(Event event) {
         if (event.getEventType() == EventType.USER ||
             event.getEventType() == EventType.FRIENDSHIP) {
-            initUserModel();
+            refreshPage();
         }
     }
 

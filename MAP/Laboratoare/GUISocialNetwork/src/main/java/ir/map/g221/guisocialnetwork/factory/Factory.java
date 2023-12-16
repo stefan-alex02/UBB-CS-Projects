@@ -13,6 +13,10 @@ import ir.map.g221.guisocialnetwork.persistence.dbrepos.FriendRequestDBRepositor
 import ir.map.g221.guisocialnetwork.persistence.dbrepos.MessageDBRepository;
 import ir.map.g221.guisocialnetwork.persistence.dbrepos.UserDBRepository;
 import ir.map.g221.guisocialnetwork.persistence.dbrepos.FriendshipDBRepository;
+import ir.map.g221.guisocialnetwork.persistence.paging.PagingRepository;
+import ir.map.g221.guisocialnetwork.persistence.pagingrepos.FriendRequestDBPagingRepository;
+import ir.map.g221.guisocialnetwork.persistence.pagingrepos.FriendshipDBPagingRepository;
+import ir.map.g221.guisocialnetwork.persistence.pagingrepos.UserDBPagingRepository;
 import ir.map.g221.guisocialnetwork.ui.UserConsole;
 import ir.map.g221.guisocialnetwork.ui.UserInterface;
 import ir.map.g221.guisocialnetwork.utils.generictypes.UnorderedPair;
@@ -43,22 +47,22 @@ public class Factory {
             throw new RuntimeException(e);
         }
 
-        Repository<Long, User> userRepo =
-                new UserDBRepository(
+        PagingRepository<Long, User> userRepo =
+                new UserDBPagingRepository(
                         UserValidator.getInstance(), PasswordEncoder.getInstance());
-        Repository<UnorderedPair<Long, Long>, Friendship> friendshipRepo =
-                new FriendshipDBRepository(FriendshipValidator.getInstance());
-        Repository<Long, Message> messageRepo =
+        PagingRepository<UnorderedPair<Long, Long>, Friendship> friendshipRepo =
+                new FriendshipDBPagingRepository(FriendshipValidator.getInstance());
+        PagingRepository<Long, FriendRequest> friendRequestRepo =
+                new FriendRequestDBPagingRepository(DatabaseConnection.getSingleInstance(),
+                        FriendRequestValidator.getInstance());
+        PagingRepository<Long, Message> messageRepo =
                 new MessageDBRepository(DatabaseConnection.getSingleInstance(), MessageValidator.getInstance(),
                         ReplyMessageValidator.getInstance());
-        Repository<Long, FriendRequest> friendRequestRepo =
-                new FriendRequestDBRepository(DatabaseConnection.getSingleInstance(),
-                        FriendRequestValidator.getInstance());
 
         CommunityHandler communityHandler = new CommunityHandler(userRepo, friendshipRepo);
 
         UserService userService =
-                new UserService(userRepo, friendshipRepo, PasswordEncoder.getInstance());
+                new UserService(userRepo, friendshipRepo);
         FriendshipService friendshipService =
                 new FriendshipService(userRepo, friendshipRepo);
         MessageService messageService =

@@ -32,7 +32,7 @@ public class SampleGenerator {
         userService.addUser("username8", "firstName8", "lastName8", "password8");
         userService.addUser("username9", "firstName9", "lastName9", "password9");
         userService.addUser("username10", "firstName10", "lastName10", "password10");
-        userService.addUser("username9", "firstName11", "lastName11", "password11");
+        userService.addUser("username11", "firstName11", "lastName11", "password11");
 
         friendshipService.addFriendship(2L, 1L,
                 LocalDateTime.of(2012, 12, 21, 22, 30));

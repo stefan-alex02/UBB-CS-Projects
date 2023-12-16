@@ -1,10 +1,13 @@
 package ir.map.g221.guisocialnetwork.domain.entities;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.time.LocalDateTime;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Message extends Entity<Long> {
+public class Message extends Entity<Long> implements Comparable<Message> {
     protected User from;
     protected Set<User> to;
     protected String message;
@@ -65,5 +68,10 @@ public class Message extends Entity<Long> {
                 " To:\n" + to + "\n| " +
                 " Message: '" + message + "' | " +
                 " Date: " + date;
+    }
+
+    @Override
+    public int compareTo(@NotNull Message o) {
+        return this.date.compareTo(o.date);
     }
 }

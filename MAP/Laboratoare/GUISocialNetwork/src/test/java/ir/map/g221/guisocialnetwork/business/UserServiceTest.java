@@ -100,7 +100,7 @@ class UserServiceTest {
     }
 
     private static UserService createUserService() {
-        return new UserService(userRepo, friendshipRepo, PasswordEncoder.getInstance());
+        return new UserService(userRepo, friendshipRepo);
     }
 
     private static FriendshipService createFriendshipService() {
@@ -108,9 +108,9 @@ class UserServiceTest {
     }
 
     private static void addSampleUsers(UserService userService) {
-        userService.addUser("usr1", "fn1", "ln1", "pass1");
-        userService.addUser("usr2", "fn2", "ln2", "pass2");
-        userService.addUser("usr3", "fn3", "ln3", "pass3");
+        userService.addUser("usr1", "fn1", "ln1", "password1");
+        userService.addUser("usr2", "fn2", "ln2", "password2");
+        userService.addUser("usr3", "fn3", "ln3", "password3");
     }
 
     private static void addSampleFriendships(FriendshipService friendshipService) {

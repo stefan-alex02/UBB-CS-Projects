@@ -5,6 +5,7 @@ import ir.map.g221.guisocialnetwork.domain.validation.ArgumentValidator;
 import ir.map.g221.guisocialnetwork.domain.validation.Validator;
 import ir.map.g221.guisocialnetwork.exceptions.ValidationException;
 import ir.map.g221.guisocialnetwork.persistence.Repository;
+import ir.map.g221.guisocialnetwork.persistence.paging.PagingRepository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -13,7 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
-public class InMemoryRepository<ID, E extends Entity<ID>> implements Repository<ID, E> {
+public class InMemoryRepository<ID, E extends Entity<ID>> implements Repository<ID, E>, PagingRepository<ID, E> {
     protected final Map<ID, E> entities;
     protected final Validator<E> validator;
     private static final ArgumentValidator argumentValidator = ArgumentValidator.getInstance();

@@ -7,16 +7,16 @@ import ir.map.g221.guisocialnetwork.domain.entities.FriendRequest;
 import ir.map.g221.guisocialnetwork.domain.entities.FriendRequestStatus;
 import ir.map.g221.guisocialnetwork.domain.entities.User;
 import ir.map.g221.guisocialnetwork.factory.BuildContainer;
+import ir.map.g221.guisocialnetwork.persistence.paging.Page;
+import ir.map.g221.guisocialnetwork.persistence.paging.Pageable;
+import ir.map.g221.guisocialnetwork.persistence.paging.PageableImplementation;
 import ir.map.g221.guisocialnetwork.utils.events.*;
 import ir.map.g221.guisocialnetwork.utils.observer.Observer;
 import javafx.beans.value.ObservableValueBase;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.util.Callback;
 
 import java.time.LocalDateTime;
@@ -27,6 +27,11 @@ public class FriendRequestController extends AbstractTabController implements Ob
     private BuildContainer buildContainer = null;
     private final ObservableList<FriendRequest> friendRequestsModel = FXCollections.observableArrayList();
     public TableView<FriendRequest> tableView;
+    @FXML
+    Pagination pagination;
+    @FXML ComboBox<Integer> pageSizeComboBox;
+    private Pageable currentPageable;
+    private Page<FriendRequest> currentFriendRequestPage;
 
     @FXML TableColumn<FriendRequest, String> tableColumnFirstName;
     @FXML TableColumn<FriendRequest, String> tableColumnLastName;
@@ -65,13 +70,6 @@ public class FriendRequestController extends AbstractTabController implements Ob
                 default:;
             }
     };
-
-    public void setContent(BuildContainer buildContainer, User user) {
-        this.buildContainer = buildContainer;
-        this.user = user;
-        buildContainer.getFriendRequestService().addObserver(this);
-        buildContainer.getUserService().addObserver(this);
-    }
 
     @FXML
     public void initialize() {
@@ -171,12 +169,62 @@ public class FriendRequestController extends AbstractTabController implements Ob
 
         tableColumnApprove.setSortable(false);
         tableColumnReject.setSortable(false);
+
+        pageSizeComboBox.setItems(FXCollections.observableArrayList(1, 2, 3, 5, 8, 10, 20));
+        pageSizeComboBox.valueProperty().addListener(
+                (observable, oldValue, newValue) -> updatePagination(newValue));
+
         tableView.setItems(friendRequestsModel);
     }
 
-    private void initUserModel() {
-        friendRequestsModel.setAll(buildContainer.getFriendRequestService().getPendingFriendRequests(user.getId()));
+    public void setContent(BuildContainer buildContainer, User user) {
+        this.buildContainer = buildContainer;
+        this.user = user;
+        buildContainer.getFriendRequestService().addObserver(this);
+        buildContainer.getUserService().addObserver(this);
+
+        int DEFAULT_PAGE_SIZE = 2;
+        updatePagination(DEFAULT_PAGE_SIZE);
+    }
+
+    private int getPageCount(int pageSize) {
+        return (int) Math.max(
+                Math.ceil(
+                        (double) buildContainer.getFriendRequestService()
+                                .getNumberOfPendingFriendRequests(user.getId()) / pageSize
+                ), 1);
+    }
+
+    private void initModels() {
+        refreshPage();
         user = buildContainer.getUserService().getUser(user.getId());
+    }
+
+    private void refreshPage() {
+        int pageCount = getPageCount(currentPageable.getPageSize());
+        if (pagination.getPageCount() != pageCount) {
+            updatePagination(currentPageable.getPageSize());
+        }
+        else {
+            currentFriendRequestPage = buildContainer.getFriendRequestService()
+                    .getPendingFriendRequests(user.getId(), currentPageable);
+            friendRequestsModel.setAll(currentFriendRequestPage.getContent().toList());
+        }
+    }
+
+    private void updatePagination(int pageSize) {
+        // Set the page count based on the page size
+        int pageCount = getPageCount(pageSize);
+        pagination.setPageCount(pageCount);
+
+        // Set the page factory
+        pagination.setPageFactory(pageIndex -> {
+            currentPageable = new PageableImplementation(pageIndex + 1, pageSize);
+            currentFriendRequestPage = buildContainer.getFriendRequestService()
+                    .getPendingFriendRequests(user.getId(), currentPageable);
+            friendRequestsModel.setAll(currentFriendRequestPage.getContent().toList());
+            return tableView;
+        });
     }
 
     @Override
@@ -186,20 +234,20 @@ public class FriendRequestController extends AbstractTabController implements Ob
                 UserChangeEvent userChangeEvent = (UserChangeEvent) event;
                 if (userChangeEvent.getChangeEventType() != ChangeEventType.DELETE ||
                         !userChangeEvent.getOldData().equals(user)) {
-                    initUserModel();
+                    initModels();
                 }
                 break;
             case FRIEND_REQUEST:
                 if (event.getEventType() == EventType.FRIEND_REQUEST) {
                     FriendRequestChangeEvent friendRequestChangeEvent = (FriendRequestChangeEvent) event;
-                    initUserModel();
+                    initModels();
                     friendRequestNotificationHandler.handle(friendRequestChangeEvent);
                 }
                 break;
             case OPENED:
                 if (!isLoaded) {
                     isLoaded = true;
-                    initUserModel();
+                    initModels();
                 }
                 break;
             default:;

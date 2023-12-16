@@ -1,4 +1,4 @@
-package ir.map.g221.guisocialnetwork.persistence.pagingrepos;
+package ir.map.g221.guisocialnetwork.persistence.paging;
 import java.util.stream.Stream;
 
 public class PageImplementation<T> implements Page<T> {

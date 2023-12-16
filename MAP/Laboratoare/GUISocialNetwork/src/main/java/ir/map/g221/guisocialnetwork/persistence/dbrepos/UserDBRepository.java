@@ -211,7 +211,7 @@ public class UserDBRepository implements Repository<Long, User> {
             statement.setString(2, entity.getFirstName());
             statement.setString(3, entity.getLastName());
             statement.setString(4, encodedPassword);
-            statement.setLong(3, entity.getId());
+            statement.setLong(5, entity.getId());
 
             int response = statement.executeUpdate();
             return response == 0 ? Optional.of(entity) : Optional.empty();

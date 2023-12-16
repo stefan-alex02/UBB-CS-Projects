@@ -3,8 +3,10 @@ package ir.map.g221.guisocialnetwork.business;
 import ir.map.g221.guisocialnetwork.domain.PasswordEncoder;
 import ir.map.g221.guisocialnetwork.exceptions.NotFoundException;
 import ir.map.g221.guisocialnetwork.exceptions.ValidationException;
-import ir.map.g221.guisocialnetwork.persistence.Repository;
 import ir.map.g221.guisocialnetwork.persistence.inmemoryrepos.FriendshipInMemoryRepo;
+import ir.map.g221.guisocialnetwork.persistence.paging.Page;
+import ir.map.g221.guisocialnetwork.persistence.paging.Pageable;
+import ir.map.g221.guisocialnetwork.persistence.paging.PagingRepository;
 import ir.map.g221.guisocialnetwork.utils.events.ChangeEventType;
 import ir.map.g221.guisocialnetwork.utils.events.Event;
 import ir.map.g221.guisocialnetwork.utils.events.UserChangeEvent;
@@ -20,12 +22,12 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class UserService implements Observable {
-    private final Repository<UnorderedPair<Long, Long>, Friendship> friendshipRepository;
-    private final Repository<Long, User> userRepository;
+    private final PagingRepository<UnorderedPair<Long, Long>, Friendship> friendshipRepository;
+    private final PagingRepository<Long, User> userRepository;
     private final Set<Observer> observers;
 
-    public UserService(Repository<Long, User> userRepository,
-                       Repository<UnorderedPair<Long, Long>, Friendship> friendshipRepository, PasswordEncoder passwordEncoder) {
+    public UserService(PagingRepository<Long, User> userRepository,
+                       PagingRepository<UnorderedPair<Long, Long>, Friendship> friendshipRepository) {
         this.userRepository = userRepository;
         this.friendshipRepository = friendshipRepository;
         this.observers = Collections.newSetFromMap(new ConcurrentHashMap<>(0));
@@ -80,6 +82,14 @@ public class UserService implements Observable {
 
     public Set<User> getAllUsers() {
         return ObjectTransformer.iterableToSet(userRepository.findAll());
+    }
+
+    public Page<User> getAllUsers(Pageable pageable) {
+        return userRepository.findAll(pageable);
+    }
+
+    public int getUserCount() {
+        return userRepository.getSize();
     }
 
     @Override

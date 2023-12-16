@@ -3,10 +3,13 @@ package ir.map.g221.guisocialnetwork.business;
 import ir.map.g221.guisocialnetwork.domain.entities.Friendship;
 import ir.map.g221.guisocialnetwork.domain.entities.User;
 import ir.map.g221.guisocialnetwork.domain.entities.dtos.FriendshipDetails;
-import ir.map.g221.guisocialnetwork.persistence.Repository;
+import ir.map.g221.guisocialnetwork.persistence.customqueries.FriendshipDetailsOfUserQuery;
+import ir.map.g221.guisocialnetwork.persistence.customqueries.NonFriendsOfUserQuery;
+import ir.map.g221.guisocialnetwork.persistence.paging.Page;
+import ir.map.g221.guisocialnetwork.persistence.paging.Pageable;
+import ir.map.g221.guisocialnetwork.persistence.paging.PagingRepository;
 import ir.map.g221.guisocialnetwork.utils.events.ChangeEventType;
 import ir.map.g221.guisocialnetwork.utils.events.Event;
-import ir.map.g221.guisocialnetwork.utils.events.EventType;
 import ir.map.g221.guisocialnetwork.utils.events.FriendshipChangeEvent;
 import ir.map.g221.guisocialnetwork.exceptions.ExistingEntityException;
 import ir.map.g221.guisocialnetwork.exceptions.NotFoundException;
@@ -19,21 +22,17 @@ import org.jetbrains.annotations.NotNull;
 
 import java.time.LocalDateTime;
 import java.time.YearMonth;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class FriendshipService implements Observable {
-    private final Repository<UnorderedPair<Long, Long>, Friendship> friendshipRepository;
-    private final Repository<Long, User> userRepository;
+    private final PagingRepository<UnorderedPair<Long, Long>, Friendship> friendshipRepository;
+    private final PagingRepository<Long, User> userRepository;
     private final Set<Observer> observers;
 
-    public FriendshipService(Repository<Long, User> userRepository,
-                             Repository<UnorderedPair<Long, Long>, Friendship> friendshipRepository) {
+    public FriendshipService(PagingRepository<Long, User> userRepository,
+                             PagingRepository<UnorderedPair<Long, Long>, Friendship> friendshipRepository) {
         this.userRepository = userRepository;
         this.friendshipRepository = friendshipRepository;
         observers = Collections.newSetFromMap(new ConcurrentHashMap<>(0));
@@ -99,6 +98,23 @@ public class FriendshipService implements Observable {
                 .collect(Collectors.toSet());
     }
 
+    public Page<User> getNonFriendsOfUser(Long id, Pageable pageable) throws NotFoundException {
+        userRepository.findOne(id).orElseThrow(() ->
+                new NotFoundException("The specified user does not exist.")
+        );
+        return userRepository.findAllWhere(new NonFriendsOfUserQuery(id), pageable);
+    }
+
+    public Integer getNumberOfNonFriendsOfUser(Long id) {
+        User foundUser = userRepository.findOne(id).orElseThrow(() ->
+                new NotFoundException("The specified user does not exist.")
+        );
+        return Math.toIntExact(ObjectTransformer.iterableToCollection(userRepository.findAll())
+                .stream()
+                .filter(user -> !foundUser.hasFriend(user) && !user.equals(foundUser))
+                .count());
+    }
+
     public Set<User> getFriendsOfUser(Long id) throws NotFoundException {
         User foundUser = userRepository.findOne(id).orElseThrow(() ->
                 new NotFoundException("The specified user does not exist.")
@@ -110,7 +126,7 @@ public class FriendshipService implements Observable {
                 .collect(Collectors.toSet());
     }
 
-    public Set<FriendshipDetails> getFriendshipDetailsStreamOfUser(Long id) {
+    public Set<FriendshipDetails> getFriendshipDetailsOfUser(Long id) {
         User foundUser = userRepository.findOne(id).orElseThrow(() ->
                 new NotFoundException("The specified user does not exist.")
         );
@@ -121,8 +137,27 @@ public class FriendshipService implements Observable {
                 .collect(Collectors.toSet());
     }
 
+    public Integer getNumberOfFriendsOfUser(Long id) {
+        User foundUser = userRepository.findOne(id).orElseThrow(() ->
+                new NotFoundException("The specified user does not exist.")
+        );
+        return Math.toIntExact(ObjectTransformer.iterableToCollection(friendshipRepository.findAll())
+                .stream()
+                .filter(friendship -> friendship.hasUser(foundUser))
+                .map(friendship -> friendship.theOtherFriend(foundUser))
+                .count());
+    }
+
+    public Page<FriendshipDetails> getFriendshipDetailsOfUser(Long id, Pageable pageable) throws NotFoundException {
+        userRepository.findOne(id).orElseThrow(() ->
+                new NotFoundException("The specified user does not exist.")
+        );
+        return friendshipRepository.findAllWhere(
+                new FriendshipDetailsOfUserQuery(id), pageable);
+    }
+
     public Set<FriendshipDetails> getFriendshipDetailsInYearMonth(Long id, YearMonth yearMonth) throws NotFoundException {
-        return getFriendshipDetailsStreamOfUser(id)
+        return getFriendshipDetailsOfUser(id)
                 .stream()
                 .filter(friendshipDetails ->
                         YearMonth.from(friendshipDetails.getFriendsFromDate()).equals(yearMonth))

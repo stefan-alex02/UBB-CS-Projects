@@ -6,9 +6,14 @@ import ir.map.g221.guisocialnetwork.domain.entities.Message;
 import ir.map.g221.guisocialnetwork.domain.entities.ReplyMessage;
 import ir.map.g221.guisocialnetwork.domain.entities.User;
 import ir.map.g221.guisocialnetwork.factory.BuildContainer;
+import ir.map.g221.guisocialnetwork.persistence.paging.Page;
+import ir.map.g221.guisocialnetwork.persistence.paging.Pageable;
+import ir.map.g221.guisocialnetwork.persistence.paging.PageableImplementation;
 import ir.map.g221.guisocialnetwork.utils.events.*;
 import ir.map.g221.guisocialnetwork.utils.generictypes.Bijection;
 import ir.map.g221.guisocialnetwork.utils.observer.Observer;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -18,6 +23,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -26,6 +32,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -48,6 +55,9 @@ public class UserChatController extends AbstractTabController implements Observe
     @FXML Button buttonEdit;
     @FXML Button buttonDelete;
     @FXML Button buttonShare;
+
+    private Pageable currentPageable;
+    int MESSAGE_PAGE_SIZE = 7;
 
     EventHandler<MessageChangeEvent> messageNotificationHandler =
             e -> {
@@ -85,6 +95,7 @@ public class UserChatController extends AbstractTabController implements Observe
                 };
                 cell.setOnMouseClicked(event -> {
                     if (!cell.isEmpty()) {
+                        currentPageable = new PageableImplementation(1, MESSAGE_PAGE_SIZE);
                         reloadChat(cell.getItem());
                     }
                 });
@@ -112,10 +123,26 @@ public class UserChatController extends AbstractTabController implements Observe
                 };
             }
         });
+
         buttonReply.setGraphic(Image.REPLY.createImageView());
         buttonEdit.setGraphic(Image.EDIT.createImageView());
         buttonDelete.setGraphic(Image.DELETE.createImageView());
         buttonShare.setGraphic(Image.SHARE.createImageView());
+
+        chatListView.setOnScroll(event -> {
+            if (event.getDeltaY() > 0) {
+                System.out.println("Scroll reached top, loading messages");
+
+                int noOfOldMessages = messageHBoxes.size();
+                currentPageable = new PageableImplementation(1,
+                        currentPageable.getPageSize() + MESSAGE_PAGE_SIZE);
+                reloadMessages();
+
+                int noOfNewMessages = messageHBoxes.size();
+                chatListView.scrollTo(noOfNewMessages - noOfOldMessages - 2);
+            }
+        });
+
         userListView.setItems(receptorsModel);
         chatListView.setItems(messageHBoxes);
     }
@@ -156,19 +183,25 @@ public class UserChatController extends AbstractTabController implements Observe
         buttonSend.setDisable(false);
         buttonShare.setDisable(false);
 
+        reloadMessages();
+        chatListView.scrollTo(messageHBoxes.size() - 1);
+    }
+
+    private void reloadMessages() {
         messageHBoxBijection.clear();
         hBoxMessageLabelBijection.clear();
 
-        List<Message> messageList = buildContainer.getMessageService()
-                .getConversation(user.getId(), receptor.getId());
+        Page<Message> messageList = buildContainer.getMessageService()
+                .getConversation(user.getId(), receptor.getId(), currentPageable);
         List<HBox> hBoxes = new ArrayList<>();
-        messageList.forEach(message -> {
+        messageList.getContent()
+                .sorted()
+                .forEach(message -> {
                     HBox hBox = createHBoxWithMessage(message);
                     messageHBoxBijection.putPair(message, hBox);
                     hBoxes.add(hBox);
                 });
         messageHBoxes.setAll(hBoxes);
-        chatListView.scrollTo(messageHBoxes.size() - 1);
     }
 
     private void closeChat() {
@@ -178,6 +211,8 @@ public class UserChatController extends AbstractTabController implements Observe
         receptor = null;
 
         chatLogic.closeChat();
+
+        currentPageable = new PageableImplementation(1, MESSAGE_PAGE_SIZE);
     }
 
     @NotNull
@@ -346,6 +381,8 @@ public class UserChatController extends AbstractTabController implements Observe
                     case ADD:
                         User sender = messageChangeEvent.getNewData().getFrom();
                         if (messageChangeEvent.getNewData().belongsToConversation(user, receptor)) {
+                            currentPageable = new PageableImplementation(1,
+                                            currentPageable.getPageSize() + 1);
                             reloadChat(receptor);
                             chatListView.scrollTo(chatListView.getItems().size());
                         }
@@ -372,6 +409,8 @@ public class UserChatController extends AbstractTabController implements Observe
                             messageHBoxBijection.getDomain().stream().anyMatch(msg ->
                                     msg instanceof ReplyMessage replyMsg &&
                                     replyMsg.getMessageRepliedTo().equals(messageChangeEvent.getOldData()))) {
+                            currentPageable = new PageableImplementation(1,
+                                    currentPageable.getPageSize() - 1);
                             reloadChat(receptor);
                         }
                         break;

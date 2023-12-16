@@ -12,9 +12,9 @@ class UserInMemoryRepoTest {
 
     @Test
     void add() {
-        User u1 = new User(2L, "username1", "firstName1", "lastName1", "12345");
-        User u2 = new User(5L, "username2", "firstName2", "lastName2", "12345");
-        User u3 = new User(7L, "username3", "firstName3", "lastName3", "12345");
+        User u1 = new User(2L, "username1", "firstName1", "lastName1", "12345678");
+        User u2 = new User(5L, "username2", "firstName2", "lastName2", "12345678");
+        User u3 = new User(7L, "username3", "firstName3", "lastName3", "12345678");
 
         UserInMemoryRepo userRepo = new UserInMemoryRepo(UserValidator.getInstance());
         userRepo.save(u1);
@@ -25,10 +25,10 @@ class UserInMemoryRepoTest {
     }
 
     @Test
-    void update() {User u1 = new User(2L, "username1", "firstName1", "lastName1", "12345");
-        User u2 = new User(5L, "username2", "firstName2", "lastName2", "12345");
-        User u3 = new User(7L, "username3", "firstName3", "lastName3", "12345");
-        User newU1 = new User(2L, "username1", "firstName1", "lastName1", "12345");
+    void update() {User u1 = new User(2L, "username1", "firstName1", "lastName1", "12345678");
+        User u2 = new User(5L, "username2", "firstName2", "lastName2", "12345678");
+        User u3 = new User(7L, "username3", "firstName3", "lastName3", "12345678");
+        User newU1 = new User(2L, "username1", "firstName1", "lastName1", "12345678");
 
         UserInMemoryRepo userRepo = new UserInMemoryRepo(UserValidator.getInstance());
         userRepo.save(u1);

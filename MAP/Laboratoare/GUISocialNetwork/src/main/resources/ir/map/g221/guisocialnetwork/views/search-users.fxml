@@ -15,4 +15,6 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
         </columnResizePolicy>
     </TableView>
+   <Pagination fx:id="pagination" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+   <ComboBox fx:id="pageSizeComboBox" layoutX="515.0" layoutY="361.0" prefHeight="25.0" prefWidth="71.0" promptText="Page" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0" />
 </AnchorPane>

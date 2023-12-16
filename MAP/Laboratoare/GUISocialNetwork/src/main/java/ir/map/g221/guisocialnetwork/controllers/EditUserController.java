@@ -2,6 +2,7 @@ package ir.map.g221.guisocialnetwork.controllers;
 
 import ir.map.g221.guisocialnetwork.business.UserService;
 import ir.map.g221.guisocialnetwork.controllers.guiutils.MessageAlerter;
+import ir.map.g221.guisocialnetwork.controllers.guiutils.SoundFile;
 import ir.map.g221.guisocialnetwork.domain.entities.User;
 import ir.map.g221.guisocialnetwork.exceptions.ValidationException;
 import javafx.fxml.FXML;
@@ -64,7 +65,8 @@ public class EditUserController {
             dialogStage.close();
         }
         catch (ValidationException e) {
-            MessageAlerter.showErrorMessage(null, "Validation error", e.getMessage());
+            MessageAlerter.showErrorMessage(null, "Validation error", e.getMessage(),
+                    SoundFile.ERROR_1);
         }
         catch (RuntimeException e) {
             MessageAlerter.showErrorMessage(null, "There has been an error", e.getMessage());
@@ -80,7 +82,8 @@ public class EditUserController {
             dialogStage.close();
         }
         catch (ValidationException e) {
-            MessageAlerter.showErrorMessage(null, "Validation error", e.getMessage());
+            MessageAlerter.showErrorMessage(null, "Validation error", e.getMessage(),
+                    SoundFile.ERROR_1);
         }
         catch (RuntimeException e) {
             MessageAlerter.showErrorMessage(null, "There has been an error", e.getMessage());

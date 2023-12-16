@@ -5,13 +5,14 @@ import ir.map.g221.guisocialnetwork.domain.entities.ReplyMessage;
 import ir.map.g221.guisocialnetwork.domain.entities.User;
 import ir.map.g221.guisocialnetwork.exceptions.NotFoundException;
 import ir.map.g221.guisocialnetwork.persistence.Repository;
+import ir.map.g221.guisocialnetwork.persistence.customqueries.SortedMessagesQuery;
+import ir.map.g221.guisocialnetwork.persistence.paging.Page;
+import ir.map.g221.guisocialnetwork.persistence.paging.Pageable;
+import ir.map.g221.guisocialnetwork.persistence.paging.PagingRepository;
 import ir.map.g221.guisocialnetwork.utils.events.ChangeEventType;
 import ir.map.g221.guisocialnetwork.utils.events.Event;
 import ir.map.g221.guisocialnetwork.utils.events.MessageChangeEvent;
-import ir.map.g221.guisocialnetwork.utils.events.UserChangeEvent;
 import ir.map.g221.guisocialnetwork.utils.generictypes.ObjectTransformer;
-import ir.map.g221.guisocialnetwork.utils.generictypes.Pair;
-import ir.map.g221.guisocialnetwork.utils.graphs.ConnectedComponent;
 import ir.map.g221.guisocialnetwork.utils.observer.Observable;
 import ir.map.g221.guisocialnetwork.utils.observer.Observer;
 
@@ -21,11 +22,12 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
 public class MessageService implements Observable {
-    private final Repository<Long, Message> messageRepository;
-    private final Repository<Long, User> userRepository;
+    private final PagingRepository<Long, Message> messageRepository;
+    private final PagingRepository<Long, User> userRepository;
     private final Set<Observer> observers;
 
-    public MessageService(Repository<Long, Message> messageRepository, Repository<Long, User> userRepository) {
+    public MessageService(PagingRepository<Long, Message> messageRepository,
+                          PagingRepository<Long, User> userRepository) {
         this.messageRepository = messageRepository;
         this.userRepository = userRepository;
         observers = Collections.newSetFromMap(new ConcurrentHashMap<>(0));
@@ -75,6 +77,17 @@ public class MessageService implements Observable {
                 .filter(message -> message.belongsToConversation(user1, user2))
                 .sorted(Comparator.comparing(Message::getDate))
                 .toList();
+    }
+
+    public Page<Message> getConversation(Long id1, Long id2, Pageable pageable) {
+        Optional<User> optionalUser1 = userRepository.findOne(id1);
+        Optional<User> optionalUser2 = userRepository.findOne(id2);
+
+        if (optionalUser1.isEmpty() || optionalUser2.isEmpty()) {
+            throw new NotFoundException("At least one user could not be found.");
+        }
+
+        return messageRepository.findAllWhere(new SortedMessagesQuery(id1, id2), pageable);
     }
 
     public void sendMessageNow(Long fromUserId, List<Long> toUsersIds, String message) {

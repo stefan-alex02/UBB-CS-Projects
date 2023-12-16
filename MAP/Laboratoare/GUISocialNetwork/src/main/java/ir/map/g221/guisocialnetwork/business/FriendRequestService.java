@@ -9,6 +9,10 @@ import ir.map.g221.guisocialnetwork.exceptions.InvalidEntityException;
 import ir.map.g221.guisocialnetwork.exceptions.NotFoundException;
 import ir.map.g221.guisocialnetwork.exceptions.ValidationException;
 import ir.map.g221.guisocialnetwork.persistence.Repository;
+import ir.map.g221.guisocialnetwork.persistence.customqueries.PendingFriendRequestsOfUserQuery;
+import ir.map.g221.guisocialnetwork.persistence.paging.Page;
+import ir.map.g221.guisocialnetwork.persistence.paging.Pageable;
+import ir.map.g221.guisocialnetwork.persistence.paging.PagingRepository;
 import ir.map.g221.guisocialnetwork.utils.events.ChangeEventType;
 import ir.map.g221.guisocialnetwork.utils.events.Event;
 import ir.map.g221.guisocialnetwork.utils.events.FriendRequestChangeEvent;
@@ -26,14 +30,14 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
 public class FriendRequestService implements Observable {
-    private final Repository<Long, FriendRequest> friendRequestRepository;
-    private final Repository<Long, User> userRepository;
-    private final Repository<UnorderedPair<Long, Long>, Friendship> friendshipRepository;
+    private final PagingRepository<Long, FriendRequest> friendRequestRepository;
+    private final PagingRepository<Long, User> userRepository;
+    private final PagingRepository<UnorderedPair<Long, Long>, Friendship> friendshipRepository;
     private final Set<Observer> observers;
 
-    public FriendRequestService(Repository<Long, FriendRequest> friendRequestRepository,
-                                Repository<Long, User> userRepository, Repository<UnorderedPair<Long, Long>,
-                                Friendship> friendshipRepository) {
+    public FriendRequestService(PagingRepository<Long, FriendRequest> friendRequestRepository,
+                                PagingRepository<Long, User> userRepository,
+                                PagingRepository<UnorderedPair<Long, Long>, Friendship> friendshipRepository) {
         this.friendRequestRepository = friendRequestRepository;
         this.userRepository = userRepository;
         this.friendshipRepository = friendshipRepository;
@@ -97,6 +101,27 @@ public class FriendRequestService implements Observable {
                         Objects.equals(friendRequest.getTo().getId(), ofId) &&
                         friendRequest.getStatus() == FriendRequestStatus.PENDING)
                 .collect(Collectors.toSet());
+    }
+
+    public Page<FriendRequest> getPendingFriendRequests(Long ofId, Pageable pageable) {
+        if (userRepository.findOne(ofId).isEmpty()) {
+            throw new NotFoundException("Specified user could not be found.");
+        }
+
+        return friendRequestRepository.findAllWhere(new PendingFriendRequestsOfUserQuery(ofId), pageable);
+    }
+
+    public int getNumberOfPendingFriendRequests(Long ofId) {
+        if (userRepository.findOne(ofId).isEmpty()) {
+            throw new NotFoundException("Specified user could not be found.");
+        }
+
+        return Math.toIntExact(ObjectTransformer.iterableToCollection(friendRequestRepository.findAll())
+                .stream()
+                .filter(friendRequest ->
+                        Objects.equals(friendRequest.getTo().getId(), ofId) &&
+                                friendRequest.getStatus() == FriendRequestStatus.PENDING)
+                .count());
     }
 
     private FriendRequest updateFriendRequest(Long friendRequestId, FriendRequestStatus newStatus)

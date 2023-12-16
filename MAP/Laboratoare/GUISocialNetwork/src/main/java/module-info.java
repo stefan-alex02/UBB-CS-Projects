@@ -47,6 +47,12 @@ module ir.map.g221.guisocialnetwork {
     opens ir.map.g221.guisocialnetwork.persistence to javafx.fxml;
     exports ir.map.g221.guisocialnetwork.persistence;
 
+    opens ir.map.g221.guisocialnetwork.persistence.paging to javafx.fxml;
+    exports ir.map.g221.guisocialnetwork.persistence.paging;
+
+    opens ir.map.g221.guisocialnetwork.persistence.pagingrepos to javafx.fxml;
+    exports ir.map.g221.guisocialnetwork.persistence.pagingrepos;
+
     opens ir.map.g221.guisocialnetwork to javafx.fxml;
     exports ir.map.g221.guisocialnetwork;
     exports ir.map.g221.guisocialnetwork.gui;
@@ -57,4 +63,6 @@ module ir.map.g221.guisocialnetwork {
     opens ir.map.g221.guisocialnetwork.controllers.userperspective to javafx.fxml;
     exports ir.map.g221.guisocialnetwork.controllers.guiutils;
     opens ir.map.g221.guisocialnetwork.controllers.guiutils to javafx.fxml;
+    exports ir.map.g221.guisocialnetwork.persistence.customqueries;
+    opens ir.map.g221.guisocialnetwork.persistence.customqueries to javafx.fxml;
 }
