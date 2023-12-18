@@ -1,6 +1,5 @@
 ﻿namespace TimesheetsProject.domain.enums;
 
-public enum KnowledgeLevel
-{
+public enum KnowledgeLevel {
     Junior, Medium, Senior
 }
