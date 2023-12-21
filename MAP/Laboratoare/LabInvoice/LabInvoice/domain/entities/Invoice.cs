@@ -15,7 +15,8 @@ public class Invoice : Document {
 
     public override string ToString() {
         return base.ToString() + " | Due date: " + DueDate +
-               " | Acquisitions: [\n" + Acquisitions + "\n]" +
+               " | Acquisitions: [\n" + 
+               String.Join('\n', Acquisitions.Select(acq => acq.ToString())) + "\n]" +
                " | Category: " + Category;
     }
 }

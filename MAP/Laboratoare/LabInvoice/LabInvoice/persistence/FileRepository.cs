@@ -7,6 +7,7 @@ public abstract class FileRepository<TId, TE>: IRepository<TId, TE> where TE: En
     protected readonly IDictionary<TId, TE> Dictionary = new Dictionary<TId, TE>();
     
     protected FileRepository(string fileName) {
+        FileName = fileName;
     }
     
     protected abstract TE FromLine(String line);

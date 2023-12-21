@@ -25,6 +25,7 @@ public class InvoiceRepo : IRepository<string, Invoice> {
                 
                 rawInvoice.Acquisitions =
                     (from acq in AcquisitionFileRepo.FindAll()
+                    where acq.DocumentId == rawInvoice.Id
                     select new Acquisition(acq.Id, acq.Product, acq.Quantity, acq.ProductPrice, rawInvoice)).ToList();
                 
                 return rawInvoice;

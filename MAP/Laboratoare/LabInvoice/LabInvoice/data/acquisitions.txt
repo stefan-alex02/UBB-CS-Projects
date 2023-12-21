@@ -1,0 +1,13 @@
+prod101,Bomboane Brad,12,2,doc1
+prod102,Carnati,8,15,doc1
+prod201,Detector gaze,1,200,doc2
+prod202,Sul prosoape bucatarie,2,3,doc2
+prod301,Tricou Alb Dama M,2,20,doc3
+prod302,Caciula neagra,1,45,doc3
+prod303,Blugi Barbat L,1,130,doc3
+prod401,Fasole (kg),3,6,doc4
+prod402,Ciolan afumat (buc),4,15,doc4
+prod601,Bilete (Rand 3),3,25,doc6
+prod602,Popcorn mediu,2,10,doc6
+prod701,Furtun 10m,1,120,doc7
+prod702,Stropitoare,1,25,doc7
