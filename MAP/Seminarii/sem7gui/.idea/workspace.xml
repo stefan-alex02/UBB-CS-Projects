@@ -5,17 +5,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ba91c001-44a4-4efd-b681-577a4cd63951" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../../Laboratoare/GUISocialNetwork/src/main/java/ir/map/g221/guisocialnetwork/controllers/userperspective/UserChatController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../Laboratoare/GUISocialNetwork/src/main/java/ir/map/g221/guisocialnetwork/controllers/userperspective/UserChatController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Laboratoare/GUISocialNetwork/src/main/java/ir/map/g221/guisocialnetwork/factory/Factory.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../Laboratoare/GUISocialNetwork/src/main/java/ir/map/g221/guisocialnetwork/factory/Factory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Laboratoare/GUISocialNetwork/src/main/java/ir/map/g221/guisocialnetwork/persistence/Repository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../Laboratoare/GUISocialNetwork/src/main/java/ir/map/g221/guisocialnetwork/persistence/Repository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Laboratoare/GUISocialNetwork/src/main/java/ir/map/g221/guisocialnetwork/persistence/dbrepos/FriendRequestDBRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../Laboratoare/GUISocialNetwork/src/main/java/ir/map/g221/guisocialnetwork/persistence/dbrepos/FriendRequestDBRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Laboratoare/GUISocialNetwork/src/main/java/ir/map/g221/guisocialnetwork/persistence/dbrepos/FriendshipDBRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../Laboratoare/GUISocialNetwork/src/main/java/ir/map/g221/guisocialnetwork/persistence/dbrepos/FriendshipDBRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Laboratoare/GUISocialNetwork/src/main/java/ir/map/g221/guisocialnetwork/persistence/dbrepos/MessageDBRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../Laboratoare/GUISocialNetwork/src/main/java/ir/map/g221/guisocialnetwork/persistence/dbrepos/MessageDBRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Laboratoare/GUISocialNetwork/src/main/java/ir/map/g221/guisocialnetwork/persistence/dbrepos/UserDBRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../Laboratoare/GUISocialNetwork/src/main/java/ir/map/g221/guisocialnetwork/persistence/dbrepos/UserDBRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Laboratoare/GUISocialNetwork/src/main/java/ir/map/g221/guisocialnetwork/persistence/inmemoryrepos/InMemoryRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../Laboratoare/GUISocialNetwork/src/main/java/ir/map/g221/guisocialnetwork/persistence/inmemoryrepos/InMemoryRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Laboratoare/GUISocialNetwork/src/main/java/ir/map/g221/guisocialnetwork/persistence/pagingrepos/PagingRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../Laboratoare/GUISocialNetwork/src/main/java/ir/map/g221/guisocialnetwork/persistence/pagingrepos/PagingRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Laboratoare/GUISocialNetwork/src/main/resources/ir/map/g221/guisocialnetwork/views/user-perspective.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/../../Laboratoare/GUISocialNetwork/src/main/resources/ir/map/g221/guisocialnetwork/views/user-perspective.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Seminar4/.gradle/8.2/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../Seminar4/.gradle/8.2/checksums/checksums.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Seminar4/.gradle/8.2/dependencies-accessors/dependencies-accessors.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../Seminar4/.gradle/8.2/dependencies-accessors/dependencies-accessors.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Seminar4/.gradle/8.2/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../Seminar4/.gradle/8.2/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Seminar4/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../Seminar4/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Seminar4/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Seminar4/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Seminar4/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Seminar4/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Seminar_sapt6/.gradle/8.2/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../Seminar_sapt6/.gradle/8.2/checksums/checksums.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Seminar_sapt6/.gradle/8.2/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../Seminar_sapt6/.gradle/8.2/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Seminar_sapt6/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Seminar_sapt6/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Seminar_sapt6/.idea/dataSources/24ac46a1-6ed0-4c4f-8aab-2124741db571.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Seminar_sapt6/.idea/dataSources/24ac46a1-6ed0-4c4f-8aab-2124741db571.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Seminar_sapt6/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Seminar_sapt6/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Seminar_sapt6/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Seminar_sapt6/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../sem10_conc/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../sem10_conc/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../sem9/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../sem9/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../RETELE DE CALCULATOARE/Lab 11 Dirijare/lab11_rutare_dinamica.pkt" beforeDir="false" afterPath="$PROJECT_DIR$/../../../RETELE DE CALCULATOARE/Lab 11 Dirijare/lab11_rutare_dinamica.pkt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../RETELE DE CALCULATOARE/Lab 11 Dirijare/lab11_rutare_statica.pkt" beforeDir="false" afterPath="$PROJECT_DIR$/../../../RETELE DE CALCULATOARE/Lab 11 Dirijare/lab11_rutare_statica.pkt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,22 +61,23 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;develop&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Stefan/UBB-CS-Projects/MAP/Seminarii/sem7gui&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Gradle.sem7gui [:HelloApplication.main()].executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "develop",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/Stefan/UBB-CS-Projects/MAP/Seminarii/sem7gui",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -92,6 +98,7 @@
       <workItem from="1702383931155" duration="733000" />
       <workItem from="1702497053611" duration="661000" />
       <workItem from="1702501008443" duration="4000" />
+      <workItem from="1704390876399" duration="304000" />
     </task>
     <servers />
   </component>

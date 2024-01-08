@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataSource name="cinema@localhost">
-  <database-model serializer="dbm" dbms="POSTGRES" family-id="POSTGRES" format-version="4.49">
+  <database-model serializer="dbm" dbms="POSTGRES" family-id="POSTGRES" format-version="4.51">
     <root id="1">
       <DateStyle>dmy</DateStyle>
       <IntrospectionStateNumber>946</IntrospectionStateNumber>
@@ -4244,8 +4244,7 @@ false Zulu
       <Comment>standard public schema</Comment>
       <Current>1</Current>
       <IntrospectionStateNumber>947</IntrospectionStateNumber>
-      <IntrospectionTimestamp>2023-11-07.11:05:53.007</IntrospectionTimestamp>
-      <LocalIntrospectionTimestamp>2023-11-07.09:05:53</LocalIntrospectionTimestamp>
+      <LastIntrospectionLocalTimestamp>2023-11-07.09:05:53</LastIntrospectionLocalTimestamp>
       <ObjectId>2200</ObjectId>
       <StateNumber>524</StateNumber>
       <OwnerName>pg_database_owner</OwnerName>
@@ -7602,8 +7601,7 @@ false Zulu
       <Comment>standard public schema</Comment>
       <Current>1</Current>
       <IntrospectionStateNumber>946</IntrospectionStateNumber>
-      <IntrospectionTimestamp>2023-11-07.11:05:52.015</IntrospectionTimestamp>
-      <LocalIntrospectionTimestamp>2023-11-07.09:05:52</LocalIntrospectionTimestamp>
+      <LastIntrospectionLocalTimestamp>2023-11-07.09:05:52</LastIntrospectionLocalTimestamp>
       <ObjectId>2200</ObjectId>
       <StateNumber>524</StateNumber>
       <OwnerName>pg_database_owner</OwnerName>
@@ -7611,7 +7609,7 @@ false Zulu
     <sequence id="511" parent="266" name="movies_id_seq">
       <DasType>bigint|0s</DasType>
       <ObjectId>24803</ObjectId>
-      <SequenceIdentity>1(1)</SequenceIdentity>
+      <SequenceIdentity>1</SequenceIdentity>
       <StartValue>1</StartValue>
       <StateNumber>930</StateNumber>
       <OwnerName>postgres</OwnerName>
@@ -7619,7 +7617,7 @@ false Zulu
     <sequence id="512" parent="266" name="regizori_id_seq">
       <DasType>bigint|0s</DasType>
       <ObjectId>24809</ObjectId>
-      <SequenceIdentity>1(1)</SequenceIdentity>
+      <SequenceIdentity>1</SequenceIdentity>
       <StartValue>1</StartValue>
       <StateNumber>931</StateNumber>
       <OwnerName>postgres</OwnerName>
@@ -7639,7 +7637,7 @@ false Zulu
     <sequence id="515" parent="510" name="users_id_seq">
       <DasType>bigint|0s</DasType>
       <ObjectId>24796</ObjectId>
-      <SequenceIdentity>1(4)</SequenceIdentity>
+      <SequenceIdentity>1</SequenceIdentity>
       <StartValue>1</StartValue>
       <StateNumber>920</StateNumber>
       <OwnerName>postgres</OwnerName>

@@ -5,14 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8dc96273-eae7-48c2-8c5e-255a30e1b80d" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../../Laboratoare/GUISocialNetwork/src/main/java/ir/map/g221/guisocialnetwork/controllers/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../Laboratoare/GUISocialNetwork/src/main/java/ir/map/g221/guisocialnetwork/controllers/LoginController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Laboratoare/GUISocialNetwork/src/main/java/ir/map/g221/guisocialnetwork/controllers/guiutils/MessageAlerter.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../Laboratoare/GUISocialNetwork/src/main/java/ir/map/g221/guisocialnetwork/controllers/guiutils/MessageAlerter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Laboratoare/GUISocialNetwork/src/main/java/ir/map/g221/guisocialnetwork/controllers/guiutils/SoundFile.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../Laboratoare/GUISocialNetwork/src/main/java/ir/map/g221/guisocialnetwork/controllers/guiutils/SoundFile.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Laboratoare/GUISocialNetwork/src/main/java/ir/map/g221/guisocialnetwork/controllers/userperspective/UserPerspectiveController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../Laboratoare/GUISocialNetwork/src/main/java/ir/map/g221/guisocialnetwork/controllers/userperspective/UserPerspectiveController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Laboratoare/GUISocialNetwork/src/main/java/ir/map/g221/guisocialnetwork/gui/LoginApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../Laboratoare/GUISocialNetwork/src/main/java/ir/map/g221/guisocialnetwork/gui/LoginApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Laboratoare/GUISocialNetwork/src/main/resources/ir/map/g221/guisocialnetwork/views/user-perspective.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/../../Laboratoare/GUISocialNetwork/src/main/resources/ir/map/g221/guisocialnetwork/views/user-perspective.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../sem10_conc/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../sem10_conc/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../RETELE DE CALCULATOARE/Lab 11 Dirijare/lab11_rutare_dinamica.pkt" beforeDir="false" afterPath="$PROJECT_DIR$/../../../RETELE DE CALCULATOARE/Lab 11 Dirijare/lab11_rutare_dinamica.pkt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../RETELE DE CALCULATOARE/Lab 11 Dirijare/lab11_rutare_statica.pkt" beforeDir="false" afterPath="$PROJECT_DIR$/../../../RETELE DE CALCULATOARE/Lab 11 Dirijare/lab11_rutare_statica.pkt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,6 +19,23 @@
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
     </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="sem9" type="f1a62948:ProjectNode" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../.." />
@@ -35,22 +48,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "develop",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/Stefan/UBB-CS-Projects/MAP/Seminarii/sem9",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;develop&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Stefan/UBB-CS-Projects/MAP/Seminarii/sem9&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="Unnamed" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="ALTERNATIVE_JRE_PATH" value="corretto-17" />
@@ -80,6 +93,8 @@
       <workItem from="1701160496382" duration="4388000" />
       <workItem from="1701175597665" duration="77000" />
       <workItem from="1702364611082" duration="28000" />
+      <workItem from="1704390125931" duration="9000" />
+      <workItem from="1704390313233" duration="13000" />
     </task>
     <servers />
   </component>
