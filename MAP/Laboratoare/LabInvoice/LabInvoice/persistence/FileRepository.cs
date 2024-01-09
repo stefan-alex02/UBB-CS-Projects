@@ -3,26 +3,26 @@
 namespace LabInvoice.persistence;
 
 public abstract class FileRepository<TId, TE>: IRepository<TId, TE> where TE: Entity<TId> where TId : notnull {
-    protected readonly string FileName;
-    protected readonly IDictionary<TId, TE> Dictionary = new Dictionary<TId, TE>();
+    private readonly string _fileName;
+    private readonly IDictionary<TId, TE> _dictionary = new Dictionary<TId, TE>();
     
     protected FileRepository(string fileName) {
-        FileName = fileName;
+        _fileName = fileName;
     }
     
     protected abstract TE FromLine(String line);
 
     private void ReadAll() {
-        Dictionary.Clear();
-        using StreamReader sr = new StreamReader(FileName);
+        _dictionary.Clear();
+        using StreamReader sr = new StreamReader(_fileName);
         while (sr.ReadLine() is { } s) {
             TE entity = FromLine(s);
-            Dictionary.TryAdd(entity.Id, entity);
+            _dictionary.TryAdd(entity.Id, entity);
         }
     }
 
     public IEnumerable<TE> FindAll() {
         ReadAll();
-        return Dictionary.Values;
+        return _dictionary.Values;
     }
 }
