@@ -112,7 +112,7 @@ public class OrderDBRepository implements Repository<Long, Order> {
     @Override
     public Optional<Order> save(Order entity) {
         if (entity == null) {
-            throw new IllegalArgumentException("Friendship cannot be null");
+            throw new IllegalArgumentException("Entity cannot be null");
         }
         validator.validate(entity);
 
