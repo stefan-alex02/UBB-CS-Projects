@@ -85,4 +85,3 @@ insert into drivers(person_id, indicativ_masina) values
 	
 select * from drivers;
 	
-	
