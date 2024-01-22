@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="423.0" prefWidth="407.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.practic.controllers.DummyEntityController">
+   <children>
+      <TableView fx:id="tableViewEntities" layoutX="29.0" layoutY="35.0" prefHeight="323.0" prefWidth="337.0" AnchorPane.leftAnchor="29.0" AnchorPane.rightAnchor="40.666666666666686">
+        <columns>
+          <TableColumn fx:id="tableColumnEntities" prefWidth="75.0" text="Id" />
+        </columns>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
+      </TableView>
+      <Pagination fx:id="pagination" layoutX="15.0" layoutY="26.0" prefHeight="378.0" prefWidth="374.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="18.0" />
+   </children>
+</AnchorPane>

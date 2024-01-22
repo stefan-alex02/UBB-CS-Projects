@@ -5,69 +5,89 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3a59648f-a876-4918-98aa-d36c0e270419" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../Zboruri/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Zboruri/.idea/dataSources.local.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Zboruri/.idea/dataSources.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Zboruri/.idea/dataSources/10d650b2-cfa5-4377-9f2f-8cf5bc9756ee.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Zboruri/.idea/dataSources/10d650b2-cfa5-4377-9f2f-8cf5bc9756ee/storage_v2/_src_/database/zboruri.gfJE4w.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Zboruri/.idea/dataSources/10d650b2-cfa5-4377-9f2f-8cf5bc9756ee/storage_v2/_src_/database/zboruri.gfJE4w/schema/information_schema.FNRwLQ.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Zboruri/.idea/dataSources/10d650b2-cfa5-4377-9f2f-8cf5bc9756ee/storage_v2/_src_/database/zboruri.gfJE4w/schema/pg_catalog.0S1ZNQ.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Zboruri/.idea/dataSources/10d650b2-cfa5-4377-9f2f-8cf5bc9756ee/storage_v2/_src_/database/zboruri.gfJE4w/schema/public.abK9xQ.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Zboruri/.idea/gradle.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Zboruri/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Zboruri/.idea/sqldialects.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Zboruri/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Zboruri/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Zboruri/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Zboruri/build.gradle" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Zboruri/gradle/wrapper/gradle-wrapper.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Zboruri/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Zboruri/gradlew" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Zboruri/gradlew.bat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Zboruri/queries/create_tables.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Zboruri/settings.gradle" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Zboruri/src/main/java/module-info.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Zboruri/src/main/java/org/example/zboruri/LoginApplication.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Zboruri/src/main/java/org/example/zboruri/LoginController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Zboruri/src/main/java/org/example/zboruri/business/ClientService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Zboruri/src/main/java/org/example/zboruri/business/FlightService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Zboruri/src/main/java/org/example/zboruri/business/TicketService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Zboruri/src/main/java/org/example/zboruri/controllers/ClientController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Zboruri/src/main/java/org/example/zboruri/controllers/MessageAlerter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Zboruri/src/main/java/org/example/zboruri/domain/Client.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Zboruri/src/main/java/org/example/zboruri/domain/Entity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Zboruri/src/main/java/org/example/zboruri/domain/Flight.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Zboruri/src/main/java/org/example/zboruri/domain/FlightDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Zboruri/src/main/java/org/example/zboruri/domain/Ticket.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Zboruri/src/main/java/org/example/zboruri/exceptions/NonexistentUsernameException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Zboruri/src/main/java/org/example/zboruri/exceptions/ValidationException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Zboruri/src/main/java/org/example/zboruri/factory/BuildContainer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Zboruri/src/main/java/org/example/zboruri/factory/Factory.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Zboruri/src/main/java/org/example/zboruri/persistence/DatabaseConnection.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Zboruri/src/main/java/org/example/zboruri/persistence/Repository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Zboruri/src/main/java/org/example/zboruri/persistence/dbrepos/ClientDBRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Zboruri/src/main/java/org/example/zboruri/persistence/dbrepos/FlightDBRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Zboruri/src/main/java/org/example/zboruri/persistence/dbrepos/TicketDBRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Zboruri/src/main/java/org/example/zboruri/persistence/paging/Page.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Zboruri/src/main/java/org/example/zboruri/persistence/paging/PageImplementation.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Zboruri/src/main/java/org/example/zboruri/persistence/paging/Pageable.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Zboruri/src/main/java/org/example/zboruri/persistence/paging/PageableImplementation.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Zboruri/src/main/java/org/example/zboruri/persistence/paging/PagingRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Zboruri/src/main/java/org/example/zboruri/persistence/pagingrepos/FlightsDBPagingRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Zboruri/src/main/java/org/example/zboruri/utils/events/Event.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Zboruri/src/main/java/org/example/zboruri/utils/events/TicketEvent.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Zboruri/src/main/java/org/example/zboruri/utils/events/TicketEventType.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Zboruri/src/main/java/org/example/zboruri/utils/observer/Observable.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Zboruri/src/main/java/org/example/zboruri/utils/observer/Observer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Zboruri/src/main/java/org/example/zboruri/validation/TicketValidator.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Zboruri/src/main/java/org/example/zboruri/validation/Validator.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Zboruri/src/main/resources/org/example/zboruri/login-view.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Zboruri/src/main/resources/org/example/zboruri/views/client-view.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/ec017f7d-b40d-4af1-b947-d08522d822a1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/ec017f7d-b40d-4af1-b947-d08522d822a1.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Vacanta/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Vacanta/.idea/dataSources.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Vacanta/.idea/gradle.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Vacanta/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Vacanta/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Vacanta/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Vacanta/queries/create_tables.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Vacanta/src/main/java/org/example/vacanta/business/DriverService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Vacanta/src/main/java/org/example/vacanta/business/OrderService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Vacanta/src/main/java/org/example/vacanta/business/PersonService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Vacanta/src/main/java/org/example/vacanta/controllers/DriverController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Vacanta/src/main/java/org/example/vacanta/controllers/MessageAlerter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Vacanta/src/main/java/org/example/vacanta/controllers/PersonController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Vacanta/src/main/java/org/example/vacanta/domain/Client.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Vacanta/src/main/java/org/example/vacanta/domain/Entity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Vacanta/src/main/java/org/example/vacanta/domain/Hobbies.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Vacanta/src/main/java/org/example/vacanta/domain/Hotel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Vacanta/src/main/java/org/example/vacanta/domain/HotelType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Vacanta/src/main/java/org/example/vacanta/domain/Location.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Vacanta/src/main/java/org/example/vacanta/domain/Reservation.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Vacanta/src/main/java/org/example/vacanta/domain/SpecialOffer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Vacanta/src/main/java/org/example/vacanta/exceptions/NonexistentUsernameException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Vacanta/src/main/java/org/example/vacanta/exceptions/ValidationException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Vacanta/src/main/java/org/example/vacanta/factory/BuildContainer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Vacanta/src/main/java/org/example/vacanta/factory/Factory.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Vacanta/src/main/java/org/example/vacanta/persistence/DatabaseConnection.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Vacanta/src/main/java/org/example/vacanta/persistence/Repository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Vacanta/src/main/java/org/example/vacanta/persistence/dbrepos/ClientDBRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Vacanta/src/main/java/org/example/vacanta/persistence/dbrepos/OrderDBRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Vacanta/src/main/java/org/example/vacanta/persistence/paging/Page.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Vacanta/src/main/java/org/example/vacanta/persistence/paging/PageImplementation.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Vacanta/src/main/java/org/example/vacanta/persistence/paging/Pageable.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Vacanta/src/main/java/org/example/vacanta/persistence/paging/PageableImplementation.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Vacanta/src/main/java/org/example/vacanta/persistence/paging/PagingRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Vacanta/src/main/java/org/example/vacanta/persistence/pagingrepos/ClientDBPagingRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Vacanta/src/main/java/org/example/vacanta/ui/UserConsole.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Vacanta/src/main/java/org/example/vacanta/ui/UserInterface.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Vacanta/src/main/java/org/example/vacanta/utils/events/Event.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Vacanta/src/main/java/org/example/vacanta/utils/events/OrderEvent.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Vacanta/src/main/java/org/example/vacanta/utils/events/OrderEventType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Vacanta/src/main/java/org/example/vacanta/utils/observer/Observable.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Vacanta/src/main/java/org/example/vacanta/utils/observer/Observer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Vacanta/src/main/java/org/example/vacanta/validation/OrderValidator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Vacanta/src/main/java/org/example/vacanta/validation/Validator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../Practic/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../Practic/.idea/dataSources.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../Practic/.idea/gradle.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../Practic/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../Practic/.idea/sqldialects.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../Practic/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../Practic/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../Practic/queries/create_tables.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../Practic/src/main/java/org/example/practic/HeadlessConsoleApplication.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../Practic/src/main/java/org/example/practic/LoginApplication.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../Practic/src/main/java/org/example/practic/LoginController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../Practic/src/main/java/org/example/practic/business/DummyEntityService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../Practic/src/main/java/org/example/practic/controllers/DummyEntityController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../Practic/src/main/java/org/example/practic/controllers/MessageAlerter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../Practic/src/main/java/org/example/practic/domain/DummyEntity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../Practic/src/main/java/org/example/practic/domain/Entity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../Practic/src/main/java/org/example/practic/exceptions/NonexistentUsernameException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../Practic/src/main/java/org/example/practic/exceptions/ValidationException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../Practic/src/main/java/org/example/practic/factory/BuildContainer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../Practic/src/main/java/org/example/practic/factory/Factory.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../Practic/src/main/java/org/example/practic/persistence/DatabaseConnection.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../Practic/src/main/java/org/example/practic/persistence/Repository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../Practic/src/main/java/org/example/practic/persistence/dbrepos/DummyEntityDBRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../Practic/src/main/java/org/example/practic/persistence/paging/Page.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../Practic/src/main/java/org/example/practic/persistence/paging/PageImplementation.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../Practic/src/main/java/org/example/practic/persistence/paging/Pageable.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../Practic/src/main/java/org/example/practic/persistence/paging/PageableImplementation.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../Practic/src/main/java/org/example/practic/persistence/paging/PagingRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../Practic/src/main/java/org/example/practic/persistence/pagingrepos/DummyEntityDBPagingRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../Practic/src/main/java/org/example/practic/utils/events/DummyEntityEvent.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../Practic/src/main/java/org/example/practic/utils/events/DummyEntityEventType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../Practic/src/main/java/org/example/practic/utils/events/Event.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../Practic/src/main/java/org/example/practic/utils/observer/Observable.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../Practic/src/main/java/org/example/practic/utils/observer/Observer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../Practic/src/main/java/org/example/practic/validation/DummyEntityValidator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../Practic/src/main/java/org/example/practic/validation/Validator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../Practic/src/main/resources/org/example/practic/login-view.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../Practic/src/main/resources/org/example/practic/views/entity-view.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/queries/CreateTables.sql" beforeDir="false" afterPath="$PROJECT_DIR$/queries/CreateTables.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/modelpractic/persistence/dbrepos/OrderDBRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/modelpractic/persistence/dbrepos/OrderDBRepository.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -103,30 +123,30 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "Gradle.ModelPractic [:HelloApplication.main()].executor": "Run",
-    "Gradle.ModelPractic [:LoginApplication.main()].executor": "Run",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "develop",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/Stefan/UBB-CS-Projects/MAP/Laboratoare/Practice/ModelPractic",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;Gradle.ModelPractic [:HelloApplication.main()].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.ModelPractic [:LoginApplication.main()].executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;develop&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Stefan/UBB-CS-Projects/MAP/Laboratoare/Practice/ModelPractic&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "postgresql"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;postgresql&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Stefan\UBB-CS-Projects\MAP\Laboratoare\Practice\ModelPractic\src\main\java\org\example\modelpractic\persistence\paging" />
@@ -166,6 +186,9 @@
       <updated>1705753566015</updated>
       <workItem from="1705753567321" duration="29464000" />
       <workItem from="1705842349509" duration="8149000" />
+      <workItem from="1705932072504" duration="2306000" />
+      <workItem from="1705948717190" duration="679000" />
+      <workItem from="1705952580256" duration="3255000" />
     </task>
     <servers />
   </component>
