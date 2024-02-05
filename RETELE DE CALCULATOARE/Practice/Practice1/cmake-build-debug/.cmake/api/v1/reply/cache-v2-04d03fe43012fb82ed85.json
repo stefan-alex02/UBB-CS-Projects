@@ -55,7 +55,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/mnt/c/Users/Stefan/UBB-CS-Projects/RETELE DE CALCULATOARE/Practice/Practice3/cmake-build-debug"
+			"value" : "/mnt/c/Users/Stefan/UBB-CS-Projects/RETELE DE CALCULATOARE/Practice/Practice1/cmake-build-debug"
 		},
 		{
 			"name" : "CMAKE_CACHE_MAJOR_VERSION",
@@ -127,7 +127,7 @@
 				}
 			],
 			"type" : "STRING",
-			"value" : "-j16"
+			"value" : "-j12"
 		},
 		{
 			"name" : "CMAKE_COLOR_DIAGNOSTICS",
@@ -475,7 +475,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "/mnt/c/Users/Stefan/UBB-CS-Projects/RETELE DE CALCULATOARE/Practice/Practice3/cmake-build-debug/CMakeFiles/pkgRedirects"
+			"value" : "/mnt/c/Users/Stefan/UBB-CS-Projects/RETELE DE CALCULATOARE/Practice/Practice1/cmake-build-debug/CMakeFiles/pkgRedirects"
 		},
 		{
 			"name" : "CMAKE_GENERATOR",
@@ -535,7 +535,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/mnt/c/Users/Stefan/UBB-CS-Projects/RETELE DE CALCULATOARE/Practice/Practice3"
+			"value" : "/mnt/c/Users/Stefan/UBB-CS-Projects/RETELE DE CALCULATOARE/Practice/Practice1"
 		},
 		{
 			"name" : "CMAKE_INSTALL_PREFIX",
@@ -779,7 +779,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "Practice3"
+			"value" : "Practice1"
 		},
 		{
 			"name" : "CMAKE_RANLIB",
@@ -1078,7 +1078,7 @@
 			"value" : "FALSE"
 		},
 		{
-			"name" : "Practice3_BINARY_DIR",
+			"name" : "Practice1_BINARY_DIR",
 			"properties" : 
 			[
 				{
@@ -1087,10 +1087,10 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "/mnt/c/Users/Stefan/UBB-CS-Projects/RETELE DE CALCULATOARE/Practice/Practice3/cmake-build-debug"
+			"value" : "/mnt/c/Users/Stefan/UBB-CS-Projects/RETELE DE CALCULATOARE/Practice/Practice1/cmake-build-debug"
 		},
 		{
-			"name" : "Practice3_IS_TOP_LEVEL",
+			"name" : "Practice1_IS_TOP_LEVEL",
 			"properties" : 
 			[
 				{
@@ -1102,7 +1102,7 @@
 			"value" : "ON"
 		},
 		{
-			"name" : "Practice3_SOURCE_DIR",
+			"name" : "Practice1_SOURCE_DIR",
 			"properties" : 
 			[
 				{
@@ -1111,7 +1111,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "/mnt/c/Users/Stefan/UBB-CS-Projects/RETELE DE CALCULATOARE/Practice/Practice3"
+			"value" : "/mnt/c/Users/Stefan/UBB-CS-Projects/RETELE DE CALCULATOARE/Practice/Practice1"
 		},
 		{
 			"name" : "ProcessorCount_cmd_nproc",

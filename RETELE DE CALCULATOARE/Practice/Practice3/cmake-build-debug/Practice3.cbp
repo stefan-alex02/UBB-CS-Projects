@@ -11,10 +11,10 @@
 				<Option working_dir="/mnt/c/Users/Stefan/UBB-CS-Projects/RETELE DE CALCULATOARE/Practice/Practice3/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j16 -f &quot;/mnt/c/Users/Stefan/UBB-CS-Projects/RETELE\ DE\ CALCULATOARE/Practice/Practice3/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
-					<CompileFile command="/usr/bin/make -j16 -f &quot;/mnt/c/Users/Stefan/UBB-CS-Projects/RETELE\ DE\ CALCULATOARE/Practice/Practice3/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j16 -f &quot;/mnt/c/Users/Stefan/UBB-CS-Projects/RETELE\ DE\ CALCULATOARE/Practice/Practice3/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j16 -f &quot;/mnt/c/Users/Stefan/UBB-CS-Projects/RETELE\ DE\ CALCULATOARE/Practice/Practice3/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j12 -f &quot;/mnt/c/Users/Stefan/UBB-CS-Projects/RETELE\ DE\ CALCULATOARE/Practice/Practice3/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/mnt/c/Users/Stefan/UBB-CS-Projects/RETELE\ DE\ CALCULATOARE/Practice/Practice3/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/mnt/c/Users/Stefan/UBB-CS-Projects/RETELE\ DE\ CALCULATOARE/Practice/Practice3/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/mnt/c/Users/Stefan/UBB-CS-Projects/RETELE\ DE\ CALCULATOARE/Practice/Practice3/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="Client1">
@@ -30,10 +30,10 @@
 					<Add directory="/usr/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j16 -f &quot;/mnt/c/Users/Stefan/UBB-CS-Projects/RETELE\ DE\ CALCULATOARE/Practice/Practice3/cmake-build-debug/Makefile&quot;  VERBOSE=1 Client1"/>
-					<CompileFile command="/usr/bin/make -j16 -f &quot;/mnt/c/Users/Stefan/UBB-CS-Projects/RETELE\ DE\ CALCULATOARE/Practice/Practice3/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j16 -f &quot;/mnt/c/Users/Stefan/UBB-CS-Projects/RETELE\ DE\ CALCULATOARE/Practice/Practice3/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j16 -f &quot;/mnt/c/Users/Stefan/UBB-CS-Projects/RETELE\ DE\ CALCULATOARE/Practice/Practice3/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j12 -f &quot;/mnt/c/Users/Stefan/UBB-CS-Projects/RETELE\ DE\ CALCULATOARE/Practice/Practice3/cmake-build-debug/Makefile&quot;  VERBOSE=1 Client1"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/mnt/c/Users/Stefan/UBB-CS-Projects/RETELE\ DE\ CALCULATOARE/Practice/Practice3/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/mnt/c/Users/Stefan/UBB-CS-Projects/RETELE\ DE\ CALCULATOARE/Practice/Practice3/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/mnt/c/Users/Stefan/UBB-CS-Projects/RETELE\ DE\ CALCULATOARE/Practice/Practice3/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="Client1/fast">
@@ -49,10 +49,10 @@
 					<Add directory="/usr/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j16 -f &quot;/mnt/c/Users/Stefan/UBB-CS-Projects/RETELE\ DE\ CALCULATOARE/Practice/Practice3/cmake-build-debug/Makefile&quot;  VERBOSE=1 Client1/fast"/>
-					<CompileFile command="/usr/bin/make -j16 -f &quot;/mnt/c/Users/Stefan/UBB-CS-Projects/RETELE\ DE\ CALCULATOARE/Practice/Practice3/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j16 -f &quot;/mnt/c/Users/Stefan/UBB-CS-Projects/RETELE\ DE\ CALCULATOARE/Practice/Practice3/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j16 -f &quot;/mnt/c/Users/Stefan/UBB-CS-Projects/RETELE\ DE\ CALCULATOARE/Practice/Practice3/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j12 -f &quot;/mnt/c/Users/Stefan/UBB-CS-Projects/RETELE\ DE\ CALCULATOARE/Practice/Practice3/cmake-build-debug/Makefile&quot;  VERBOSE=1 Client1/fast"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/mnt/c/Users/Stefan/UBB-CS-Projects/RETELE\ DE\ CALCULATOARE/Practice/Practice3/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/mnt/c/Users/Stefan/UBB-CS-Projects/RETELE\ DE\ CALCULATOARE/Practice/Practice3/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/mnt/c/Users/Stefan/UBB-CS-Projects/RETELE\ DE\ CALCULATOARE/Practice/Practice3/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="Client2">
@@ -68,10 +68,10 @@
 					<Add directory="/usr/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j16 -f &quot;/mnt/c/Users/Stefan/UBB-CS-Projects/RETELE\ DE\ CALCULATOARE/Practice/Practice3/cmake-build-debug/Makefile&quot;  VERBOSE=1 Client2"/>
-					<CompileFile command="/usr/bin/make -j16 -f &quot;/mnt/c/Users/Stefan/UBB-CS-Projects/RETELE\ DE\ CALCULATOARE/Practice/Practice3/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j16 -f &quot;/mnt/c/Users/Stefan/UBB-CS-Projects/RETELE\ DE\ CALCULATOARE/Practice/Practice3/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j16 -f &quot;/mnt/c/Users/Stefan/UBB-CS-Projects/RETELE\ DE\ CALCULATOARE/Practice/Practice3/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j12 -f &quot;/mnt/c/Users/Stefan/UBB-CS-Projects/RETELE\ DE\ CALCULATOARE/Practice/Practice3/cmake-build-debug/Makefile&quot;  VERBOSE=1 Client2"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/mnt/c/Users/Stefan/UBB-CS-Projects/RETELE\ DE\ CALCULATOARE/Practice/Practice3/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/mnt/c/Users/Stefan/UBB-CS-Projects/RETELE\ DE\ CALCULATOARE/Practice/Practice3/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/mnt/c/Users/Stefan/UBB-CS-Projects/RETELE\ DE\ CALCULATOARE/Practice/Practice3/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="Client2/fast">
@@ -87,10 +87,10 @@
 					<Add directory="/usr/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j16 -f &quot;/mnt/c/Users/Stefan/UBB-CS-Projects/RETELE\ DE\ CALCULATOARE/Practice/Practice3/cmake-build-debug/Makefile&quot;  VERBOSE=1 Client2/fast"/>
-					<CompileFile command="/usr/bin/make -j16 -f &quot;/mnt/c/Users/Stefan/UBB-CS-Projects/RETELE\ DE\ CALCULATOARE/Practice/Practice3/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j16 -f &quot;/mnt/c/Users/Stefan/UBB-CS-Projects/RETELE\ DE\ CALCULATOARE/Practice/Practice3/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j16 -f &quot;/mnt/c/Users/Stefan/UBB-CS-Projects/RETELE\ DE\ CALCULATOARE/Practice/Practice3/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j12 -f &quot;/mnt/c/Users/Stefan/UBB-CS-Projects/RETELE\ DE\ CALCULATOARE/Practice/Practice3/cmake-build-debug/Makefile&quot;  VERBOSE=1 Client2/fast"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/mnt/c/Users/Stefan/UBB-CS-Projects/RETELE\ DE\ CALCULATOARE/Practice/Practice3/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/mnt/c/Users/Stefan/UBB-CS-Projects/RETELE\ DE\ CALCULATOARE/Practice/Practice3/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/mnt/c/Users/Stefan/UBB-CS-Projects/RETELE\ DE\ CALCULATOARE/Practice/Practice3/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="Server">
@@ -106,10 +106,10 @@
 					<Add directory="/usr/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j16 -f &quot;/mnt/c/Users/Stefan/UBB-CS-Projects/RETELE\ DE\ CALCULATOARE/Practice/Practice3/cmake-build-debug/Makefile&quot;  VERBOSE=1 Server"/>
-					<CompileFile command="/usr/bin/make -j16 -f &quot;/mnt/c/Users/Stefan/UBB-CS-Projects/RETELE\ DE\ CALCULATOARE/Practice/Practice3/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j16 -f &quot;/mnt/c/Users/Stefan/UBB-CS-Projects/RETELE\ DE\ CALCULATOARE/Practice/Practice3/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j16 -f &quot;/mnt/c/Users/Stefan/UBB-CS-Projects/RETELE\ DE\ CALCULATOARE/Practice/Practice3/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j12 -f &quot;/mnt/c/Users/Stefan/UBB-CS-Projects/RETELE\ DE\ CALCULATOARE/Practice/Practice3/cmake-build-debug/Makefile&quot;  VERBOSE=1 Server"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/mnt/c/Users/Stefan/UBB-CS-Projects/RETELE\ DE\ CALCULATOARE/Practice/Practice3/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/mnt/c/Users/Stefan/UBB-CS-Projects/RETELE\ DE\ CALCULATOARE/Practice/Practice3/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/mnt/c/Users/Stefan/UBB-CS-Projects/RETELE\ DE\ CALCULATOARE/Practice/Practice3/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="Server/fast">
@@ -125,30 +125,30 @@
 					<Add directory="/usr/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j16 -f &quot;/mnt/c/Users/Stefan/UBB-CS-Projects/RETELE\ DE\ CALCULATOARE/Practice/Practice3/cmake-build-debug/Makefile&quot;  VERBOSE=1 Server/fast"/>
-					<CompileFile command="/usr/bin/make -j16 -f &quot;/mnt/c/Users/Stefan/UBB-CS-Projects/RETELE\ DE\ CALCULATOARE/Practice/Practice3/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j16 -f &quot;/mnt/c/Users/Stefan/UBB-CS-Projects/RETELE\ DE\ CALCULATOARE/Practice/Practice3/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j16 -f &quot;/mnt/c/Users/Stefan/UBB-CS-Projects/RETELE\ DE\ CALCULATOARE/Practice/Practice3/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j12 -f &quot;/mnt/c/Users/Stefan/UBB-CS-Projects/RETELE\ DE\ CALCULATOARE/Practice/Practice3/cmake-build-debug/Makefile&quot;  VERBOSE=1 Server/fast"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/mnt/c/Users/Stefan/UBB-CS-Projects/RETELE\ DE\ CALCULATOARE/Practice/Practice3/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/mnt/c/Users/Stefan/UBB-CS-Projects/RETELE\ DE\ CALCULATOARE/Practice/Practice3/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/mnt/c/Users/Stefan/UBB-CS-Projects/RETELE\ DE\ CALCULATOARE/Practice/Practice3/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="edit_cache">
 				<Option working_dir="/mnt/c/Users/Stefan/UBB-CS-Projects/RETELE DE CALCULATOARE/Practice/Practice3/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j16 -f &quot;/mnt/c/Users/Stefan/UBB-CS-Projects/RETELE\ DE\ CALCULATOARE/Practice/Practice3/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
-					<CompileFile command="/usr/bin/make -j16 -f &quot;/mnt/c/Users/Stefan/UBB-CS-Projects/RETELE\ DE\ CALCULATOARE/Practice/Practice3/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j16 -f &quot;/mnt/c/Users/Stefan/UBB-CS-Projects/RETELE\ DE\ CALCULATOARE/Practice/Practice3/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j16 -f &quot;/mnt/c/Users/Stefan/UBB-CS-Projects/RETELE\ DE\ CALCULATOARE/Practice/Practice3/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j12 -f &quot;/mnt/c/Users/Stefan/UBB-CS-Projects/RETELE\ DE\ CALCULATOARE/Practice/Practice3/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/mnt/c/Users/Stefan/UBB-CS-Projects/RETELE\ DE\ CALCULATOARE/Practice/Practice3/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/mnt/c/Users/Stefan/UBB-CS-Projects/RETELE\ DE\ CALCULATOARE/Practice/Practice3/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/mnt/c/Users/Stefan/UBB-CS-Projects/RETELE\ DE\ CALCULATOARE/Practice/Practice3/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="rebuild_cache">
 				<Option working_dir="/mnt/c/Users/Stefan/UBB-CS-Projects/RETELE DE CALCULATOARE/Practice/Practice3/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j16 -f &quot;/mnt/c/Users/Stefan/UBB-CS-Projects/RETELE\ DE\ CALCULATOARE/Practice/Practice3/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
-					<CompileFile command="/usr/bin/make -j16 -f &quot;/mnt/c/Users/Stefan/UBB-CS-Projects/RETELE\ DE\ CALCULATOARE/Practice/Practice3/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j16 -f &quot;/mnt/c/Users/Stefan/UBB-CS-Projects/RETELE\ DE\ CALCULATOARE/Practice/Practice3/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j16 -f &quot;/mnt/c/Users/Stefan/UBB-CS-Projects/RETELE\ DE\ CALCULATOARE/Practice/Practice3/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j12 -f &quot;/mnt/c/Users/Stefan/UBB-CS-Projects/RETELE\ DE\ CALCULATOARE/Practice/Practice3/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/mnt/c/Users/Stefan/UBB-CS-Projects/RETELE\ DE\ CALCULATOARE/Practice/Practice3/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/mnt/c/Users/Stefan/UBB-CS-Projects/RETELE\ DE\ CALCULATOARE/Practice/Practice3/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/mnt/c/Users/Stefan/UBB-CS-Projects/RETELE\ DE\ CALCULATOARE/Practice/Practice3/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 		</Build>
