@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="308.0" prefWidth="496.0" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ir.map.g221.guisocialnetwork.controllers.LoginController">
+    <GridPane fx:id="gridPane" alignment="CENTER" hgap="5.0" layoutX="79.0" layoutY="82.0" prefHeight="104.0" prefWidth="349.0" vgap="5.0" AnchorPane.bottomAnchor="145.0" AnchorPane.leftAnchor="79.0" AnchorPane.rightAnchor="101.0" AnchorPane.topAnchor="82.0">
+        <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="274.0" minWidth="10.0" prefWidth="81.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="375.0" minWidth="10.0" prefWidth="264.0" />
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints maxHeight="68.33333333333334" minHeight="30.333333333333343" prefHeight="51.0" />
+         <RowConstraints maxHeight="48.0" minHeight="42.0" prefHeight="44.0" />
+        </rowConstraints>
+        <opaqueInsets>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+        </opaqueInsets>
+        <Label alignment="CENTER" prefHeight="47.0" prefWidth="139.0" text="Username" />
+        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="47.0" prefWidth="135.0" text="Password" GridPane.rowIndex="1" />
+
+        <TextField fx:id="textFieldUsername" prefHeight="40.0" GridPane.columnIndex="1" />
+        <PasswordField fx:id="textFieldPassword" prefHeight="32.0" prefWidth="264.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+    </GridPane>
+   <VBox alignment="CENTER" layoutX="177.0" layoutY="226.0" prefHeight="79.0" prefWidth="175.0" spacing="10.0" AnchorPane.bottomAnchor="26.0" AnchorPane.leftAnchor="177.0" AnchorPane.rightAnchor="177.0">
+      <children>
+            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleRegisterButton" prefHeight="26.0" prefWidth="126.0" styleClass="orange-button" text="Register" />
+            <Button alignment="CENTER" mnemonicParsing="false" onAction="#handleLoginButton" prefHeight="31.0" prefWidth="144.0" styleClass="green-button" text="Login">
+                <padding>
+                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                </padding>
+            </Button>
+      </children>
+   </VBox>
+</AnchorPane>

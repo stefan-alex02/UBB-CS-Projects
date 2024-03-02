@@ -1,0 +1,236 @@
+  policy-map       Configure QoS Policy Map
+  priority-list    Build a priority list
+  privilege        Command privilege parameters
+  queue-list       Build a custom queue list
+  router           Enable a routing process
+  service          Modify use of network based services
+  snmp-server      Modify SNMP engine parameters
+  tacacs-server    Modify TACACS query parameters
+  username         Establish User Name Authentication
+Router(config)#
+Router(config)#
+Router(config)#
+Router(config)#
+Router(config)#ip ?
+  access-list       Named access-list
+  cef               Cisco Express Forwarding
+  default-network   Flags networks as candidates for default routes
+  dhcp              Configure DHCP server and relay parameters
+  domain            IP DNS Resolver
+  domain-lookup     Enable IP Domain Name System hostname translation
+  domain-name       Define the default domain name
+  flow-export       Specify host/port to send flow statistics
+  forward-protocol  Controls forwarding of physical and directed IP broadcasts
+  ftp               FTP configuration commands
+  host              Add an entry to the ip hostname table
+  name-server       Specify address of name server to use
+  nat               NAT configuration commands
+  route             Establish static routes
+  scp               Scp commands
+  ssh               Configure ssh options
+  tcp               Global TCP parameters
+Router(config)#ip 
+% Incomplete command.
+Router(config)#dhcp ?
+% Unrecognized command
+Router(config)#dhcp pool ?
+% Unrecognized command
+Router(config)#ip dhcp ?
+  excluded-address  Prevent DHCP from assigning certain addresses
+  pool              Configure DHCP address pools
+  relay             DHCP relay agent parameters
+Router(config)#ip dhcp pool ?
+  WORD  Pool name
+Router(config)#ip dhcp pool retealocala
+Router(dhcp-config)#?
+  default-router  Default routers
+  dns-server      Set name server
+  domain-name     Domain name
+  exit            Exit from DHCP pool configuration mode
+  network         Network number and mask
+  no              Negate a command or set its defaults
+  option          Raw DHCP options
+Router(dhcp-config)#net
+% Incomplete command.
+Router(dhcp-config)#net ?
+  A.B.C.D  Network number in dotted-decimal notation
+Router(dhcp-config)#network 192.168.1.0 255.255.255.0
+Router(dhcp-config)#default-router 192.168.1.1
+Router(dhcp-config)#exit
+Router(config)#exit
+Router#
+%SYS-5-CONFIG_I: Configured from console by console
+show run
+Building configuration...
+
+Current configuration : 668 bytes
+!
+version 12.2
+no service timestamps log datetime msec
+no service timestamps debug datetime msec
+no service password-encryption
+!
+hostname Router
+!
+!
+!
+!
+!
+ip dhcp pool retealocala
+ network 192.168.1.0 255.255.255.0
+ default-router 192.168.1.1
+!
+!
+!
+no ip cef
+
+Router#o if cef
+         ^
+% Invalid input detected at '^' marker.
+	
+Router#no ip cef
+          ^
+% Invalid input detected at '^' marker.
+	
+Router#show run
+Building configuration...
+
+Current configuration : 668 bytes
+!
+version 12.2
+no service timestamps log datetime msec
+no service timestamps debug datetime msec
+no service password-encryption
+!
+hostname Router
+!
+!
+!
+!
+!
+ip dhcp pool retealocala
+ network 192.168.1.0 255.255.255.0
+ default-router 192.168.1.1
+!
+!
+!
+no ip cef
+no ipv6 cef
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface FastEthernet0/0
+ ip address 192.168.1.1 255.255.255.0
+ duplex auto
+ speed auto
+!
+interface FastEthernet1/0
+ no ip address
+ duplex auto
+ speed auto
+ shutdown
+!
+interface FastEthernet2/0
+ no ip address
+ duplex auto
+ speed auto
+ shutdown
+!
+ip classless
+!
+ip flow-export version 9
+!
+!
+!
+!
+!
+!
+!
+!
+line con 0
+!
+line aux 0
+!
+line vty 0 4
+ login
+!
+!
+!
+end
+
+
+Router#
+Router#
+Router#
+Router#
+Router#
+Router#
+Router#
+Router(config-if)#
+Router(config-if)#exit
+Router(config)#exit
+Router#
+%SYS-5-CONFIG_I: Configured from console by console
+
+Router#con
+Router#config
+Router#configure 
+Router#configure terminal 
+Enter configuration commands, one per line.  End with CNTL/Z.
+Router(config)#ip route 192.168.2.0 ?
+  A.B.C.D  Destination prefix mask
+Router(config)#ip route 192.168.2.0 255.255.255.0 ?
+  A.B.C.D          Forwarding router's address
+  Dialer           Dialer interface
+  Ethernet         IEEE 802.3
+  FastEthernet     FastEthernet IEEE 802.3
+  GigabitEthernet  GigabitEthernet IEEE 802.3z
+  Loopback         Loopback interface
+  Null             Null interface
+  Serial           Serial
+Router(config)#ip route 192.168.2.0 255.255.255.0 
+% Incomplete command.
+Router(config)#ip route 192.168.2.0 255.255.255.0 
+% Incomplete command.
+Router(config)#ip route 192.168.2.0 255.255.255.0 
+% Incomplete command.
+Router(config)#ip route 192.168.2.0 255.255.255.0 192.168.4.1
+Router(config)#ip route 192.168.3.0 255.255.255.0 192.168.6.2
+Router#show ip r
+Router#show ip ro
+Router#show ip route 
+Codes: C - connected, S - static, I - IGRP, R - RIP, M - mobile, B - BGP
+       D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area
+       N1 - OSPF NSSA external type 1, N2 - OSPF NSSA external type 2
+       E1 - OSPF external type 1, E2 - OSPF external type 2, E - EGP
+       i - IS-IS, L1 - IS-IS level-1, L2 - IS-IS level-2, ia - IS-IS inter area
+       * - candidate default, U - per-user static route, o - ODR
+       P - periodic downloaded static route
+
+Gateway of last resort is not set
+
+C    192.168.1.0/24 is directly connected, FastEthernet0/0
+S    192.168.2.0/24 [1/0] via 192.168.4.1
+S    192.168.3.0/24 [1/0] via 192.168.6.2
+C    192.168.4.0/24 is directly connected, FastEthernet2/0
+C    192.168.6.0/24 is directly connected, FastEthernet1/0
+
+Router#write memory
+Building configuration...
+[OK]
+Router#

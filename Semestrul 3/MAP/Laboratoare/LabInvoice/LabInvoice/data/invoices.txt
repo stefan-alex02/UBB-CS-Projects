@@ -1,0 +1,6 @@
+doc1,12/10/2023 1:00:00 PM,Groceries
+doc2,01/10/2024 3:00:00 AM,Utilities
+doc3,01/30/2023 9:00:00 AM,Fashion
+doc4,12/15/2023 10:00:00 PM,Groceries
+doc6,10/22/2022 11:00:00 AM,Entertainment
+doc7,12/11/2023 2:00:00 AM,Utilities

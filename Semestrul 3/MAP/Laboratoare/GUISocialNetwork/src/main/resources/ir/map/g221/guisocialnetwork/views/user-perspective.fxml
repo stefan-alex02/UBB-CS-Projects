@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ir.map.g221.guisocialnetwork.controllers.userperspective.UserPerspectiveController">
+    <TabPane fx:id="tabPane" layoutY="-16.0" prefHeight="416.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" tabMinHeight="27.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://www.w3.org/2001/XInclude">
+        <Tab fx:id="chatPage" text="Chat">
+            <fx:include fx:id="userChat" source="user-chat.fxml" />
+        </Tab>
+        <Tab fx:id="friendListPage" text="Friend List">
+            <fx:include fx:id="friendList" source="friend-list.fxml" />
+        </Tab>
+        <Tab fx:id="friendRequestPage" text="Friend Requests">
+            <fx:include fx:id="friendRequest" source="friend-request.fxml" />
+        </Tab>
+        <Tab fx:id="searchUsersPage" text="Search Users">
+            <fx:include fx:id="searchUsers" source="search-users.fxml" />
+        </Tab>
+    </TabPane>
+   <Button mnemonicParsing="false" onAction="#handleLogout" prefHeight="18.0" prefWidth="85.0" styleClass="red-button" text="Logout" AnchorPane.rightAnchor="3.0" AnchorPane.topAnchor="2.0" />
+</AnchorPane>

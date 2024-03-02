@@ -1,0 +1,15 @@
+C:\Users\Stefan\UBB-CS-Projects\MAP\Curs 10\Examples\CookieBoxingAndUnboxing\obj\Debug\net7.0\CookieBoxingAndUnboxing.csproj.AssemblyReference.cache
+C:\Users\Stefan\UBB-CS-Projects\MAP\Curs 10\Examples\CookieBoxingAndUnboxing\obj\Debug\net7.0\CookieBoxingAndUnboxing.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Stefan\UBB-CS-Projects\MAP\Curs 10\Examples\CookieBoxingAndUnboxing\obj\Debug\net7.0\CookieBoxingAndUnboxing.AssemblyInfoInputs.cache
+C:\Users\Stefan\UBB-CS-Projects\MAP\Curs 10\Examples\CookieBoxingAndUnboxing\obj\Debug\net7.0\CookieBoxingAndUnboxing.AssemblyInfo.cs
+C:\Users\Stefan\UBB-CS-Projects\MAP\Curs 10\Examples\CookieBoxingAndUnboxing\obj\Debug\net7.0\CookieBoxingAndUnboxing.csproj.CoreCompileInputs.cache
+C:\Users\Stefan\UBB-CS-Projects\MAP\Curs 10\Examples\CookieBoxingAndUnboxing\bin\Debug\net7.0\CookieBoxingAndUnboxing.exe
+C:\Users\Stefan\UBB-CS-Projects\MAP\Curs 10\Examples\CookieBoxingAndUnboxing\bin\Debug\net7.0\CookieBoxingAndUnboxing.deps.json
+C:\Users\Stefan\UBB-CS-Projects\MAP\Curs 10\Examples\CookieBoxingAndUnboxing\bin\Debug\net7.0\CookieBoxingAndUnboxing.runtimeconfig.json
+C:\Users\Stefan\UBB-CS-Projects\MAP\Curs 10\Examples\CookieBoxingAndUnboxing\bin\Debug\net7.0\CookieBoxingAndUnboxing.dll
+C:\Users\Stefan\UBB-CS-Projects\MAP\Curs 10\Examples\CookieBoxingAndUnboxing\bin\Debug\net7.0\CookieBoxingAndUnboxing.pdb
+C:\Users\Stefan\UBB-CS-Projects\MAP\Curs 10\Examples\CookieBoxingAndUnboxing\obj\Debug\net7.0\CookieBoxingAndUnboxing.dll
+C:\Users\Stefan\UBB-CS-Projects\MAP\Curs 10\Examples\CookieBoxingAndUnboxing\obj\Debug\net7.0\refint\CookieBoxingAndUnboxing.dll
+C:\Users\Stefan\UBB-CS-Projects\MAP\Curs 10\Examples\CookieBoxingAndUnboxing\obj\Debug\net7.0\CookieBoxingAndUnboxing.pdb
+C:\Users\Stefan\UBB-CS-Projects\MAP\Curs 10\Examples\CookieBoxingAndUnboxing\obj\Debug\net7.0\CookieBoxingAndUnboxing.genruntimeconfig.cache
+C:\Users\Stefan\UBB-CS-Projects\MAP\Curs 10\Examples\CookieBoxingAndUnboxing\obj\Debug\net7.0\ref\CookieBoxingAndUnboxing.dll

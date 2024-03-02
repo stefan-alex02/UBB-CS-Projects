@@ -1,0 +1,15 @@
+C:\Users\Stefan\UBB-CS-Projects\MAP\Seminarii\TimesheetsProject\TimesheetsProject\bin\Debug\net7.0\TimesheetsProject.exe
+C:\Users\Stefan\UBB-CS-Projects\MAP\Seminarii\TimesheetsProject\TimesheetsProject\bin\Debug\net7.0\TimesheetsProject.deps.json
+C:\Users\Stefan\UBB-CS-Projects\MAP\Seminarii\TimesheetsProject\TimesheetsProject\bin\Debug\net7.0\TimesheetsProject.runtimeconfig.json
+C:\Users\Stefan\UBB-CS-Projects\MAP\Seminarii\TimesheetsProject\TimesheetsProject\bin\Debug\net7.0\TimesheetsProject.dll
+C:\Users\Stefan\UBB-CS-Projects\MAP\Seminarii\TimesheetsProject\TimesheetsProject\bin\Debug\net7.0\TimesheetsProject.pdb
+C:\Users\Stefan\UBB-CS-Projects\MAP\Seminarii\TimesheetsProject\TimesheetsProject\obj\Debug\net7.0\TimesheetsProject.csproj.AssemblyReference.cache
+C:\Users\Stefan\UBB-CS-Projects\MAP\Seminarii\TimesheetsProject\TimesheetsProject\obj\Debug\net7.0\TimesheetsProject.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Stefan\UBB-CS-Projects\MAP\Seminarii\TimesheetsProject\TimesheetsProject\obj\Debug\net7.0\TimesheetsProject.AssemblyInfoInputs.cache
+C:\Users\Stefan\UBB-CS-Projects\MAP\Seminarii\TimesheetsProject\TimesheetsProject\obj\Debug\net7.0\TimesheetsProject.AssemblyInfo.cs
+C:\Users\Stefan\UBB-CS-Projects\MAP\Seminarii\TimesheetsProject\TimesheetsProject\obj\Debug\net7.0\TimesheetsProject.csproj.CoreCompileInputs.cache
+C:\Users\Stefan\UBB-CS-Projects\MAP\Seminarii\TimesheetsProject\TimesheetsProject\obj\Debug\net7.0\TimesheetsProject.dll
+C:\Users\Stefan\UBB-CS-Projects\MAP\Seminarii\TimesheetsProject\TimesheetsProject\obj\Debug\net7.0\refint\TimesheetsProject.dll
+C:\Users\Stefan\UBB-CS-Projects\MAP\Seminarii\TimesheetsProject\TimesheetsProject\obj\Debug\net7.0\TimesheetsProject.pdb
+C:\Users\Stefan\UBB-CS-Projects\MAP\Seminarii\TimesheetsProject\TimesheetsProject\obj\Debug\net7.0\TimesheetsProject.genruntimeconfig.cache
+C:\Users\Stefan\UBB-CS-Projects\MAP\Seminarii\TimesheetsProject\TimesheetsProject\obj\Debug\net7.0\ref\TimesheetsProject.dll

@@ -1,0 +1,15 @@
+C:\Users\Stefan\UBB-CS-Projects\MAP\Laboratoare\LabInvoice\LabInvoice\obj\Debug\net7.0\LabInvoice.csproj.AssemblyReference.cache
+C:\Users\Stefan\UBB-CS-Projects\MAP\Laboratoare\LabInvoice\LabInvoice\obj\Debug\net7.0\LabInvoice.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Stefan\UBB-CS-Projects\MAP\Laboratoare\LabInvoice\LabInvoice\obj\Debug\net7.0\LabInvoice.AssemblyInfoInputs.cache
+C:\Users\Stefan\UBB-CS-Projects\MAP\Laboratoare\LabInvoice\LabInvoice\obj\Debug\net7.0\LabInvoice.AssemblyInfo.cs
+C:\Users\Stefan\UBB-CS-Projects\MAP\Laboratoare\LabInvoice\LabInvoice\obj\Debug\net7.0\LabInvoice.csproj.CoreCompileInputs.cache
+C:\Users\Stefan\UBB-CS-Projects\MAP\Laboratoare\LabInvoice\LabInvoice\bin\Debug\net7.0\LabInvoice.exe
+C:\Users\Stefan\UBB-CS-Projects\MAP\Laboratoare\LabInvoice\LabInvoice\bin\Debug\net7.0\LabInvoice.deps.json
+C:\Users\Stefan\UBB-CS-Projects\MAP\Laboratoare\LabInvoice\LabInvoice\bin\Debug\net7.0\LabInvoice.runtimeconfig.json
+C:\Users\Stefan\UBB-CS-Projects\MAP\Laboratoare\LabInvoice\LabInvoice\bin\Debug\net7.0\LabInvoice.dll
+C:\Users\Stefan\UBB-CS-Projects\MAP\Laboratoare\LabInvoice\LabInvoice\bin\Debug\net7.0\LabInvoice.pdb
+C:\Users\Stefan\UBB-CS-Projects\MAP\Laboratoare\LabInvoice\LabInvoice\obj\Debug\net7.0\LabInvoice.dll
+C:\Users\Stefan\UBB-CS-Projects\MAP\Laboratoare\LabInvoice\LabInvoice\obj\Debug\net7.0\refint\LabInvoice.dll
+C:\Users\Stefan\UBB-CS-Projects\MAP\Laboratoare\LabInvoice\LabInvoice\obj\Debug\net7.0\LabInvoice.pdb
+C:\Users\Stefan\UBB-CS-Projects\MAP\Laboratoare\LabInvoice\LabInvoice\obj\Debug\net7.0\LabInvoice.genruntimeconfig.cache
+C:\Users\Stefan\UBB-CS-Projects\MAP\Laboratoare\LabInvoice\LabInvoice\obj\Debug\net7.0\ref\LabInvoice.dll

@@ -1,0 +1,2 @@
+gigi123,Gigel,12.6,Junior
+dandan,Dan,31.3,Medium

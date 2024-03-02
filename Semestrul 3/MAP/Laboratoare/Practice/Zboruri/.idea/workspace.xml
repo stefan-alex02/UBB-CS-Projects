@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="709afa6d-9d3e-400e-beec-6193e7234c63" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/10d650b2-cfa5-4377-9f2f-8cf5bc9756ee.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/10d650b2-cfa5-4377-9f2f-8cf5bc9756ee/storage_v2/_src_/database/zboruri.gfJE4w.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/10d650b2-cfa5-4377-9f2f-8cf5bc9756ee/storage_v2/_src_/database/zboruri.gfJE4w/schema/information_schema.FNRwLQ.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/10d650b2-cfa5-4377-9f2f-8cf5bc9756ee/storage_v2/_src_/database/zboruri.gfJE4w/schema/pg_catalog.0S1ZNQ.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/10d650b2-cfa5-4377-9f2f-8cf5bc9756ee/storage_v2/_src_/database/zboruri.gfJE4w/schema/public.abK9xQ.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gradlew" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gradlew.bat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/queries/create_tables.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/settings.gradle" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/zboruri/LoginApplication.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/zboruri/LoginController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/zboruri/business/ClientService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/zboruri/business/FlightService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/zboruri/business/TicketService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/zboruri/controllers/ClientController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/zboruri/controllers/MessageAlerter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/zboruri/domain/Client.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/zboruri/domain/Entity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/zboruri/domain/Flight.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/zboruri/domain/FlightDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/zboruri/domain/Ticket.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/zboruri/exceptions/NonexistentUsernameException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/zboruri/exceptions/ValidationException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/zboruri/factory/BuildContainer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/zboruri/factory/Factory.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/zboruri/persistence/DatabaseConnection.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/zboruri/persistence/Repository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/zboruri/persistence/dbrepos/ClientDBRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/zboruri/persistence/dbrepos/FlightDBRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/zboruri/persistence/dbrepos/TicketDBRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/zboruri/persistence/paging/Page.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/zboruri/persistence/paging/PageImplementation.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/zboruri/persistence/paging/Pageable.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/zboruri/persistence/paging/PageableImplementation.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/zboruri/persistence/paging/PagingRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/zboruri/persistence/pagingrepos/FlightsDBPagingRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/zboruri/utils/events/Event.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/zboruri/utils/events/TicketEvent.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/zboruri/utils/events/TicketEventType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/zboruri/utils/observer/Observable.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/zboruri/utils/observer/Observer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/zboruri/validation/TicketValidator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/zboruri/validation/Validator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/org/example/zboruri/login-view.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/org/example/zboruri/views/client-view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ModelPractic/.idea/dataSources/ec017f7d-b40d-4af1-b947-d08522d822a1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../ModelPractic/.idea/dataSources/ec017f7d-b40d-4af1-b947-d08522d822a1.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ModelPractic/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../ModelPractic/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ModelPractic/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../ModelPractic/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ModelPractic/queries/CreateTables.sql" beforeDir="false" afterPath="$PROJECT_DIR$/../ModelPractic/queries/CreateTables.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ModelPractic/src/main/java/org/example/modelpractic/persistence/dbrepos/OrderDBRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ModelPractic/src/main/java/org/example/modelpractic/persistence/dbrepos/OrderDBRepository.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="FxmlFile" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../../.." />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 0
+}]]></component>
+  <component name="ProjectId" id="2bGX8AvwpalVco3g5T3J3VcX4pP" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Gradle.Zboruri [:LoginApplication.main()].executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "develop",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/Stefan/UBB-CS-Projects/MAP/Laboratoare/Practice/Zboruri/src/main/java/org/example/zboruri/utils/events",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
+  },
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "postgresql"
+    ]
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Stefan\UBB-CS-Projects\MAP\Laboratoare\Practice\Zboruri\src\main\java\org\example\zboruri\utils\events" />
+      <recent name="C:\Users\Stefan\UBB-CS-Projects\MAP\Laboratoare\Practice\Zboruri\src\main\resources\org\example\zboruri\views" />
+      <recent name="C:\Users\Stefan\UBB-CS-Projects\MAP\Laboratoare\Practice\Zboruri\src\main\java\org\example\zboruri" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Stefan\UBB-CS-Projects\MAP\Laboratoare\Practice\Zboruri\src\main\resources\org\example\zboruri" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="org.example.zboruri.validation" />
+      <recent name="org.example.zboruri.persistence.dbrepos" />
+      <recent name="org.example.zboruri.persistence.pagingrepos" />
+      <recent name="org.example.zboruri.controllers" />
+      <recent name="org.example.zboruri.domain" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="Unnamed" type="Application" factoryName="Application" nameIsGenerated="true">
+      <option name="ALTERNATIVE_JRE_PATH" value="corretto-17" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
+      <option name="MAIN_CLASS_NAME" value="org.example.zboruri.LoginApplication" />
+      <module name="Zboruri.main" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="jdk-17.0.9-corretto-17.0.9-3183f394aec4-8f899f12" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="709afa6d-9d3e-400e-beec-6193e7234c63" name="Changes" comment="" />
+      <created>1705842229905</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1705842229905</updated>
+      <workItem from="1705842230988" duration="15615000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>

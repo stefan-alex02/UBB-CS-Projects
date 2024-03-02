@@ -1,0 +1,2 @@
+rootProject.name = "ModelGrupa221"
+

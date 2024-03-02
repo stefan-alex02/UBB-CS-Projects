@@ -1,0 +1,15 @@
+C:\Users\Stefan\UBB-CS-Projects\MAP\Seminarii\Seminar11\Seminar11\bin\Debug\net7.0\Seminar11.exe
+C:\Users\Stefan\UBB-CS-Projects\MAP\Seminarii\Seminar11\Seminar11\bin\Debug\net7.0\Seminar11.deps.json
+C:\Users\Stefan\UBB-CS-Projects\MAP\Seminarii\Seminar11\Seminar11\bin\Debug\net7.0\Seminar11.runtimeconfig.json
+C:\Users\Stefan\UBB-CS-Projects\MAP\Seminarii\Seminar11\Seminar11\bin\Debug\net7.0\Seminar11.dll
+C:\Users\Stefan\UBB-CS-Projects\MAP\Seminarii\Seminar11\Seminar11\bin\Debug\net7.0\Seminar11.pdb
+C:\Users\Stefan\UBB-CS-Projects\MAP\Seminarii\Seminar11\Seminar11\obj\Debug\net7.0\Seminar11.csproj.AssemblyReference.cache
+C:\Users\Stefan\UBB-CS-Projects\MAP\Seminarii\Seminar11\Seminar11\obj\Debug\net7.0\Seminar11.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Stefan\UBB-CS-Projects\MAP\Seminarii\Seminar11\Seminar11\obj\Debug\net7.0\Seminar11.AssemblyInfoInputs.cache
+C:\Users\Stefan\UBB-CS-Projects\MAP\Seminarii\Seminar11\Seminar11\obj\Debug\net7.0\Seminar11.AssemblyInfo.cs
+C:\Users\Stefan\UBB-CS-Projects\MAP\Seminarii\Seminar11\Seminar11\obj\Debug\net7.0\Seminar11.csproj.CoreCompileInputs.cache
+C:\Users\Stefan\UBB-CS-Projects\MAP\Seminarii\Seminar11\Seminar11\obj\Debug\net7.0\Seminar11.dll
+C:\Users\Stefan\UBB-CS-Projects\MAP\Seminarii\Seminar11\Seminar11\obj\Debug\net7.0\refint\Seminar11.dll
+C:\Users\Stefan\UBB-CS-Projects\MAP\Seminarii\Seminar11\Seminar11\obj\Debug\net7.0\Seminar11.pdb
+C:\Users\Stefan\UBB-CS-Projects\MAP\Seminarii\Seminar11\Seminar11\obj\Debug\net7.0\Seminar11.genruntimeconfig.cache
+C:\Users\Stefan\UBB-CS-Projects\MAP\Seminarii\Seminar11\Seminar11\obj\Debug\net7.0\ref\Seminar11.dll
