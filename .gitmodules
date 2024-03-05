@@ -1,3 +1,9 @@
 [submodule "Semestrul 4/MPP/teme-lab-stefan-alex02"]
 	path = Semestrul 4/MPP/teme-lab-stefan-alex02
 	url = https://github.com/mpp-at-cs-ubbcluj-ro/teme-lab-stefan-alex02.git
+[submodule "Semestrul 4/AI/lab01-simple-problems-stefan-alex02"]
+	path = Semestrul 4/AI/lab01-simple-problems-stefan-alex02
+	url = https://github.com/LauraDiosan-CS/lab01-simple-problems-stefan-alex02.git
+[submodule "Semestrul 4/AI/lab02-data-processing-stefan-alex02"]
+	path = Semestrul 4/AI/lab02-data-processing-stefan-alex02
+	url = https://github.com/LauraDiosan-CS/lab02-data-processing-stefan-alex02.git
