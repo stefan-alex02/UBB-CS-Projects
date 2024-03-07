@@ -5,9 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2653c65e-f252-480b-a6db-9cb84e003dc0" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/formHTML4.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/formHTML5.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/formHTML4.html" beforeDir="false" afterPath="$PROJECT_DIR$/html4/formHTML4.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,13 +49,14 @@
 }</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Stefan\Documents\GitHub\UBB-CS-Projects\Semestrul 4\PW\Lab1\html4" />
       <recent name="C:\Users\Stefan\Documents\GitHub\UBB-CS-Projects\Semestrul 4\PW\Lab1\images" />
     </key>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="jdk-21.0.1-openjdk-21.0.1-f644763e9732-f98dd351" />
+        <option value="jdk-21.0.1-openjdk-21.0.1-3183f394aec4-7d648f2c" />
       </set>
     </attachedChunks>
   </component>
@@ -71,6 +71,7 @@
       <workItem from="1709666412700" duration="3098000" />
       <workItem from="1709747838441" duration="3000" />
       <workItem from="1709758892376" duration="6674000" />
+      <workItem from="1709792405160" duration="14356000" />
     </task>
     <servers />
   </component>
