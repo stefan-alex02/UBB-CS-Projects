@@ -1,0 +1,257 @@
+<!DOCTYPE HTML>
+<html lang="ro">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Efectuare plată</title>
+</head>
+<body>
+<h1>
+    Trimitere bani către o persoană fizică/juridică
+</h1>
+<h2>
+    Formular de completare ordin de plată și cererea aferentă:
+</h2>
+<form>
+    <fieldset title="Completare OP">
+        <legend>Completare ordin de plată</legend>
+        <table>
+            <tr>
+                <th colspan="3">
+                    <strong>Ordin de plată</strong>
+                </th>
+            </tr>
+            <tr>
+                <td rowspan="2">
+                    <img height="35" width="200" src="../images/cecbank.svg" title="CEC Bank"
+                         alt="CEC Bank Logo">
+                </td>
+                <td>
+                    <label for="nrop">Nr.</label>
+                    <input disabled type="text" id="nrop" name="nrop">
+                </td>
+                <td>
+                    <label for="platacif">Plătiți</label>
+                    <input type="text" id="platacif" name="platacif" placeholder="123.45" required>
+                    <span>Lei, în cifre</span>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <label for="platalit"></label>
+                    <input type="text" id="platalit" size="50"
+                           placeholder="osutadouazecisitrei si patruzecisicinci bani">
+                    <span>Lei, în litere</span>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <label for="platitor">Plătitor / emitent</label>
+                    <input type="text" id="platitor" placeholder="Persoană fizică / juridică" required>
+                </td>
+                <td rowspan="3">
+                    <b>Agenții disponibile</b>
+                    <ul>
+                        <li>Cluj-Napoca (CJ)</li>
+                        <li>Sibiu (SB)</li>
+                        <li>Timișoara (TM)</li>
+                        <li>București (B)</li>
+                        <li>Brașov (BV)</li>
+                        <li>Galați (GL)</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label>
+                        Adresa
+                        <textarea name="message" rows="3" cols="20">
+                            </textarea>
+                    </label>
+                </td>
+                <td>
+                    <label for="codidentif">Cod de identificare fiscală</label>
+                    <input type="text" id="codidentif">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="diniban">Din IBAN</label>
+                    <input type="text" id="diniban" maxlength="26" required>
+                </td>
+                <td>
+                    <label for="bic">Cod BIC</label>
+                    <input type="text" id="bic" maxlength="8">
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <span>Deschis la sucursala</span>
+                    <input type="radio" id="CJ" name="sucursala" value="CJ" required>
+                    <label for="CJ">CJ</label>
+                    <input type="radio" id="SB" name="sucursala" value="SB" required>
+                    <label for="SB">SB</label>
+                    <input type="radio" id="TM" name="sucursala" value="TM" required>
+                    <label for="TM">TM</label>
+                    <input type="radio" id="B" name="sucursala" value="B" required>
+                    <label for="B">B</label>
+                    <input type="radio" id="BV" name="sucursala" value="BV" required>
+                    <label for="BV">BV</label>
+                    <input type="radio" id="GL" name="sucursala" value="GL" required>
+                    <label for="GL">GL</label>
+                </td>
+                <td>
+                        <span>
+                            <b>Tipul transferului:</b>
+                        </span>
+                    <input type="checkbox" id="tip1" name="tip1" value="Normal" checked>
+                    <label for="tip1"> Normal</label>
+                    <input type="checkbox" id="tip2" name="tip2" value="Urgent">
+                    <label for="tip2"> Urgent</label>
+                    <input type="checkbox" id="tip3" name="tip3" value="Instant">
+                    <label for="tip3"> Instant</label>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <label for="beneficiar">Beneficiar</label>
+                    <input type="text" id="beneficiar" placeholder="Persoană fizică / juridică">
+                </td>
+                <td rowspan="2">
+                    <label for="dataemitere">Data emiterii</label>
+                    <input type="date" id="dataemitere" name="dataemitere" min="1900-01-01"
+                           max="2199-12-31">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="iniban">În IBAN</label>
+                    <input type="text" id="iniban" required>
+                </td>
+                <td>
+                    <label for="codidentifdest">Cod de identificare fiscală</label>
+                    <input type="text" id="codidentifdest">
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <label for="banci">Deschis la:</label>
+                    <select id="banci" name="banci" required>
+                        <option disabled selected value=""> -- selectați --</option>
+                        <option value="bcr">Banca Comericală Română</option>
+                        <option value="bt">Banca Transilvania</option>
+                        <option value="cec">Cec Bank</option>
+                        <option value="brd">BRD Groupe Societe Generale</option>
+                        <option value="raiffeisen">Raiffeisen Bank</option>
+                    </select>
+                </td>
+                <td>
+                    <label for="semnatura">Semnătura</label>
+                    <input type="text" id="semnatura" required>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <label for="repr">Reprezentând:</label>
+                    <input type="text" id="repr">
+                </td>
+                <td>
+                    <label for="acceptatde">Primit / Acceptat de:</label>
+                    <input size="25" readonly type="text" id="acceptatde" value="CEC BANK CN Sucursala Mărăști">
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+
+    <fieldset title="Completare cerere">
+        <legend>Completare cerere de tragere</legend>
+
+        <h3>Cerere de Tragere</h3>
+
+        <div>
+            <span>În conformitate cu prevederile Contractului de Credit nr. </span>
+            <input type="text" id="nrcredit" placeholder="număr credit">
+            <span>, semnat în data de </span>
+            <input type="date" id="datacredit" min="1900-01-01" max="2199-12-31">
+            <span>, în valoare de </span>
+            <input type="number" id="sumacredit" step="100">
+            <span> lei, vă solicităm eliberarea unei tranșe din creditul aprobat, în valoare de </span>
+            <input type="number" id="transa" step="2">
+            <span> lei.</span>
+        </div>
+
+        <p>Aceste fonduri vor fi utilizate pentru efectuarea următoarelor plăți:</p>
+
+        <table>
+            <tr>
+                <td>
+                    <select id="furnizori" name="furnizori" multiple>
+                        <option disabled selected value=""> -- selectați --</option>
+                        <option value="f1">Furnizor 1</option>
+                        <option value="f2">Furnizor 2</option>
+                        <option value="f3">Furnizor 3</option>
+                    </select>
+                </td>
+                <td>
+                    <ol start="0">
+                        <li>
+                            <span>Furnizor 1 </span>
+                            <input type="text" id="furnizor1">
+                            <span>, document justificativ </span>
+                            <input type="text" id="doc1">
+                            <span>, valoare </span>
+                            <input type="text" id="valoare1">
+                        </li>
+                        <li>
+                            <span>Furnizor 2 </span>
+                            <input type="text" id="furnizor2">
+                            <span>, document justificativ </span>
+                            <input type="text" id="doc2">
+                            <span>, valoare </span>
+                            <input type="text" id="valoare2">
+                        </li>
+                        <li>
+                            <span>Furnizor 3 </span>
+                            <input type="text" id="furnizor3">
+                            <span>, document justificativ </span>
+                            <input type="text" id="doc3">
+                            <span>, valoare </span>
+                            <input type="text" id="valoare3">
+                        </li>
+                    </ol>
+                </td>
+            </tr>
+        </table>
+
+        <p>Atestă veridicitatea, acuratețea și exactitatea sumelor declarate mai sus și ne asumăm
+            responsabilitatea concordanței lor cu realitatea.</p>
+        <span>Declarăm că până la data prezentei suma totală a tragerilor din creditul contractat este de </span>
+        <input type="number" id="sumatotala" step="10">
+        <span> lei.</span>
+    </fieldset>
+    <fieldset>
+        <h4>Finalizare formular</h4>
+        <input id="trimitere" type="submit" value="Trimitere cerere">
+    </fieldset>
+    <br>
+</form>
+<div>
+    <h5>Link-uri utile:</h5>
+    <ul>
+        <li>
+            <a href="#top">Spre începutul paginii</a>
+        </li>
+        <li>
+            <a href="https://www.cec.ro/" target="_blank">Pagina băncii</a>
+        </li>
+        <li>
+            <a href="/images/cecbank.svg" target="_blank">Sursă photo</a>
+        </li>
+    </ul>
+</div>
+<br>
+<div>
+    <h6>Despre autor</h6>
+    <p>&copy; 2024 Alexandrescu Ștefan. All rights reserved.</p>
+</div>
+</body>
+</html>
