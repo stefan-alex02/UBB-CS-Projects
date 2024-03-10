@@ -7,3 +7,6 @@
 [submodule "Semestrul 4/AI/lab02-data-processing-stefan-alex02"]
 	path = Semestrul 4/AI/lab02-data-processing-stefan-alex02
 	url = https://github.com/LauraDiosan-CS/lab02-data-processing-stefan-alex02.git
+[submodule "Semestrul 4/MPP/mpp-proiect-java-stefan-alex02"]
+	path = Semestrul 4/MPP/mpp-proiect-java-stefan-alex02
+	url = https://github.com/mpp-at-cs-ubbcluj-ro/mpp-proiect-java-stefan-alex02.git
