@@ -1,0 +1,13 @@
+.wrapper {
+    border: 1px solid black;
+    width: 450px;
+    display: flex;
+
+    div, img {
+        width: 200px;
+    }
+}
+
+.stanga {
+    vertical-align: center;
+}
