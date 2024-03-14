@@ -1,0 +1,112 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Stefan\\Documents\\GitHub\\UBB-CS-Projects\\Semestrul 4\\SGBD\\Laborator1\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{B923B5D5-139D-4C1D-9F95-CD67BCCB809F}|Laborator1\\Laborator1.csproj|c:\\users\\stefan\\documents\\github\\ubb-cs-projects\\semestrul 4\\sgbd\\laborator1\\laborator1\\formdirectorsmovies.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B923B5D5-139D-4C1D-9F95-CD67BCCB809F}|Laborator1\\Laborator1.csproj|solutionrelative:laborator1\\formdirectorsmovies.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B923B5D5-139D-4C1D-9F95-CD67BCCB809F}|Laborator1\\Laborator1.csproj|c:\\users\\stefan\\documents\\github\\ubb-cs-projects\\semestrul 4\\sgbd\\laborator1\\laborator1\\formdirectorsmovies.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B923B5D5-139D-4C1D-9F95-CD67BCCB809F}|Laborator1\\Laborator1.csproj|solutionrelative:laborator1\\formdirectorsmovies.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B923B5D5-139D-4C1D-9F95-CD67BCCB809F}|Laborator1\\Laborator1.csproj|c:\\users\\stefan\\documents\\github\\ubb-cs-projects\\semestrul 4\\sgbd\\laborator1\\laborator1\\formdirectorsmovies.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{B923B5D5-139D-4C1D-9F95-CD67BCCB809F}|Laborator1\\Laborator1.csproj|solutionrelative:laborator1\\formdirectorsmovies.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 1,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedHeight": 200,
+          "SelectedChildIndex": 7,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:129:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:131:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{e1b7d1f8-9b3c-49b1-8f4f-bfc63a88835d}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{eefa5220-e298-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "FormDirectorsMovies.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\Stefan\\Documents\\GitHub\\UBB-CS-Projects\\Semestrul 4\\SGBD\\Laborator1\\Laborator1\\FormDirectorsMovies.cs",
+              "RelativeDocumentMoniker": "Laborator1\\FormDirectorsMovies.cs",
+              "ToolTip": "C:\\Users\\Stefan\\Documents\\GitHub\\UBB-CS-Projects\\Semestrul 4\\SGBD\\Laborator1\\Laborator1\\FormDirectorsMovies.cs [Design]",
+              "RelativeToolTip": "Laborator1\\FormDirectorsMovies.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-14T21:05:58.526Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "FormDirectorsMovies.cs",
+              "DocumentMoniker": "C:\\Users\\Stefan\\Documents\\GitHub\\UBB-CS-Projects\\Semestrul 4\\SGBD\\Laborator1\\Laborator1\\FormDirectorsMovies.cs",
+              "RelativeDocumentMoniker": "Laborator1\\FormDirectorsMovies.cs",
+              "ToolTip": "C:\\Users\\Stefan\\Documents\\GitHub\\UBB-CS-Projects\\Semestrul 4\\SGBD\\Laborator1\\Laborator1\\FormDirectorsMovies.cs",
+              "RelativeToolTip": "Laborator1\\FormDirectorsMovies.cs",
+              "ViewState": "AQIAABgAAAAAAAAAAAAowAkAAAAjAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-14T20:05:28.687Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "FormDirectorsMovies.Designer.cs",
+              "DocumentMoniker": "C:\\Users\\Stefan\\Documents\\GitHub\\UBB-CS-Projects\\Semestrul 4\\SGBD\\Laborator1\\Laborator1\\FormDirectorsMovies.Designer.cs",
+              "RelativeDocumentMoniker": "Laborator1\\FormDirectorsMovies.Designer.cs",
+              "ToolTip": "C:\\Users\\Stefan\\Documents\\GitHub\\UBB-CS-Projects\\Semestrul 4\\SGBD\\Laborator1\\Laborator1\\FormDirectorsMovies.Designer.cs",
+              "RelativeToolTip": "Laborator1\\FormDirectorsMovies.Designer.cs",
+              "ViewState": "AQIAAC0AAAAAAAAAAAAowDsAAABVAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-14T20:05:20.451Z",
+              "EditorCaption": ""
+            }
+          ]
+        },
+        {
+          "DockedHeight": 200,
+          "SelectedChildIndex": -1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:1:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{2731ad3b-8e0a-46d2-b8f6-ca40c387732f}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
