@@ -1,0 +1,41 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+header {
+    height: 150px;
+    background-color: khaki;
+    display: flex;
+    align-items: center;
+}
+
+menu {
+    list-style-type: none;
+
+    background-color: burlywood;
+}
+
+menu li {
+    border: 2px solid black;
+    width: 150px;
+    text-align: center;
+}
+
+div {
+    display: flex;
+    width: 100%;
+}
+
+.main {
+    height: 200px;
+    background-color: antiquewhite;
+    display: flex;
+    align-items: center;
+}
+
+footer {
+    height: 100px;
+    background-color: beige;
+    border: 1px solid black;
+}

@@ -1,13 +1,13 @@
-.wrapper {
-    border: 1px solid black;
-    width: 450px;
+.parent {
     display: flex;
-
-    div, img {
-        width: 200px;
-    }
 }
 
-.stanga {
-    vertical-align: center;
+.left, .right {
+    width: 200px;
+    display: flex;
+    align-items: center;
+}
+
+.right img {
+    max-width: 200px;
 }
