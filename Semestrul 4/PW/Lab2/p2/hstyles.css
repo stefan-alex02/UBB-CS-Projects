@@ -5,15 +5,13 @@
 
 header {
     height: 150px;
+    text-align: center;
     background-color: khaki;
-    display: flex;
-    align-items: center;
 }
 
 menu {
-    list-style-type: none;
     display: flex;
-
+    list-style-type: none;
     background-color: burlywood;
 }
 
@@ -23,7 +21,7 @@ menu li {
     text-align: center;
 }
 
-.main {
+div {
     height: 200px;
     background-color: antiquewhite;
     display: flex;

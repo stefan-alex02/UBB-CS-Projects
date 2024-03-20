@@ -1,13 +1,17 @@
 .parent {
     display: flex;
+    width: 400px;
 }
 
 .left, .right {
     width: 200px;
-    display: flex;
-    align-items: center;
+    margin: auto;
+}
+
+.left {
+    text-align: center;
 }
 
 .right img {
-    max-width: 200px;
+    max-width: 100%;
 }
