@@ -1,6 +1,7 @@
 .parent {
-    display: flex;
+    border: 2px solid black;
     width: 400px;
+    display: flex;
 }
 
 .left, .right {
@@ -9,9 +10,12 @@
 }
 
 .left {
+    font-family: "Cambria Math", serif;
     text-align: center;
 }
 
 .right img {
-    max-width: 100%;
+    display:block;
+    margin:auto;
+    max-width: 200px;
 }

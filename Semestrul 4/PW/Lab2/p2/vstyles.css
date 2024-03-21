@@ -1,39 +1,49 @@
 * {
     padding: 0;
     margin: 0;
+}
 
-    /*Face sa apara si scriptul JS*/
-    /*display: flex;*/
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 header {
-    height: 150px;
+    height: 30vh;
     text-align: center;
     background-color: khaki;
 }
 
+#parent {
+    display: flex;
+    flex: 1;
+}
+
 menu {
-    float: left;
-    height: 200px;
-    width: 150px;
     list-style-type: none;
+    border: 2px solid black;
     background-color: burlywood;
 }
 
 menu li {
-    text-align: center;
+    width: 15vw;
+    padding: 5px 10px;
     border: 2px solid black;
+    text-align: center;
 }
 
-div {
-    height: 200px;
-    display: flex;
-    align-items: center;
+#parent div {
+    width: 100vw;
+    padding: 15px 25px;
+    overflow-y: auto;
     background-color: antiquewhite;
 }
 
 footer {
-    height: 100px;
+    height: 8vh;
+    border: 0.25vw solid black;
+    text-align: center;
+    margin-top: auto;
     background-color: beige;
-    border: 1px solid black;
 }
