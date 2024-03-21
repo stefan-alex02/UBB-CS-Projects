@@ -4,22 +4,22 @@
 }
 
 body, html {
-    height: 100%;
+    height: 100vh;
     display: flex;
     flex-direction: column;
 }
 
 header {
-    height: 150px;
+    height: 15vh;
     text-align: center;
     background-color: khaki;
 }
 
 #parent {
+    max-height: 75vh;
     display: flex;
     flex-direction: column;
     flex: 1;
-    overflow-y: auto;
 }
 
 menu {
@@ -37,13 +37,15 @@ menu li {
 }
 
 #parent div {
-    padding: 10px 20px;
+    flex: 1;
+    overflow-y: auto;
+    padding: 15px 25px;
     background-color: antiquewhite;
 }
 
 footer {
     border: 0.25vw solid black;
-    height: 8vh;
+    height: 10vh;
     text-align: center;
     background-color: beige;
 }

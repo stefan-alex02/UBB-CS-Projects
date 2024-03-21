@@ -1,0 +1,118 @@
+#social-container {
+    background-color: #8f8f8f;
+    padding: 10px;
+    display: inline-block;
+}
+
+#social-links {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+
+    flex-direction: row;
+    /*flex-direction: column;*/
+}
+
+#social-links li {
+    margin: 2px;
+}
+
+.social-icon {
+    display: block;
+    width: 83px;
+    height: 83px;
+    background-image: url('sprite.png');
+    background-repeat: no-repeat;
+}
+
+
+.facebook:hover {
+    background-position: -0px -0px;
+}
+.facebook {
+    background-position: -0px -84px;
+}
+
+
+.dots:hover {
+    background-position: -84px -0px;
+}
+.dots {
+    background-position: -84px -84px;
+}
+
+
+.web:hover {
+    background-position: -168px -0px;
+}
+.web {
+    background-position: -168px -84px;
+}
+
+
+.google-plus:hover {
+    background-position: -252px -0px;
+}
+.google-plus {
+    background-position: -252px -84px;
+}
+
+
+.linkedin:hover {
+    background-position: -336px -0px;
+}
+.linkedin {
+    background-position: -336px -84px;
+}
+
+
+.pinterest:hover {
+    background-position: -420px -0px;
+}
+.pinterest {
+    background-position: -420px -84px;
+}
+
+
+.wifi:hover {
+    background-position: -504px -0px;
+}
+.wifi {
+    background-position: -504px -84px;
+}
+
+
+.skype:hover {
+    background-position: -588px -0px;
+}
+.skype {
+    background-position: -588px -84px;
+}
+
+
+.twitter:hover {
+    background-position: -672px -0px;
+}
+.twitter {
+    background-position: -672px -84px;
+}
+
+
+.vimeo:hover {
+    background-position: -756px -0px;
+}
+.vimeo {
+    background-position: -756px -84px;
+}
+
+
+.youtube:hover {
+    background-position: -840px -0px;
+}
+.youtube {
+    background-position: -840px -84px;
+}
+
