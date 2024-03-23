@@ -5,8 +5,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2653c65e-f252-480b-a6db-9cb84e003dc0" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../../AI/lab02-data-processing-stefan-alex02" beforeDir="false" afterPath="$PROJECT_DIR$/../../AI/lab02-data-processing-stefan-alex02" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Lab2/p5/matei.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Lab2/p5/traian.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Lab2/p5/vlad.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Lab2/p5/vstyles.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Lab2/p6/box.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Lab2/p6/box_light.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Lab2/p6/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Lab2/p6/styles.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Lab2/p7/avatars.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Lab2/p7/dialog-bottom.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Lab2/p7/dialog-middle.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Lab2/p7/dialog-top.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Lab2/p7/dialog.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Lab2/p7/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Lab2/p7/styles.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab2/p5/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/../Lab2/p5/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab2/p5/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/../Lab2/p5/tstyles.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -62,7 +78,7 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="jdk-21.0.1-openjdk-21.0.1-3183f394aec4-7d648f2c" />
+        <option value="jdk-21.0.1-openjdk-21.0.1-f644763e9732-f98dd351" />
       </set>
     </attachedChunks>
   </component>
@@ -84,6 +100,7 @@
       <workItem from="1710107867963" duration="55000" />
       <workItem from="1710107934525" duration="3000" />
       <workItem from="1710330271532" duration="1630000" />
+      <workItem from="1711186946258" duration="654000" />
     </task>
     <servers />
   </component>

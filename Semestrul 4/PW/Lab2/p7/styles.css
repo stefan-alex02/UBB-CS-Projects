@@ -1,0 +1,68 @@
+ul.dialog {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+ul.dialog li {
+    z-index: 1;
+    font-size: 22px;
+    font-family: Calibri, serif;
+    margin-bottom: 85px;
+    padding: 10px;
+    position: relative;
+    left: 240px;
+    top: 40px;
+    text-align: center;
+
+    /* Responsive dialog boxes*/
+    min-height: min(max(100px, 15vw), 200px);
+    max-width: min(20vw, 300px);
+}
+
+ul.dialog li::after {
+    z-index: -1;
+    content: "";
+    position: absolute;
+
+    top: calc(-30px);
+    left: -120px;
+
+    width: calc(100% + 140px);
+    height: calc(100% + 50px);
+
+    background-image: url('dialog-top.png'), url('dialog-bottom.png'), url('dialog-middle.png');
+    background-repeat: no-repeat;
+    background-size: 100% auto, 100% auto, 100% 100%;
+    background-position: top, bottom, center;
+}
+
+ul.dialog li::before {
+    content: "";
+    position: absolute;
+    left: -180px;
+    top: 10px;
+    width: 20px;
+    height: 20px;
+    background-image: url('avatars.jpg');
+    background-repeat: no-repeat;
+    background-size: 100px;
+    border-radius: 30%;
+    transform: scale(5);
+}
+
+ul.dialog li.alice::before {
+    background-position: -4px -5px;
+}
+
+ul.dialog li.bob::before {
+    background-position: -22px -5px;
+}
+
+ul.dialog li.john::before {
+    background-position: -22px -41px;
+}
+
+ul.dialog li.paul::before {
+    background-position: -40px -24px;
+}

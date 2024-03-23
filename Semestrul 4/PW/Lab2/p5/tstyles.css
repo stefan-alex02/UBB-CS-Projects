@@ -17,7 +17,7 @@ ul {
 li {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    justify-content: center;
     padding: 0;
     margin: 1vw;
     background-color: lightblue;
