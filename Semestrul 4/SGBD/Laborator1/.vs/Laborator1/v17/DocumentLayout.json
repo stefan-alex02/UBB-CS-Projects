@@ -22,7 +22,7 @@
       "DocumentGroups": [
         {
           "DockedHeight": 200,
-          "SelectedChildIndex": 8,
+          "SelectedChildIndex": 6,
           "Children": [
             {
               "$type": "Bookmark",
@@ -50,15 +50,28 @@
             },
             {
               "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "FormDirectorsMovies.cs",
+              "DocumentMoniker": "C:\\Users\\Stefan\\Documents\\GitHub\\UBB-CS-Projects\\Semestrul 4\\SGBD\\Laborator1\\Laborator1\\FormDirectorsMovies.cs",
+              "RelativeDocumentMoniker": "Laborator1\\FormDirectorsMovies.cs",
+              "ToolTip": "C:\\Users\\Stefan\\Documents\\GitHub\\UBB-CS-Projects\\Semestrul 4\\SGBD\\Laborator1\\Laborator1\\FormDirectorsMovies.cs",
+              "RelativeToolTip": "Laborator1\\FormDirectorsMovies.cs",
+              "ViewState": "AQIAANgAAAAAAAAAAAAIwOgAAAAeAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-26T11:14:47.494Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 2,
               "Title": "FormDirectorsMovies.Designer.cs",
               "DocumentMoniker": "C:\\Users\\Stefan\\Documents\\GitHub\\UBB-CS-Projects\\Semestrul 4\\SGBD\\Laborator1\\Laborator1\\FormDirectorsMovies.Designer.cs",
               "RelativeDocumentMoniker": "Laborator1\\FormDirectorsMovies.Designer.cs",
               "ToolTip": "C:\\Users\\Stefan\\Documents\\GitHub\\UBB-CS-Projects\\Semestrul 4\\SGBD\\Laborator1\\Laborator1\\FormDirectorsMovies.Designer.cs",
               "RelativeToolTip": "Laborator1\\FormDirectorsMovies.Designer.cs",
-              "ViewState": "AQIAAC0AAAAAAAAAAAAYwD8AAABLAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-15T08:52:40.115Z",
+              "WhenOpened": "2024-03-26T11:14:44.329Z",
               "EditorCaption": ""
             },
             {
@@ -70,21 +83,8 @@
               "ToolTip": "C:\\Users\\Stefan\\Documents\\GitHub\\UBB-CS-Projects\\Semestrul 4\\SGBD\\Laborator1\\Laborator1\\FormDirectorsMovies.cs [Design]",
               "RelativeToolTip": "Laborator1\\FormDirectorsMovies.cs [Design]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-15T06:11:53.37Z",
+              "WhenOpened": "2024-03-26T11:14:39.167Z",
               "EditorCaption": " [Design]"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "FormDirectorsMovies.cs",
-              "DocumentMoniker": "C:\\Users\\Stefan\\Documents\\GitHub\\UBB-CS-Projects\\Semestrul 4\\SGBD\\Laborator1\\Laborator1\\FormDirectorsMovies.cs",
-              "RelativeDocumentMoniker": "Laborator1\\FormDirectorsMovies.cs",
-              "ToolTip": "C:\\Users\\Stefan\\Documents\\GitHub\\UBB-CS-Projects\\Semestrul 4\\SGBD\\Laborator1\\Laborator1\\FormDirectorsMovies.cs",
-              "RelativeToolTip": "Laborator1\\FormDirectorsMovies.cs",
-              "ViewState": "AQIAAD0AAAAAAAAAAAAUwEoAAAATAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-14T20:05:28.687Z",
-              "EditorCaption": ""
             }
           ]
         },

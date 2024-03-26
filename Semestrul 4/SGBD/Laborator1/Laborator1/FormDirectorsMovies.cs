@@ -104,6 +104,17 @@ public partial class FormDirectorsMovies : Form {
             MessageBox.Show("You must select a director!");
             return;
         }
+
+        if (textBoxMovieTitle.Text.Count() == 0) {
+            MessageBox.Show("You must write a title!");
+            return;
+        }
+
+        if (textBoxMovieRunningTime.Text.Count() == 0) {
+            MessageBox.Show("You must write a remaining time!");
+            return;
+        }
+
         int directorID = Convert.ToInt32(dataGridViewDirectors
             .SelectedCells[0]
             .OwningRow
@@ -138,6 +149,16 @@ public partial class FormDirectorsMovies : Form {
     private void buttonUpdateMovie_Click(object sender, EventArgs e) {
         if (dataGridViewMovies.SelectedCells.Count < 1) {
             MessageBox.Show("You must select a record to update!");
+            return;
+        }
+
+        if (textBoxMovieTitle.Text.Count() == 0) {
+            MessageBox.Show("You must write a title!");
+            return;
+        }
+
+        if (textBoxMovieRunningTime.Text.Count() == 0) {
+            MessageBox.Show("You must write a remaining time!");
             return;
         }
 
