@@ -110,6 +110,11 @@ public partial class FormDirectorsMovies : Form {
             return;
         }
 
+        if (textBoxMovieRunningTime.Text.Count() == 0) {
+            MessageBox.Show("You must write a remaining time!");
+            return;
+        }
+
         int directorID = Convert.ToInt32(dataGridViewDirectors
             .SelectedCells[0]
             .OwningRow
@@ -149,6 +154,11 @@ public partial class FormDirectorsMovies : Form {
 
         if (textBoxMovieTitle.Text.Count() == 0) {
             MessageBox.Show("You must write a title!");
+            return;
+        }
+
+        if (textBoxMovieRunningTime.Text.Count() == 0) {
+            MessageBox.Show("You must write a remaining time!");
             return;
         }
 
