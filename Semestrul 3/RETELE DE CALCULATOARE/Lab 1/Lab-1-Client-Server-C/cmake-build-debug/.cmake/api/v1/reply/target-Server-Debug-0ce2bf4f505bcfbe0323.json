@@ -2,7 +2,10 @@
 	"artifacts" : 
 	[
 		{
-			"path" : "Server"
+			"path" : "Server.exe"
+		},
+		{
+			"path" : "Server.pdb"
 		}
 	],
 	"backtrace" : 1,
@@ -64,14 +67,14 @@
 				"role" : "flags"
 			},
 			{
-				"fragment" : "",
+				"fragment" : "-Wl,--enable-auto-import",
 				"role" : "flags"
 			}
 		],
 		"language" : "C"
 	},
 	"name" : "Server",
-	"nameOnDisk" : "Server",
+	"nameOnDisk" : "Server.exe",
 	"paths" : 
 	{
 		"build" : ".",

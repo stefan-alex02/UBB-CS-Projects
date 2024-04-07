@@ -2,7 +2,10 @@
 	"artifacts" : 
 	[
 		{
-			"path" : "Client"
+			"path" : "Client.exe"
+		},
+		{
+			"path" : "Client.pdb"
 		}
 	],
 	"backtrace" : 1,
@@ -64,14 +67,14 @@
 				"role" : "flags"
 			},
 			{
-				"fragment" : "",
+				"fragment" : "-Wl,--enable-auto-import",
 				"role" : "flags"
 			}
 		],
 		"language" : "C"
 	},
 	"name" : "Client",
-	"nameOnDisk" : "Client",
+	"nameOnDisk" : "Client.exe",
 	"paths" : 
 	{
 		"build" : ".",

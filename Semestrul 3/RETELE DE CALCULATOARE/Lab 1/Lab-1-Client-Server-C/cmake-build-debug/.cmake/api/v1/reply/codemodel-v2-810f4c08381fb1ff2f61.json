@@ -41,14 +41,14 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "Client::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-Client-Debug-557a3b63b74d00340829.json",
+					"jsonFile" : "target-Client-Debug-bd1ffeba605bdd58c6eb.json",
 					"name" : "Client",
 					"projectIndex" : 0
 				},
 				{
 					"directoryIndex" : 0,
 					"id" : "Server::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-Server-Debug-c867b3cd588f9f332af3.json",
+					"jsonFile" : "target-Server-Debug-0ce2bf4f505bcfbe0323.json",
 					"name" : "Server",
 					"projectIndex" : 0
 				}
@@ -58,8 +58,8 @@
 	"kind" : "codemodel",
 	"paths" : 
 	{
-		"build" : "/mnt/c/Users/Stefan/UBB-CS-Projects/RETELE DE CALCULATOARE/Lab 1/Lab-1-Client-Server-C/cmake-build-debug",
-		"source" : "/mnt/c/Users/Stefan/UBB-CS-Projects/RETELE DE CALCULATOARE/Lab 1/Lab-1-Client-Server-C"
+		"build" : "/cygdrive/c/Users/Stefan/Documents/GitHub/UBB-CS-Projects/Semestrul 3/RETELE DE CALCULATOARE/Lab 1/Lab-1-Client-Server-C/cmake-build-debug",
+		"source" : "/cygdrive/c/Users/Stefan/Documents/GitHub/UBB-CS-Projects/Semestrul 3/RETELE DE CALCULATOARE/Lab 1/Lab-1-Client-Server-C"
 	},
 	"version" : 
 	{

@@ -3,8 +3,9 @@ file(REMOVE_RECURSE
   "CMakeFiles/Client.dir/client.c.o.d"
   "CMakeFiles/Client.dir/common.c.o"
   "CMakeFiles/Client.dir/common.c.o.d"
-  "Client"
+  "Client.exe"
   "Client.pdb"
+  "libClient.dll.a"
 )
 
 # Per-language clean rules from dependency scanning.

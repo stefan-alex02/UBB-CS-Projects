@@ -1,4 +1,4 @@
-/mnt/c/Users/Stefan/UBB-CS-Projects/RETELE DE CALCULATOARE/Lab 1/Lab-1-Client-Server-C/cmake-build-debug/CMakeFiles/Client.dir
-/mnt/c/Users/Stefan/UBB-CS-Projects/RETELE DE CALCULATOARE/Lab 1/Lab-1-Client-Server-C/cmake-build-debug/CMakeFiles/Server.dir
-/mnt/c/Users/Stefan/UBB-CS-Projects/RETELE DE CALCULATOARE/Lab 1/Lab-1-Client-Server-C/cmake-build-debug/CMakeFiles/edit_cache.dir
-/mnt/c/Users/Stefan/UBB-CS-Projects/RETELE DE CALCULATOARE/Lab 1/Lab-1-Client-Server-C/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/cygdrive/c/Users/Stefan/Documents/GitHub/UBB-CS-Projects/Semestrul 3/RETELE DE CALCULATOARE/Lab 1/Lab-1-Client-Server-C/cmake-build-debug/CMakeFiles/Client.dir
+/cygdrive/c/Users/Stefan/Documents/GitHub/UBB-CS-Projects/Semestrul 3/RETELE DE CALCULATOARE/Lab 1/Lab-1-Client-Server-C/cmake-build-debug/CMakeFiles/Server.dir
+/cygdrive/c/Users/Stefan/Documents/GitHub/UBB-CS-Projects/Semestrul 3/RETELE DE CALCULATOARE/Lab 1/Lab-1-Client-Server-C/cmake-build-debug/CMakeFiles/edit_cache.dir
+/cygdrive/c/Users/Stefan/Documents/GitHub/UBB-CS-Projects/Semestrul 3/RETELE DE CALCULATOARE/Lab 1/Lab-1-Client-Server-C/cmake-build-debug/CMakeFiles/rebuild_cache.dir
