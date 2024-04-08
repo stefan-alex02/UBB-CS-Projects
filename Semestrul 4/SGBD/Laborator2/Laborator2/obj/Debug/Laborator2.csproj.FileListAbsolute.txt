@@ -1,0 +1,10 @@
+C:\Users\Stefan\Documents\GitHub\UBB-CS-Projects\Semestrul 4\SGBD\Laborator2\Laborator2\bin\Debug\Laborator2.exe.config
+C:\Users\Stefan\Documents\GitHub\UBB-CS-Projects\Semestrul 4\SGBD\Laborator2\Laborator2\bin\Debug\Laborator2.exe
+C:\Users\Stefan\Documents\GitHub\UBB-CS-Projects\Semestrul 4\SGBD\Laborator2\Laborator2\bin\Debug\Laborator2.pdb
+C:\Users\Stefan\Documents\GitHub\UBB-CS-Projects\Semestrul 4\SGBD\Laborator2\Laborator2\obj\Debug\Laborator2.csproj.AssemblyReference.cache
+C:\Users\Stefan\Documents\GitHub\UBB-CS-Projects\Semestrul 4\SGBD\Laborator2\Laborator2\obj\Debug\Laborator2.Properties.Resources.resources
+C:\Users\Stefan\Documents\GitHub\UBB-CS-Projects\Semestrul 4\SGBD\Laborator2\Laborator2\obj\Debug\Laborator2.csproj.GenerateResource.cache
+C:\Users\Stefan\Documents\GitHub\UBB-CS-Projects\Semestrul 4\SGBD\Laborator2\Laborator2\obj\Debug\Laborator2.csproj.CoreCompileInputs.cache
+C:\Users\Stefan\Documents\GitHub\UBB-CS-Projects\Semestrul 4\SGBD\Laborator2\Laborator2\obj\Debug\Laborator2.exe
+C:\Users\Stefan\Documents\GitHub\UBB-CS-Projects\Semestrul 4\SGBD\Laborator2\Laborator2\obj\Debug\Laborator2.pdb
+C:\Users\Stefan\Documents\GitHub\UBB-CS-Projects\Semestrul 4\SGBD\Laborator2\Laborator2\obj\Debug\Laborator2.FormTables.resources

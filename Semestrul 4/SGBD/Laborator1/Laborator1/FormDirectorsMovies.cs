@@ -6,8 +6,8 @@ using System.Runtime.CompilerServices;
 namespace Laborator1;
 
 public partial class FormDirectorsMovies : Form {
-    //const string dbDataSource = "DESKTOP-HH5PFSL\\SQLEXPRESS";
-    const string dbDataSource = "DESKTOP-0SVDHT0\\SQLEXPRESS";
+    const string dbDataSource = "DESKTOP-HH5PFSL\\SQLEXPRESS";
+    // const string dbDataSource = "DESKTOP-0SVDHT0\\SQLEXPRESS";
 
     SqlConnection cs = new SqlConnection("Data Source=" + dbDataSource + 
         ";Initial Catalog=Cinematography;Integrated Security=True");
