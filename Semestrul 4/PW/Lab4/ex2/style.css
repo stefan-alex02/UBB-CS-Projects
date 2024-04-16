@@ -1,0 +1,13 @@
+label {
+    width: 100px;
+    display: inline-block;
+    text-align: right;
+}
+
+input {
+    margin: 3px;
+}
+
+.invalid {
+    border: 2px solid red;
+}
