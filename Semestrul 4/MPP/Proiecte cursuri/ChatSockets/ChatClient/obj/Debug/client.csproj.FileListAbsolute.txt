@@ -1,0 +1,17 @@
+C:\Users\Stefan\Downloads\ChatSockets\ChatClient\bin\Debug\ChatClient.exe
+C:\Users\Stefan\Downloads\ChatSockets\ChatClient\bin\Debug\ChatClient.pdb
+C:\Users\Stefan\Downloads\ChatSockets\ChatClient\bin\Debug\model.dll
+C:\Users\Stefan\Downloads\ChatSockets\ChatClient\bin\Debug\networking.dll
+C:\Users\Stefan\Downloads\ChatSockets\ChatClient\bin\Debug\services.dll
+C:\Users\Stefan\Downloads\ChatSockets\ChatClient\bin\Debug\networking.pdb
+C:\Users\Stefan\Downloads\ChatSockets\ChatClient\bin\Debug\services.pdb
+C:\Users\Stefan\Downloads\ChatSockets\ChatClient\bin\Debug\model.pdb
+C:\Users\Stefan\Downloads\ChatSockets\ChatClient\obj\Debug\client.csproj.AssemblyReference.cache
+C:\Users\Stefan\Downloads\ChatSockets\ChatClient\obj\Debug\ChatClient.Properties.Resources.resources
+C:\Users\Stefan\Downloads\ChatSockets\ChatClient\obj\Debug\client.csproj.GenerateResource.cache
+C:\Users\Stefan\Downloads\ChatSockets\ChatClient\obj\Debug\client.csproj.CoreCompileInputs.cache
+C:\Users\Stefan\Downloads\ChatSockets\ChatClient\obj\Debug\client.csproj.Up2Date
+C:\Users\Stefan\Downloads\ChatSockets\ChatClient\obj\Debug\ChatClient.exe
+C:\Users\Stefan\Downloads\ChatSockets\ChatClient\obj\Debug\ChatClient.pdb
+C:\Users\Stefan\Downloads\ChatSockets\ChatClient\bin\Debug\x86\sqlite3.dll
+C:\Users\Stefan\Downloads\ChatSockets\ChatClient\bin\Debug\x64\sqlite3.dll

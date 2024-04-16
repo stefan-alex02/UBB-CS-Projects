@@ -9,5 +9,12 @@ input {
 }
 
 .invalid {
+    padding: 2px;
     border: 2px solid red;
+    border-radius: 3px;
+}
+
+.invalid:focus {
+    outline-offset: 1px;
+    outline: 2px solid rgb(255, 117, 117);
 }

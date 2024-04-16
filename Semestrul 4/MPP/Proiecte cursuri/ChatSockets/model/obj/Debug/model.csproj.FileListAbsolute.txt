@@ -1,0 +1,6 @@
+C:\Users\Stefan\Downloads\ChatSockets\model\bin\Debug\model.dll
+C:\Users\Stefan\Downloads\ChatSockets\model\bin\Debug\model.pdb
+C:\Users\Stefan\Downloads\ChatSockets\model\obj\Debug\model.csproj.AssemblyReference.cache
+C:\Users\Stefan\Downloads\ChatSockets\model\obj\Debug\model.csproj.CoreCompileInputs.cache
+C:\Users\Stefan\Downloads\ChatSockets\model\obj\Debug\model.dll
+C:\Users\Stefan\Downloads\ChatSockets\model\obj\Debug\model.pdb
