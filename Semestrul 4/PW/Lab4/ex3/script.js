@@ -38,7 +38,6 @@ function generate() {
     const pairs = [];
     for (let i = 1; i <= c / 2; i++) {
         pairs.push(i);
-        pairs.push(i);
     }
     shuffleArray(pairs);
 
@@ -57,7 +56,15 @@ function generate() {
         let row = table.insertRow();
         for (let j = 0; j < m; j++) {
             let cell = row.insertCell();
-            cell.innerText = numbers[i * m + j];
+
+            let span = document.createElement("span");
+            span.innerText = numbers[i * m + j];
+
+            span.classList.add("hidden-text");
+            cell.appendChild(span);
+            cell.addEventListener("click", function() {
+                span.classList.toggle("flipped");
+            });
         }
     }
 
