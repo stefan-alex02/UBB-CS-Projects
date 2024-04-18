@@ -1,9 +1,21 @@
-const table = document.getElementById('table');
-table.sortedRowindex = null;
-table.ascending = true;
+let tables = document.getElementsByTagName('table');
+for (let i= 0; i < tables.length; i++) {
+    tables[i].headers = [];
+    tables[i].sortedRowindex = null;
+    tables[i].ascending = true;
+
+    // table.headers = document.getElementsByClassName('header');
+    tables[i].headers = document.querySelectorAll(`#${tables[i].id} .header`);
+    console.log(tables[i].headers);
+    for (let j = 0; j < tables[i].headers.length; j++) {
+        tables[i].headers[j].addEventListener('click', onClickHeader);
+        tables[i].headers[j].parentTable = tables[i];
+    }
+}
 
 function onClickHeader(event) {
     const index = this.parentNode.rowIndex;
+    let table = this.parentTable;
     if (table.sortedRowindex === index) {
         table.ascending = !table.ascending;
         this.getElementsByClassName('arrow')[0].innerText = table.ascending ? '↑' : '↓';
@@ -36,9 +48,4 @@ function onClickHeader(event) {
             }
         }
     }
-}
-
-headers = document.getElementsByClassName('header');
-for (let i = 0; i < headers.length; i++) {
-    headers[i].addEventListener('click', onClickHeader);
 }

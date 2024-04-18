@@ -1,6 +1,4 @@
-function validate(event) {
-    event.preventDefault();
-
+function validate() {
     const inputs = document.getElementsByTagName('input');
 
     let errors = [];
@@ -47,7 +45,9 @@ function validate(event) {
             }
         }
         errorText += " nu sunt completate corect!";
-        alert(errorText);
+        setTimeout(() => {
+            alert(errorText);
+        }, 1);
         return false;
     }
     else {

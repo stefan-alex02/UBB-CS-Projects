@@ -20,5 +20,5 @@ for (let i = 0; i < selects.length; i++) {
 }
 
 function updateSize(select) {
-    select.size = select.length;
+    select.size = Math.max(select.length, 2);
 }

@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <form action="">
+    <form action="#" method="get" onsubmit="return validate()">
         <label for="nume">Nume:</label>
         <input class="string" type="text" id="nume" name="nume" placeholder="Ion">
         <br>
@@ -20,7 +20,7 @@
         <input class="email" type="text" id="email" name="email" placeholder="abc@xyz.com">
         <br>
 
-        <input type="submit" value="Verifica" onclick="validate(event)" >
+        <input type="submit" value="Verifica" >
     </form>
 
     <script src="script.js"></script>
