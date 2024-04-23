@@ -95,10 +95,15 @@ BEGIN
 			Lid INT IDENTITY PRIMARY KEY,
 			TypeOperation VARCHAR(50),
 			TableOperation VARCHAR(50),
-			ExecutionDate DATETIME		)	ENDEND
+			ExecutionDate DATETIME
+		)
+	END
+END
 GO
----------------------------------------------------------------------------------------
----------------------------------------------------------------------------------------CREATE OR ALTER PROCEDURE AddSeriesActor 
+---------------------------------------------------------------------------------------
+
+---------------------------------------------------------------------------------------
+CREATE OR ALTER PROCEDURE AddSeriesActor 
 	@seriesTitle varchar(80), 
 	@actorName varchar(80), 
 	@actorDOB DATE, 
