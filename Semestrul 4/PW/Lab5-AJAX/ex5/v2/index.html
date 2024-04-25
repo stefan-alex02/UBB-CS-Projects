@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="container">
+        <h2>Generate a table</h2>
+        <label for="input">Enter the number of pieces per side:</label>
+        <input type="text" id="input">
+        <br>
+        <label for="file-input">Choose a file:</label>
+        <input type="file" id="file-input" accept=".png, .jpg, .jpeg, .svg" >
+        <br>
+        <button onclick="generate()">Generate</button>
+    </div>
+
+    <table id="table" hidden="hidden"></table>
+    <script src="script.js"></script>
+</body>
+</html>

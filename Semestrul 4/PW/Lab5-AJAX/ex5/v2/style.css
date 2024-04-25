@@ -1,0 +1,73 @@
+#container {
+    padding: 10px;
+    background-color: #6f9e8e;
+    border: 2px solid #3b6058;
+    color: #264033;
+}
+
+table {
+    border: 3px solid #474e35;
+    display: none;
+    background-color: #ae9f9f;
+    border-collapse: collapse;
+}
+
+tr {
+    padding: 0;
+}
+
+td {
+    margin: 0;
+    padding: 0.5px;
+    background-color: #685d4b;
+    width: 100px;
+    height: 100px;
+}
+
+td.win-cell {
+    padding: 0;
+}
+
+td div {
+    margin: 0;
+    height: 100%;
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    background-color: #6e775f;
+    color: #363e29;
+    font-weight: bold;
+    cursor: pointer;
+    background-repeat: no-repeat;
+}
+
+td div.game-piece {
+    border: 3px solid #363e29;
+    padding: 0;
+    position: relative;
+    transition: transform 0.35s;
+}
+
+.move-up {
+    transform: translateY(100%);
+}
+
+.move-down {
+    transform: translateY(-100%);
+}
+
+.move-left {
+    transform: translateX(100%);
+}
+
+.move-right {
+    transform: translateX(-100%);
+}
+
+td div.win-piece {
+    background-color: #c1a569;
+    color: #4a4037;
+}
