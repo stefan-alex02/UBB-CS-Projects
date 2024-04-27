@@ -34,3 +34,6 @@
 [submodule "Semestrul 4/AI/lab08-textgeneration-stefan-alex02"]
 	path = Semestrul 4/AI/lab08-textgeneration-stefan-alex02
 	url = https://github.com/LauraDiosan-CS/lab08-textgeneration-stefan-alex02.git
+[submodule "Semestrul 4/MPP/MPP-Agri-Trade"]
+	path = Semestrul 4/MPP/MPP-Agri-Trade
+	url = https://github.com/stefan-alex02/MPP-Agri-Trade.git
