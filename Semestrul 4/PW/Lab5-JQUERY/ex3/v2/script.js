@@ -1,20 +1,3 @@
-function biggestDivisorCloseToRoot(n) {
-    let divisor = 2;
-    for (let i = 2; i * i <= n; i++) {
-        if (n % i === 0) {
-            divisor = i;
-        }
-    }
-    return divisor;
-}
-
-function shuffleArray(array) {
-    for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]];
-    }
-}
-
 let imageName = "fruit.png";
 const imagePositions = {
     1: "0 0",
@@ -37,12 +20,37 @@ const imagePositions = {
     18: "-76px -114px",
 };
 const noOfImages = 18;
-
 let selectedCards = [];
 const duration = 0.5;
 
+function biggestDivisorCloseToRoot(n) {
+    let divisor = 2;
+    for (let i = 2; i * i <= n; i++) {
+        if (n % i === 0) {
+            divisor = i;
+        }
+    }
+    return divisor;
+}
+
+function shuffleArray(array) {
+    array.sort((a, b) => 0.5 - Math.random());
+}
+
+function generateArray(c) {
+    const pairs = [];
+    for (let i = 1; i <= c / 2; i++) {
+        pairs.push(i % noOfImages + 1);
+    }
+    shuffleArray(pairs);
+    const numbers = pairs.concat(pairs);
+    shuffleArray(numbers);
+
+    return numbers;
+}
+
 function generate() {
-    var input = document.getElementById("input").value;
+    const input = $("#input").val();
 
     if (input === "") {
         alert("Please enter a number");
@@ -57,89 +65,74 @@ function generate() {
         alert("Please enter an even number");
         return;
     }
-    document.getElementById("container").hidden = true;
+    $("#container").hide();
 
-    const pairs = [];
-    for (let i = 1; i <= c / 2; i++) {
-        pairs.push(i % noOfImages + 1);
-    }
-    shuffleArray(pairs);
-
-    const numbers = pairs.concat(pairs);
-
-    shuffleArray(numbers);
+    let numbers = generateArray(c);
 
     console.log(numbers);
 
     let n = biggestDivisorCloseToRoot(c);
     let m = c / n;
 
-    let table = document.getElementById("table");
+    let table = $("#table")[0];
     table.hidden = false;
     for (let i = 0; i < n; i++) {
-        let row = table.insertRow();
+        let row = $("<tr>").appendTo(table);
         for (let j = 0; j < m; j++) {
-            let cell = row.insertCell();
+            row.append(
+                $("<td>").append(
+                    $("<span>")
+                        .data("revealed", false)
+                        .data("imageLabel", numbers[i * m + j])
+                        .css("background-image", "url('" + imageName + "')")
+                        .css("background-position", imagePositions[numbers[i * m + j]])
+                        .addClass("card hidden")
+                    )
+                    .bind("flip", function() {
+                        $(this)
+                            .toggleClass("flipped")
+                            .find('span')
+                                .toggleClass("hidden")
+                                .data("revealed", !$(this).find('span').data("revealed"));
 
-            let span = document.createElement("span");
-            span.revealed = false;
-            span.flip = function() {
-                this.classList.toggle("hidden");
-                this.revealed = !this.revealed;
-                if (!this.revealed) {
-                    this.style.animation = "hiding " + duration + "s ease-out";
-                } else {
-                    this.style.animation = "revealing " + duration + "s ease-out";
-                }
-            };
-            cell.flip = function() {
-                this.firstChild.flip();
+                        if (!$(this).find('span').data("revealed")) {
+                            $(this)
+                                .css("animation", "flipping-down " + duration + "s ease-in-out")
+                                .find('span')
+                                .css("animation", "hiding " + duration + "s ease-out");
+                        } else {
+                            $(this)
+                                .css("animation", "flipping-up " + duration + "s ease-in-out")
+                                .find('span')
+                                .css("animation", "revealing " + duration + "s ease-out");
+                        }
+                    })
+                    .click(function() {
+                        if (selectedCards.length < 2 && $(this).children().data("revealed") === false) {
+                            selectedCards.push($(this));
+                            $(this).trigger("flip");
 
-                if (!this.firstChild.revealed) {
-                    this.style.animation = "flipping-down " + duration + "s ease-in-out";
-                }
-                else {
-                    this.style.animation = "flipping-up " + duration + "s ease-in-out";
-                }
-                cell.classList.toggle("flipped");
-
-            };
-
-            span.imageLabel = numbers[i * m + j];
-            span.style.backgroundImage = "url('" + imageName + "')";
-            span.style.backgroundPosition = imagePositions[numbers[i * m + j]];
-
-            span.classList.add("card", "hidden");
-            cell.appendChild(span);
-            cell.addEventListener("click", function() {
-                console.log("click");
-                if (selectedCards.length < 2 && span.revealed === false) {
-                    selectedCards.push(cell);
-
-                    cell.flip();
-
-                    if (selectedCards.length === 2) {
-                        setTimeout(() => {
-                            if (selectedCards[0].firstChild.imageLabel ===
-                                selectedCards[1].firstChild.imageLabel) {
-                                selectedCards[0].style.animation = "";
-                                selectedCards[1].style.animation = "";
-                                selectedCards[0].classList.add("matched");
-                                selectedCards[1].classList.add("matched");
-
-                                selectedCards[0].disable = true;
-                                selectedCards[1].disable = true;
-                            } else {
-                                selectedCards[0].flip();
-                                selectedCards[1].flip();
+                            if (selectedCards.length === 2) {
+                                setTimeout(() => {
+                                    if (selectedCards[0].children().data("imageLabel") ===
+                                        selectedCards[1].children().data("imageLabel")) {
+                                        $(selectedCards).each(function() {
+                                            $(this).data("revealed", true)
+                                                .css("animation", "")
+                                                .addClass("matched")
+                                                .data("disable", true);
+                                        });
+                                    } else {
+                                        $(selectedCards).each(function() {
+                                            $(this).trigger("flip");
+                                        });
+                                    }
+                                    selectedCards = [];
+                                }, duration * 1000 + 500);
                             }
-                            selectedCards = [];
-                            }, duration * 1000 + 500);
-                    }
-                }
-            });
+                        }
+                    })
+            );
         }
     }
-
-    console.log(table);
 }
