@@ -107,3 +107,5 @@ GO
 
 --EXEC PR_Deadlock_Tran_1;
 EXEC PR_Deadlock_Tran_1_Solution;
+
+SELECT * FROM LogTable;
