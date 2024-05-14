@@ -32,6 +32,7 @@ GO
 
 CREATE OR ALTER PROCEDURE PR_Unrepeatable_Reads_2 AS
 BEGIN
+	UPDATE Movies SET Title='Cars' WHERE MovieID = 2;
 	EXEC PR_Create_Log_Table;
 	BEGIN TRAN 
 
@@ -84,7 +85,7 @@ END
 GO
 
 --EXEC PR_Dirty_Reads_2;
---EXEC PR_Unrepeatable_Reads_2;
+EXEC PR_Unrepeatable_Reads_2;
 --EXEC  PR_Phantom_Reads_2;
 
-EXEC PR_Deadlock_Tran_2;
+--EXEC PR_Deadlock_Tran_2;
