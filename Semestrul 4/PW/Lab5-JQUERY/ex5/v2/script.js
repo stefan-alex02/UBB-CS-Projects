@@ -6,51 +6,35 @@ function generateRandomNumbers(n) {
     }
 
     // Step 2: Shuffle the array
-    shuffleArray(numbers);
+    numbers.sort((a, b) => 0.5 - Math.random());
 
     return numbers;
 }
 
-function shuffleArray(array) {
-    for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]];
-    }
-}
-
-let table = document.getElementById("table");
 let hiddenDiv;
 let n;
 
 function generate() {
-    var input = document.getElementById("input").value;
+    const input = $("#input").val();
 
-    if (input === "") {
-        alert("Please enter a number");
-        return;
-    }
-    if (isNaN(input)) {
+    if (input === "" || isNaN(input)) {
         alert("Please enter a valid number");
         return;
     }
+    n = parseInt(input);
 
-    let fileInput = document.getElementById("file-input");
-    if (fileInput.files.length === 0) {
-        console.log("No file is selected");
+    let fileInput = $("#file-input");
+    if (fileInput.val() === "") {
         alert("Please select a file");
         return;
     }
+    let file = fileInput.prop('files')[0];
 
-    n = parseInt(input);
-
-    document.getElementById("container").hidden = true;
-
-    table.hidden = false;
-    table.style.display = 'inline-block';
+    $("#container").hide();
+    $("#table").show().css("display", "inline-block");
 
     let numbers = generateRandomNumbers(n);
 
-    let file = fileInput.files[0];
     let reader = new FileReader();
     reader.onload = function(e) {
         let img = new Image();
@@ -58,72 +42,61 @@ function generate() {
             console.log("Image loaded successfully");
 
             for (let i = 0; i < n; i++) {
-                let row = table.insertRow();
+                let row = $("<tr>").appendTo($("#table"));
                 for (let j = 0; j < n; j++) {
-                    let cell = row.insertCell();
+                    let cell = $("<td>").appendTo(row);
 
-                    let div = document.createElement("div");
-                    div.pieceNumber = numbers[i * n + j];
-                    div.classList.add("game-piece");
+                    cell.append(
+                        $("<div>")
+                            .data("pieceNumber", numbers[i * n + j])
+                            .addClass("game-piece")
+                            .each(function() {
+                                let cellStyle = window.getComputedStyle(cell[0]);
 
-                    let cellStyle = window.getComputedStyle(document.querySelector("td"));
+                                let width = Math.floor(parseFloat(cellStyle.getPropertyValue("width")));
+                                let height = Math.floor(parseFloat(cellStyle.getPropertyValue("height")));
 
-                    let width = Math.floor(parseFloat(cellStyle.getPropertyValue("width"))); // Remove "px" and parse as float
-                    let height = Math.floor(parseFloat(cellStyle.getPropertyValue("height"))); // Remove "px" and parse as float
+                                let imgWidth = width * n;
+                                let imgHeight = height * n;
 
-                    let imgWidth = width * n;
-                    let imgHeight = height * n;
+                                let pieceRow = Math.floor(($(this).data("pieceNumber") - 1) / n);
+                                let pieceCol = ($(this).data("pieceNumber") - 1) % n;
 
-                    console.log(cell.offsetWidth, cell.offsetHeight);
-                    console.log(imgWidth, imgHeight);
+                                $(this)
+                                    .css("background-image", `url(${e.target.result})`)
+                                    .css("background-size", `${imgWidth}px ${imgHeight}px`)
+                                    .css("background-position",
+                                        `-${pieceCol * Math.floor(imgWidth / n)}px -${pieceRow * Math.floor(imgHeight / n)}px`);
+                            })
+                            .on("click", function() {
+                                console.log("Clicked on piece");
+                                let row = $(this).parent().parent().index();
+                                let col = $(this).parent().index();
 
-                    div.style.backgroundImage = `url(${e.target.result})`;
-                    div.style.backgroundSize = `${imgWidth}px ${imgHeight}px`;
+                                let hiddenRow = hiddenDiv.parent().parent().index();
+                                let hiddenCol = hiddenDiv.parent().index();
 
-                    let pieceRow = Math.floor((div.pieceNumber - 1) / n);
-                    let pieceCol = (div.pieceNumber - 1) % n;
+                                let distance, direction;
+                                if (col === hiddenCol) {
+                                    distance = Math.abs(row - hiddenRow);
+                                    direction = row > hiddenRow ? [1, 0] : [-1, 0];
+                                } else if (row === hiddenRow) {
+                                    distance = Math.abs(col - hiddenCol);
+                                    direction = col > hiddenCol ? [0, 1] : [0, -1];
+                                }
 
-                    div.style.backgroundPosition = `-${pieceCol * Math.floor(imgWidth / n)}px -${pieceRow * Math.floor(imgHeight / n)}px`;
-
-                    cell.appendChild(div);
-
-                    div.onclick = function() {
-                        let row = div.parentElement.parentElement.rowIndex;
-                        let col = div.parentElement.cellIndex;
-
-                        if (col === hiddenDiv.col) {
-                            let distance = Math.abs(row - hiddenDiv.row);
-                            for (let i = 0; i < distance; i++) {
-                                if (row > hiddenDiv.row) {
-                                    moveUp();
-                                } else {
-                                    moveDown();
+                                for (let i = 0; i < distance; i++) {
+                                    moveNeighbor(...direction);
                                 }
                             }
-                            checkWin();
-                        } else if (row === hiddenDiv.row) {
-                            let distance = Math.abs(col - hiddenDiv.col);
-                            for (let i = 0; i < distance; i++) {
-                                if (col > hiddenDiv.col) {
-                                    moveLeft();
-                                } else {
-                                    moveRight();
-                                }
-                            }
-                            checkWin();
-                        }
-                    };
+                        )
+                    );
                 }
             }
 
             let hiddenNumber = Math.floor(Math.random() * n * n) + 1;
-            console.log(hiddenNumber);
-            hiddenDiv = table.rows[Math.floor((hiddenNumber - 1) / n)]
-                .cells[(hiddenNumber - 1) % n]
-                .firstChild;
-            hiddenDiv.style.display = 'none';
-            hiddenDiv.row = hiddenDiv.parentElement.parentElement.rowIndex;
-            hiddenDiv.col = hiddenDiv.parentElement.cellIndex;
+            hiddenDiv = $("#table").children().eq(Math.floor((hiddenNumber - 1) / n))
+                .children().eq((hiddenNumber - 1) % n).children().eq(0).hide();
         };
         img.onerror = function() {
             console.log("Error loading image");
@@ -136,157 +109,74 @@ function generate() {
 function checkWin() {
     for (let i = 0; i < n; i++) {
         for (let j = 0; j < n; j++) {
-            let div = table.rows[i].cells[j].firstChild;
-            if (div.pieceNumber !== i * n + j + 1) {
+            if ($("#table").children().eq(i).children().eq(j).children().eq(0)
+                .data("pieceNumber") !== i * n + j + 1) {
                 return;
             }
         }
     }
-    hiddenDiv.style.display = 'flex';
-
     window.removeEventListener('keydown', checkForKeyPress);
 
-    for (let i = 0; i < n; i++) {
-        for (let j = 0; j < n; j++) {
-            table.rows[i].cells[j].firstChild.onclick = null;
-        }
-    }
+    $("#table").find("td div").off('click');
 
     setTimeout(() => {
         alert("You win!");
 
-        for (let i = 0; i < n; i++) {
-            for (let j = 0; j < n; j++) {
-                let cell = table.rows[i].cells[j];
-                cell.firstChild.classList.remove("game-piece");
-                cell.firstChild.classList.add("win-piece");
-
-                cell.classList.add("win-cell");
-            }
-        }
+        $("#table")
+            .find("td").addClass("win-cell")
+            .find("div").removeClass("game-piece").addClass("win-piece");
     }, 400);
 }
 
-function moveUp() {
-    let row = hiddenDiv.row;
-    let col = hiddenDiv.col;
+const moveClasses = ['move-down', 'move-right', null, 'move-left', 'move-up'];
 
-    if (row === table.rows.length - 1) {
+function moveNeighbor(rowDif, colDif) {
+    let row = hiddenDiv.parent().parent().index();
+    let col = hiddenDiv.parent().index();
+
+    if (rowDif > 0 && row === $("#table").find('tr').length - 1 ||
+        rowDif < 0 && row === 0 ||
+        colDif > 0 && col === $("#table").find('tr').eq(0).find('td').length - 1 ||
+        colDif < 0 && col === 0) {
         return;
     }
 
-    let belowDiv = table.rows[row + 1].cells[col].firstChild;
+    let neighborDiv = $("#table").find(`tr:eq(${row + rowDif}) td:eq(${col + colDif}) div`);
 
-    table.rows[row].cells[col].removeChild(hiddenDiv);
-    table.rows[row + 1].cells[col].removeChild(belowDiv);
+    hiddenDiv.detach();
+    neighborDiv.detach();
 
-    table.rows[row].cells[col].appendChild(belowDiv);
-    table.rows[row + 1].cells[col].appendChild(hiddenDiv);
+    $("#table").find(`tr:eq(${row}) td:eq(${col})`).append(neighborDiv);
+    $("#table").find(`tr:eq(${row + rowDif}) td:eq(${col + colDif})`).append(hiddenDiv);
 
-    hiddenDiv.row = row + 1;
-
-    belowDiv.classList.add('move-up');
+    neighborDiv.addClass(moveClasses[2 + rowDif * 2 + colDif]);
     setTimeout(() => {
-        belowDiv.classList.remove('move-up');
+        neighborDiv.removeClass(moveClasses[2 + rowDif * 2 + colDif]);
     }, 1);
-}
 
-function moveDown() {
-    let row = hiddenDiv.row;
-    let col = hiddenDiv.col;
-
-    if (row === 0) {
-        return;
-    }
-
-    let aboveDiv = table.rows[row - 1].cells[col].firstChild;
-
-    table.rows[row].cells[col].removeChild(hiddenDiv);
-    table.rows[row - 1].cells[col].removeChild(aboveDiv);
-
-    table.rows[row].cells[col].appendChild(aboveDiv);
-    table.rows[row - 1].cells[col].appendChild(hiddenDiv);
-
-    hiddenDiv.row = row - 1;
-
-    aboveDiv.classList.add('move-down');
-    setTimeout(() => {
-        aboveDiv.classList.remove('move-down');
-    }, 1);
-}
-
-function moveLeft() {
-    let row = hiddenDiv.row;
-    let col = hiddenDiv.col;
-
-    if (col === table.rows[0].cells.length - 1) {
-        return;
-    }
-
-    let rightDiv = table.rows[row].cells[col + 1].firstChild;
-
-    table.rows[row].cells[col].removeChild(hiddenDiv);
-    table.rows[row].cells[col + 1].removeChild(rightDiv);
-
-    table.rows[row].cells[col].appendChild(rightDiv);
-    table.rows[row].cells[col + 1].appendChild(hiddenDiv);
-
-    hiddenDiv.col = col + 1;
-
-    rightDiv.classList.add('move-left');
-    setTimeout(() => {
-        rightDiv.classList.remove('move-left');
-    }, 1);
-}
-
-function moveRight() {
-    let row = hiddenDiv.row;
-    let col = hiddenDiv.col;
-
-    if (col === 0) {
-        return;
-    }
-
-    let leftDiv = table.rows[row].cells[col - 1].firstChild;
-
-    table.rows[row].cells[col].removeChild(hiddenDiv);
-    table.rows[row].cells[col - 1].removeChild(leftDiv);
-
-    table.rows[row].cells[col].appendChild(leftDiv);
-    table.rows[row].cells[col - 1].appendChild(hiddenDiv);
-
-    hiddenDiv.col = col - 1;
-
-    leftDiv.classList.add('move-right');
-    setTimeout(() => {
-        leftDiv.classList.remove('move-right');
-    }, 1);
+    checkWin();
 }
 
 function checkForKeyPress(event) {
-    if (table.hidden) {
+    if ($("#table").css("display") === "none"){
         return;
     }
     switch (event.key) {
         case 'ArrowUp':
         case 'w':
-            moveUp();
-            checkWin();
+            moveNeighbor(1, 0);
             break;
         case 'ArrowDown':
         case 's':
-            moveDown();
-            checkWin();
+            moveNeighbor(-1, 0);
             break;
         case 'ArrowLeft':
         case 'a':
-            moveLeft();
-            checkWin();
+            moveNeighbor(0, 1);
             break;
         case 'ArrowRight':
         case 'd':
-            moveRight();
-            checkWin();
+            moveNeighbor(0, -1);
             break;
     }
 }
