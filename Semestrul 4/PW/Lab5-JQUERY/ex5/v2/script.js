@@ -115,6 +115,8 @@ function checkWin() {
             }
         }
     }
+    hiddenDiv.show();
+
     window.removeEventListener('keydown', checkForKeyPress);
 
     $("#table").find("td div").off('click');
