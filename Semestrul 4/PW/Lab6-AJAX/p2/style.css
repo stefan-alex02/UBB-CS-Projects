@@ -1,0 +1,75 @@
+table {
+    font-family: "Agency FB", sans-serif;
+    font-size: 1.5em;
+    font-weight: bold;
+    text-align: center;
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: 20px;
+}
+
+th {
+    background-color: #5a544e;
+    color: #ddd5c7;
+}
+
+td {
+    background-color: #ddd5c7;
+    color: #5a544e;
+}
+
+th:first-child {
+    border-top-left-radius: 20px;
+}
+
+th:last-child {
+    border-top-right-radius: 20px;
+}
+
+tr:last-child td:first-child {
+    border-bottom-left-radius: 20px;
+}
+
+tr:last-child td:last-child {
+    border-bottom-right-radius: 20px;
+}
+
+th, td {
+    border: 2px solid #5a544e;
+    padding: 10px;
+}
+
+tr:hover td{
+    background-color: #9a948a;
+    color: #433f3a;
+}
+
+button {
+    font-family: "Agency FB", sans-serif;
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #5a544e;
+    background-color: #ddd5c7;
+    border: 2px solid #5a544e;
+    border-radius: 20px;
+    padding: 10px;
+    margin: 10px;
+    min-width: 100px;
+}
+
+button:hover {
+    background-color: #5a544e;
+    color: #ddd5c7;
+    cursor: pointer;
+}
+
+button:active {
+    background-color: #373330;
+    color: #ddd5c7;
+}
+
+button:disabled {
+    background-color: #eaeaea;
+    color: #9f9f9f;
+    cursor: not-allowed;
+}
