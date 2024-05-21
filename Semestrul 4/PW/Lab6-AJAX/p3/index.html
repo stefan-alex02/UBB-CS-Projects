@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Product selection</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+</head>
+<body>
+    <div>
+        <h2>Select a product</h2>
+        <form id="form" method="POST">
+            <div>
+                <label for="product-ids">Product ID:</label>
+                <select id="product-ids" name="product-id" required>
+                </select>
+            </div>
+            <div>
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name">
+            </div>
+            <div>
+                <label for="brand">Brand:</label>
+                <input type="text" id="brand" name="brand">
+            </div>
+            <div>
+                <label for="quantity">Quantity:</label>
+                <input type="number" id="quantity" name="quantity">
+            </div>
+            <button id="submit-button" disabled>Save</button>
+        </form>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -101,8 +101,8 @@ END
 GO
 
 --EXEC PR_1_Read_Uncommited;
---EXEC PR_1_Read_Commited;
-EXEC PR_1_Repeatable_Read;
+EXEC PR_1_Read_Commited;
+--EXEC PR_1_Repeatable_Read;
 --EXEC PR_1_Serializable;
 
 --EXEC PR_Deadlock_Tran_1;
