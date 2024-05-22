@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <title>Online IT - PC Shop</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="main-div">
+    <div>
+        <h1>Filtering products</h1>
+        <form id="filterForm">
+            <label for="brand">Brand:</label>
+            <select id="brand" name="brand">
+                <option value="">Any</option>
+                <option value="Dell">Dell</option>
+                <option value="HP">HP</option>
+                <option value="Lenovo">Lenovo</option>
+            </select>
+
+            <label for="cpu">CPU:</label>
+            <select id="cpu" name="cpu">
+                <option value="">Any</option>
+                <option value="Intel">Intel</option>
+                <option value="AMD">AMD</option>
+            </select>
+
+            <label for="ram">RAM Memory:</label>
+            <select id="ram" name="ram">
+                <option value="">Any</option>
+                <option value="8GB">8GB</option>
+                <option value="16GB">16GB</option>
+                <option value="32GB">32GB</option>
+            </select>
+
+            <label for="hdd">HDD Capacity:</label>
+            <select id="hdd" name="hdd">
+                <option value="">Any</option>
+                <option value="256GB">256GB</option>
+                <option value="512GB">512GB</option>
+                <option value="1TB">1TB</option>
+            </select>
+
+            <label for="gpu">GPU:</label>
+            <select id="gpu" name="gpu">
+                <option value="">Any</option>
+                <option value="NVIDIA">NVIDIA</option>
+                <option value="AMD">AMD</option>
+                <option value="Intel">Intel integrated</option>
+            </select>
+
+            <button type="button" id="filterButton">Filter</button>
+        </form>
+    </div>
+
+    <div id="results"></div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

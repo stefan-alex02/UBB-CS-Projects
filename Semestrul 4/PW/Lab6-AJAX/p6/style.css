@@ -1,0 +1,96 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    height: 100%;
+    width: 100%;
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+}
+
+#main-div {
+    display: flex;
+    height: 100%;
+}
+
+h1 {
+    text-align: center;
+    color: #444;
+    width: 100%;
+    margin: 0;
+    padding: 20px;
+    background: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+form {
+    width: 250px;
+    padding: 20px;
+    background: #eae4d9;
+    border-right: 1px solid #ddd;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+}
+
+form label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #555;
+}
+
+form select {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 16px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+    color: #555;
+}
+
+form button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: #d3a50c;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+form button:hover {
+    background-color: #b3842c;
+}
+
+form button:active {
+    background-color: #8f5b0c;
+}
+
+#results {
+    flex-grow: 1;
+    padding: 20px;
+    background: #fff;
+    overflow-y: auto;
+}
+
+#results div {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+#results div:last-child {
+    border-bottom: none;
+}
+
+#results div:hover {
+    background-color: #f1f1f1;
+}
+
+#results hr {
+    border: 0;
+    border-top: 1px solid #ddd;
+    margin: 10px 0;
+}
