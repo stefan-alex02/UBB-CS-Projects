@@ -1,31 +1,40 @@
 <?php
-$notebooks = [
-    ["brand" => "Dell", "cpu" => "Intel", "ram" => "16GB", "hdd" => "512GB", "gpu" => "NVIDIA"],
-    ["brand" => "HP", "cpu" => "AMD", "ram" => "8GB", "hdd" => "256GB", "gpu" => "AMD"],
-    ["brand" => "Lenovo", "cpu" => "Intel", "ram" => "32GB", "hdd" => "1TB", "gpu" => "NVIDIA"],
-    // Adaugă mai multe produse după necesități
-];
+$mysqli = new mysqli("localhost", "root", "", "web6_shop");
+if ($mysqli->connect_error) {
+    die("Connection failed: " . $mysqli->connect_error);
+}
 
-$filteredNotebooks = array_filter($notebooks, function($notebook) {
-    foreach ($_GET as $key => $value) {
-        if ($value && $notebook[$key] !== $value) {
-            return false;
+$sql = "SELECT * FROM smartphones";
+
+if ($_GET['brand'] || $_GET['display'] || $_GET['storage'] || $_GET['ram'] || $_GET['color']) {
+    $sql .= " WHERE";
+}
+$nConditions = 0;
+foreach ($_GET as $key => $value) {
+    if ($value) {
+        if ($nConditions > 0) {
+            $sql .= " AND";
         }
+        $nConditions++;
+        $sql .= " $key = '$value'";
     }
-    return true;
-});
+}
 
-if (!empty($filteredNotebooks)) {
-    foreach ($filteredNotebooks as $notebook) {
-        echo "<div>";
-        echo "Brand: " . $notebook['brand'] . "<br>";
-        echo "CPU: " . $notebook['cpu'] . "<br>";
-        echo "RAM Memory: " . $notebook['ram'] . "<br>";
-        echo "HDD Capacity: " . $notebook['hdd'] . "<br>";
-        echo "GPU: " . $notebook['gpu'] . "<br>";
-        echo "</div><hr>";
-    }
-} else {
-    echo "No results were found.";
+$result = $mysqli->query($sql);
+
+if ($result->num_rows == 0) {
+    echo "No results found";
+    exit();
+}
+
+foreach ($result as $row) {
+    echo "<div>";
+    echo "Name: " . $row['name'] . "<br>";
+    echo "Brand: " . $row['brand'] . "<br>";
+    echo "Display: " . $row['display'] . "<br>";
+    echo "Storage: " . $row['storage'] . "<br>";
+    echo "RAM Memory: " . $row['ram'] . "<br>";
+    echo "Color: " . $row['color'] . "<br>";
+    echo "</div><hr>";
 }
 ?>
