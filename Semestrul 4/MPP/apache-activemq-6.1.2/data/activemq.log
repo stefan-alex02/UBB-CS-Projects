@@ -1,86 +1,273 @@
-2024-06-02 17:04:17,221 | INFO  | Using Persistence Adapter: KahaDBPersistenceAdapter[C:\Users\Stefan\Documents\GitHub\UBB-CS-Projects\Semestrul 4\MPP\apache-activemq-6.1.2\bin\..\data\kahadb] | org.apache.activemq.broker.BrokerService | main
-2024-06-02 17:04:17,230 | INFO  | Starting Persistence Adapter: KahaDBPersistenceAdapter[C:\Users\Stefan\Documents\GitHub\UBB-CS-Projects\Semestrul 4\MPP\apache-activemq-6.1.2\bin\..\data\kahadb] | org.apache.activemq.broker.BrokerService | main
-2024-06-02 17:04:17,253 | INFO  | Starting KahaDBStore | org.apache.activemq.store.kahadb.KahaDBStore | main
-2024-06-02 17:04:17,254 | INFO  | Opening MessageDatabase | org.apache.activemq.store.kahadb.MessageDatabase | main
-2024-06-02 17:04:17,546 | INFO  | Starting Temp Data Store | org.apache.activemq.broker.BrokerService | main
-2024-06-02 17:04:17,547 | INFO  | PListStore:[C:\Users\Stefan\Documents\GitHub\UBB-CS-Projects\Semestrul 4\MPP\apache-activemq-6.1.2\bin\..\data\localhost\tmp_storage] started | org.apache.activemq.store.kahadb.plist.PListStoreImpl | main
-2024-06-02 17:04:17,547 | INFO  | Starting Job Scheduler Store | org.apache.activemq.broker.BrokerService | main
-2024-06-02 17:04:17,547 | INFO  | Persistence Adapter successfully started | org.apache.activemq.broker.BrokerService | main
-2024-06-02 17:04:17,693 | INFO  | Apache ActiveMQ 6.1.2 (localhost, ID:DESKTOP-HH5PFSL-60924-1717337057558-0:1) is starting | org.apache.activemq.broker.BrokerService | main
-2024-06-02 17:04:17,711 | INFO  | Listening for connections at: tcp://DESKTOP-HH5PFSL:61616?maximumConnections=1000&wireFormat.maxFrameSize=104857600 | org.apache.activemq.transport.TransportServerThreadSupport | main
-2024-06-02 17:04:17,713 | INFO  | Connector openwire started | org.apache.activemq.broker.TransportConnector | main
-2024-06-02 17:04:17,717 | INFO  | Listening for connections at: amqp://DESKTOP-HH5PFSL:5672?maximumConnections=1000&wireFormat.maxFrameSize=104857600 | org.apache.activemq.transport.TransportServerThreadSupport | main
-2024-06-02 17:04:17,718 | INFO  | Connector amqp started | org.apache.activemq.broker.TransportConnector | main
-2024-06-02 17:04:17,721 | INFO  | Listening for connections at: stomp://DESKTOP-HH5PFSL:61613?maximumConnections=1000&wireFormat.maxFrameSize=104857600 | org.apache.activemq.transport.TransportServerThreadSupport | main
-2024-06-02 17:04:17,722 | INFO  | Connector stomp started | org.apache.activemq.broker.TransportConnector | main
-2024-06-02 17:04:17,726 | INFO  | Listening for connections at: mqtt://DESKTOP-HH5PFSL:1883?maximumConnections=1000&wireFormat.maxFrameSize=104857600 | org.apache.activemq.transport.TransportServerThreadSupport | main
-2024-06-02 17:04:17,726 | INFO  | Connector mqtt started | org.apache.activemq.broker.TransportConnector | main
-2024-06-02 17:04:17,731 | INFO  | Starting Jetty server | org.apache.activemq.transport.WebTransportServerSupport | main
-2024-06-02 17:04:17,788 | INFO  | Creating Jetty connector | org.apache.activemq.transport.WebTransportServerSupport | main
-2024-06-02 17:04:17,891 | WARN  | ServletContext@o.e.j.s.ServletContextHandler@237f7970{/,null,STARTING} has uncovered HTTP methods for the following paths: [/] | org.eclipse.jetty.security.SecurityHandler | main
-2024-06-02 17:04:17,949 | INFO  | Listening for connections at ws://DESKTOP-HH5PFSL:61614?maximumConnections=1000&wireFormat.maxFrameSize=104857600 | org.apache.activemq.transport.ws.WSTransportServer | main
-2024-06-02 17:04:17,950 | INFO  | Connector ws started | org.apache.activemq.broker.TransportConnector | main
-2024-06-02 17:04:17,950 | INFO  | Apache ActiveMQ 6.1.2 (localhost, ID:DESKTOP-HH5PFSL-60924-1717337057558-0:1) started | org.apache.activemq.broker.BrokerService | main
-2024-06-02 17:04:17,950 | INFO  | For help or more information please see: http://activemq.apache.org | org.apache.activemq.broker.BrokerService | main
-2024-06-02 17:04:17,962 | WARN  | Store limit is 102400 mb (current store usage is 0 mb). The data directory: C:\Users\Stefan\Documents\GitHub\UBB-CS-Projects\Semestrul 4\MPP\apache-activemq-6.1.2\bin\..\data\kahadb only has 48314 mb of usable space. - resetting to maximum available disk space: 48314 mb | org.apache.activemq.broker.BrokerService | main
-2024-06-02 17:04:17,967 | WARN  | Temporary Store limit is 51200 mb (current store usage is 0 mb). The data directory: C:\Users\Stefan\Documents\GitHub\UBB-CS-Projects\Semestrul 4\MPP\apache-activemq-6.1.2\bin\..\data only has 48314 mb of usable space. - resetting to maximum available disk space: 48314 mb | org.apache.activemq.broker.BrokerService | main
-2024-06-02 17:04:18,776 | INFO  | ActiveMQ WebConsole available at http://127.0.0.1:8161/ | org.apache.activemq.web.WebConsoleStarter | main
-2024-06-02 17:04:18,776 | INFO  | ActiveMQ Jolokia REST API available at http://127.0.0.1:8161/api/jolokia/ | org.apache.activemq.web.WebConsoleStarter | main
-2024-06-03 00:48:29,395 | INFO  | Apache ActiveMQ 6.1.2 (localhost, ID:DESKTOP-HH5PFSL-60924-1717337057558-0:1) is shutting down | org.apache.activemq.broker.BrokerService | Thread-20
-2024-06-03 00:48:29,433 | INFO  | Connector openwire stopped | org.apache.activemq.broker.TransportConnector | Thread-20
-2024-06-03 00:48:29,434 | INFO  | Connector amqp stopped | org.apache.activemq.broker.TransportConnector | Thread-20
-2024-06-03 00:48:29,436 | INFO  | Connector stomp stopped | org.apache.activemq.broker.TransportConnector | Thread-20
-2024-06-03 00:48:29,436 | INFO  | Connector mqtt stopped | org.apache.activemq.broker.TransportConnector | Thread-20
-2024-06-03 00:48:29,543 | INFO  | Connector ws stopped | org.apache.activemq.broker.TransportConnector | Thread-20
-2024-06-03 00:48:29,568 | INFO  | PListStore:[C:\Users\Stefan\Documents\GitHub\UBB-CS-Projects\Semestrul 4\MPP\apache-activemq-6.1.2\bin\..\data\localhost\tmp_storage] stopped | org.apache.activemq.store.kahadb.plist.PListStoreImpl | Thread-20
-2024-06-03 00:48:29,569 | INFO  | Stopping async queue tasks | org.apache.activemq.store.kahadb.KahaDBStore | Thread-20
-2024-06-03 00:48:29,570 | INFO  | Stopping async topic tasks | org.apache.activemq.store.kahadb.KahaDBStore | Thread-20
-2024-06-03 00:48:29,570 | INFO  | Stopped KahaDB | org.apache.activemq.store.kahadb.KahaDBStore | Thread-20
-2024-06-03 00:48:29,602 | INFO  | Apache ActiveMQ 6.1.2 (localhost, ID:DESKTOP-HH5PFSL-60924-1717337057558-0:1) uptime 7 hours 44 minutes | org.apache.activemq.broker.BrokerService | Thread-20
-2024-06-03 00:48:29,603 | INFO  | Apache ActiveMQ 6.1.2 (localhost, ID:DESKTOP-HH5PFSL-60924-1717337057558-0:1) is shutdown | org.apache.activemq.broker.BrokerService | Thread-20
-2024-06-03 02:43:13,715 | INFO  | Using Persistence Adapter: KahaDBPersistenceAdapter[C:\Users\Stefan\Documents\GitHub\UBB-CS-Projects\Semestrul 4\MPP\apache-activemq-6.1.2\bin\..\data\kahadb] | org.apache.activemq.broker.BrokerService | main
-2024-06-03 02:43:13,720 | INFO  | Starting Persistence Adapter: KahaDBPersistenceAdapter[C:\Users\Stefan\Documents\GitHub\UBB-CS-Projects\Semestrul 4\MPP\apache-activemq-6.1.2\bin\..\data\kahadb] | org.apache.activemq.broker.BrokerService | main
-2024-06-03 02:43:13,739 | INFO  | Starting KahaDBStore | org.apache.activemq.store.kahadb.KahaDBStore | main
-2024-06-03 02:43:13,739 | INFO  | Opening MessageDatabase | org.apache.activemq.store.kahadb.MessageDatabase | main
-2024-06-03 02:43:13,778 | INFO  | KahaDB is version 7 | org.apache.activemq.store.kahadb.MessageDatabase | main
-2024-06-03 02:43:13,906 | INFO  | Starting Temp Data Store | org.apache.activemq.broker.BrokerService | main
-2024-06-03 02:43:13,906 | INFO  | PListStore:[C:\Users\Stefan\Documents\GitHub\UBB-CS-Projects\Semestrul 4\MPP\apache-activemq-6.1.2\bin\..\data\localhost\tmp_storage] started | org.apache.activemq.store.kahadb.plist.PListStoreImpl | main
-2024-06-03 02:43:13,907 | INFO  | Starting Job Scheduler Store | org.apache.activemq.broker.BrokerService | main
-2024-06-03 02:43:13,907 | INFO  | Persistence Adapter successfully started | org.apache.activemq.broker.BrokerService | main
-2024-06-03 02:43:14,063 | INFO  | Apache ActiveMQ 6.1.2 (localhost, ID:DESKTOP-HH5PFSL-62500-1717371793917-0:1) is starting | org.apache.activemq.broker.BrokerService | main
-2024-06-03 02:43:14,115 | INFO  | Listening for connections at: tcp://DESKTOP-HH5PFSL:61616?maximumConnections=1000&wireFormat.maxFrameSize=104857600 | org.apache.activemq.transport.TransportServerThreadSupport | main
-2024-06-03 02:43:14,116 | INFO  | Connector openwire started | org.apache.activemq.broker.TransportConnector | main
-2024-06-03 02:43:14,119 | INFO  | Listening for connections at: amqp://DESKTOP-HH5PFSL:5672?maximumConnections=1000&wireFormat.maxFrameSize=104857600 | org.apache.activemq.transport.TransportServerThreadSupport | main
-2024-06-03 02:43:14,120 | INFO  | Connector amqp started | org.apache.activemq.broker.TransportConnector | main
-2024-06-03 02:43:14,125 | INFO  | Listening for connections at: stomp://DESKTOP-HH5PFSL:61613?maximumConnections=1000&wireFormat.maxFrameSize=104857600 | org.apache.activemq.transport.TransportServerThreadSupport | main
-2024-06-03 02:43:14,125 | INFO  | Connector stomp started | org.apache.activemq.broker.TransportConnector | main
-2024-06-03 02:43:14,130 | INFO  | Listening for connections at: mqtt://DESKTOP-HH5PFSL:1883?maximumConnections=1000&wireFormat.maxFrameSize=104857600 | org.apache.activemq.transport.TransportServerThreadSupport | main
-2024-06-03 02:43:14,130 | INFO  | Connector mqtt started | org.apache.activemq.broker.TransportConnector | main
-2024-06-03 02:43:14,136 | INFO  | Starting Jetty server | org.apache.activemq.transport.WebTransportServerSupport | main
-2024-06-03 02:43:14,191 | INFO  | Creating Jetty connector | org.apache.activemq.transport.WebTransportServerSupport | main
-2024-06-03 02:43:14,295 | WARN  | ServletContext@o.e.j.s.ServletContextHandler@714f3da4{/,null,STARTING} has uncovered HTTP methods for the following paths: [/] | org.eclipse.jetty.security.SecurityHandler | main
-2024-06-03 02:43:14,380 | INFO  | Listening for connections at ws://DESKTOP-HH5PFSL:61614?maximumConnections=1000&wireFormat.maxFrameSize=104857600 | org.apache.activemq.transport.ws.WSTransportServer | main
-2024-06-03 02:43:14,381 | INFO  | Connector ws started | org.apache.activemq.broker.TransportConnector | main
-2024-06-03 02:43:14,381 | INFO  | Apache ActiveMQ 6.1.2 (localhost, ID:DESKTOP-HH5PFSL-62500-1717371793917-0:1) started | org.apache.activemq.broker.BrokerService | main
-2024-06-03 02:43:14,381 | INFO  | For help or more information please see: http://activemq.apache.org | org.apache.activemq.broker.BrokerService | main
-2024-06-03 02:43:14,392 | WARN  | Store limit is 102400 mb (current store usage is 0 mb). The data directory: C:\Users\Stefan\Documents\GitHub\UBB-CS-Projects\Semestrul 4\MPP\apache-activemq-6.1.2\bin\..\data\kahadb only has 49706 mb of usable space. - resetting to maximum available disk space: 49706 mb | org.apache.activemq.broker.BrokerService | main
-2024-06-03 02:43:14,397 | WARN  | Temporary Store limit is 51200 mb (current store usage is 0 mb). The data directory: C:\Users\Stefan\Documents\GitHub\UBB-CS-Projects\Semestrul 4\MPP\apache-activemq-6.1.2\bin\..\data only has 49706 mb of usable space. - resetting to maximum available disk space: 49706 mb | org.apache.activemq.broker.BrokerService | main
-2024-06-03 02:43:15,167 | INFO  | ActiveMQ WebConsole available at http://127.0.0.1:8161/ | org.apache.activemq.web.WebConsoleStarter | main
-2024-06-03 02:43:15,167 | INFO  | ActiveMQ Jolokia REST API available at http://127.0.0.1:8161/api/jolokia/ | org.apache.activemq.web.WebConsoleStarter | main
-2024-06-03 04:59:29,369 | WARN  | Transport Connection to: tcp://127.0.0.1:51119 failed: Channel was inactive for too (>30000) long: tcp://127.0.0.1:51119 | org.apache.activemq.broker.TransportConnection.Transport | ActiveMQ InactivityMonitor Worker 0
-2024-06-03 05:04:39,075 | WARN  | Transport Connection to: tcp://127.0.0.1:51359 failed: Channel was inactive for too (>30000) long: tcp://127.0.0.1:51359 | org.apache.activemq.broker.TransportConnection.Transport | ActiveMQ InactivityMonitor Worker 0
-2024-06-03 05:08:21,031 | WARN  | Transport Connection to: tcp://127.0.0.1:51527 failed: Channel was inactive for too (>30000) long: tcp://127.0.0.1:51527 | org.apache.activemq.broker.TransportConnection.Transport | ActiveMQ InactivityMonitor Worker 0
-2024-06-03 06:00:46,702 | INFO  | Apache ActiveMQ 6.1.2 (localhost, ID:DESKTOP-HH5PFSL-62500-1717371793917-0:1) is shutting down | org.apache.activemq.broker.BrokerService | ActiveMQ ShutdownHook
-2024-06-03 06:00:46,705 | INFO  | Connector openwire stopped | org.apache.activemq.broker.TransportConnector | ActiveMQ ShutdownHook
-2024-06-03 06:00:46,706 | INFO  | Connector amqp stopped | org.apache.activemq.broker.TransportConnector | ActiveMQ ShutdownHook
-2024-06-03 06:00:46,706 | INFO  | socketQueue interrupted - stopping | org.apache.activemq.transport.tcp.TcpTransportServer | ActiveMQ Transport Server Thread Handler: amqp://0.0.0.0:5672?maximumConnections=1000&wireFormat.maxFrameSize=104857600
-2024-06-03 06:00:46,706 | INFO  | Connector stomp stopped | org.apache.activemq.broker.TransportConnector | ActiveMQ ShutdownHook
-2024-06-03 06:00:46,707 | INFO  | Connector mqtt stopped | org.apache.activemq.broker.TransportConnector | ActiveMQ ShutdownHook
-2024-06-03 06:00:46,707 | INFO  | Could not accept connection during shutdown  : null (null) | org.apache.activemq.broker.TransportConnector | ActiveMQ Transport Server Thread Handler: amqp://0.0.0.0:5672?maximumConnections=1000&wireFormat.maxFrameSize=104857600
-2024-06-03 06:00:46,810 | INFO  | Connector ws stopped | org.apache.activemq.broker.TransportConnector | ActiveMQ ShutdownHook
-2024-06-03 06:00:46,831 | INFO  | PListStore:[C:\Users\Stefan\Documents\GitHub\UBB-CS-Projects\Semestrul 4\MPP\apache-activemq-6.1.2\bin\..\data\localhost\tmp_storage] stopped | org.apache.activemq.store.kahadb.plist.PListStoreImpl | ActiveMQ ShutdownHook
-2024-06-03 06:00:46,831 | INFO  | Stopping async queue tasks | org.apache.activemq.store.kahadb.KahaDBStore | ActiveMQ ShutdownHook
-2024-06-03 06:00:46,836 | INFO  | Stopping async topic tasks | org.apache.activemq.store.kahadb.KahaDBStore | ActiveMQ ShutdownHook
-2024-06-03 06:00:46,837 | INFO  | Stopped KahaDB | org.apache.activemq.store.kahadb.KahaDBStore | ActiveMQ ShutdownHook
-2024-06-03 06:00:46,883 | INFO  | Apache ActiveMQ 6.1.2 (localhost, ID:DESKTOP-HH5PFSL-62500-1717371793917-0:1) uptime 3 hours 17 minutes | org.apache.activemq.broker.BrokerService | ActiveMQ ShutdownHook
-2024-06-03 06:00:46,883 | INFO  | Apache ActiveMQ 6.1.2 (localhost, ID:DESKTOP-HH5PFSL-62500-1717371793917-0:1) is shutdown | org.apache.activemq.broker.BrokerService | ActiveMQ ShutdownHook
+2024-06-04 10:56:19,587 | WARN  | Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanInitializationException: Could not load properties: C:\Users\Stefan\Documents\GitHub\UBB-CS-Projects\Semestrul 4\MPP\apache-activemq-6.1.2\bin\conf\credentials.properties (The system cannot find the path specified) | org.apache.activemq.xbean.XBeanBrokerFactory$1 | main
+2024-06-04 10:56:19,602 | ERROR | Failed to load: class path resource [activemq.xml], reason: Could not load properties: C:\Users\Stefan\Documents\GitHub\UBB-CS-Projects\Semestrul 4\MPP\apache-activemq-6.1.2\bin\conf\credentials.properties (The system cannot find the path specified) | org.apache.activemq.xbean.XBeanBrokerFactory | main
+org.springframework.beans.factory.BeanInitializationException: Could not load properties: C:\Users\Stefan\Documents\GitHub\UBB-CS-Projects\Semestrul 4\MPP\apache-activemq-6.1.2\bin\conf\credentials.properties (The system cannot find the path specified)
+	at org.springframework.beans.factory.config.PropertyResourceConfigurer.postProcessBeanFactory(PropertyResourceConfigurer.java:89)
+	at org.springframework.context.support.PostProcessorRegistrationDelegate.invokeBeanFactoryPostProcessors(PostProcessorRegistrationDelegate.java:363)
+	at org.springframework.context.support.PostProcessorRegistrationDelegate.invokeBeanFactoryPostProcessors(PostProcessorRegistrationDelegate.java:189)
+	at org.springframework.context.support.AbstractApplicationContext.invokeBeanFactoryPostProcessors(AbstractApplicationContext.java:788)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:606)
+	at org.apache.xbean.spring.context.ResourceXmlApplicationContext.<init>(ResourceXmlApplicationContext.java:64)
+	at org.apache.xbean.spring.context.ResourceXmlApplicationContext.<init>(ResourceXmlApplicationContext.java:52)
+	at org.apache.activemq.xbean.XBeanBrokerFactory$1.<init>(XBeanBrokerFactory.java:104)
+	at org.apache.activemq.xbean.XBeanBrokerFactory.createApplicationContext(XBeanBrokerFactory.java:104)
+	at org.apache.activemq.xbean.XBeanBrokerFactory.createBroker(XBeanBrokerFactory.java:67)
+	at org.apache.activemq.broker.BrokerFactory.createBroker(BrokerFactory.java:71)
+	at org.apache.activemq.broker.BrokerFactory.createBroker(BrokerFactory.java:54)
+	at org.apache.activemq.console.command.StartCommand.runTask(StartCommand.java:87)
+	at org.apache.activemq.console.command.AbstractCommand.execute(AbstractCommand.java:63)
+	at org.apache.activemq.console.command.ShellCommand.runTask(ShellCommand.java:154)
+	at org.apache.activemq.console.command.AbstractCommand.execute(AbstractCommand.java:63)
+	at org.apache.activemq.console.command.ShellCommand.main(ShellCommand.java:104)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.apache.activemq.console.Main.runTaskClass(Main.java:262)
+	at org.apache.activemq.console.Main.main(Main.java:115)
+Caused by: java.io.FileNotFoundException: C:\Users\Stefan\Documents\GitHub\UBB-CS-Projects\Semestrul 4\MPP\apache-activemq-6.1.2\bin\conf\credentials.properties (The system cannot find the path specified)
+	at java.base/java.io.FileInputStream.open0(Native Method)
+	at java.base/java.io.FileInputStream.open(FileInputStream.java:213)
+	at java.base/java.io.FileInputStream.<init>(FileInputStream.java:152)
+	at java.base/java.io.FileInputStream.<init>(FileInputStream.java:106)
+	at java.base/sun.net.www.protocol.file.FileURLConnection.connect(FileURLConnection.java:84)
+	at java.base/sun.net.www.protocol.file.FileURLConnection.getInputStream(FileURLConnection.java:180)
+	at org.springframework.core.io.UrlResource.getInputStream(UrlResource.java:232)
+	at org.springframework.core.io.support.EncodedResource.getInputStream(EncodedResource.java:160)
+	at org.springframework.core.io.support.PropertiesLoaderUtils.fillProperties(PropertiesLoaderUtils.java:100)
+	at org.springframework.core.io.support.PropertiesLoaderSupport.loadProperties(PropertiesLoaderSupport.java:182)
+	at org.springframework.core.io.support.PropertiesLoaderSupport.mergeProperties(PropertiesLoaderSupport.java:163)
+	at org.springframework.beans.factory.config.PropertyResourceConfigurer.postProcessBeanFactory(PropertyResourceConfigurer.java:80)
+	... 20 more
+2024-06-04 11:01:22,872 | WARN  | Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanInitializationException: Could not load properties: C:\Users\Stefan\Documents\GitHub\UBB-CS-Projects\Semestrul 4\MPP\apache-activemq-6.1.2\bin\conf\credentials.properties (The system cannot find the path specified) | org.apache.activemq.xbean.XBeanBrokerFactory$1 | main
+2024-06-04 11:01:22,888 | ERROR | Failed to load: class path resource [activemq.xml], reason: Could not load properties: C:\Users\Stefan\Documents\GitHub\UBB-CS-Projects\Semestrul 4\MPP\apache-activemq-6.1.2\bin\conf\credentials.properties (The system cannot find the path specified) | org.apache.activemq.xbean.XBeanBrokerFactory | main
+org.springframework.beans.factory.BeanInitializationException: Could not load properties: C:\Users\Stefan\Documents\GitHub\UBB-CS-Projects\Semestrul 4\MPP\apache-activemq-6.1.2\bin\conf\credentials.properties (The system cannot find the path specified)
+	at org.springframework.beans.factory.config.PropertyResourceConfigurer.postProcessBeanFactory(PropertyResourceConfigurer.java:89)
+	at org.springframework.context.support.PostProcessorRegistrationDelegate.invokeBeanFactoryPostProcessors(PostProcessorRegistrationDelegate.java:363)
+	at org.springframework.context.support.PostProcessorRegistrationDelegate.invokeBeanFactoryPostProcessors(PostProcessorRegistrationDelegate.java:189)
+	at org.springframework.context.support.AbstractApplicationContext.invokeBeanFactoryPostProcessors(AbstractApplicationContext.java:788)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:606)
+	at org.apache.xbean.spring.context.ResourceXmlApplicationContext.<init>(ResourceXmlApplicationContext.java:64)
+	at org.apache.xbean.spring.context.ResourceXmlApplicationContext.<init>(ResourceXmlApplicationContext.java:52)
+	at org.apache.activemq.xbean.XBeanBrokerFactory$1.<init>(XBeanBrokerFactory.java:104)
+	at org.apache.activemq.xbean.XBeanBrokerFactory.createApplicationContext(XBeanBrokerFactory.java:104)
+	at org.apache.activemq.xbean.XBeanBrokerFactory.createBroker(XBeanBrokerFactory.java:67)
+	at org.apache.activemq.broker.BrokerFactory.createBroker(BrokerFactory.java:71)
+	at org.apache.activemq.broker.BrokerFactory.createBroker(BrokerFactory.java:54)
+	at org.apache.activemq.console.command.StartCommand.runTask(StartCommand.java:87)
+	at org.apache.activemq.console.command.AbstractCommand.execute(AbstractCommand.java:63)
+	at org.apache.activemq.console.command.ShellCommand.runTask(ShellCommand.java:154)
+	at org.apache.activemq.console.command.AbstractCommand.execute(AbstractCommand.java:63)
+	at org.apache.activemq.console.command.ShellCommand.main(ShellCommand.java:104)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.apache.activemq.console.Main.runTaskClass(Main.java:262)
+	at org.apache.activemq.console.Main.main(Main.java:115)
+Caused by: java.io.FileNotFoundException: C:\Users\Stefan\Documents\GitHub\UBB-CS-Projects\Semestrul 4\MPP\apache-activemq-6.1.2\bin\conf\credentials.properties (The system cannot find the path specified)
+	at java.base/java.io.FileInputStream.open0(Native Method)
+	at java.base/java.io.FileInputStream.open(FileInputStream.java:213)
+	at java.base/java.io.FileInputStream.<init>(FileInputStream.java:152)
+	at java.base/java.io.FileInputStream.<init>(FileInputStream.java:106)
+	at java.base/sun.net.www.protocol.file.FileURLConnection.connect(FileURLConnection.java:84)
+	at java.base/sun.net.www.protocol.file.FileURLConnection.getInputStream(FileURLConnection.java:180)
+	at org.springframework.core.io.UrlResource.getInputStream(UrlResource.java:232)
+	at org.springframework.core.io.support.EncodedResource.getInputStream(EncodedResource.java:160)
+	at org.springframework.core.io.support.PropertiesLoaderUtils.fillProperties(PropertiesLoaderUtils.java:100)
+	at org.springframework.core.io.support.PropertiesLoaderSupport.loadProperties(PropertiesLoaderSupport.java:182)
+	at org.springframework.core.io.support.PropertiesLoaderSupport.mergeProperties(PropertiesLoaderSupport.java:163)
+	at org.springframework.beans.factory.config.PropertyResourceConfigurer.postProcessBeanFactory(PropertyResourceConfigurer.java:80)
+	... 20 more
+2024-06-04 11:03:28,330 | WARN  | Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanInitializationException: Could not load properties: C:\Users\Stefan\Documents\GitHub\UBB-CS-Projects\Semestrul 4\MPP\apache-activemq-6.1.2\bin\conf\credentials.properties (The system cannot find the path specified) | org.apache.activemq.xbean.XBeanBrokerFactory$1 | main
+2024-06-04 11:03:28,349 | ERROR | Failed to load: class path resource [activemq.xml], reason: Could not load properties: C:\Users\Stefan\Documents\GitHub\UBB-CS-Projects\Semestrul 4\MPP\apache-activemq-6.1.2\bin\conf\credentials.properties (The system cannot find the path specified) | org.apache.activemq.xbean.XBeanBrokerFactory | main
+org.springframework.beans.factory.BeanInitializationException: Could not load properties: C:\Users\Stefan\Documents\GitHub\UBB-CS-Projects\Semestrul 4\MPP\apache-activemq-6.1.2\bin\conf\credentials.properties (The system cannot find the path specified)
+	at org.springframework.beans.factory.config.PropertyResourceConfigurer.postProcessBeanFactory(PropertyResourceConfigurer.java:89)
+	at org.springframework.context.support.PostProcessorRegistrationDelegate.invokeBeanFactoryPostProcessors(PostProcessorRegistrationDelegate.java:363)
+	at org.springframework.context.support.PostProcessorRegistrationDelegate.invokeBeanFactoryPostProcessors(PostProcessorRegistrationDelegate.java:189)
+	at org.springframework.context.support.AbstractApplicationContext.invokeBeanFactoryPostProcessors(AbstractApplicationContext.java:788)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:606)
+	at org.apache.xbean.spring.context.ResourceXmlApplicationContext.<init>(ResourceXmlApplicationContext.java:64)
+	at org.apache.xbean.spring.context.ResourceXmlApplicationContext.<init>(ResourceXmlApplicationContext.java:52)
+	at org.apache.activemq.xbean.XBeanBrokerFactory$1.<init>(XBeanBrokerFactory.java:104)
+	at org.apache.activemq.xbean.XBeanBrokerFactory.createApplicationContext(XBeanBrokerFactory.java:104)
+	at org.apache.activemq.xbean.XBeanBrokerFactory.createBroker(XBeanBrokerFactory.java:67)
+	at org.apache.activemq.broker.BrokerFactory.createBroker(BrokerFactory.java:71)
+	at org.apache.activemq.broker.BrokerFactory.createBroker(BrokerFactory.java:54)
+	at org.apache.activemq.console.command.StartCommand.runTask(StartCommand.java:87)
+	at org.apache.activemq.console.command.AbstractCommand.execute(AbstractCommand.java:63)
+	at org.apache.activemq.console.command.ShellCommand.runTask(ShellCommand.java:154)
+	at org.apache.activemq.console.command.AbstractCommand.execute(AbstractCommand.java:63)
+	at org.apache.activemq.console.command.ShellCommand.main(ShellCommand.java:104)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.apache.activemq.console.Main.runTaskClass(Main.java:262)
+	at org.apache.activemq.console.Main.main(Main.java:115)
+Caused by: java.io.FileNotFoundException: C:\Users\Stefan\Documents\GitHub\UBB-CS-Projects\Semestrul 4\MPP\apache-activemq-6.1.2\bin\conf\credentials.properties (The system cannot find the path specified)
+	at java.base/java.io.FileInputStream.open0(Native Method)
+	at java.base/java.io.FileInputStream.open(FileInputStream.java:213)
+	at java.base/java.io.FileInputStream.<init>(FileInputStream.java:152)
+	at java.base/java.io.FileInputStream.<init>(FileInputStream.java:106)
+	at java.base/sun.net.www.protocol.file.FileURLConnection.connect(FileURLConnection.java:84)
+	at java.base/sun.net.www.protocol.file.FileURLConnection.getInputStream(FileURLConnection.java:180)
+	at org.springframework.core.io.UrlResource.getInputStream(UrlResource.java:232)
+	at org.springframework.core.io.support.EncodedResource.getInputStream(EncodedResource.java:160)
+	at org.springframework.core.io.support.PropertiesLoaderUtils.fillProperties(PropertiesLoaderUtils.java:100)
+	at org.springframework.core.io.support.PropertiesLoaderSupport.loadProperties(PropertiesLoaderSupport.java:182)
+	at org.springframework.core.io.support.PropertiesLoaderSupport.mergeProperties(PropertiesLoaderSupport.java:163)
+	at org.springframework.beans.factory.config.PropertyResourceConfigurer.postProcessBeanFactory(PropertyResourceConfigurer.java:80)
+	... 20 more
+2024-06-04 11:04:47,744 | WARN  | Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanInitializationException: Could not load properties: C:\Users\Stefan\Documents\GitHub\UBB-CS-Projects\Semestrul 4\MPP\apache-activemq-6.1.2\bin\conf\credentials.properties (The system cannot find the path specified) | org.apache.activemq.xbean.XBeanBrokerFactory$1 | main
+2024-06-04 11:04:47,760 | ERROR | Failed to load: class path resource [activemq.xml], reason: Could not load properties: C:\Users\Stefan\Documents\GitHub\UBB-CS-Projects\Semestrul 4\MPP\apache-activemq-6.1.2\bin\conf\credentials.properties (The system cannot find the path specified) | org.apache.activemq.xbean.XBeanBrokerFactory | main
+org.springframework.beans.factory.BeanInitializationException: Could not load properties: C:\Users\Stefan\Documents\GitHub\UBB-CS-Projects\Semestrul 4\MPP\apache-activemq-6.1.2\bin\conf\credentials.properties (The system cannot find the path specified)
+	at org.springframework.beans.factory.config.PropertyResourceConfigurer.postProcessBeanFactory(PropertyResourceConfigurer.java:89)
+	at org.springframework.context.support.PostProcessorRegistrationDelegate.invokeBeanFactoryPostProcessors(PostProcessorRegistrationDelegate.java:363)
+	at org.springframework.context.support.PostProcessorRegistrationDelegate.invokeBeanFactoryPostProcessors(PostProcessorRegistrationDelegate.java:189)
+	at org.springframework.context.support.AbstractApplicationContext.invokeBeanFactoryPostProcessors(AbstractApplicationContext.java:788)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:606)
+	at org.apache.xbean.spring.context.ResourceXmlApplicationContext.<init>(ResourceXmlApplicationContext.java:64)
+	at org.apache.xbean.spring.context.ResourceXmlApplicationContext.<init>(ResourceXmlApplicationContext.java:52)
+	at org.apache.activemq.xbean.XBeanBrokerFactory$1.<init>(XBeanBrokerFactory.java:104)
+	at org.apache.activemq.xbean.XBeanBrokerFactory.createApplicationContext(XBeanBrokerFactory.java:104)
+	at org.apache.activemq.xbean.XBeanBrokerFactory.createBroker(XBeanBrokerFactory.java:67)
+	at org.apache.activemq.broker.BrokerFactory.createBroker(BrokerFactory.java:71)
+	at org.apache.activemq.broker.BrokerFactory.createBroker(BrokerFactory.java:54)
+	at org.apache.activemq.console.command.StartCommand.runTask(StartCommand.java:87)
+	at org.apache.activemq.console.command.AbstractCommand.execute(AbstractCommand.java:63)
+	at org.apache.activemq.console.command.ShellCommand.runTask(ShellCommand.java:154)
+	at org.apache.activemq.console.command.AbstractCommand.execute(AbstractCommand.java:63)
+	at org.apache.activemq.console.command.ShellCommand.main(ShellCommand.java:104)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.apache.activemq.console.Main.runTaskClass(Main.java:262)
+	at org.apache.activemq.console.Main.main(Main.java:115)
+Caused by: java.io.FileNotFoundException: C:\Users\Stefan\Documents\GitHub\UBB-CS-Projects\Semestrul 4\MPP\apache-activemq-6.1.2\bin\conf\credentials.properties (The system cannot find the path specified)
+	at java.base/java.io.FileInputStream.open0(Native Method)
+	at java.base/java.io.FileInputStream.open(FileInputStream.java:213)
+	at java.base/java.io.FileInputStream.<init>(FileInputStream.java:152)
+	at java.base/java.io.FileInputStream.<init>(FileInputStream.java:106)
+	at java.base/sun.net.www.protocol.file.FileURLConnection.connect(FileURLConnection.java:84)
+	at java.base/sun.net.www.protocol.file.FileURLConnection.getInputStream(FileURLConnection.java:180)
+	at org.springframework.core.io.UrlResource.getInputStream(UrlResource.java:232)
+	at org.springframework.core.io.support.EncodedResource.getInputStream(EncodedResource.java:160)
+	at org.springframework.core.io.support.PropertiesLoaderUtils.fillProperties(PropertiesLoaderUtils.java:100)
+	at org.springframework.core.io.support.PropertiesLoaderSupport.loadProperties(PropertiesLoaderSupport.java:182)
+	at org.springframework.core.io.support.PropertiesLoaderSupport.mergeProperties(PropertiesLoaderSupport.java:163)
+	at org.springframework.beans.factory.config.PropertyResourceConfigurer.postProcessBeanFactory(PropertyResourceConfigurer.java:80)
+	... 20 more
+2024-06-04 11:07:19,298 | WARN  | Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanInitializationException: Could not load properties: C:\Users\Stefan\Documents\GitHub\UBB-CS-Projects\Semestrul 4\MPP\apache-activemq-6.1.2\bin\conf\credentials.properties (The system cannot find the path specified) | org.apache.activemq.xbean.XBeanBrokerFactory$1 | main
+2024-06-04 11:07:19,313 | ERROR | Failed to load: class path resource [activemq.xml], reason: Could not load properties: C:\Users\Stefan\Documents\GitHub\UBB-CS-Projects\Semestrul 4\MPP\apache-activemq-6.1.2\bin\conf\credentials.properties (The system cannot find the path specified) | org.apache.activemq.xbean.XBeanBrokerFactory | main
+org.springframework.beans.factory.BeanInitializationException: Could not load properties: C:\Users\Stefan\Documents\GitHub\UBB-CS-Projects\Semestrul 4\MPP\apache-activemq-6.1.2\bin\conf\credentials.properties (The system cannot find the path specified)
+	at org.springframework.beans.factory.config.PropertyResourceConfigurer.postProcessBeanFactory(PropertyResourceConfigurer.java:89)
+	at org.springframework.context.support.PostProcessorRegistrationDelegate.invokeBeanFactoryPostProcessors(PostProcessorRegistrationDelegate.java:363)
+	at org.springframework.context.support.PostProcessorRegistrationDelegate.invokeBeanFactoryPostProcessors(PostProcessorRegistrationDelegate.java:189)
+	at org.springframework.context.support.AbstractApplicationContext.invokeBeanFactoryPostProcessors(AbstractApplicationContext.java:788)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:606)
+	at org.apache.xbean.spring.context.ResourceXmlApplicationContext.<init>(ResourceXmlApplicationContext.java:64)
+	at org.apache.xbean.spring.context.ResourceXmlApplicationContext.<init>(ResourceXmlApplicationContext.java:52)
+	at org.apache.activemq.xbean.XBeanBrokerFactory$1.<init>(XBeanBrokerFactory.java:104)
+	at org.apache.activemq.xbean.XBeanBrokerFactory.createApplicationContext(XBeanBrokerFactory.java:104)
+	at org.apache.activemq.xbean.XBeanBrokerFactory.createBroker(XBeanBrokerFactory.java:67)
+	at org.apache.activemq.broker.BrokerFactory.createBroker(BrokerFactory.java:71)
+	at org.apache.activemq.broker.BrokerFactory.createBroker(BrokerFactory.java:54)
+	at org.apache.activemq.console.command.StartCommand.runTask(StartCommand.java:87)
+	at org.apache.activemq.console.command.AbstractCommand.execute(AbstractCommand.java:63)
+	at org.apache.activemq.console.command.ShellCommand.runTask(ShellCommand.java:154)
+	at org.apache.activemq.console.command.AbstractCommand.execute(AbstractCommand.java:63)
+	at org.apache.activemq.console.command.ShellCommand.main(ShellCommand.java:104)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.apache.activemq.console.Main.runTaskClass(Main.java:262)
+	at org.apache.activemq.console.Main.main(Main.java:115)
+Caused by: java.io.FileNotFoundException: C:\Users\Stefan\Documents\GitHub\UBB-CS-Projects\Semestrul 4\MPP\apache-activemq-6.1.2\bin\conf\credentials.properties (The system cannot find the path specified)
+	at java.base/java.io.FileInputStream.open0(Native Method)
+	at java.base/java.io.FileInputStream.open(FileInputStream.java:213)
+	at java.base/java.io.FileInputStream.<init>(FileInputStream.java:152)
+	at java.base/java.io.FileInputStream.<init>(FileInputStream.java:106)
+	at java.base/sun.net.www.protocol.file.FileURLConnection.connect(FileURLConnection.java:84)
+	at java.base/sun.net.www.protocol.file.FileURLConnection.getInputStream(FileURLConnection.java:180)
+	at org.springframework.core.io.UrlResource.getInputStream(UrlResource.java:232)
+	at org.springframework.core.io.support.EncodedResource.getInputStream(EncodedResource.java:160)
+	at org.springframework.core.io.support.PropertiesLoaderUtils.fillProperties(PropertiesLoaderUtils.java:100)
+	at org.springframework.core.io.support.PropertiesLoaderSupport.loadProperties(PropertiesLoaderSupport.java:182)
+	at org.springframework.core.io.support.PropertiesLoaderSupport.mergeProperties(PropertiesLoaderSupport.java:163)
+	at org.springframework.beans.factory.config.PropertyResourceConfigurer.postProcessBeanFactory(PropertyResourceConfigurer.java:80)
+	... 20 more
+2024-06-04 11:12:10,649 | WARN  | Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanInitializationException: Could not load properties: C:\Users\Stefan\Documents\GitHub\UBB-CS-Projects\Semestrul 4\MPP\apache-activemq-6.1.2\bin\conf\credentials.properties (The system cannot find the path specified) | org.apache.activemq.xbean.XBeanBrokerFactory$1 | main
+2024-06-04 11:12:10,664 | ERROR | Failed to load: class path resource [activemq.xml], reason: Could not load properties: C:\Users\Stefan\Documents\GitHub\UBB-CS-Projects\Semestrul 4\MPP\apache-activemq-6.1.2\bin\conf\credentials.properties (The system cannot find the path specified) | org.apache.activemq.xbean.XBeanBrokerFactory | main
+org.springframework.beans.factory.BeanInitializationException: Could not load properties: C:\Users\Stefan\Documents\GitHub\UBB-CS-Projects\Semestrul 4\MPP\apache-activemq-6.1.2\bin\conf\credentials.properties (The system cannot find the path specified)
+	at org.springframework.beans.factory.config.PropertyResourceConfigurer.postProcessBeanFactory(PropertyResourceConfigurer.java:89)
+	at org.springframework.context.support.PostProcessorRegistrationDelegate.invokeBeanFactoryPostProcessors(PostProcessorRegistrationDelegate.java:363)
+	at org.springframework.context.support.PostProcessorRegistrationDelegate.invokeBeanFactoryPostProcessors(PostProcessorRegistrationDelegate.java:189)
+	at org.springframework.context.support.AbstractApplicationContext.invokeBeanFactoryPostProcessors(AbstractApplicationContext.java:788)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:606)
+	at org.apache.xbean.spring.context.ResourceXmlApplicationContext.<init>(ResourceXmlApplicationContext.java:64)
+	at org.apache.xbean.spring.context.ResourceXmlApplicationContext.<init>(ResourceXmlApplicationContext.java:52)
+	at org.apache.activemq.xbean.XBeanBrokerFactory$1.<init>(XBeanBrokerFactory.java:104)
+	at org.apache.activemq.xbean.XBeanBrokerFactory.createApplicationContext(XBeanBrokerFactory.java:104)
+	at org.apache.activemq.xbean.XBeanBrokerFactory.createBroker(XBeanBrokerFactory.java:67)
+	at org.apache.activemq.broker.BrokerFactory.createBroker(BrokerFactory.java:71)
+	at org.apache.activemq.broker.BrokerFactory.createBroker(BrokerFactory.java:54)
+	at org.apache.activemq.console.command.StartCommand.runTask(StartCommand.java:87)
+	at org.apache.activemq.console.command.AbstractCommand.execute(AbstractCommand.java:63)
+	at org.apache.activemq.console.command.ShellCommand.runTask(ShellCommand.java:154)
+	at org.apache.activemq.console.command.AbstractCommand.execute(AbstractCommand.java:63)
+	at org.apache.activemq.console.command.ShellCommand.main(ShellCommand.java:104)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.apache.activemq.console.Main.runTaskClass(Main.java:262)
+	at org.apache.activemq.console.Main.main(Main.java:115)
+Caused by: java.io.FileNotFoundException: C:\Users\Stefan\Documents\GitHub\UBB-CS-Projects\Semestrul 4\MPP\apache-activemq-6.1.2\bin\conf\credentials.properties (The system cannot find the path specified)
+	at java.base/java.io.FileInputStream.open0(Native Method)
+	at java.base/java.io.FileInputStream.open(FileInputStream.java:213)
+	at java.base/java.io.FileInputStream.<init>(FileInputStream.java:152)
+	at java.base/java.io.FileInputStream.<init>(FileInputStream.java:106)
+	at java.base/sun.net.www.protocol.file.FileURLConnection.connect(FileURLConnection.java:84)
+	at java.base/sun.net.www.protocol.file.FileURLConnection.getInputStream(FileURLConnection.java:180)
+	at org.springframework.core.io.UrlResource.getInputStream(UrlResource.java:232)
+	at org.springframework.core.io.support.EncodedResource.getInputStream(EncodedResource.java:160)
+	at org.springframework.core.io.support.PropertiesLoaderUtils.fillProperties(PropertiesLoaderUtils.java:100)
+	at org.springframework.core.io.support.PropertiesLoaderSupport.loadProperties(PropertiesLoaderSupport.java:182)
+	at org.springframework.core.io.support.PropertiesLoaderSupport.mergeProperties(PropertiesLoaderSupport.java:163)
+	at org.springframework.beans.factory.config.PropertyResourceConfigurer.postProcessBeanFactory(PropertyResourceConfigurer.java:80)
+	... 20 more
+2024-06-04 11:16:18,630 | INFO  | Using Persistence Adapter: KahaDBPersistenceAdapter[C:\Users\Stefan\Documents\GitHub\UBB-CS-Projects\Semestrul 4\MPP\apache-activemq-6.1.2\bin\..\data\kahadb] | org.apache.activemq.broker.BrokerService | main
+2024-06-04 11:16:18,638 | INFO  | Starting Persistence Adapter: KahaDBPersistenceAdapter[C:\Users\Stefan\Documents\GitHub\UBB-CS-Projects\Semestrul 4\MPP\apache-activemq-6.1.2\bin\..\data\kahadb] | org.apache.activemq.broker.BrokerService | main
+2024-06-04 11:16:18,659 | INFO  | Starting KahaDBStore | org.apache.activemq.store.kahadb.KahaDBStore | main
+2024-06-04 11:16:18,660 | INFO  | Opening MessageDatabase | org.apache.activemq.store.kahadb.MessageDatabase | main
+2024-06-04 11:16:18,865 | INFO  | Starting Temp Data Store | org.apache.activemq.broker.BrokerService | main
+2024-06-04 11:16:18,866 | INFO  | PListStore:[C:\Users\Stefan\Documents\GitHub\UBB-CS-Projects\Semestrul 4\MPP\apache-activemq-6.1.2\bin\..\data\localhost\tmp_storage] started | org.apache.activemq.store.kahadb.plist.PListStoreImpl | main
+2024-06-04 11:16:18,866 | INFO  | Starting Job Scheduler Store | org.apache.activemq.broker.BrokerService | main
+2024-06-04 11:16:18,867 | INFO  | Persistence Adapter successfully started | org.apache.activemq.broker.BrokerService | main
+2024-06-04 11:16:19,016 | INFO  | Apache ActiveMQ 6.1.2 (localhost, ID:DESKTOP-0SVDHT0-54670-1717488978881-0:1) is starting | org.apache.activemq.broker.BrokerService | main
+2024-06-04 11:16:19,043 | INFO  | Listening for connections at: tcp://DESKTOP-0SVDHT0:61616?maximumConnections=1000&wireFormat.maxFrameSize=104857600 | org.apache.activemq.transport.TransportServerThreadSupport | main
+2024-06-04 11:16:19,044 | INFO  | Connector openwire started | org.apache.activemq.broker.TransportConnector | main
+2024-06-04 11:16:19,052 | INFO  | Listening for connections at: amqp://DESKTOP-0SVDHT0:5672?maximumConnections=1000&wireFormat.maxFrameSize=104857600 | org.apache.activemq.transport.TransportServerThreadSupport | main
+2024-06-04 11:16:19,053 | INFO  | Connector amqp started | org.apache.activemq.broker.TransportConnector | main
+2024-06-04 11:16:19,060 | INFO  | Listening for connections at: stomp://DESKTOP-0SVDHT0:61613?maximumConnections=1000&wireFormat.maxFrameSize=104857600 | org.apache.activemq.transport.TransportServerThreadSupport | main
+2024-06-04 11:16:19,060 | INFO  | Connector stomp started | org.apache.activemq.broker.TransportConnector | main
+2024-06-04 11:16:19,067 | INFO  | Listening for connections at: mqtt://DESKTOP-0SVDHT0:1883?maximumConnections=1000&wireFormat.maxFrameSize=104857600 | org.apache.activemq.transport.TransportServerThreadSupport | main
+2024-06-04 11:16:19,068 | INFO  | Connector mqtt started | org.apache.activemq.broker.TransportConnector | main
+2024-06-04 11:16:19,074 | INFO  | Starting Jetty server | org.apache.activemq.transport.WebTransportServerSupport | main
+2024-06-04 11:16:19,135 | INFO  | Creating Jetty connector | org.apache.activemq.transport.WebTransportServerSupport | main
+2024-06-04 11:16:19,258 | WARN  | ServletContext@o.e.j.s.ServletContextHandler@1b1c538d{/,null,STARTING} has uncovered HTTP methods for the following paths: [/] | org.eclipse.jetty.security.SecurityHandler | main
+2024-06-04 11:16:19,357 | INFO  | Listening for connections at ws://DESKTOP-0SVDHT0:61614?maximumConnections=1000&wireFormat.maxFrameSize=104857600 | org.apache.activemq.transport.ws.WSTransportServer | main
+2024-06-04 11:16:19,357 | INFO  | Connector ws started | org.apache.activemq.broker.TransportConnector | main
+2024-06-04 11:16:19,358 | INFO  | Apache ActiveMQ 6.1.2 (localhost, ID:DESKTOP-0SVDHT0-54670-1717488978881-0:1) started | org.apache.activemq.broker.BrokerService | main
+2024-06-04 11:16:19,358 | INFO  | For help or more information please see: http://activemq.apache.org | org.apache.activemq.broker.BrokerService | main
+2024-06-04 11:16:19,372 | WARN  | Store limit is 102400 mb (current store usage is 0 mb). The data directory: C:\Users\Stefan\Documents\GitHub\UBB-CS-Projects\Semestrul 4\MPP\apache-activemq-6.1.2\bin\..\data\kahadb only has 96208 mb of usable space. - resetting to maximum available disk space: 96208 mb | org.apache.activemq.broker.BrokerService | main
+2024-06-04 11:16:20,221 | INFO  | ActiveMQ WebConsole available at http://127.0.0.1:8161/ | org.apache.activemq.web.WebConsoleStarter | main
+2024-06-04 11:16:20,222 | INFO  | ActiveMQ Jolokia REST API available at http://127.0.0.1:8161/api/jolokia/ | org.apache.activemq.web.WebConsoleStarter | main
+2024-06-04 12:02:46,706 | INFO  | Apache ActiveMQ 6.1.2 (localhost, ID:DESKTOP-0SVDHT0-54670-1717488978881-0:1) is shutting down | org.apache.activemq.broker.BrokerService | Thread-24
+2024-06-04 12:02:46,739 | INFO  | Connector openwire stopped | org.apache.activemq.broker.TransportConnector | Thread-24
+2024-06-04 12:02:46,742 | INFO  | socketQueue interrupted - stopping | org.apache.activemq.transport.tcp.TcpTransportServer | ActiveMQ Transport Server Thread Handler: tcp://0.0.0.0:61616?maximumConnections=1000&wireFormat.maxFrameSize=104857600
+2024-06-04 12:02:46,744 | INFO  | Connector amqp stopped | org.apache.activemq.broker.TransportConnector | Thread-24
+2024-06-04 12:02:46,744 | INFO  | Could not accept connection during shutdown  : null (null) | org.apache.activemq.broker.TransportConnector | ActiveMQ Transport Server Thread Handler: tcp://0.0.0.0:61616?maximumConnections=1000&wireFormat.maxFrameSize=104857600
+2024-06-04 12:02:46,745 | INFO  | Connector stomp stopped | org.apache.activemq.broker.TransportConnector | Thread-24
+2024-06-04 12:02:46,745 | INFO  | socketQueue interrupted - stopping | org.apache.activemq.transport.tcp.TcpTransportServer | ActiveMQ Transport Server Thread Handler: stomp://0.0.0.0:61613?maximumConnections=1000&wireFormat.maxFrameSize=104857600
+2024-06-04 12:02:46,745 | INFO  | Could not accept connection during shutdown  : null (null) | org.apache.activemq.broker.TransportConnector | ActiveMQ Transport Server Thread Handler: stomp://0.0.0.0:61613?maximumConnections=1000&wireFormat.maxFrameSize=104857600
+2024-06-04 12:02:46,746 | INFO  | Connector mqtt stopped | org.apache.activemq.broker.TransportConnector | Thread-24
+2024-06-04 12:02:46,746 | INFO  | socketQueue interrupted - stopping | org.apache.activemq.transport.tcp.TcpTransportServer | ActiveMQ Transport Server Thread Handler: mqtt://0.0.0.0:1883?maximumConnections=1000&wireFormat.maxFrameSize=104857600
+2024-06-04 12:02:46,748 | INFO  | Could not accept connection during shutdown  : null (null) | org.apache.activemq.broker.TransportConnector | ActiveMQ Transport Server Thread Handler: mqtt://0.0.0.0:1883?maximumConnections=1000&wireFormat.maxFrameSize=104857600
+2024-06-04 12:02:46,962 | INFO  | Connector ws stopped | org.apache.activemq.broker.TransportConnector | Thread-24
+2024-06-04 12:02:47,026 | INFO  | PListStore:[C:\Users\Stefan\Documents\GitHub\UBB-CS-Projects\Semestrul 4\MPP\apache-activemq-6.1.2\bin\..\data\localhost\tmp_storage] stopped | org.apache.activemq.store.kahadb.plist.PListStoreImpl | Thread-24
+2024-06-04 12:02:47,027 | INFO  | Stopping async queue tasks | org.apache.activemq.store.kahadb.KahaDBStore | Thread-24
+2024-06-04 12:02:47,027 | INFO  | Stopping async topic tasks | org.apache.activemq.store.kahadb.KahaDBStore | Thread-24
+2024-06-04 12:02:47,028 | INFO  | Stopped KahaDB | org.apache.activemq.store.kahadb.KahaDBStore | Thread-24
+2024-06-04 12:02:47,109 | INFO  | Apache ActiveMQ 6.1.2 (localhost, ID:DESKTOP-0SVDHT0-54670-1717488978881-0:1) uptime 46 minutes | org.apache.activemq.broker.BrokerService | Thread-24
+2024-06-04 12:02:47,110 | INFO  | Apache ActiveMQ 6.1.2 (localhost, ID:DESKTOP-0SVDHT0-54670-1717488978881-0:1) is shutdown | org.apache.activemq.broker.BrokerService | Thread-24
