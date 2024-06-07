@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Train Search</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<h1>Search for Trains</h1>
+<form action="search.php" method="post">
+    <label for="departure_city">Departure City:</label>
+    <select id="departure_city" name="departure_city" required>
+        <option value="" selected disabled>Select a city</option>
+        <option value="Cluj-Napoca">Cluj-Napoca</option>
+        <option value="Sibiu">Sibiu</option>
+        <option value="Targu-Mures">Targu-Mures</option>
+        <option value="Brasov">Brasov</option>
+        <option value="Oradea">Oradea</option>
+    </select>
+    <br>
+    <label for="arrival_city">Arrival City:</label>
+    <select id="arrival_city" name="arrival_city" required>
+        <option value="" selected disabled>Select a city</option>
+        <option value="Cluj-Napoca">Cluj-Napoca</option>
+        <option value="Sibiu">Sibiu</option>
+        <option value="Targu-Mures">Targu-Mures</option>
+        <option value="Brasov">Brasov</option>
+        <option value="Oradea">Oradea</option>
+    </select>
+    <br>
+    <label for="direct_only">Direct Trains Only:</label>
+    <input type="checkbox" id="direct_only" name="direct_only">
+    <br>
+    <button type="submit">Search</button>
+</form>
+</body>
+</html>

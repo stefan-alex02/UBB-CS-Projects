@@ -1,0 +1,22 @@
+body {
+    font-family: Calibri, sans-serif;
+    margin: 20px;
+    padding: 20px;
+    font-size: 18px;
+}
+
+form {
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+label, select {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 18px;
+}
+
+button {
+    display: block;
+    margin-top: 20px;
+}
