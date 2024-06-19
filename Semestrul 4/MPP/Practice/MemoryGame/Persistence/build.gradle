@@ -1,0 +1,36 @@
+plugins {
+    id 'java'
+}
+
+group = 'ro.mpp2024.persistence'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation project(':Domain')
+
+    testImplementation platform('org.junit:junit-bom:5.10.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+
+    // https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core
+    implementation group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.23.1'
+
+    // https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-api
+    implementation group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.23.1'
+
+    // https://mvnrepository.com/artifact/org.xerial/sqlite-jdbc
+    implementation 'org.xerial:sqlite-jdbc:3.45.1.0'
+
+    // https://mvnrepository.com/artifact/org.springframework/spring-context
+    implementation "org.springframework:spring-context:5.3.20"
+
+    // https://mvnrepository.com/artifact/org.hibernate.orm/hibernate-community-dialects
+    implementation 'org.hibernate.orm:hibernate-community-dialects:6.4.4.Final'
+}
+
+test {
+    useJUnitPlatform()
+}

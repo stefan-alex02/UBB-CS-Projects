@@ -1,0 +1,9 @@
+rootProject.name = 'TicTacToe'
+include 'Persistence'
+include 'Domain'
+include 'RestServices'
+include 'Client'
+include 'Networking'
+include 'Services'
+include 'Server'
+
