@@ -11,6 +11,9 @@ import jakarta.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Objects;
 
+//@Table(name = "Boxes", uniqueConstraints = {
+//        @UniqueConstraint(columnNames = {"gameTable_id", "row", "column"})
+
 @jakarta.persistence.Entity
 @Table(name = "trials")
 @Check(constraints = "row BETWEEN 1 AND 4 AND column BETWEEN 1 AND 4")

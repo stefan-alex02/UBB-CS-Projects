@@ -1,0 +1,52 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'org.openjfx.javafxplugin' version '0.1.0'
+}
+
+group = 'ro.mpp2024.client'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation project (':Domain')
+    implementation project (':Networking')
+    implementation project (':Services')
+
+    testImplementation platform('org.junit:junit-bom:5.10.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+
+    // https://mvnrepository.com/artifact/org.openjfx/javafx-controls
+    implementation 'org.openjfx:javafx-controls:23-ea+3'
+
+    // https://mvnrepository.com/artifact/org.openjfx/javafx-fxml
+    implementation 'org.openjfx:javafx-fxml:23-ea+3'
+}
+
+javafx {
+    version = "17"
+    modules = [ 'javafx.controls', 'javafx.fxml' ]
+}
+
+
+jar {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+
+    manifest {
+        attributes('Main-Class':'ro.mpp2024.client.LoginApplication')
+    }
+    from {
+        configurations.runtimeClasspath.collect {it.isDirectory() ? it : zipTree(it)}
+    }
+}
+
+application {
+    mainClass = 'ro.mpp2024.client.LoginApplication'
+}
+
+test {
+    useJUnitPlatform()
+}

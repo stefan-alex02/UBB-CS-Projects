@@ -1,0 +1,31 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+group = 'ro.mpp2024.restclient'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation project(':Domain')
+
+    testImplementation platform('org.junit:junit-bom:5.10.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+
+    // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-web
+    implementation 'org.springframework.boot:spring-boot-starter-web:3.2.5'
+    // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-annotations
+    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: '2.13.1'
+}
+
+application {
+    mainClass = 'ro.mpp2024.restclient.StartClient'
+}
+
+test {
+    useJUnitPlatform()
+}
