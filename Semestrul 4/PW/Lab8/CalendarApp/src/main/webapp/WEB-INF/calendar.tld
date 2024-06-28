@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<taglib xmlns="http://java.sun.com/xml/ns/j2ee"
+        version="2.0">
+
+<tlib-version>1.0</tlib-version>
+    <short-name>ct</short-name>
+    <uri>http://web2024/calendarapp/calendar</uri>
+
+    <tag>
+        <name>calendar</name>
+        <tag-class>web2024.calendarapp.CalendarTag</tag-class>
+        <body-content>empty</body-content>
+        <attribute>
+            <name>an</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>luna</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>zi</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>culoare</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <dynamic-attributes>true</dynamic-attributes>
+    </tag>
+</taglib>
