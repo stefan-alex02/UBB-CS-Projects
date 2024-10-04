@@ -33,21 +33,45 @@ namespace rt
             Z = v.Z;
         }
 
+        /// <summary>
+        /// Vector addition
+        /// </summary>
+        /// <param name="a">first vector</param>
+        /// <param name="b">second vector</param>
+        /// <returns>the sum of the 2 vectors</returns>
         public static Vector operator +(Vector a, Vector b)
         {
             return new Vector(a.X + b.X, a.Y + b.Y, a.Z + b.Z);
         }
 
+        /// <summary>
+        /// Vector subtraction
+        /// </summary>
+        /// <param name="a">first vector</param>
+        /// <param name="b">second vector</param>
+        /// <returns>the subtraction result vector</returns>
         public static Vector operator -(Vector a, Vector b)
         {
             return new Vector(a.X - b.X, a.Y - b.Y, a.Z - b.Z);
         }
-
+        
+        /// <summary>
+        /// Vector dot product
+        /// </summary>
+        /// <param name="v">first vector</param>
+        /// <param name="b">second vector</param>
+        /// <returns>the dot product</returns>
         public static double operator *(Vector v, Vector b)
         {
             return v.X * b.X + v.Y * b.Y + v.Z * b.Z;
         }
 
+        /// <summary>
+        /// Vector cross product
+        /// </summary>
+        /// <param name="a">first vector</param>
+        /// <param name="b">second vector</param>
+        /// <returns>the cross product</returns>
         public static Vector operator ^(Vector a, Vector b)
         {
             return new Vector(a.Y * b.Z - a.Z * b.Y, a.Z * b.X - a.X * b.Z, a.X * b.Y - a.Y * b.X);
@@ -87,6 +111,10 @@ namespace rt
             return  Math.Sqrt(Length2());
         }
 
+        /// <summary>
+        /// Performs a normalization of the vector (vector becomes a unit vector)
+        /// </summary>
+        /// <returns>the vector that was normalized</returns>
         public Vector Normalize()
         {
             var norm = Length();
