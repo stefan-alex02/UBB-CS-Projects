@@ -5,34 +5,14 @@
 <head>
     <meta charset="UTF-8">
     <title>Tic Tac Toe</title>
-    <style>
-        table {
-            width: 300px;
-            height: 300px;
-            border-collapse: collapse;
-        }
-        td {
-            width: 100px;
-            height: 100px;
-            text-align: center;
-            vertical-align: middle;
-            font-size: 24px;
-            border: 1px solid black;
-        }
-        .cell {
-            cursor: pointer;
-        }
-        .disabled {
-            pointer-events: none;
-            background-color: lightgray;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <link rel="stylesheet" type="text/css" href="tic-tac-toe.css">
 </head>
 <body>
 <h1>Tic Tac Toe</h1>
 <c:if test="${sessionScope.waiting}">
     <p>Waiting for an opponent...</p>
-    <meta http-equiv="refresh" content="5">
+    <meta http-equiv="refresh" content="4">
 </c:if>
 <c:if test="${!sessionScope.waiting}">
     <p>Current turn: ${game.currentPlayer}</p>
@@ -42,7 +22,7 @@
             <tr>
                 <c:forEach var="col" begin="0" end="2">
                     <c:set var="disabled" value="${!(sessionScope.winner eq ' '.charAt(0)) || sessionScope.draw}"/>
-                    <td class="cell ${disabled ? 'disabled' : ''}"
+                    <td class="cell ${disabled ? 'disabled' : ''} ${!(game.board[row][col] eq ' '.charAt(0)) ? 'marked' : ''}"
                             <c:if test="${!disabled}">
                                 onclick="makeMove(${row}, ${col})"
                             </c:if>>
@@ -55,6 +35,13 @@
 
     <c:if test="${!(sessionScope.winner eq ' '.charAt(0))}">
         <p>Winner: ${sessionScope.winner}</p>
+        <c:if test="${sessionScope.player == sessionScope.winner}">
+            <form method="post" action="record-win">
+                <label for="winnerName">Enter your name:</label>
+                <input type="text" id="winnerName" name="winnerName" required>
+                <button type="submit">Record Win</button>
+            </form>
+        </c:if>
     </c:if>
     <c:if test="${sessionScope.draw && sessionScope.winner eq ' '.charAt(0)}">
         <p>It's a draw!</p>
@@ -63,7 +50,9 @@
     <form method="post" action="end-game">
         <button type="submit">End Game</button>
     </form>
-    <meta http-equiv="refresh" content="2">
+    <c:if test="${sessionScope.winner eq ' '.charAt(0) && !sessionScope.draw}">
+        <meta http-equiv="refresh" content="2">
+    </c:if>
 </c:if>
 
 <script>

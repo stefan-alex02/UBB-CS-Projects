@@ -1,7 +1,7 @@
 <?php
 session_start();
 $conn = null;
-include '../db_config.php';
+require_once '../db_config.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST['email'];

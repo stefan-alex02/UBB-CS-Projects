@@ -1,0 +1,26 @@
+button {
+    background-color: #af7e4c;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    font-family: 'Cascadia Mono', monospace;
+    font-weight: bold;
+    margin: 4px 2px;
+    cursor: pointer;
+    border: none;
+    border-radius: 12px;
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+button:hover {
+    background-color: #d3a174;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+button:disabled {
+    background-color: lightgray;
+    cursor: not-allowed;
+}
