@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 namespace rt.MathUtil;
 
@@ -20,4 +21,9 @@ public class Solution {
     public static Solution Unique(double value) {
         return new Solution(new[] { value });
     }
+
+    public double? SmallestPositiveSolutionOrNull() => Values.Where(s => s > 0)
+        .Select(s => (double?)s)
+        .DefaultIfEmpty(null)
+        .Min();
 }

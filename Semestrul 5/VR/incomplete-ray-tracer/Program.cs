@@ -38,7 +38,8 @@ namespace rt {
 
                 new Sphere(new Vector(-25.0, -50.0, 75.0), 25.0, Color.ORANGE),
                 
-                new Paraboloid(Vector.Zero, new Tuple<double, double>(-20, -10), Color.ORANGE), // elliptic
+                // new Paraboloid(Vector.Zero, new Tuple<double, double>(-20, -10), Color.ORANGE), // elliptic
+                // new Paraboloid(Vector.Zero, new Tuple<double, double>(-100, 50), Color.CYAN), // hyperbolic
 
                 new RawCtMask("../../../raw/walnut.dat", "../../../raw/walnut.raw", new Vector(-5.0, -20.0, 105.0), 0.2,
                     new ColorMap()

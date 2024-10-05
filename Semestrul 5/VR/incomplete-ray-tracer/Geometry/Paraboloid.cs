@@ -43,18 +43,18 @@ public class Paraboloid : Geometry {
         }
 
         // Taking the closest intersection point
-        double t = solution.Values.Min();
+        double? t = solution.SmallestPositiveSolutionOrNull();
 
         // Distance between camera center and intersection point
-        double dist = (line.CoordinateToPosition(t) - line.X0).Length();
+        double dist = (line.CoordinateToPosition(t ?? 0) - line.X0).Length();
             
         // TODO: normal line must be calculated
         // TODO: what do 'valid' and 'visible' fields do ?
         return new Intersection(true,
-            t > 0,// && dist >= minDist && dist <= maxDist,
+            t is not null && dist >= minDist && dist <= maxDist,
             this,
             line,
-            t,
+            t ?? 0,
             null,
             Material,
             Color);
