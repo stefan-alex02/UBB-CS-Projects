@@ -13,6 +13,7 @@ namespace rt
         public static readonly Color CYAN =    new Color(0.0, 1.0, 1.0, 1.0); 
         public static readonly Color WHITE =   new Color(1.0, 1.0, 1.0, 1.0); 
         public static readonly Color ORANGE =  new Color(1.0, 0.5, 0.0, 1.0); 
+        public static readonly Color GRAY =  new Color(0.2, 0.2, 0.2, 1.0);
 
         public double Red { get; set; }
         public double Green { get; set; }

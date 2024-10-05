@@ -1,7 +1,8 @@
-﻿namespace rt
-{
-    public abstract class Geometry
-    {
+﻿using System;
+using System.Drawing.Imaging;
+
+namespace rt {
+    public abstract class Geometry {
         public Color Color { get; set; }
         public Material Material { get; set; }
 
@@ -10,8 +11,7 @@
             Color = color;
         }
 
-        public Geometry(Color color)
-        {
+        public Geometry(Color color) {
             Material = Material.FromColor(color);
             Color = color;
         }
