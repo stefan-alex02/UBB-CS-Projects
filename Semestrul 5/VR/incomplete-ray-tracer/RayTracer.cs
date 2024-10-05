@@ -52,13 +52,43 @@ namespace rt
             var background = new Color(0.2, 0.2, 0.2, 1.0);
 
             var image = new Image(width, height);
+            
+            camera.Normalize();
+            
+            // Using a view Parallel vector for calculating positional vector of points in the view plane
+            Vector parallel = camera.Direction ^ camera.Up;
+            parallel.Normalize();
 
             for (var i = 0; i < width; i++)
             {
                 for (var j = 0; j < height; j++)
                 {
-                    // TODO: ADD CODE HERE
-                    image.SetPixel(i, j, background);
+                    // Calculating cartesian distances of current point of row j and column i,
+                    // relative to the middle point 
+
+                    double a = ImageToViewPlane(j, height, camera.ViewPlaneHeight);
+                    double b = ImageToViewPlane(i, width, camera.ViewPlaneWidth);
+
+                    // Console.WriteLine(a + " " + b);
+
+                    Vector x1 = camera.Position +
+                                camera.Direction * camera.ViewPlaneDistance + 
+                                camera.Up * a +
+                                parallel * b;
+
+                    Line line = new Line(camera.Position, x1);
+
+                    Intersection intersection = FindFirstIntersection(line,
+                        camera.FrontPlaneDistance,
+                        camera.BackPlaneDistance);
+
+                    // Console.WriteLine(intersection.T);
+                    
+                    image.SetPixel(i, j, 
+                        intersection != Intersection.NONE && 
+                        intersection.Valid && 
+                        intersection.Visible ? 
+                            intersection.Color : background);
                 }
             }
 

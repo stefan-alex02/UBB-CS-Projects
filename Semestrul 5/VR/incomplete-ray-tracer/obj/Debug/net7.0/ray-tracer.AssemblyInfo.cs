@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ray-tracer")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7f02911e86de92fdcbbea75cc3f3341af05e5cd1")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+dd7aaa1bb16fa4db0eb254e9454eb34f456241aa")]
 [assembly: System.Reflection.AssemblyProductAttribute("ray-tracer")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ray-tracer")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

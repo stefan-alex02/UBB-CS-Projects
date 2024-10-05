@@ -77,6 +77,12 @@ namespace rt
             return new Vector(a.Y * b.Z - a.Z * b.Y, a.Z * b.X - a.X * b.Z, a.X * b.Y - a.Y * b.X);
         }
 
+        /// <summary>
+        /// Vector scalar multiplication
+        /// </summary>
+        /// <param name="v">a vector</param>
+        /// <param name="k">a scalar (real number)</param>
+        /// <returns>the scalar multiplication</returns>
         public static Vector operator *(Vector v, double k)
         {
             return new Vector(v.X * k, v.Y * k, v.Z * k);
