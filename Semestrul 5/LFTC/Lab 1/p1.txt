@@ -17,7 +17,7 @@ Specification:
     <type> ::= int | char | float
     <declaration> ::= <type> ID
     <declaration_list> ::= <declaration>,<lista_decl> | <declaration>
-    <antet> ::= <type> ID ( <declaration_list> )
+    <header> ::= <type> ID ( <declaration_list> )
 
     <rel_op> ::= != | == | < | > | <= | >=
     <arith_op> ::= + | - | * | / | %
@@ -30,7 +30,7 @@ Specification:
     <comp_instr> ::= <instr><comp_instr> | <instr>
     <body> ::= {<comp_instr>}
 
-    <cond> ::= <arith_expr><rel_op><expr_art>|<expr_art>
+    <cond> ::= <arith_expr><rel_op><expr_art> | <expr_art>
     <cycl_instr> ::= while ( <cond> ) <corp>
 
     <function> ::= <header><body>
