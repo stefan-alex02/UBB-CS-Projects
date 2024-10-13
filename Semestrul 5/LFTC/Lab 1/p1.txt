@@ -1,0 +1,44 @@
+Chosen language is a subset of C
+
+Necessary definitions:
+    <digit> ::= 0|1|...|9 .
+    <letter> ::= a|b|...|z|A|...|Z
+    <unsigned_integer> ::= <digit> | <digit><unsigned_integer> .
+
+Simple data type:
+    <integer> ::= <unsigned_integer> | - <unsigned_integer> .
+    <float> ::= <integer> | <integer> "." [{0} <unsigned_integer>] .
+    <complex> ::= <float> , <float>
+
+Keywords:
+
+
+Specification:
+    <type> ::= int | char | float
+    <declaration> ::= <type> ID
+    <declaration_list> ::= <declaration>,<lista_decl> | <declaration>
+    <antet> ::= <type> ID ( <declaration_list> )
+
+    <rel_op> ::= != | == | < | > | <= | >=
+    <arith_op> ::= + | - | * | / | %
+    <arith_expr> ::= <arith_expr><arith_op><arith_expr>| ID | CONST
+    <return_instr> ::= return <arith_expr>;
+
+    <assign> ::= ID = <arith_expr> ;
+    <decl> ::= <type> <assign> | <type> ID ;  
+    <instr> ::= <assign>|<cycl_instr>|<return_instr> |<decl>
+    <comp_instr> ::= <instr><comp_instr> | <instr>
+    <body> ::= {<comp_instr>}
+
+    <cond> ::= <arith_expr><rel_op><expr_art>|<expr_art>
+    <cycl_instr> ::= while ( <cond> ) <corp>
+
+    <function> ::= <header><body>
+
+
+    <output_instr> ::= printf(")
+
+Identifier restrictions:
+    ID - must no start with two letters, and then can be followed by any letter, digit or underscore. 
+        It must also not be identicle to any existing keyword
+    CONST - const numbers must not have more than 15 digits
