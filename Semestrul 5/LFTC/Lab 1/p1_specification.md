@@ -54,7 +54,7 @@
 
 ### 1.5 Operators
 
-- `=` - assignment
+- `<-` - assignment
 - `+` - addition
 - `-` - subtraction
 - `*` - multiplication
