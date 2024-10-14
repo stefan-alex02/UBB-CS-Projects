@@ -13,7 +13,7 @@
 
 ### 1.1 Reserved words
 
-- 🙂 - `void`
+- `void` - `void` data type
 - 🔢 - `int`
 - 🔣 - `float`
 - 🔤 - `char`
@@ -24,7 +24,7 @@
 - ↩️ - `return`
 - 🖨️ - `cout <<` / output operation
 - 👓 - `cin >>` / input operation
-- 🗄️ - `array` version of a data type
+- `[]` - `array` version of a data type
 
 ### 1.2 Identifiers (ID)
 
@@ -54,7 +54,7 @@
 
 ### 1.5 Operators
 
-- 📷 - assignment
+- `=` - assignment
 - `+` - addition
 - `-` - subtraction
 - `*` - multiplication
