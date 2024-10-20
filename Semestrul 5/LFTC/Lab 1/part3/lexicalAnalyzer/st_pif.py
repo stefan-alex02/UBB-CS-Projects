@@ -22,13 +22,13 @@ def create_st(code: list[str], keywords: dict[str, int]) -> (ArrayBST, int):
 """
 A function to create a program internal form (PIF) from given code, keywords dict, and symbol table
 """
-def create_pif(code: list[str], keywords: dict[str, int], st: ArrayBST) -> (list[tuple[str, int, int]], list[str]):
+def create_pif(code: list[str], atoms: dict[str, int], st: ArrayBST) -> (list[tuple[str, int, int]], list[str]):
     exceptions = []
 
     pif = []
     for atom in code:
-        if atom in keywords:
-            pif.append((atom, keywords[atom], None))
+        if atom in atoms:
+            pif.append((atom, atoms[atom], None))
         elif is_identifier(atom):
             pif.append((atom, 0, st.get(atom)))
         elif is_constant(atom):

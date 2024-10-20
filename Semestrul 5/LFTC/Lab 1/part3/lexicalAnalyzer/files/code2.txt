@@ -1,0 +1,48 @@
+🌠 main() === {
+    🔢 a2 = 5;
+    🔢 b = 10;
+    🔣 c = 3.14;
+    📌 pointA = 📌<1.0, 2.5>;
+    📰 name = "OpenAI";
+
+    📣 a + b;
+    📣 c;
+
+    ❓ (a > b) {
+        📣 "a is greater than b";
+    } ❗ {
+        📣 "b is greater than or equal to a";
+    }
+
+    🔄 (a <= b) {
+        a = a + 1;
+        📣 a;
+    }
+
+    🏠 0;
+}
+
+🌠 calculate() {
+    🔢 x = 20;
+    🔣 result = x * 3.5;
+
+    🔄 (x >= 1) {
+        📣 result;
+        x = x - 1;
+    }
+
+    🏠 result;
+}
+
+🌠 input_output_test() {
+    🔢 userInput;
+    🔬 userInput;
+
+    ❓ (userInput == 10) {
+        📣 "Input is equal to 10";
+    } ❗ {
+        📣 "Input is not equal to 10";
+    }
+
+    🏠 0;
+}

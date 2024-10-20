@@ -19,7 +19,7 @@ def save_st_to_csv(st: ArrayBST, file_path: str):
     with open(file_path, mode='w', encoding='utf-8', newline='') as file:
         writer = csv.writer(file)
         for node in st.nodes:
-            writer.writerow([node.key, node.value])
+            writer.writerow([node.value, node.key])
 
 def save_pif_to_csv(pif: list[tuple[str, int, int]], file_path: str):
     with open(file_path, mode='w', encoding='utf-8', newline='') as file:
@@ -30,16 +30,16 @@ def save_pif_to_csv(pif: list[tuple[str, int, int]], file_path: str):
 """
 A function to read code from a file and tokenize it
 """
-def get_code_pif_from_file(file_path: str, keywords: dict[str, int]) -> None:
+def get_code_pif_from_file(file_path: str, atoms_dict: dict[str, int]) -> None:
     with open(file_path, 'r', encoding='utf-8') as file:
         code = file.read()
 
     # Tokenize the code into atoms
-    atoms = tokenize(code)
+    code = tokenize(code)
 
     # Create the symbol table and PIF
-    symbol_table, no_identifiers = create_st(atoms, keywords)
-    pif, exceptions = create_pif(atoms, keywords, symbol_table)
+    symbol_table, no_identifiers = create_st(code, atoms_dict)
+    pif, exceptions = create_pif(code, atoms_dict, symbol_table)
 
     # Print the Symbol Table and PIF
     print("Symbol Table:")
@@ -65,4 +65,4 @@ if __name__ == "__main__":
     keywords = read_st_from_csv('atoms.csv')
 
     # Process the code from the file
-    get_code_pif_from_file('files/code1.txt', keywords)
+    get_code_pif_from_file('files/code3.txt', keywords)
