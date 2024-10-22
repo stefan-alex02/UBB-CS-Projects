@@ -1,1 +1,0 @@
-java Main.java "../../../resources/input/data_10_10_3.txt" 8 1

@@ -44,7 +44,7 @@ public class Main {
         suite.technique = Technique.values()[Integer.parseInt(args[2])];
 //        DataSuite suite = readDataFromFile("src/main/resources/input/data_10_10_3.txt");
 //        suite.nrThreads = Integer.parseInt("8");
-//        suite.technique = Technique.values()[Integer.parseInt("1")];
+//        suite.technique = Technique.values()[Integer.parseInt("7")];
 
         int[][] VSequential = new int[suite.n][suite.m];
         int[][] VParallel = new int[suite.n][suite.m];
@@ -66,10 +66,13 @@ public class Main {
                     distributor.distribute(suite.F, suite.n, suite.m, VParallel, suite.C,
                             suite.k, suite.nrThreads, suite.technique), VSequential, VParallel, suite.n, suite.m);
 
-            System.out.println(suite.technique.name() + " - Threads: " + suite.nrThreads + " Seq time: " + sequentialTime + " Time: " + parallelTime);
+            System.out.println(suite.technique.name() + " - Threads: " + suite.nrThreads + " Seq time: " +
+                    sequentialTime + " Time: " + parallelTime);
 
-            MatrixFileHandler.printResultToFile(VParallel, suite.n, suite.m,
-                    "../../../resources/output/result_" + suite.n + "_" + suite.m + "_" + suite.k + ".txt");
+//            String resourceFolderPath = "src/main/resources/output/";
+            String resourceFolderPath = "../../../resources/output/";
+            String outputFilePath = resourceFolderPath + "result_" + suite.n + "_" + suite.m + "_" + suite.k + ".txt";
+            MatrixFileHandler.printResultToFile(VParallel, suite.n, suite.m, outputFilePath);
         }
     }
 

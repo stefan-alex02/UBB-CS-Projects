@@ -9,7 +9,7 @@ public class DeltaCyclicConvolutionThread extends CyclicConvolutionThread {
 
     @Override
     public void run() {
-        for (int l = startIndex; l < n; l += step) {
+        for (int l = startIndex; l < n * m; l += step) {
             int i = l / m;
             int j = l % m;
             V[i][j] = Convolution.convolute(F, n, m, i, j, C, k);
