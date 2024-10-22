@@ -1,0 +1,15 @@
+package ro.ppd2024;
+
+public enum Technique {
+    SEQUENTIAL,
+
+    HORIZONTAL_LINEAR,
+    HORIZONTAL_CYCLIC,
+
+    VERTICAL_LINEAR,
+    VERTICAL_CYCLIC,
+
+    BLOCK,
+
+    DELTA_DISTRIBUTION
+}
