@@ -31,21 +31,27 @@ app.use(async (ctx, next) => {
 });
 
 class Movie {
-  constructor({ id, title, director, year, rating }) {
+  constructor({ id, title, director, year, rating, date}) {
     this.id = id;
     this.title = title;
     this.director = director;
-    this.year = year;
     this.rating = rating;
+    this.year = year;
+    this.date = date;
   }
 }
 
 const movies = [];
 for (let i = 0; i < 3; i++) {
-  movies.push(new Movie({ id: `${i}`, title: `Movie ${i}`, director: `Director ${i}`,
-    ranting: 1 + Math.random() * 9, year: 1900 + Math.random() * 126, date: new Date(Date.now() + 1)}));
+  movies.push(new Movie({ id: `${i}`,
+    title: `Movie ${i}`,
+    director: `Director ${i}`,
+    rating: Math.floor(1 + Math.random() * 9),
+    year: Math.floor(1900 + Math.random() * 126),
+    date: new Date(Date.now() + 1)}));
 }
-let lastMovie = movies[movies.length - 1];
+let lastUpdated = new Date();
+let largestId = 3;
 const pageSize = 10;
 
 const broadcast = data =>
@@ -58,7 +64,7 @@ const broadcast = data =>
 const router = new Router();
 
 router.get('/movie', ctx => {
-  ctx.response.body = items;
+  ctx.response.body = movies;
   ctx.response.status = 200;
 });
 
@@ -89,16 +95,17 @@ const createMovie = async (ctx) => {
     return;
   }
 
-  movie.id = `${lastMovie.id + 1}`;
-  lastMovie = movie;
+  movie.id = `${largestId + 1}`;
+  largestId = parseInt(movie.id);
   movie.date = new Date();
-  movies.push(item);
-  ctx.response.body = item;
+  movies.push(movie);
+  ctx.response.body = movie;
   ctx.response.status = 201; // CREATED
   broadcast({ event: 'created', payload: { movie } });
 };
 
 router.post('/movie', async (ctx) => {
+  console.log('POST /movie', ctx.request.body)
   await createMovie(ctx);
 });
 
@@ -107,6 +114,7 @@ router.put('/movie/:id', async (ctx) => {
   const movie = ctx.request.body;
   movie.date = new Date();
   const movieId = movie.id;
+  console.log('PUT /movie', movie, id, movieId)
   if (movieId && id !== movie.id) {
     ctx.response.body = { message: `Param id and body id should be the same` };
     ctx.response.status = 400; // BAD REQUEST
@@ -130,18 +138,17 @@ router.put('/movie/:id', async (ctx) => {
   // }
   // item.version++;
   movies[index] = movie;
-  lastMovie = movie;
-  ctx.response.body = item;
+  ctx.response.body = movie;
   ctx.response.status = 200; // OK
   broadcast({ event: 'updated', payload: { movie } });
 });
 
-router.del('/item/:id', ctx => {
+router.del('/movie/:id', ctx => {
   const id = ctx.params.id;
-  const index = items.findIndex(item => id === item.id);
+  const index = movies.findIndex(item => id === item.id);
   if (index !== -1) {
-    const item = items[index];
-    items.splice(index, 1);
+    const item = movies[index];
+    movies.splice(index, 1);
     lastUpdated = new Date();
     broadcast({ event: 'deleted', payload: { item } });
   }
@@ -150,13 +157,17 @@ router.del('/item/:id', ctx => {
 
 setInterval(() => {
   lastUpdated = new Date();
-  lastId = lastMovie.id + 1;
-  const movie = new Movie({...lastMovie, date: lastUpdated, id: lastId});
-  lastMovie = movie;
+  const movie = new Movie({id: largestId,
+    title: `Movie ${largestId}`,
+    director: `Director ${largestId}`,
+    rating: Math.floor(1 + Math.random() * 9),
+    year: Math.floor(1900 + Math.random() * 126),
+    date: lastUpdated});
+  largestId++;
   movies.push(movie);
-  console.log(`New movie: ${movie.title}`);
+  console.log(`New movie: ${movie.title} by ${movie.director}, year ${movie.year} with rating ${movie.rating}`);
   broadcast({ event: 'created', payload: { movie } });
-}, 5000);
+}, 10000);
 
 app.use(router.routes());
 app.use(router.allowedMethods());

@@ -1,11 +1,11 @@
 import axios from 'axios';
 import { getLogger } from '../core';
-import { ItemProps } from './ItemProps';
+import { MovieProps } from './MovieProps';
 
-const log = getLogger('itemApi');
+const log = getLogger('movieApi');
 
 const baseUrl = 'localhost:3000';
-const itemUrl = `http://${baseUrl}/item`;
+const movieUrl = `http://${baseUrl}/movie`;
 
 interface ResponseProps<T> {
   data: T;
@@ -30,22 +30,22 @@ const config = {
   }
 };
 
-export const getItems: () => Promise<ItemProps[]> = () => {
-  return withLogs(axios.get(itemUrl, config), 'getItems');
+export const getMovies: () => Promise<MovieProps[]> = () => {
+  return withLogs(axios.get(movieUrl, config), 'getMovies');
 }
 
-export const createItem: (item: ItemProps) => Promise<ItemProps[]> = item => {
-  return withLogs(axios.post(itemUrl, item, config), 'createItem');
+export const createMovie: (movie: MovieProps) => Promise<MovieProps[]> = movie => {
+  return withLogs(axios.post(movieUrl, movie, config), 'createMovie');
 }
 
-export const updateItem: (item: ItemProps) => Promise<ItemProps[]> = item => {
-  return withLogs(axios.put(`${itemUrl}/${item.id}`, item, config), 'updateItem');
+export const updateMovie: (movie: MovieProps) => Promise<MovieProps[]> = movie => {
+  return withLogs(axios.put(`${movieUrl}/${movie.id}`, movie, config), 'updateMovie');
 }
 
 interface MessageData {
   event: string;
   payload: {
-    item: ItemProps;
+    movie: MovieProps;
   };
 }
 

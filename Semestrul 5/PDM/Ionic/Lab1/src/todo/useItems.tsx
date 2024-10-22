@@ -1,12 +1,12 @@
 import { useCallback, useEffect, useReducer } from 'react';
 import { getLogger } from '../core';
-import { ItemProps } from './ItemProps';
-import { getItems } from './itemApi';
+import { MovieProps } from './MovieProps';
+import { getItems } from './movieApi';
 
 const log = getLogger('useItems');
 
 export interface ItemsState {
-  items?: ItemProps[],
+  items?: MovieProps[],
   fetching: boolean,
   fetchingError?: Error,
 }

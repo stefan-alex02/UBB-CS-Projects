@@ -32,23 +32,23 @@ import '@ionic/react/css/palettes/dark.system.css';
 /* Theme variables */
 import './theme/variables.css';
 import { ItemList } from './todo';
-import { ItemProvider } from './todo/ItemProvider';
-import ItemEdit from './todo/ItemEdit';
+import { MovieProvider } from './todo/MovieProvider';
+import MovieEdit from './todo/MovieEdit';
 
 setupIonicReact();
 
 const App: React.FC = () => (
   <IonApp>
-    <ItemProvider>
+    <MovieProvider>
       <IonReactRouter>
         <IonRouterOutlet>
-          <Route path="/items" component={ItemList} exact={true}/>
-          <Route path="/item" component={ItemEdit} exact={true}/>
-          <Route path="/item/:id" component={ItemEdit} exact={true}/>
-          <Route exact path="/" render={() => <Redirect to="/items"/>}/>
+          <Route path="/movies" component={ItemList} exact={true}/>
+          <Route path="/movie" component={MovieEdit} exact={true}/>
+          <Route path="/movie/:id" component={MovieEdit} exact={true}/>
+          <Route exact path="/" render={() => <Redirect to="/movies"/>}/>
         </IonRouterOutlet>
       </IonReactRouter>
-    </ItemProvider>
+    </MovieProvider>
   </IonApp>
 );
 
