@@ -39,11 +39,13 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        DataSuite suite = readDataFromFile("src/main/resources/input/data_10_10_3.txt");
-//        suite.nrThreads = Integer.parseInt(args[1]);
-//        suite.technique = Technique.values()[Integer.parseInt(args[2])];
-        suite.nrThreads = Integer.parseInt("8");
-        suite.technique = Technique.values()[Integer.parseInt("1")];
+        System.out.println(args[0] + " " + args[1] + " " + args[2]);
+        DataSuite suite = readDataFromFile(args[0]);
+        suite.nrThreads = Integer.parseInt(args[1]);
+        suite.technique = Technique.values()[Integer.parseInt(args[2])];
+//        DataSuite suite = readDataFromFile("src/main/resources/input/data_10_10_3.txt");
+//        suite.nrThreads = Integer.parseInt("8");
+//        suite.technique = Technique.values()[Integer.parseInt("1")];
 
         int[][] VSequential = new int[suite.n][suite.m];
         int[][] VParallel = new int[suite.n][suite.m];

@@ -44,7 +44,7 @@ public class MatrixFileHandler {
         // writing to file with format "data_[n]_[m]_[k].txt", in resources folder
         try {
             FileWriter fileWriter =
-                    new FileWriter("src/main/resources/data_" + n + "_" + m + "_" + k + ".txt");
+                    new FileWriter("src/main/resources/input/data_" + n + "_" + m + "_" + k + ".txt");
             fileWriter.write(n + " " + m + " " + k + "\n");
             writeMatrixToFile(fileWriter, matrix, n, m);
             writeMatrixToFile(fileWriter, filter, k, k);

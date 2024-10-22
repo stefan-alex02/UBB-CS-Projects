@@ -1,0 +1,2 @@
+C:/Windows/System32/WindowsPowerShell/v1.0/powershell.exe -File "C:/Users/Stefan/Documents/GitHub/UBB-CS-Projects/Semestrul 5/PPL/Laborator1/src/main/java/ro/ppd2024/scriptJ.ps1" "Main.java" 10 "src/main/resources/input/data_10_10_3.txt" 8
+java "src\main\java\ro\ppd2024\Main.java" "src/main/resources/input/data_10_10_3.txt" 8 1
