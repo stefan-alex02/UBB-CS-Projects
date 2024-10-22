@@ -168,8 +168,8 @@ public class Main {
     }
 
     public static void main(String[] args) throws InterruptedException {
-        int MAX = 1000000;
-        int noThreads = 32;
+        int MAX = 200;
+        int noThreads = 4;
 
         double[] array1 = new double[MAX];
         double[] array2 = new double[MAX];

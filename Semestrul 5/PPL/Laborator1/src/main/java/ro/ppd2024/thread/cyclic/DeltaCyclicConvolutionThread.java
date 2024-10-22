@@ -12,7 +12,7 @@ public class DeltaCyclicConvolutionThread extends CyclicConvolutionThread {
         for (int l = startIndex; l < n; l += step) {
             int i = l / m;
             int j = l % m;
-            V[i][j] = Convolution.convolute(F, m, n, i, j, C, k);
+            V[i][j] = Convolution.convolute(F, n, m, i, j, C, k);
         }
     }
 }

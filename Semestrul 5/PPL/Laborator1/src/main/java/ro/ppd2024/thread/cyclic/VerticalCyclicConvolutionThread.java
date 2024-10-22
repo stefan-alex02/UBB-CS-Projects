@@ -11,7 +11,7 @@ public class VerticalCyclicConvolutionThread extends CyclicConvolutionThread {
     public void run() {
         for (int i = 0; i < n; i++) {
             for (int j = startIndex; j < m; j += step) {
-                V[i][j] = Convolution.convolute(F, m, n, i, j, C, k);
+                V[i][j] = Convolution.convolute(F, n, m, i, j, C, k);
             }
         }
     }

@@ -1,10 +1,9 @@
 package ro.ppd2024.distributor;
 
 
+import ro.ppd2024.thread.cyclic.DeltaCyclicConvolutionThread;
 import ro.ppd2024.thread.cyclic.HorizontalCyclicConvolutionThread;
-import ro.ppd2024.thread.linear.DeltaLinearConvolutionThread;
-import ro.ppd2024.thread.linear.HorizontalLinearConvolutionThread;
-import ro.ppd2024.thread.linear.VerticalLinearConvolutionThread;
+import ro.ppd2024.thread.cyclic.VerticalCyclicConvolutionThread;
 import ro.ppd2024.util.Technique;
 
 public class CyclicDistributor implements Distributor {
@@ -19,10 +18,10 @@ public class CyclicDistributor implements Distributor {
                     threads[i] = new HorizontalCyclicConvolutionThread(F, V, n, m, C, k, i, nrThreads);
                     break;
                 case VERTICAL_CYCLIC:
-                    threads[i] = new VerticalLinearConvolutionThread(F, V, n, m, C, k, i, nrThreads);
+                    threads[i] = new VerticalCyclicConvolutionThread(F, V, n, m, C, k, i, nrThreads);
                     break;
                 case DELTA_CYCLIC:
-                    threads[i] = new DeltaLinearConvolutionThread(F, V, n, m, C, k, i, nrThreads);
+                    threads[i] = new DeltaCyclicConvolutionThread(F, V, n, m, C, k, i, nrThreads);
                     break;
                 default:
                     throw new IllegalArgumentException("Invalid technique");

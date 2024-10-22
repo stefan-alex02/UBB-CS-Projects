@@ -10,18 +10,18 @@ public class LinearDistributor implements Distributor {
     @Override
     public void distribute(int[][] F, int n, int m, int[][] V, int[][] C, int k,
                                   int nrThreads, Technique technique) {
-        int size = switch (technique) {
-            case HORIZONTAL_LINEAR -> n / nrThreads;
-            case VERTICAL_LINEAR -> m / nrThreads;
-            case DELTA_LINEAR -> n * m / nrThreads;
+        int limit = switch  (technique) {
+            case HORIZONTAL_LINEAR -> n;
+            case VERTICAL_LINEAR -> m;
+            case DELTA_LINEAR -> n * m;
             default -> throw new IllegalArgumentException("Invalid technique");
         };
-
-        int remainder = n % nrThreads;
+        int size = limit / nrThreads;
+        int remainder = limit % nrThreads;
         Thread[] threads = new Thread[nrThreads];
         int start = 0, end, i = 0;
 
-        while (start < n) {
+        while (start < limit) {
             end = start + size;
             if (remainder > 0) {
                 end++;
@@ -39,7 +39,7 @@ public class LinearDistributor implements Distributor {
                     threads[i] = new DeltaLinearConvolutionThread(F, V, n, m, C, k, start, end);
                     break;
             }
-            threads[start].start();
+            threads[i].start();
             start = end;
             i++;
         }
