@@ -39,7 +39,6 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        System.out.println(args[0] + " " + args[1] + " " + args[2]);
         DataSuite suite = readDataFromFile(args[0]);
         suite.nrThreads = Integer.parseInt(args[1]);
         suite.technique = Technique.values()[Integer.parseInt(args[2])];
@@ -53,10 +52,8 @@ public class Main {
         long sequentialTime = performTimer(() ->
                 SequentialConvolution.performTask(suite.F, suite.n, suite.m, VSequential, suite.C, suite.k));
 
-//            System.out.println(technique.name());
-
         if (suite.technique == Technique.SEQUENTIAL) {
-            System.out.println(sequentialTime);
+            System.out.println("Time: " + sequentialTime);
         } else {
             Distributor distributor = switch (suite.technique) {
                 case HORIZONTAL_LINEAR, VERTICAL_LINEAR, DELTA_LINEAR -> new LinearDistributor();
@@ -69,10 +66,10 @@ public class Main {
                     distributor.distribute(suite.F, suite.n, suite.m, VParallel, suite.C,
                             suite.k, suite.nrThreads, suite.technique), VSequential, VParallel, suite.n, suite.m);
 
-            System.out.println(suite.technique.name() + " - Seq: " + sequentialTime + " Par: " + parallelTime);
+            System.out.println(suite.technique.name() + " - Threads: " + suite.nrThreads + " Seq time: " + sequentialTime + " Time: " + parallelTime);
 
             MatrixFileHandler.printResultToFile(VParallel, suite.n, suite.m,
-                    "src/main/resources/output/result_" + suite.n + "_" + suite.m + "_" + suite.k + ".txt");
+                    "../../../resources/output/result_" + suite.n + "_" + suite.m + "_" + suite.k + ".txt");
         }
     }
 

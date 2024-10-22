@@ -3,6 +3,8 @@ $noRuns = $args[1] # No of runs
 $inputFile = $args[2] # Input file name
 $noThreads = $args[3] # No of threads
 
+$inputFolder = "../../../resources/input/" # Folder where input files are stored
+
 <#
 $param4 = $args[3] # ?
 Write-Host $param2
@@ -11,14 +13,16 @@ Write-Host $param2
 ls
 
 # Test for all techniques (0 for Sequential, 1-7 for Parallel)
-for ($technique = 0; $technique -lt 8; $technique++){
+for ($technique = 0; $technique -lt 8; $technique++) {
     # Execute Java class
     $sum = 0
     for ($i = 0; $i -lt $noRuns; $i++){
-        Write-Host "Rulare" ($i+1)
-        $a = java $javaClass $inputFile $noThreads $technique
-        Write-Host $a[$a.length-1]
-        $sum += $a[$a.length-1]
+        Write-Host "Run" ($i+1) $javaClass "Technique:" $technique " Input file:" $inputFile " Threads:" $noThreads
+        $a = java $javaClass $inputFolder$inputFile $noThreads $technique
+        Write-Host $a
+        $executionTimeLine = $a | Select-String -Pattern "Time: (\d+)"
+        $executionTime = $executionTimeLine.Matches[0].Groups[1].Value
+        $sum += [int64]$executionTime
         Write-Host ""
     }
     $average = $sum / $i
@@ -32,6 +36,6 @@ for ($technique = 0; $technique -lt 8; $technique++){
     }
 
     # Append to .csv file
-    Add-Content outJ.csv "$technique,$($args[0]),$($args[1]),$($media)"
+    Add-Content outJ.csv "$technique,$inputFile,$noThreads,$average"
 }
 
