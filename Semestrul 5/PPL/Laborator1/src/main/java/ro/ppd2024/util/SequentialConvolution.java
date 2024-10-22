@@ -1,4 +1,4 @@
-package ro.ppd2024;
+package ro.ppd2024.util;
 
 public class SequentialConvolution {
     public static void convolute(int[][] F, int n, int m, int[][] V, int[][] C, int k) {

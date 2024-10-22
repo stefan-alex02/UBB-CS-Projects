@@ -1,4 +1,4 @@
-package ro.ppd2024;
+package ro.ppd2024.util;
 
 public class Convolution {
     public static int convolute(int[][] F, int n, int m, int i, int j, int[][] C, int k) {

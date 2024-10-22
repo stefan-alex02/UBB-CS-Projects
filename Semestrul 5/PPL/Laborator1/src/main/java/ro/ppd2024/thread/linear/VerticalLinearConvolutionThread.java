@@ -1,6 +1,6 @@
 package ro.ppd2024.thread.linear;
 
-import ro.ppd2024.Convolution;
+import ro.ppd2024.util.Convolution;
 
 public class VerticalLinearConvolutionThread extends LinearConvolutionThread{
     public VerticalLinearConvolutionThread(int[][] F, int[][] V, int n, int m, int[][] C, int k, int start, int end) {
