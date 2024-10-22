@@ -1,15 +1,16 @@
 package ro.ppd2024.util;
 
-public class Technique {
-    public static int SEQUENTIAL = 0;
+public enum Technique {
+    SEQUENTIAL,
 
-    public static final int HORIZONTAL_LINEAR = 2;
-    public static final int HORIZONTAL_CYCLIC = 3;
+    HORIZONTAL_LINEAR,
+    HORIZONTAL_CYCLIC,
 
-    public static final int VERTICAL_LINEAR = 4;
-    public static final int VERTICAL_CYCLIC = 5;
+    VERTICAL_LINEAR,
+    VERTICAL_CYCLIC,
 
-    public static final int BLOCK = 6;
+    BLOCK,
 
-    public static final int DELTA_DISTRIBUTION = 7;
+    DELTA_LINEAR,
+    DELTA_CYCLIC,
 }
