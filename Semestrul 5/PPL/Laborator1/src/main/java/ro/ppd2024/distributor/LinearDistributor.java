@@ -6,8 +6,9 @@ import ro.ppd2024.thread.linear.HorizontalLinearConvolutionThread;
 import ro.ppd2024.thread.linear.VerticalLinearConvolutionThread;
 import ro.ppd2024.util.Technique;
 
-public class LinearDistributor {
-    public static void distribute(int[][] F, int n, int m, int[][] V, int[][] C, int k,
+public class LinearDistributor implements Distributor {
+    @Override
+    public void distribute(int[][] F, int n, int m, int[][] V, int[][] C, int k,
                                   int nrThreads, Technique technique) {
         int size = switch (technique) {
             case HORIZONTAL_LINEAR -> n / nrThreads;
