@@ -1,10 +1,10 @@
-package ro.ppd2024.thread;
+package ro.ppd2024.thread.linear;
 
 import ro.ppd2024.Convolution;
 
 public class HorizontalLinearConvolutionThread extends LinearConvolutionThread{
-    public HorizontalLinearConvolutionThread(int[][] F, int[][] V, int[][] C, int k, int start, int end, int n, int m) {
-        super(F, V, C, k, start, end, n, m);
+    public HorizontalLinearConvolutionThread(int[][] F, int[][] V, int n, int m, int[][] C, int k, int start, int end) {
+        super(F, V, n, m, C, k, start, end);
     }
 
     @Override
