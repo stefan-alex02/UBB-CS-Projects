@@ -178,6 +178,10 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <Project>{C9D46CDD-3A91-3886-9A66-A4C6780929B9}</Project>
       <Name>dynamic</Name>
     </ProjectReference>
+    <ProjectReference Include="C:\Users\Stefan\Documents\GitHub\UBB-CS-Projects\Semestrul 5\PPD\Laborator1\ConvolutionCpp\build\static.vcxproj">
+      <Project>{1FE0B5C1-6078-3F42-A9CD-F99C7EA2189E}</Project>
+      <Name>static</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

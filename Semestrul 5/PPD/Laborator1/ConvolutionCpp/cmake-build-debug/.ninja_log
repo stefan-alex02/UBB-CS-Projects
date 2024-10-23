@@ -1,0 +1,26 @@
+# ninja log v5
+48	348	7513528809344137	CMakeFiles/dynamic.dir/thread/BlockConvolutionThread.cpp.obj	d081c70865d9e248
+38	367	7513528809334148	CMakeFiles/dynamic.dir/thread/LinearConvolutionThread.cpp.obj	c72837d5c2bff220
+23	568	7513528811554614	CMakeFiles/dynamic.dir/util/Convolution.cpp.obj	a49036920c4c6e27
+30	374	7513528809434145	CMakeFiles/dynamic.dir/thread/CyclicConvolutionThread.cpp.obj	7d4feb06c53cbd5e
+16	1228	7513528818198554	CMakeFiles/dynamic.dir/distributor/LinearDistributor.cpp.obj	143151fdee78a281
+7	507	7513570161917198	CMakeFiles/dynamic.dir/distributor/BlockDistributor.cpp.obj	1fc105334fbadb7c
+87	378	7513528809564139	CMakeFiles/dynamic.dir/util/SequentialConvolution.cpp.obj	602f1a30e1cef2ee
+10	1384	7513533728607694	CMakeFiles/dynamic.dir/util/matrixFileHandler.cpp.obj	a09cce2564bddc16
+7	1234	7513764082904800	CMakeFiles/dynamic.dir/main_dynamic.cpp.obj	701946c0e40ef9e3
+10	1256	7513528818468513	CMakeFiles/dynamic.dir/distributor/CyclicDistributor.cpp.obj	a54caa4610052596
+15	747	7513764078030546	CMakeFiles/dynamic.dir/util/matrixUtils.cpp.obj	52beed4b7c821873
+1235	1463	7513764085030969	dynamic.exe	564b4bdb24c5871e
+3	326	7513790591040595	build.ninja	345703980d39d651
+35	404	7513756623443405	CMakeFiles/static.dir/thread/CyclicConvolutionThread.cpp.obj	8cccde7db81ef7c2
+12	388	7513756623288227	CMakeFiles/static.dir/thread/BlockConvolutionThread.cpp.obj	b98ce03d38514be7
+27	415	7513756623563369	CMakeFiles/static.dir/thread/LinearConvolutionThread.cpp.obj	db9b2c4cf59df7c5
+27	164	7513744487863986	CMakeFiles/static.dir/util/SequentialConvolution.cpp.obj	43dccd898841125
+14	781	7513744494026988	CMakeFiles/static.dir/util/matrixFileHandler.cpp.obj	3051de3549be7c4d
+6	235	7513746353008882	CMakeFiles/static.dir/util/Convolution.cpp.obj	2ff656f16401e929
+20	891	7513756628316564	CMakeFiles/static.dir/util/matrixUtils.cpp.obj	69f75f6e32b2deb7
+5	580	7513757881678578	CMakeFiles/static.dir/distributor/BlockDistributor.cpp.obj	6f51f02134868ba4
+18	561	7513757881488292	CMakeFiles/static.dir/distributor/LinearDistributor.cpp.obj	45f5cfe39f6de206
+12	547	7513757881348288	CMakeFiles/static.dir/distributor/CyclicDistributor.cpp.obj	b0c91caf7914c91a
+7	1287	7513789165986653	CMakeFiles/static.dir/main_static.cpp.obj	587e8c68c086db5e
+1288	1648	7513789169317531	static.exe	bf0022779bcb74be

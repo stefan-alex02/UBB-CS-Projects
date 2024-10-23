@@ -121,6 +121,7 @@
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <ImportLibrary>C:/Users/Stefan/Documents/GitHub/UBB-CS-Projects/Semestrul 5/PPD/Laborator1/ConvolutionCpp/build/Debug/dynamic.lib</ImportLibrary>
       <ProgramDataBaseFile>C:/Users/Stefan/Documents/GitHub/UBB-CS-Projects/Semestrul 5/PPD/Laborator1/ConvolutionCpp/build/Debug/dynamic.pdb</ProgramDataBaseFile>
+      <StackReserveSize>1000000000</StackReserveSize>
       <SubSystem>Console</SubSystem>
     </Link>
     <ProjectReference>
@@ -165,6 +166,7 @@
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <ImportLibrary>C:/Users/Stefan/Documents/GitHub/UBB-CS-Projects/Semestrul 5/PPD/Laborator1/ConvolutionCpp/build/Release/dynamic.lib</ImportLibrary>
       <ProgramDataBaseFile>C:/Users/Stefan/Documents/GitHub/UBB-CS-Projects/Semestrul 5/PPD/Laborator1/ConvolutionCpp/build/Release/dynamic.pdb</ProgramDataBaseFile>
+      <StackReserveSize>1000000000</StackReserveSize>
       <SubSystem>Console</SubSystem>
     </Link>
     <ProjectReference>
@@ -209,6 +211,7 @@
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <ImportLibrary>C:/Users/Stefan/Documents/GitHub/UBB-CS-Projects/Semestrul 5/PPD/Laborator1/ConvolutionCpp/build/MinSizeRel/dynamic.lib</ImportLibrary>
       <ProgramDataBaseFile>C:/Users/Stefan/Documents/GitHub/UBB-CS-Projects/Semestrul 5/PPD/Laborator1/ConvolutionCpp/build/MinSizeRel/dynamic.pdb</ProgramDataBaseFile>
+      <StackReserveSize>1000000000</StackReserveSize>
       <SubSystem>Console</SubSystem>
     </Link>
     <ProjectReference>
@@ -252,6 +255,7 @@
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <ImportLibrary>C:/Users/Stefan/Documents/GitHub/UBB-CS-Projects/Semestrul 5/PPD/Laborator1/ConvolutionCpp/build/RelWithDebInfo/dynamic.lib</ImportLibrary>
       <ProgramDataBaseFile>C:/Users/Stefan/Documents/GitHub/UBB-CS-Projects/Semestrul 5/PPD/Laborator1/ConvolutionCpp/build/RelWithDebInfo/dynamic.pdb</ProgramDataBaseFile>
+      <StackReserveSize>1000000000</StackReserveSize>
       <SubSystem>Console</SubSystem>
     </Link>
     <ProjectReference>
@@ -316,17 +320,8 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="C:\Users\Stefan\Documents\GitHub\UBB-CS-Projects\Semestrul 5\PPD\Laborator1\ConvolutionCpp\distributor\BlockDistributor.cpp" />
-    <ClCompile Include="C:\Users\Stefan\Documents\GitHub\UBB-CS-Projects\Semestrul 5\PPD\Laborator1\ConvolutionCpp\distributor\CyclicDistributor.cpp" />
-    <ClCompile Include="C:\Users\Stefan\Documents\GitHub\UBB-CS-Projects\Semestrul 5\PPD\Laborator1\ConvolutionCpp\distributor\LinearDistributor.cpp" />
-    <ClCompile Include="C:\Users\Stefan\Documents\GitHub\UBB-CS-Projects\Semestrul 5\PPD\Laborator1\ConvolutionCpp\thread\BlockConvolutionThread.cpp" />
-    <ClCompile Include="C:\Users\Stefan\Documents\GitHub\UBB-CS-Projects\Semestrul 5\PPD\Laborator1\ConvolutionCpp\thread\CyclicConvolutionThread.cpp" />
-    <ClCompile Include="C:\Users\Stefan\Documents\GitHub\UBB-CS-Projects\Semestrul 5\PPD\Laborator1\ConvolutionCpp\thread\LinearConvolutionThread.cpp" />
-    <ClCompile Include="C:\Users\Stefan\Documents\GitHub\UBB-CS-Projects\Semestrul 5\PPD\Laborator1\ConvolutionCpp\util\Convolution.cpp" />
-    <ClCompile Include="C:\Users\Stefan\Documents\GitHub\UBB-CS-Projects\Semestrul 5\PPD\Laborator1\ConvolutionCpp\util\matrixFileHandler.cpp" />
-    <ClCompile Include="C:\Users\Stefan\Documents\GitHub\UBB-CS-Projects\Semestrul 5\PPD\Laborator1\ConvolutionCpp\util\matrixUtils.cpp" />
-    <ClCompile Include="C:\Users\Stefan\Documents\GitHub\UBB-CS-Projects\Semestrul 5\PPD\Laborator1\ConvolutionCpp\util\SequentialConvolution.cpp" />
     <ClCompile Include="C:\Users\Stefan\Documents\GitHub\UBB-CS-Projects\Semestrul 5\PPD\Laborator1\ConvolutionCpp\main_dynamic.cpp" />
+    <ClCompile Include="C:\Users\Stefan\Documents\GitHub\UBB-CS-Projects\Semestrul 5\PPD\Laborator1\ConvolutionCpp\util\matrixUtils.cpp" />
     <ClInclude Include="C:\Users\Stefan\Documents\GitHub\UBB-CS-Projects\Semestrul 5\PPD\Laborator1\ConvolutionCpp\distributor\BlockDistributor.h" />
     <ClInclude Include="C:\Users\Stefan\Documents\GitHub\UBB-CS-Projects\Semestrul 5\PPD\Laborator1\ConvolutionCpp\distributor\CyclicDistributor.h" />
     <ClInclude Include="C:\Users\Stefan\Documents\GitHub\UBB-CS-Projects\Semestrul 5\PPD\Laborator1\ConvolutionCpp\distributor\LinearDistributor.h" />

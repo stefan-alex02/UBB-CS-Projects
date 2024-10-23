@@ -10,7 +10,7 @@
 #include "distributor/CyclicDistributor.h"
 #include "distributor/BlockDistributor.h"
 
-void readDataFromFile(const std::string &filename, DataSuite &dataSuite) {
+void readDataFromFile(const std::string &filename, DataSuite<int**, int**> &dataSuite) {
     try {
         std::ifstream fin(filename);
         if (!fin.is_open()) {
@@ -32,15 +32,15 @@ void readDataFromFile(const std::string &filename, DataSuite &dataSuite) {
         for (int i = 0; i < dataSuite.k; ++i) {
             dataSuite.C[i] = new int[dataSuite.k];
         }
-        readMatrixFromFile(fin, dataSuite.F, dataSuite.n, dataSuite.m);
-        readMatrixFromFile(fin, dataSuite.C, dataSuite.k, dataSuite.k);
+        readMatrixFromFile<int**>(fin, dataSuite.F, dataSuite.n, dataSuite.m);
+        readMatrixFromFile<int**>(fin, dataSuite.C, dataSuite.k, dataSuite.k);
     } catch (const std::exception &e) {
         std::cerr << (e.what() == nullptr ? "" : e.what()) << std::endl;
     }
 }
 
 int main(int argc, char *argv[]) {
-    DataSuite suite{};
+    DataSuite<int**, int**> suite{};
     readDataFromFile(argv[1], suite);
     suite.nrThreads = std::stoi(argv[2]);
     suite.technique = static_cast<Technique>(std::stoi(argv[3]));
@@ -65,20 +65,20 @@ int main(int argc, char *argv[]) {
         std::cout << "Seq. time: " << sequentialTime << " ms" << std::endl;
     } else {
         // Parallel convolution based on technique
-        Distributor *distributor;
+        Distributor<int**, int**> *distributor;
         switch (suite.technique) {
             case Technique::HORIZONTAL_LINEAR:
             case Technique::VERTICAL_LINEAR:
             case Technique::DELTA_LINEAR:
-                distributor = new LinearDistributor();
+                distributor = new LinearDistributor<int**, int**>();
                 break;
             case Technique::HORIZONTAL_CYCLIC:
             case Technique::VERTICAL_CYCLIC:
             case Technique::DELTA_CYCLIC:
-                distributor = new CyclicDistributor();
+                distributor = new CyclicDistributor<int**, int**>();
                 break;
             case Technique::BLOCK:
-                distributor = new BlockDistributor();
+                distributor = new BlockDistributor<int**, int**>();
                 break;
             default:
                 throw std::invalid_argument("Invalid technique");

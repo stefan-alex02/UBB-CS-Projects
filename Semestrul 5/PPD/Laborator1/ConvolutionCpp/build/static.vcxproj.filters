@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\Users\Stefan\Documents\GitHub\UBB-CS-Projects\Semestrul 5\PPD\Laborator1\ConvolutionCpp\main_static.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Stefan\Documents\GitHub\UBB-CS-Projects\Semestrul 5\PPD\Laborator1\ConvolutionCpp\util\matrixUtils.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="C:\Users\Stefan\Documents\GitHub\UBB-CS-Projects\Semestrul 5\PPD\Laborator1\ConvolutionCpp\distributor\BlockDistributor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Stefan\Documents\GitHub\UBB-CS-Projects\Semestrul 5\PPD\Laborator1\ConvolutionCpp\distributor\CyclicDistributor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Stefan\Documents\GitHub\UBB-CS-Projects\Semestrul 5\PPD\Laborator1\ConvolutionCpp\distributor\LinearDistributor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Stefan\Documents\GitHub\UBB-CS-Projects\Semestrul 5\PPD\Laborator1\ConvolutionCpp\distributor\Distributor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Stefan\Documents\GitHub\UBB-CS-Projects\Semestrul 5\PPD\Laborator1\ConvolutionCpp\thread\BlockConvolutionThread.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Stefan\Documents\GitHub\UBB-CS-Projects\Semestrul 5\PPD\Laborator1\ConvolutionCpp\thread\CyclicConvolutionThread.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Stefan\Documents\GitHub\UBB-CS-Projects\Semestrul 5\PPD\Laborator1\ConvolutionCpp\thread\LinearConvolutionThread.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Stefan\Documents\GitHub\UBB-CS-Projects\Semestrul 5\PPD\Laborator1\ConvolutionCpp\util\Convolution.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Stefan\Documents\GitHub\UBB-CS-Projects\Semestrul 5\PPD\Laborator1\ConvolutionCpp\util\matrixFileHandler.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Stefan\Documents\GitHub\UBB-CS-Projects\Semestrul 5\PPD\Laborator1\ConvolutionCpp\util\matrixUtils.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Stefan\Documents\GitHub\UBB-CS-Projects\Semestrul 5\PPD\Laborator1\ConvolutionCpp\util\SequentialConvolution.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Stefan\Documents\GitHub\UBB-CS-Projects\Semestrul 5\PPD\Laborator1\ConvolutionCpp\util\technique.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\Stefan\Documents\GitHub\UBB-CS-Projects\Semestrul 5\PPD\Laborator1\ConvolutionCpp\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{0D42F994-8E2C-3279-BB46-C2757D8C2E0A}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{DC2B3887-EA91-3B37-9060-3E48E015DE00}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

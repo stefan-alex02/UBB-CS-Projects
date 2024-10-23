@@ -1,6 +1,5 @@
 #include <iostream>
 #include <fstream>
-#include <functional>
 #include "util/technique.h"
 #include "util/matrixUtils.h"
 #include "util/matrixFileHandler.h"
@@ -31,10 +30,10 @@ void readDataFromFile(const std::string &filename, DataSuite<int[MAX_SIZE][MAX_S
         if (!(iss >> dataSuite.n >> dataSuite.m >> dataSuite.k)) {
             throw std::runtime_error("Error parsing matrix dimensions");
         }
-        dataSuite.F = F;
-        dataSuite.C = C;
-        readMatrixFromFile(fin, dataSuite.F, dataSuite.n, dataSuite.m);
-        readMatrixFromFile(fin, dataSuite.C, dataSuite.k, dataSuite.k);
+        std::cerr << "File read successfully. Matrix dimensions: " << dataSuite.n << "x" << dataSuite.m << " kernel size: " << dataSuite.k << std::endl;
+
+        readMatrixFromFile<int[MAX_SIZE][MAX_SIZE]>(fin, F, dataSuite.n, dataSuite.m);
+        readMatrixFromFile<int[5][5]>(fin, C, dataSuite.k, dataSuite.k);
     } catch (const std::exception &e) {
         std::cerr << (e.what() == nullptr ? "" : e.what()) << std::endl;
     }
@@ -42,20 +41,21 @@ void readDataFromFile(const std::string &filename, DataSuite<int[MAX_SIZE][MAX_S
 
 int main(int argc, char *argv[]) {
     DataSuite<int[MAX_SIZE][MAX_SIZE], int[5][5]> suite{};
-//    readDataFromFile(argv[1], suite);
-//    suite.nrThreads = std::stoi(argv[2]);
-//    suite.technique = static_cast<Technique>(std::stoi(argv[3]));
-    readDataFromFile("../data/input/data_10_10_3.txt", suite);
-    suite.nrThreads = std::stoi("2");
-    suite.technique = static_cast<Technique>(std::stoi("5"));
+    readDataFromFile(argv[1], suite);
+    suite.nrThreads = std::stoi(argv[2]);
+    suite.technique = static_cast<Technique>(std::stoi(argv[3]));
+//    readDataFromFile("../data/input/data_10_10_3.txt", suite);
+//    suite.nrThreads = std::stoi("2");
+//    suite.technique = static_cast<Technique>(std::stoi("5"));
 
     // Sequential convolution
     double sequentialTime = performTimer([&]() {
-        SequentialConvolution::performTask(suite.F, suite.n, suite.m, VSequential, suite.C, suite.k);
+        SequentialConvolution::performTask<int[MAX_SIZE][MAX_SIZE], int[5][5]>
+                (F, suite.n, suite.m, VSequential, C, suite.k);
     });
 
     if (suite.technique == Technique::SEQUENTIAL) {
-        std::cout << "Seq. time: " << sequentialTime << " ms" << std::endl;
+        std::cout << "Seq. time: " << sequentialTime << " ms\n";
     } else {
         // Parallel convolution based on technique
         Distributor<int[MAX_SIZE][MAX_SIZE], int[5][5]> *distributor;
@@ -77,8 +77,8 @@ int main(int argc, char *argv[]) {
                 throw std::invalid_argument("Invalid technique");
         }
 
-        double parallelTime = performTimerAndAssertion([&]() {
-            distributor->distribute(suite.F, suite.n, suite.m, VParallel, suite.C, suite.k, suite.nrThreads,
+        double parallelTime = performTimerAndAssertion<int[MAX_SIZE][MAX_SIZE]>([&]() {
+            distributor->distribute(F, suite.n, suite.m, VParallel, C, suite.k, suite.nrThreads,
                                     suite.technique);
         }, VSequential, VParallel, suite.n, suite.m);
 

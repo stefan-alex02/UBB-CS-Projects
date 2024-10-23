@@ -1,0 +1,4 @@
+C:/Users/Stefan/Documents/GitHub/UBB-CS-Projects/Semestrul 5/PPD/Laborator1/ConvolutionCpp/cmake-build-debug/CMakeFiles/dynamic.dir
+C:/Users/Stefan/Documents/GitHub/UBB-CS-Projects/Semestrul 5/PPD/Laborator1/ConvolutionCpp/cmake-build-debug/CMakeFiles/static.dir
+C:/Users/Stefan/Documents/GitHub/UBB-CS-Projects/Semestrul 5/PPD/Laborator1/ConvolutionCpp/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/Stefan/Documents/GitHub/UBB-CS-Projects/Semestrul 5/PPD/Laborator1/ConvolutionCpp/cmake-build-debug/CMakeFiles/rebuild_cache.dir
