@@ -9,17 +9,18 @@ import ro.ppd2024.util.SequentialConvolution;
 import ro.ppd2024.util.Technique;
 
 import static ro.ppd2024.MatrixFileHandler.readDataFromFile;
+import static ro.ppd2024.util.Technique.SEQUENTIAL;
 
 public class Main {
-    public static long performTimer(Runnable runnable) {
-        long start = System.nanoTime();
+    public static double performTimer(Runnable runnable) {
+        double start = System.nanoTime() / 1e6;
         runnable.run();
-        long end = System.nanoTime();
-        return end - start;
+        double end = System.nanoTime() / 1e6;
+        return Double.parseDouble(String.format("%.6f", end - start));
     }
 
-    public static long performTimerAndAssertion(Runnable runnable, int[][] expected, int[][] actual, int n, int m) {
-        long time = performTimer(runnable);
+    public static double performTimerAndAssertion(Runnable runnable, int[][] expected, int[][] actual, int n, int m) {
+        double time = performTimer(runnable);
 //        printMatrix(expected, n, m);
 //        System.out.println();
 //        printMatrix(actual, n, m);
@@ -43,17 +44,17 @@ public class Main {
         suite.nrThreads = Integer.parseInt(args[1]);
         suite.technique = Technique.values()[Integer.parseInt(args[2])];
 //        DataSuite suite = readDataFromFile("src/main/resources/input/data_10_10_3.txt");
-//        suite.nrThreads = Integer.parseInt("8");
-//        suite.technique = Technique.values()[Integer.parseInt("7")];
+//        suite.nrThreads = Integer.parseInt("16");
+//        suite.technique = Technique.values()[Integer.parseInt("3")];
 
         int[][] VSequential = new int[suite.n][suite.m];
         int[][] VParallel = new int[suite.n][suite.m];
 
-        long sequentialTime = performTimer(() ->
+        double sequentialTime = performTimer(() ->
                 SequentialConvolution.performTask(suite.F, suite.n, suite.m, VSequential, suite.C, suite.k));
 
-        if (suite.technique == Technique.SEQUENTIAL) {
-            System.out.println("Time: " + sequentialTime);
+        if (suite.technique == SEQUENTIAL) {
+            System.out.println("Seq. time: " + sequentialTime);
         } else {
             Distributor distributor = switch (suite.technique) {
                 case HORIZONTAL_LINEAR, VERTICAL_LINEAR, DELTA_LINEAR -> new LinearDistributor();
@@ -62,15 +63,14 @@ public class Main {
                 default -> throw new IllegalArgumentException("Invalid technique");
             };
 
-            long parallelTime = performTimerAndAssertion(() ->
+            double parallelTime = performTimerAndAssertion(() ->
                     distributor.distribute(suite.F, suite.n, suite.m, VParallel, suite.C,
                             suite.k, suite.nrThreads, suite.technique), VSequential, VParallel, suite.n, suite.m);
 
-            System.out.println(suite.technique.name() + " - Threads: " + suite.nrThreads + " Seq time: " +
-                    sequentialTime + " Time: " + parallelTime);
+            System.out.println(suite.technique.name() + " - Threads: " + suite.nrThreads + " Seq. time: " +
+                    sequentialTime + "Par. time: " + parallelTime);
 
-//            String resourceFolderPath = "src/main/resources/output/";
-            String resourceFolderPath = "../../../resources/output/";
+            String resourceFolderPath = "src/main/resources/output/";
             String outputFilePath = resourceFolderPath + "result_" + suite.n + "_" + suite.m + "_" + suite.k + ".txt";
             MatrixFileHandler.printResultToFile(VParallel, suite.n, suite.m, outputFilePath);
         }

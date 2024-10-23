@@ -1,0 +1,10 @@
+^C:\USERS\STEFAN\DOCUMENTS\GITHUB\UBB-CS-PROJECTS\SEMESTRUL 5\PPD\LABORATOR1\CONVOLUTIONCPP\BUILD\CMAKEFILES\FCC52AF3DDA40B99A629C41A24495E29\GENERATE.STAMP.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" "-SC:/Users/Stefan/Documents/GitHub/UBB-CS-Projects/Semestrul 5/PPD/Laborator1/ConvolutionCpp" "-BC:/Users/Stefan/Documents/GitHub/UBB-CS-Projects/Semestrul 5/PPD/Laborator1/ConvolutionCpp/build" --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file "C:/Users/Stefan/Documents/GitHub/UBB-CS-Projects/Semestrul 5/PPD/Laborator1/ConvolutionCpp/build/ConvolutionCpp.sln"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

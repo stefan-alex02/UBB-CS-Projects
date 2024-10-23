@@ -15,7 +15,7 @@ public class BlockDistributor implements Distributor {
         int remainderN = n % threadsPerSide;
         int blockSizeM = m / threadsPerSide;
         int remainderM = m % threadsPerSide;
-        Thread[] threads = new Thread[nrThreads];
+        Thread[] threads = new Thread[threadsPerSide*threadsPerSide];
 
         int t = 0;
         for (int startRow = 0; startRow < n;) {

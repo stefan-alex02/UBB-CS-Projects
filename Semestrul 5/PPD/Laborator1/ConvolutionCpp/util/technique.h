@@ -1,0 +1,19 @@
+#ifndef TECHNIQUE_H
+#define TECHNIQUE_H
+
+enum Technique {
+    SEQUENTIAL,
+
+    HORIZONTAL_LINEAR,
+    HORIZONTAL_CYCLIC,
+
+    VERTICAL_LINEAR,
+    VERTICAL_CYCLIC,
+
+    BLOCK,
+
+    DELTA_LINEAR,
+    DELTA_CYCLIC
+};
+
+#endif //TECHNIQUE_H

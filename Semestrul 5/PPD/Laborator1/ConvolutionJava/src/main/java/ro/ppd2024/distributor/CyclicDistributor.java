@@ -15,10 +15,10 @@ public class CyclicDistributor implements Distributor {
         for (int i = 0; i < nrThreads; i++) {
             switch (technique) {
                 case HORIZONTAL_CYCLIC:
-                    threads[i] = new HorizontalCyclicConvolutionThread(F, V, n, m, C, k, i, nrThreads);
+                    threads[i] = new HorizontalCyclicConvolutionThread(F, V, n, m, C, k, i, Math.min(n, nrThreads));
                     break;
                 case VERTICAL_CYCLIC:
-                    threads[i] = new VerticalCyclicConvolutionThread(F, V, n, m, C, k, i, nrThreads);
+                    threads[i] = new VerticalCyclicConvolutionThread(F, V, n, m, C, k, i, Math.min(m, nrThreads));
                     break;
                 case DELTA_CYCLIC:
                     threads[i] = new DeltaCyclicConvolutionThread(F, V, n, m, C, k, i, nrThreads);

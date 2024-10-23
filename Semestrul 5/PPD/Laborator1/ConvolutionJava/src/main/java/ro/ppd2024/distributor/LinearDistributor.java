@@ -16,6 +16,7 @@ public class LinearDistributor implements Distributor {
             case DELTA_LINEAR -> n * m;
             default -> throw new IllegalArgumentException("Invalid technique");
         };
+        nrThreads = Math.min(nrThreads, limit);
         int size = limit / nrThreads;
         int remainder = limit % nrThreads;
         Thread[] threads = new Thread[nrThreads];

@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\Stefan\Documents\GitHub\UBB-CS-Projects\Semestrul 5\PPD\Laborator1\ConvolutionCpp\build\CMakeFiles\fcc52af3dda40b99a629c41a24495e29\generate.stamp.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{3365424A-CCEF-32C2-BB4B-BD06A5F574CE}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

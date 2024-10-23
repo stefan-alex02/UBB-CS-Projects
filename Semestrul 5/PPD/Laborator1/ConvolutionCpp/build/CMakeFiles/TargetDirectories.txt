@@ -1,0 +1,3 @@
+C:/Users/Stefan/Documents/GitHub/UBB-CS-Projects/Semestrul 5/PPD/Laborator1/ConvolutionCpp/build/CMakeFiles/dynamic.dir
+C:/Users/Stefan/Documents/GitHub/UBB-CS-Projects/Semestrul 5/PPD/Laborator1/ConvolutionCpp/build/CMakeFiles/ALL_BUILD.dir
+C:/Users/Stefan/Documents/GitHub/UBB-CS-Projects/Semestrul 5/PPD/Laborator1/ConvolutionCpp/build/CMakeFiles/ZERO_CHECK.dir

@@ -13,6 +13,7 @@ public class VerticalLinearConvolutionThread extends LinearConvolutionThread{
             for (int j = start; j < end; j++) {
                 V[i][j] = Convolution.convolute(F, n, m, i, j, C, k);
             }
+
         }
     }
 }
