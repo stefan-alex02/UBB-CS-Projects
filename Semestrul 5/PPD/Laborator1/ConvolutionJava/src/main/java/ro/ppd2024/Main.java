@@ -68,7 +68,7 @@ public class Main {
                             suite.k, suite.nrThreads, suite.technique), VSequential, VParallel, suite.n, suite.m);
 
             System.out.println(suite.technique.name() + " - Threads: " + suite.nrThreads + " Seq. time: " +
-                    sequentialTime + "Par. time: " + parallelTime);
+                    sequentialTime + " Par. time: " + parallelTime);
 
             String resourceFolderPath = "src/main/resources/output/";
             String outputFilePath = resourceFolderPath + "result_" + suite.n + "_" + suite.m + "_" + suite.k + ".txt";

@@ -23,7 +23,7 @@ foreach ($noThreads in $threadCounts) {
 
     # Iterating through all input files
     foreach ($inputFile in $inputFiles) {
-
+        data_1000_1000_5.txt
         # Iterating through all techniques (0 for Sequential, 1-7 for Parallel)
         for ($technique = 0; $technique -lt 8; $technique++) {
 

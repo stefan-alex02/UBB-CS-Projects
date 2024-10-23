@@ -88,10 +88,11 @@ public class MatrixFileHandler {
         int min = 0;
         int max = 100;
 
-        generateFile(10, 10, 3, min, max);
+//        generateFile(10, 10, 3, min, max);
         generateFile(1000, 1000, 5, min, max);
-        generateFile(10, 10000, 5, min, max);
-        generateFile(10000, 10, 5, min, max);
-        generateFile(10000, 10000, 5, min, max);
+//        generateFile(10, 10000, 5, min, max);
+//        generateFile(10000, 10, 5, min, max);
+//        generateFile(10000, 10000, 5, min, max);
+//        generateFile(100, 100, 5, min, max);
     }
 }

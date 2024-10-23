@@ -164,3 +164,6 @@ Threads,Matrix,Technique,Execution Time
 16,data_10_10_3.txt,3,2.998130
 16,data_10_10000_5.txt,1,4.696450
 16,data_10000_10_5.txt,3,5.902610
+8,src/main/resources/input/data_1000_1000_5.txt,2,89.884821
+8,src/main/resources/input/data_1000_1000_5.txt,2,88.673859
+8,src/main/resources/input/data_1000_1000_5.txt,7,88.882880
