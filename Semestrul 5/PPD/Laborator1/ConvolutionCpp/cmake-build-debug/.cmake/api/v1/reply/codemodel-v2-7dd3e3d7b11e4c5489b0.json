@@ -1,0 +1,69 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"jsonFile" : "directory-.-Debug-f5ebdc15457944623624.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.27"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "ConvolutionCpp",
+					"targetIndexes" : 
+					[
+						0,
+						1
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "dynamic::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-dynamic-Debug-490b4253f5c88e16a5e0.json",
+					"name" : "dynamic",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "static::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-static-Debug-a0386967d06bf61289f8.json",
+					"name" : "static",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/mnt/c/Users/Stefan/Documents/GitHub/UBB-CS-Projects/Semestrul 5/PPD/Laborator1/ConvolutionCpp/cmake-build-debug",
+		"source" : "/mnt/c/Users/Stefan/Documents/GitHub/UBB-CS-Projects/Semestrul 5/PPD/Laborator1/ConvolutionCpp"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 6
+	}
+}

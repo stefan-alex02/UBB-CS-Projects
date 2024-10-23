@@ -1,0 +1,1 @@
+/usr/bin/c++ -g  -Wl,--stack,1000000000 CMakeFiles/static.dir/main_static.cpp.o CMakeFiles/static.dir/util/matrixUtils.cpp.o -o static 

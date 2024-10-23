@@ -25,7 +25,7 @@ foreach ($noThreads in $threadCounts) {
     foreach ($inputFile in $inputFiles) {
 
         # Iterating through all techniques (0 for Sequential, 1-7 for Parallel)
-        for ($technique = 0; $technique -lt $techniques; $technique++) {
+        for ($technique = 0; $technique -lt 8; $technique++) {
 
             # Execute C++ program
             $sum = 0

@@ -1,0 +1,1 @@
+/usr/bin/c++ -g  -Wl,--stack,1000000000 CMakeFiles/dynamic.dir/main_dynamic.cpp.o CMakeFiles/dynamic.dir/util/matrixUtils.cpp.o -o dynamic 
